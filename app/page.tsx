@@ -520,7 +520,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/./images.jpeg"
+                  src="/images.jpeg"
                   alt="Cloudify - Cloud Storage Platform"
                   width={500}
                   height={300}
@@ -572,7 +572,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/./images.jpeg"
+                  src="/images.jpeg"
                   alt="Threddit"
                   width={500}
                   height={300}

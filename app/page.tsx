@@ -632,7 +632,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/./images.jpeg"
+                  src="/images.jpeg"
                   alt="HOSPITECH"
                   width={500}
                   height={300}

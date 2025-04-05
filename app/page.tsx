@@ -1,5 +1,5 @@
 "use client";
-
+import "./globals.css";
 import { useEffect, useRef, useState } from "react";
 import {
   Github,

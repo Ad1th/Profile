@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    background-color: #121212;
+    --foreground: #ffffff%;
+    --card: #121212;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 270 76% 53%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 270 76% 53%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 270 76% 53%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 270 76% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Animation classes */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll[data-animation="fade-left"] {
+  transform: translateX(20px);
+}
+
+.animate-on-scroll[data-animation="fade-right"] {
+  transform: translateX(-20px);
+}
+
+.animate-on-scroll[data-animation="zoom-in"] {
+  transform: scale(0.95);
+}
+
+.animate-on-scroll[data-animation="rotate"] {
+  transform: rotate(-5deg);
+}
+
+.animate-on-scroll.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) translateX(0) scale(1) rotate(0);
+}
+
+/* Ensure animation persists */
+.animate-on-scroll.persist {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Add delay to animations */
+.animate-on-scroll[data-delay="100"] {
+  transition-delay: 0.1s;
+}
+
+.animate-on-scroll[data-delay="200"] {
+  transition-delay: 0.2s;
+}
+
+.animate-on-scroll[data-delay="300"] {
+  transition-delay: 0.3s;
+}
+
+.animate-on-scroll[data-delay="400"] {
+  transition-delay: 0.4s;
+}
+
+.animate-on-scroll[data-delay="500"] {
+  transition-delay: 0.5s;
+}
+
+/* Apple-style animations */
+.perspective {
+  perspective: 1000px;
+}
+
+.hackathon-card {
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  perspective: 1000px; /* Ensure perspective is applied */
+}
+
+.animate-on-scroll[data-animation="apple-zoom-spin"] {
+  opacity: 0;
+  transform: rotateY(-90deg) scale(0.85);
+  transform-origin: center;
+  backface-visibility: hidden;
+  transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 0.8s ease-out;
+}
+
+.animate-on-scroll[data-animation="apple-zoom-spin"].animate-in {
+  opacity: 1;
+  transform: rotateY(0deg) scale(1);
+}
+.perspective-wrapper {
+  perspective: 1000px;
+  perspective-origin: center;
+}
+
+.perspective-element {
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+}
+
+.hackathon-card:hover .perspective-element {
+  transform: rotateY(15deg) rotateX(5deg) translateZ(20px);
+}
+
+/* Float animation for background elements */
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Timeline animations */
+.timeline-dot {
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+}
+
+.timeline-item:hover .timeline-dot {
+  transform: scale(1.2) !important;
+  background-color: rgb(168, 85, 247) !important;
+  box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.2);
+}

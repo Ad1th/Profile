@@ -229,7 +229,7 @@ export default function AboutMe() {
                 }}
               >
                 <Image
-                  src="/placeholder.svg?height=400&width=400"
+                  src="/images.jpeg?height=400&width=400"
                   alt="Profile"
                   fill
                   className="object-cover"
@@ -520,7 +520,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/projects/cloudify-thumbnail.jpg"
+                  src="/./images.jpeg"
                   alt="Cloudify - Cloud Storage Platform"
                   width={500}
                   height={300}
@@ -572,7 +572,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/projects/taskmaster-thumbnail.jpg"
+                  src="/./images.jpeg"
                   alt="Threddit"
                   width={500}
                   height={300}
@@ -632,7 +632,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/projects/fittrack-thumbnail.jpg"
+                  src="/./images.jpeg"
                   alt="HOSPITECH"
                   width={500}
                   height={300}
@@ -684,15 +684,13 @@ export default function AboutMe() {
               data-animation="fade-up"
               data-delay={400}
             >
-              <div className="aspect-video w-full overflow-hidden">
-                <Image
-                  src="/projects/cryptotracker-thumbnail.jpg"
-                  alt="EchoChamber"
-                  width={500}
-                  height={300}
-                  className="object-cover transition-transform group-hover:scale-105"
-                />
-              </div>
+              <Image
+                src="/images.jpeg"
+                alt="EchoChamber"
+                width={500}
+                height={300}
+                className="object-cover transition-transform group-hover:scale-105"
+              />
               <div className="p-6">
                 <h3 className="text-xl font-bold">EchoChamber</h3>
                 <p className="mt-2 text-muted-foreground">
@@ -744,7 +742,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/projects/aiwriter-thumbnail.jpg"
+                  src="/images.jpeg"
                   alt="Snek"
                   width={500}
                   height={300}
@@ -799,7 +797,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/projects/smarthome-thumbnail.jpg"
+                  src="/images.jpeg"
                   alt="KonectUs"
                   width={500}
                   height={300}
@@ -852,7 +850,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/projects/edulearn-thumbnail.jpg"
+                  src="/images.jpeg"
                   alt="EcoSync"
                   width={500}
                   height={300}
@@ -912,7 +910,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/projects/travelbuddy-thumbnail.jpg"
+                  src="/images.jpeg"
                   alt="SevaVerse"
                   width={500}
                   height={300}
@@ -966,7 +964,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/projects/musicstudio-thumbnail.jpg"
+                  src="/images.jpeg"
                   alt="CropLink"
                   width={500}
                   height={300}
@@ -1189,7 +1187,7 @@ export default function AboutMe() {
                   <div className="flex-shrink-0 perspective-element">
                     <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
                       <Image
-                        src="/hackathons/techcrunch-disrupt.jpg"
+                        src="/images.jpeg"
                         alt="TechCrunch Disrupt Hackathon"
                         width={150}
                         height={150}
@@ -1252,7 +1250,7 @@ export default function AboutMe() {
                   <div className="flex-shrink-0 perspective-element">
                     <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
                       <Image
-                        src="/hackathons/techcrunch-disrupt.jpg"
+                        src="/images.jpeg"
                         alt="TechCrunch Disrupt Hackathon"
                         width={150}
                         height={150}
@@ -1317,7 +1315,7 @@ export default function AboutMe() {
                   <div className="flex-shrink-0 perspective-element">
                     <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
                       <Image
-                        src="/hackathons/techcrunch-disrupt.jpg"
+                        src="/images.jpeg"
                         alt="TechCrunch Disrupt Hackathon"
                         width={150}
                         height={150}
@@ -1378,7 +1376,7 @@ export default function AboutMe() {
                 <div className="flex-shrink-0 perspective-element">
                   <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
                     <Image
-                      src="/hackathons/techcrunch-disrupt.jpg"
+                      src="/images.jpeg"
                       alt="TechCrunch Disrupt Hackathon"
                       width={150}
                       height={150}
@@ -1454,7 +1452,7 @@ export default function AboutMe() {
               >
                 <div className="aspect-square w-full overflow-hidden">
                   <Image
-                    src={`/placeholder.svg?height=300&width=300&text=${hobby}`}
+                    src={`/images.jpeg?height=300&width=300&text=${hobby}`}
                     alt={hobby}
                     width={300}
                     height={300}

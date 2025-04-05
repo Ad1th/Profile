@@ -13,6 +13,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  console.log("Layout component rendering");
+  console.log("ThemeProvider being used from:", "../components/theme-provider");
+  console.log("Environment:", process.env.NODE_ENV);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body>

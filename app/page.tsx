@@ -131,24 +131,36 @@ export default function AboutMe() {
       >
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 z-0 opacity-10">
-            {Array.from({ length: 20 }).map((_, i) => (
-              <div
-                key={i}
-                className="absolute rounded-full bg-purple-500"
-                style={{
-                  width: `${Math.random() * 300 + 50}px`,
-                  height: `${Math.random() * 300 + 50}px`,
-                  top: `${Math.random() * 100}%`,
-                  left: `${Math.random() * 100}%`,
-                  opacity: Math.random() * 0.5,
-                  transform: `scale(${Math.random() * 0.5 + 0.5})`,
-                  filter: "blur(50px)",
-                  animation: `float ${
-                    Math.random() * 10 + 10
-                  }s ease-in-out infinite alternate`,
-                }}
-              />
-            ))}
+            <div
+              className="absolute rounded-full bg-purple-500"
+              style={{
+                width: "200px",
+                height: "200px",
+                top: "10%",
+                left: "20%",
+                filter: "blur(50px)",
+              }}
+            />
+            <div
+              className="absolute rounded-full bg-purple-500"
+              style={{
+                width: "150px",
+                height: "150px",
+                top: "40%",
+                left: "60%",
+                filter: "blur(50px)",
+              }}
+            />
+            <div
+              className="absolute rounded-full bg-purple-500"
+              style={{
+                width: "250px",
+                height: "250px",
+                top: "70%",
+                left: "30%",
+                filter: "blur(50px)",
+              }}
+            />
           </div>
         </div>
 

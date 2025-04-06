@@ -1295,7 +1295,7 @@ export default function AboutMe() {
         </div>
       </section>
 
-      {/* Contact Section (Social Links Only) */}
+      {/* Contact Section*/}
       <section id="contact" className="py-20 md:py-32">
         <div className="container px-4 md:px-6">
           <div
@@ -1307,21 +1307,21 @@ export default function AboutMe() {
             </h2>
             <div className="mt-8 flex justify-center space-x-6">
               <Link
-                href="#"
+                href="https://github.com/Ad1th"
                 className="text-muted-foreground hover:text-purple-500 transition-colors transform hover:scale-110"
               >
                 <Github className="h-8 w-8" />
                 <span className="sr-only">GitHub</span>
               </Link>
               <Link
-                href="#"
+                href="https://www.linkedin.com/in/adith-manikonda/"
                 className="text-muted-foreground hover:text-purple-500 transition-colors transform hover:scale-110"
               >
                 <Linkedin className="h-8 w-8" />
                 <span className="sr-only">LinkedIn</span>
               </Link>
               <Link
-                href="#"
+                href="mailto: adith2505@outlook.com"
                 className="text-muted-foreground hover:text-purple-500 transition-colors transform hover:scale-110"
               >
                 <Mail className="h-8 w-8" />
@@ -1331,11 +1331,7 @@ export default function AboutMe() {
             <div className="mt-6 space-y-2">
               <p className="flex items-center justify-center text-sm text-muted-foreground">
                 <Mail className="mr-2 h-4 w-4" />
-                johndoe@example.com
-              </p>
-              <p className="flex items-center justify-center text-sm text-muted-foreground">
-                <MapPin className="mr-2 h-4 w-4" />
-                San Francisco, CA
+                adith2505@outlook.com
               </p>
             </div>
           </div>
@@ -1346,7 +1342,8 @@ export default function AboutMe() {
       <footer className="border-t border-purple-900/20 bg-background py-6 md:py-8">
         <div className="container flex flex-col items-center justify-between gap-4 px-4 md:flex-row md:px-6">
           <p className="text-center text-sm text-muted-foreground md:text-left">
-            &copy; {new Date().getFullYear()} John Doe. All rights reserved.
+            &copy; {new Date().getFullYear()} Adith Manikonda. All rights
+            reserved.
           </p>
           <nav className="flex gap-4 sm:gap-6">
             <Link

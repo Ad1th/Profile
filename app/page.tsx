@@ -1,54 +1,62 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import { Github, Linkedin, Mail, MapPin, ExternalLink, Award, ChevronDown } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import { MobileNav } from "@/components/mobile-nav"
-import { Timeline } from "@/components/timeline"
-import { KonamiCode } from "@/components/konami-code"
+import { useEffect, useRef, useState } from "react";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  ExternalLink,
+  Award,
+  ChevronDown,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { MobileNav } from "@/components/mobile-nav";
+import { Timeline } from "@/components/timeline";
+import { KonamiCode } from "@/components/konami-code";
 
 export default function AboutMe() {
-  const [scrollY, setScrollY] = useState(0)
-  const heroRef = useRef<HTMLDivElement>(null)
+  const [scrollY, setScrollY] = useState(0);
+  const heroRef = useRef<HTMLDivElement>(null);
 
   // Function to handle scroll animations
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
+      setScrollY(window.scrollY);
+    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in")
+            entry.target.classList.add("animate-in");
           }
-        })
+        });
       },
       {
         threshold: 0.1,
         rootMargin: "0px 0px -100px 0px",
-      },
-    )
+      }
+    );
 
-    const animatedElements = document.querySelectorAll(".animate-on-scroll")
-    animatedElements.forEach((el) => observer.observe(el))
+    const animatedElements = document.querySelectorAll(".animate-on-scroll");
+    animatedElements.forEach((el) => observer.observe(el));
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
-      animatedElements.forEach((el) => observer.unobserve(el))
-    }
-  }, [])
+      window.removeEventListener("scroll", handleScroll);
+      animatedElements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
 
   const scrollToContent = () => {
-    const aboutSection = document.getElementById("about")
+    const aboutSection = document.getElementById("about");
     if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" })
+      aboutSection.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-background/95">
@@ -62,28 +70,49 @@ export default function AboutMe() {
             href="#"
             className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600"
           >
-            John Doe
+            Adith
           </Link>
           <div className="hidden md:flex items-center space-x-6">
-            <Link href="#about" className="text-sm font-medium hover:text-purple-500 transition-colors">
+            <Link
+              href="#about"
+              className="text-sm font-medium hover:text-purple-500 transition-colors"
+            >
               About
             </Link>
-            <Link href="#experience" className="text-sm font-medium hover:text-purple-500 transition-colors">
+            <Link
+              href="#experience"
+              className="text-sm font-medium hover:text-purple-500 transition-colors"
+            >
               Experience
             </Link>
-            <Link href="#skills" className="text-sm font-medium hover:text-purple-500 transition-colors">
+            <Link
+              href="#skills"
+              className="text-sm font-medium hover:text-purple-500 transition-colors"
+            >
               Skills
             </Link>
-            <Link href="#projects" className="text-sm font-medium hover:text-purple-500 transition-colors">
+            <Link
+              href="#projects"
+              className="text-sm font-medium hover:text-purple-500 transition-colors"
+            >
               Projects
             </Link>
-            <Link href="#achievements" className="text-sm font-medium hover:text-purple-500 transition-colors">
+            <Link
+              href="#achievements"
+              className="text-sm font-medium hover:text-purple-500 transition-colors"
+            >
               Achievements
             </Link>
-            <Link href="#hackathons" className="text-sm font-medium hover:text-purple-500 transition-colors">
+            <Link
+              href="#hackathons"
+              className="text-sm font-medium hover:text-purple-500 transition-colors"
+            >
               Hackathons
             </Link>
-            <Link href="#hobbies" className="text-sm font-medium hover:text-purple-500 transition-colors">
+            <Link
+              href="#hobbies"
+              className="text-sm font-medium hover:text-purple-500 transition-colors"
+            >
               Hobbies
             </Link>
           </div>
@@ -96,7 +125,8 @@ export default function AboutMe() {
         ref={heroRef}
         className="relative min-h-[100vh] flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: "radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1), rgba(0, 0, 0, 0) 70%)",
+          backgroundImage:
+            "radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1), rgba(0, 0, 0, 0) 70%)",
         }}
       >
         <div className="absolute inset-0 overflow-hidden">
@@ -113,7 +143,9 @@ export default function AboutMe() {
                   opacity: Math.random() * 0.5,
                   transform: `scale(${Math.random() * 0.5 + 0.5})`,
                   filter: "blur(50px)",
-                  animation: `float ${Math.random() * 10 + 10}s ease-in-out infinite alternate`,
+                  animation: `float ${
+                    Math.random() * 10 + 10
+                  }s ease-in-out infinite alternate`,
                 }}
               />
             ))}
@@ -122,7 +154,10 @@ export default function AboutMe() {
 
         <div className="container px-4 py-24 md:px-6 md:py-32 z-10">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_500px]">
-            <div className="flex flex-col justify-center space-y-6 animate-on-scroll" data-animation="fade-right">
+            <div
+              className="flex flex-col justify-center space-y-6 animate-on-scroll"
+              data-animation="fade-right"
+            >
               <div className="space-y-2">
                 <div className="inline-flex items-center px-3 py-1 text-sm rounded-full bg-purple-500/10 text-purple-600 mb-4">
                   <span className="relative flex h-2 w-2 mr-2">
@@ -132,14 +167,14 @@ export default function AboutMe() {
                   Available for new opportunities
                 </div>
                 <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl xl:text-7xl/none bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
-                  Hi, I'm John Doe
+                  Hi, I'm Adith Manikonda
                 </h1>
                 <p className="max-w-[600px] text-xl text-muted-foreground md:text-2xl mt-4">
-                  Full Stack Developer & UI/UX Designer crafting exceptional digital experiences.
+                  Software Developer | Engineering Student | Tech Enthusiast
                 </p>
                 <div className="flex items-center space-x-2 text-muted-foreground mt-4">
                   <MapPin className="h-4 w-4" />
-                  <span>San Francisco, CA</span>
+                  <span>VIT, Vellore, India</span>
                 </div>
               </div>
               <div className="flex flex-col gap-3 min-[400px]:flex-row mt-4">
@@ -180,12 +215,17 @@ export default function AboutMe() {
                 </Link>
               </div>
             </div>
-            <div className="flex items-center justify-center animate-on-scroll" data-animation="fade-left">
+            <div
+              className="flex items-center justify-center animate-on-scroll"
+              data-animation="fade-left"
+            >
               <div
                 className="relative h-[300px] w-[300px] overflow-hidden rounded-full border-4 border-purple-500/20 bg-muted md:h-[400px] md:w-[400px] transform transition-all hover:rotate-3 hover:scale-105"
                 style={{
                   boxShadow: "0 0 60px rgba(139, 92, 246, 0.2)",
-                  transform: `rotate(${scrollY * 0.02}deg) scale(${1 - scrollY * 0.0002})`,
+                  transform: `rotate(${scrollY * 0.02}deg) scale(${
+                    1 - scrollY * 0.0002
+                  })`,
                 }}
               >
                 <Image
@@ -208,26 +248,37 @@ export default function AboutMe() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32">
+      <section
+        id="about"
+        className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32"
+      >
         <div className="container px-4 md:px-6">
-          <div className="mx-auto max-w-3xl text-center animate-on-scroll" data-animation="fade-up">
+          <div
+            className="mx-auto max-w-3xl text-center animate-on-scroll"
+            data-animation="fade-up"
+          >
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
               About Me
             </h2>
             <div className="mt-8 text-left space-y-4">
               <p className="text-lg">
-                Hello! I'm John, a passionate Full Stack Developer with a keen eye for design and a love for creating
-                intuitive, user-friendly applications. With over 5 years of experience in web development, I specialize
-                in building responsive and accessible web applications using modern technologies.
+                Hello! I'm John, a passionate Full Stack Developer with a keen
+                eye for design and a love for creating intuitive, user-friendly
+                applications. With over 5 years of experience in web
+                development, I specialize in building responsive and accessible
+                web applications using modern technologies.
               </p>
               <p className="text-lg">
-                I graduated from the University of Technology with a Bachelor's degree in Computer Science. Throughout
-                my career, I've worked with various startups and established companies, helping them bring their ideas
-                to life through code.
+                I graduated from the University of Technology with a Bachelor's
+                degree in Computer Science. Throughout my career, I've worked
+                with various startups and established companies, helping them
+                bring their ideas to life through code.
               </p>
               <p className="text-lg">
-                My approach to development is centered around solving real-world problems with clean, efficient code. I
-                believe in continuous learning and staying updated with the latest industry trends and technologies.
+                My approach to development is centered around solving real-world
+                problems with clean, efficient code. I believe in continuous
+                learning and staying updated with the latest industry trends and
+                technologies.
               </p>
             </div>
           </div>
@@ -248,7 +299,10 @@ export default function AboutMe() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32">
+      <section
+        id="experience"
+        className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32"
+      >
         <div className="container px-4 md:px-6">
           <h2
             className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 animate-on-scroll"
@@ -296,14 +350,16 @@ export default function AboutMe() {
                   <h3 className="text-2xl font-bold">{job.title}</h3>
                   <p className="text-muted-foreground">{job.description}</p>
                   <div className="flex flex-wrap gap-2">
-                    {["React", "TypeScript", "Node.js", "MongoDB", "AWS"].map((tech) => (
-                      <span
-                        key={tech}
-                        className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                    {["React", "TypeScript", "Node.js", "MongoDB", "AWS"].map(
+                      (tech) => (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600"
+                        >
+                          {tech}
+                        </span>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
@@ -329,7 +385,14 @@ export default function AboutMe() {
             >
               <h3 className="text-xl font-bold">Frontend Development</h3>
               <div className="mt-6 grid grid-cols-2 gap-4">
-                {["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML5/CSS3", "JavaScript"].map((skill) => (
+                {[
+                  "React",
+                  "Next.js",
+                  "TypeScript",
+                  "Tailwind CSS",
+                  "HTML5/CSS3",
+                  "JavaScript",
+                ].map((skill) => (
                   <div key={skill} className="flex items-center space-x-2">
                     <div className="h-2 w-2 rounded-full bg-purple-500"></div>
                     <span>{skill}</span>
@@ -344,7 +407,14 @@ export default function AboutMe() {
             >
               <h3 className="text-xl font-bold">Backend Development</h3>
               <div className="mt-6 grid grid-cols-2 gap-4">
-                {["Node.js", "Express", "Python", "Django", "RESTful APIs", "GraphQL"].map((skill) => (
+                {[
+                  "Node.js",
+                  "Express",
+                  "Python",
+                  "Django",
+                  "RESTful APIs",
+                  "GraphQL",
+                ].map((skill) => (
                   <div key={skill} className="flex items-center space-x-2">
                     <div className="h-2 w-2 rounded-full bg-purple-500"></div>
                     <span>{skill}</span>
@@ -359,7 +429,14 @@ export default function AboutMe() {
             >
               <h3 className="text-xl font-bold">Database & DevOps</h3>
               <div className="mt-6 grid grid-cols-2 gap-4">
-                {["MongoDB", "PostgreSQL", "Firebase", "Docker", "AWS", "CI/CD"].map((skill) => (
+                {[
+                  "MongoDB",
+                  "PostgreSQL",
+                  "Firebase",
+                  "Docker",
+                  "AWS",
+                  "CI/CD",
+                ].map((skill) => (
                   <div key={skill} className="flex items-center space-x-2">
                     <div className="h-2 w-2 rounded-full bg-purple-500"></div>
                     <span>{skill}</span>
@@ -372,7 +449,10 @@ export default function AboutMe() {
       </section>
 
       {/* Languages Section */}
-      <section id="languages" className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32">
+      <section
+        id="languages"
+        className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32"
+      >
         <div className="container px-4 md:px-6">
           <h2
             className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 animate-on-scroll"
@@ -400,7 +480,9 @@ export default function AboutMe() {
                   {Array.from({ length: 5 }).map((_, i) => (
                     <div
                       key={i}
-                      className={`h-2 w-8 rounded-full ${i < language.proficiency ? "bg-purple-500" : "bg-muted"}`}
+                      className={`h-2 w-8 rounded-full ${
+                        i < language.proficiency ? "bg-purple-500" : "bg-muted"
+                      }`}
                     ></div>
                   ))}
                 </div>
@@ -439,7 +521,8 @@ export default function AboutMe() {
                 <div className="p-6">
                   <h3 className="text-xl font-bold">Project Title {project}</h3>
                   <p className="mt-2 text-muted-foreground">
-                    A brief description of the project, highlighting key features and technologies used.
+                    A brief description of the project, highlighting key
+                    features and technologies used.
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
@@ -476,7 +559,10 @@ export default function AboutMe() {
       </section>
 
       {/* Achievements Section */}
-      <section id="achievements" className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32">
+      <section
+        id="achievements"
+        className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32"
+      >
         <div className="container px-4 md:px-6">
           <h2
             className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 animate-on-scroll"
@@ -489,32 +575,38 @@ export default function AboutMe() {
               {
                 title: "Tech Innovation Award",
                 year: "2023",
-                description: "Recognized for developing an innovative solution that improved efficiency by 40%.",
+                description:
+                  "Recognized for developing an innovative solution that improved efficiency by 40%.",
               },
               {
                 title: "Open Source Contributor",
                 year: "2022",
-                description: "Contributed to several major open source projects with over 500 commits.",
+                description:
+                  "Contributed to several major open source projects with over 500 commits.",
               },
               {
                 title: "Speaker at TechConf",
                 year: "2021",
-                description: "Delivered a keynote presentation on modern web development practices.",
+                description:
+                  "Delivered a keynote presentation on modern web development practices.",
               },
               {
                 title: "Published Research Paper",
                 year: "2020",
-                description: "Co-authored a research paper on AI applications in web development.",
+                description:
+                  "Co-authored a research paper on AI applications in web development.",
               },
               {
                 title: "Hackathon Winner",
                 year: "2019",
-                description: "Won first place at the Global Code Challenge for an innovative healthcare solution.",
+                description:
+                  "Won first place at the Global Code Challenge for an innovative healthcare solution.",
               },
               {
                 title: "Certified Cloud Architect",
                 year: "2018",
-                description: "Earned advanced certification in cloud architecture and deployment.",
+                description:
+                  "Earned advanced certification in cloud architecture and deployment.",
               },
             ].map((achievement, index) => (
               <div
@@ -529,7 +621,9 @@ export default function AboutMe() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold">{achievement.title}</h3>
-                    <p className="text-sm text-muted-foreground">{achievement.year}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {achievement.year}
+                    </p>
                     <p className="mt-2">{achievement.description}</p>
                   </div>
                 </div>
@@ -576,13 +670,18 @@ export default function AboutMe() {
                   <div className="flex-1">
                     <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
                       <div>
-                        <h3 className="text-2xl font-bold">Hackathon Name {hackathon}</h3>
-                        <p className="text-sm text-muted-foreground">October 2023 • San Francisco, CA</p>
+                        <h3 className="text-2xl font-bold">
+                          Hackathon Name {hackathon}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          October 2023 • San Francisco, CA
+                        </p>
                       </div>
                     </div>
                     <p className="mt-4 text-lg">
-                      Developed an innovative solution for [problem statement]. Our team created a [brief description of
-                      the project] using [technologies used].
+                      Developed an innovative solution for [problem statement].
+                      Our team created a [brief description of the project]
+                      using [technologies used].
                     </p>
                     <div className="mt-6 flex flex-wrap gap-2">
                       <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
@@ -613,7 +712,10 @@ export default function AboutMe() {
       </section>
 
       {/* Hobbies Section */}
-      <section id="hobbies" className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32">
+      <section
+        id="hobbies"
+        className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32"
+      >
         <div className="container px-4 md:px-6">
           <h2
             className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 animate-on-scroll"
@@ -622,29 +724,36 @@ export default function AboutMe() {
             Hobbies & Interests
           </h2>
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {["Photography", "Hiking", "Reading", "Cooking", "Gaming", "Painting", "Music", "Traveling"].map(
-              (hobby, index) => (
-                <div
-                  key={hobby}
-                  className="group relative overflow-hidden rounded-lg border border-purple-500/20 animate-on-scroll"
-                  data-animation="zoom-in"
-                  data-delay={100 * index}
-                >
-                  <div className="aspect-square w-full overflow-hidden">
-                    <Image
-                      src={`/placeholder.svg?height=300&width=300&text=${hobby}`}
-                      alt={hobby}
-                      width={300}
-                      height={300}
-                      className="h-full w-full object-cover transition-transform group-hover:scale-110"
-                    />
-                  </div>
-                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-6 text-white">
-                    <h3 className="text-xl font-bold">{hobby}</h3>
-                  </div>
+            {[
+              "Photography",
+              "Hiking",
+              "Reading",
+              "Cooking",
+              "Gaming",
+              "Painting",
+              "Music",
+              "Traveling",
+            ].map((hobby, index) => (
+              <div
+                key={hobby}
+                className="group relative overflow-hidden rounded-lg border border-purple-500/20 animate-on-scroll"
+                data-animation="zoom-in"
+                data-delay={100 * index}
+              >
+                <div className="aspect-square w-full overflow-hidden">
+                  <Image
+                    src={`/placeholder.svg?height=300&width=300&text=${hobby}`}
+                    alt={hobby}
+                    width={300}
+                    height={300}
+                    className="h-full w-full object-cover transition-transform group-hover:scale-110"
+                  />
                 </div>
-              ),
-            )}
+                <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-6 text-white">
+                  <h3 className="text-xl font-bold">{hobby}</h3>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -652,7 +761,10 @@ export default function AboutMe() {
       {/* Contact Section (Social Links Only) */}
       <section id="contact" className="py-20 md:py-32">
         <div className="container px-4 md:px-6">
-          <div className="mx-auto max-w-md text-center animate-on-scroll" data-animation="fade-up">
+          <div
+            className="mx-auto max-w-md text-center animate-on-scroll"
+            data-animation="fade-up"
+          >
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
               Connect With Me
             </h2>
@@ -716,6 +828,5 @@ export default function AboutMe() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
-

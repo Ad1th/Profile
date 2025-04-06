@@ -262,23 +262,21 @@ export default function AboutMe() {
             </h2>
             <div className="mt-8 text-left space-y-4">
               <p className="text-lg">
-                Hello! I'm John, a passionate Full Stack Developer with a keen
-                eye for design and a love for creating intuitive, user-friendly
-                applications. With over 5 years of experience in web
-                development, I specialize in building responsive and accessible
-                web applications using modern technologies.
+                Hey there! I’m Adith — a CSE student at VIT Vellore who likes to
+                break stuff (intentionally) and then build it back better. I’m
+                super into creating cool things with code, whether it's a web
+                app, a Chrome extension that keeps you productive, or even a
+                Google Drive clone that actually makes sense. I’m also dipping
+                my toes into the world of robotics, because why stop at software
+                when you can make things move?{" "}
               </p>
               <p className="text-lg">
-                I graduated from the University of Technology with a Bachelor's
-                degree in Computer Science. Throughout my career, I've worked
-                with various startups and established companies, helping them
-                bring their ideas to life through code.
-              </p>
-              <p className="text-lg">
-                My approach to development is centered around solving real-world
-                problems with clean, efficient code. I believe in continuous
-                learning and staying updated with the latest industry trends and
-                technologies.
+                I’ve built everything from anonymous forums to hackathon
+                projects powered by AI, working with stacks like React, FastAPI,
+                Supabase, and a sprinkle of Python magic. I enjoy late-night
+                debugging sessions (not really, but they build character),
+                working with awesome teams, and dreaming up solutions that make
+                tech more human.
               </p>
             </div>
           </div>

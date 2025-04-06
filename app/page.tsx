@@ -370,15 +370,21 @@ export default function AboutMe() {
               data-animation="fade-up"
               data-delay="100"
             >
-              <h3 className="text-xl font-bold">Frontend Development</h3>
+              <h3 className="text-xl font-bold">
+                Software Development & Engineering
+              </h3>
               <div className="mt-6 grid grid-cols-2 gap-4">
                 {[
-                  "React",
-                  "Next.js",
-                  "TypeScript",
-                  "Tailwind CSS",
-                  "HTML5/CSS3",
-                  "JavaScript",
+                  "Python",
+                  "Java",
+                  "C, C++ Basics",
+                  "HTML, CSS, Tailwind CSS",
+                  "JavaScript, Express js",
+                  "SQL, DBMS",
+                  "API Development (Fast API, Gemini API",
+                  "Web Hosting",
+                  "Git/GitHub",
+                  "Chrome Extension Development",
                 ].map((skill) => (
                   <div key={skill} className="flex items-center space-x-2">
                     <div className="h-2 w-2 rounded-full bg-purple-500"></div>
@@ -392,15 +398,21 @@ export default function AboutMe() {
               data-animation="fade-up"
               data-delay="200"
             >
-              <h3 className="text-xl font-bold">Backend Development</h3>
+              <h3 className="text-xl font-bold">
+                AI, Robotics & Emerging Tech
+              </h3>
               <div className="mt-6 grid grid-cols-2 gap-4">
                 {[
-                  "Node.js",
-                  "Express",
-                  "Python",
-                  "Django",
-                  "RESTful APIs",
-                  "GraphQL",
+                  "AI Builder",
+                  "Low Code Development",
+                  "Research",
+                  "Robotics",
+                  "Arduino",
+                  "Mindstorms EV3",
+                  "Automation",
+                  "AI Integration in Web Apps",
+                  "Task Automation",
+                  "UI/UX Basics",
                 ].map((skill) => (
                   <div key={skill} className="flex items-center space-x-2">
                     <div className="h-2 w-2 rounded-full bg-purple-500"></div>
@@ -414,15 +426,20 @@ export default function AboutMe() {
               data-animation="fade-up"
               data-delay="300"
             >
-              <h3 className="text-xl font-bold">Database & DevOps</h3>
+              <h3 className="text-xl font-bold">
+                Creativity & Personal Interests
+              </h3>
               <div className="mt-6 grid grid-cols-2 gap-4">
                 {[
-                  "MongoDB",
-                  "PostgreSQL",
-                  "Firebase",
-                  "Docker",
-                  "AWS",
-                  "CI/CD",
+                  "Audio Editing Basics",
+                  "Photo Editing Basics",
+                  "Video Editing Basics",
+                  "Electronics and Soldering",
+                  "Cycling",
+                  "Gardening",
+                  "Cubing",
+                  "PC Building",
+                  "Basic UI/UX Design (Figma, Canva)",
                 ].map((skill) => (
                   <div key={skill} className="flex items-center space-x-2">
                     <div className="h-2 w-2 rounded-full bg-purple-500"></div>

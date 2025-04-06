@@ -1179,17 +1179,7 @@ export default function AboutMe() {
                 }}
               >
                 <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                  <div className="flex-shrink-0 perspective-element">
-                    <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
-                      <Image
-                        src="/images.jpeg"
-                        alt="TechCrunch Disrupt Hackathon"
-                        width={150}
-                        height={150}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                  </div>
+                  <div className="flex-shrink-0 perspective-element"></div>
                   <div className="flex-1">
                     <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
                       <div>
@@ -1238,33 +1228,22 @@ export default function AboutMe() {
                 data-delay={300}
                 style={{
                   transformStyle: "preserve-3d",
-                  // Don't set transform and opacity inline - let the CSS and JavaScript handle it
                 }}
               >
                 <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                  <div className="flex-shrink-0 perspective-element">
-                    <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
-                      <Image
-                        src="/images.jpeg"
-                        alt="TechCrunch Disrupt Hackathon"
-                        width={150}
-                        height={150}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                  </div>
+                  <div className="flex-shrink-0 perspective-element"></div>
                   <div className="flex-1">
                     <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
                       <div>
-                        <h3 className="text-2xl font-bold">
+                        <h3 className="text-2xl font-bold break-words">
                           Yantra Central Hack
                         </h3>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground break-words">
                           January 2025 • VIT Vellore, India
                         </p>
                       </div>
                     </div>
-                    <p className="mt-4 text-lg">
+                    <p className="mt-4 text-lg break-words">
                       Built OptiSync at Yantra Central Hack – a sustainability
                       platform tailored for the textile industry, using an ML
                       model to optimize water and electricity usage, reduce
@@ -1279,19 +1258,9 @@ export default function AboutMe() {
                         Supabase / SQL / PostgreSQL
                       </span>
                       <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        {" "}
                         HTML / CSS / JS
                       </span>
                     </div>
-                    {/* <div className="mt-6">
-                      <Link
-                        href="https://github.com/yourusername/mediconnect"
-                        className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-purple-700"
-                      >
-                        View Project
-                        <ExternalLink className="ml-2 h-4 w-4" />
-                      </Link>
-                    </div> */}
                   </div>
                 </div>
               </div>
@@ -1307,17 +1276,7 @@ export default function AboutMe() {
                 }}
               >
                 <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                  <div className="flex-shrink-0 perspective-element">
-                    <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
-                      <Image
-                        src="/images.jpeg"
-                        alt="TechCrunch Disrupt Hackathon"
-                        width={150}
-                        height={150}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                  </div>
+                  <div className="flex-shrink-0 perspective-element"></div>
                   <div className="flex-1">
                     <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
                       <div>
@@ -1357,6 +1316,8 @@ export default function AboutMe() {
                 </div>
               </div>
             </div>
+
+            <br></br>
             {/* Hackathon 4 */}
             <div
               className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
@@ -1368,17 +1329,7 @@ export default function AboutMe() {
               }}
             >
               <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                <div className="flex-shrink-0 perspective-element">
-                  <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
-                    <Image
-                      src="/images.jpeg"
-                      alt="TechCrunch Disrupt Hackathon"
-                      width={150}
-                      height={150}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                </div>
+                <div className="flex-shrink-0 perspective-element"></div>
                 <div className="flex-1">
                   <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
                     <div>
@@ -1389,26 +1340,6 @@ export default function AboutMe() {
                     </div>
                   </div>
                   <p className="mt-4 text-lg"></p>
-                  {/* <div className="mt-6 flex flex-wrap gap-2">
-                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                      Solidity
-                    </span>
-                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                      React
-                    </span>
-                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                      Ethereum
-                    </span>
-                  </div> */}
-                  <div className="mt-6">
-                    {/* <Link
-                      href="https://cryptobank-project.example.com"
-                      className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-purple-700"
-                    >
-                      View Project
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </Link> */}
-                  </div>
                 </div>
               </div>
             </div>

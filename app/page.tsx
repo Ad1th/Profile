@@ -792,7 +792,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/images.jpeg"
+                  src="/konectus.png"
                   alt="KonectUs"
                   width={500}
                   height={300}
@@ -845,7 +845,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/images.jpeg"
+                  src="/EcoSync.png"
                   alt="EcoSync"
                   width={500}
                   height={300}
@@ -855,9 +855,9 @@ export default function AboutMe() {
               <div className="p-6">
                 <h3 className="text-xl font-bold">EcoSync</h3>
                 <p className="mt-2 text-muted-foreground">
-                  Built EcoSync AI in a 2-day hackathon to provide smart
-                  sustainability solutions in logistics and energy through a
-                  minimalist dark-themed web platform. Integrated a Supabase
+                  Built Powerpal By EcoSync AI in a 2-day hackathon to provide
+                  smart sustainability solutions in logistics and energy through
+                  a minimalist dark-themed web platform. Integrated a Supabase
                   backend with Python (FastAPI) to process user input and
                   deliver actionable insights—ML integration planned for future
                   iterations.
@@ -878,22 +878,6 @@ export default function AboutMe() {
                   <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
                     JS
                   </span>
-                </div>
-                <div className="mt-6 flex items-center justify-between">
-                  {/* <Link
-                    href="https://edulearn-platform.example.com"
-                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
-                  >
-                    View Project
-                    <ExternalLink className="ml-1 h-4 w-4" />
-                  </Link>
-                  <Link
-                    href="https://github.com/yourusername/edulearn"
-                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
-                  >
-                    <Github className="mr-1 h-4 w-4" />
-                    Code
-                  </Link> */}
                 </div>
               </div>
             </div>
@@ -972,11 +956,12 @@ export default function AboutMe() {
                   Created CropLink, a Farm to labourer sms based application
                   that enables direct communication between farmers and
                   labourers, streamlining workflows.
-                  <p>
-                    Also provides detailed crop data, tailored to the farms,
-                    soil type, climate, size, etc.
-                  </p>
                 </p>
+                <p className="mt-2 text-muted-foreground">
+                  Also provides detailed crop data, tailored to the farms, soil
+                  type, climate, size, etc.
+                </p>
+
                 <div className="mt-4 flex flex-wrap gap-2">
                   <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
                     SQL / PostgreSQL / Supabase
@@ -1050,22 +1035,7 @@ export default function AboutMe() {
                     Arduino
                   </span>
                 </div>
-                <div className="mt-6 flex items-center justify-between">
-                  <Link
-                    href="https://ecotrack-project.example.com"
-                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
-                  >
-                    View Project
-                    <ExternalLink className="ml-1 h-4 w-4" />
-                  </Link>
-                  <Link
-                    href="https://github.com/yourusername/ecotrack"
-                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
-                  >
-                    <Github className="mr-1 h-4 w-4" />
-                    Code
-                  </Link>
-                </div>
+                
               </div>
             </div> */}
             </div>

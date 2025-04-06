@@ -505,59 +505,566 @@ export default function AboutMe() {
           >
             Projects
           </h2>
+
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((project, index) => (
-              <div
-                key={project}
-                className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
-                data-animation="fade-up"
-                data-delay={100 * index}
-              >
-                <div className="aspect-video w-full overflow-hidden">
-                  <Image
-                    src={`/placeholder.svg?height=300&width=500&text=Project+${project}`}
-                    alt={`Project ${project}`}
-                    width={500}
-                    height={300}
-                    className="object-cover transition-transform group-hover:scale-105"
-                  />
+            {/* Project 1 */}
+            <div
+              className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={100}
+            >
+              <div className="aspect-video w-full overflow-hidden">
+                <Image
+                  src="/images.jpeg"
+                  alt="Cloudify - Cloud Storage Platform"
+                  width={500}
+                  height={300}
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold">Cloudify</h3>
+                <p className="mt-2 text-muted-foreground">
+                  A cloud storage platform inspired by Google Drive, designed
+                  for seamless file management with secure uploads and
+                  structured folder organization. Features AI-driven search and
+                  data insights.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Postgresql
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Express.JS
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Vercel
+                  </span>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold">Project Title {project}</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    A brief description of the project, highlighting key
-                    features and technologies used.
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
-                      React
-                    </span>
-                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
-                      Node.js
-                    </span>
-                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
-                      MongoDB
-                    </span>
-                  </div>
-                  <div className="mt-6 flex items-center justify-between">
-                    <Link
-                      href="#"
-                      className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
-                    >
-                      View Project
-                      <ExternalLink className="ml-1 h-4 w-4" />
-                    </Link>
-                    <Link
-                      href="#"
-                      className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
-                    >
-                      <Github className="mr-1 h-4 w-4" />
-                      Code
-                    </Link>
-                  </div>
+                <div className="mt-6 flex items-center justify-between">
+                  <Link
+                    href="https://cloudify-mfcpjt.netlify.app/"
+                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    View Project
+                    <ExternalLink className="ml-1 h-4 w-4" />
+                  </Link>
+                  {/* <Link
+                    href="https://github.com/yourusername/cloudify"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <Github className="mr-1 h-4 w-4" />
+                    Code
+                  </Link> */}
                 </div>
               </div>
-            ))}
+            </div>
+            {/* Project 2 */}
+            <div
+              className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={200}
+            >
+              <div className="aspect-video w-full overflow-hidden">
+                <Image
+                  src="/images.jpeg"
+                  alt="Threddit"
+                  width={500}
+                  height={300}
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold">Threddit</h3>
+                <p className="mt-2 text-muted-foreground">
+                  Built a productivity-focused Chrome extension using React,
+                  FastAPI, and Gemini API in a 2-day hackathon; analyzed web
+                  usage and delivered personalized nudges. Saved users 36–48
+                  minutes daily by reducing distractions with time insights and
+                  non-intrusive refocusing prompts.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    React
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Fast API
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    PostgreSQL
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Gemini API
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Chrome Extensions
+                  </span>
+                </div>
+                <div className="mt-6 flex items-center justify-between">
+                  {/* <Link
+                    href="https://taskmaster-app.example.com"
+                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    View Project
+                    <ExternalLink className="ml-1 h-4 w-4" />
+                  </Link> */}
+
+                  {/* <Link
+                    href="https://github.com/yourusername/taskmaster"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <Github className="mr-1 h-4 w-4" />
+                    Code
+                  </Link> */}
+                </div>
+              </div>
+            </div>
+            {/* Project 3 */}
+            <div
+              className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={300}
+            >
+              <div className="aspect-video w-full overflow-hidden">
+                <Image
+                  src="/images.jpeg"
+                  alt="HOSPITECH"
+                  width={500}
+                  height={300}
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold">HOSPITECH</h3>
+                <p className="mt-2 text-muted-foreground">
+                  Developed Hospitech, a lightweight clinic management system
+                  using Python and SQL to digitize patient records,
+                  appointments, and doctor profiles for small clinics. Designed
+                  an intuitive interface with secure admin/doctor logins,
+                  streamlining workflows without complex DBMS overhead..
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Python
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    SQL/ MySQL
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Tkinter
+                  </span>
+                </div>
+                <div className="mt-6 flex items-center justify-between">
+                  {/* <Link
+                    href="https://fittrack-app.example.com"
+                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    View Project
+                    <ExternalLink className="ml-1 h-4 w-4" />
+                  </Link> */}
+
+                  {/* <Link
+                    href="https://github.com/yourusername/fittrack"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <Github className="mr-1 h-4 w-4" />
+                    Code
+                  </Link> */}
+                </div>
+              </div>
+            </div>
+            {/* Project 4 */}
+            <div
+              className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={400}
+            >
+              <Image
+                src="/images.jpeg"
+                alt="EchoChamber"
+                width={500}
+                height={300}
+                className="object-cover transition-transform group-hover:scale-105"
+              />
+              <div className="p-6">
+                <h3 className="text-xl font-bold">EchoChamber</h3>
+                <p className="mt-2 text-muted-foreground">
+                  Built EchoChamber, an anonymous forum web app enabling users
+                  to post confessions, chat, and share thoughts freely, with a
+                  clean full-screen UI. Used Supabase for real-time data
+                  handling and user-generated content storage, optimized for
+                  Chrome with a focus on anonymity and simplicity.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    HTML
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    CSS
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    JS
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    SQL/ PostgreSQL
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600"></span>
+                </div>
+                <div className="mt-6 flex items-center justify-between">
+                  {/* <Link
+                    href="https://cryptotracker-app.example.com"
+                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    View Project
+                    <ExternalLink className="ml-1 h-4 w-4" />
+                  </Link> */}
+
+                  {/* <Link
+                    href="https://github.com/yourusername/cryptotracker"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <Github className="mr-1 h-4 w-4" />
+                    Code
+                  </Link> */}
+                </div>
+              </div>
+            </div>
+            {/* Project 5 */}
+            <div
+              className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={500}
+            >
+              <div className="aspect-video w-full overflow-hidden">
+                <Image
+                  src="/images.jpeg"
+                  alt="Snek"
+                  width={500}
+                  height={300}
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold">Snek</h3>
+                <p className="mt-2 text-muted-foreground">
+                  Built Snek, a retro-style snake game using Python and Pygame
+                  with a clean UI, menu screen, and dynamic difficulty via
+                  increasing snake length and speed. Handled real-time collision
+                  detection, score tracking, and smooth player input for an
+                  engaging arcade experience. This was the first project I did,
+                  back in grade 12, and was submitted as a part of my high
+                  school project.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Python
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Pygame
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Random Module
+                  </span>
+                </div>
+                <div className="mt-6 flex items-center justify-between">
+                  {/* <Link
+                    href="https://aiwriter-tool.example.com"
+                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    View Project
+                    <ExternalLink className="ml-1 h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="https://github.com/yourusername/aiwriter"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <Github className="mr-1 h-4 w-4" />
+                    Code
+                  </Link> */}
+                </div>
+              </div>
+            </div>
+            {/* Project 6 */}
+            <div
+              className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={600}
+            >
+              <div className="aspect-video w-full overflow-hidden">
+                <Image
+                  src="/images.jpeg"
+                  alt="KonectUs"
+                  width={500}
+                  height={300}
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold">KonectUs</h3>
+                <p className="mt-2 text-muted-foreground">
+                  Developed KonectUs, a social platform connecting users through
+                  shared interests via confessions, forums, and real-time
+                  chat—fully anonymous and interactive. Used Supabase for user
+                  data handling, with scalable backend logic and a responsive
+                  frontend optimized for full-screen Chrome experience.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Supabase
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    JavaScript (HTML/CSS)
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Node.js / FastAPI{" "}
+                  </span>
+                </div>
+                <div className="mt-6 flex items-center justify-between">
+                  {/* <Link
+                    href="https://smarthome-demo.example.com"
+                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    View Project
+                    <ExternalLink className="ml-1 h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="https://github.com/yourusername/smarthome"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <Github className="mr-1 h-4 w-4" />
+                    Code
+                  </Link> */}
+                </div>
+              </div>
+            </div>
+            {/* Project 7 */}
+            <div
+              className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={700}
+            >
+              <div className="aspect-video w-full overflow-hidden">
+                <Image
+                  src="/images.jpeg"
+                  alt="EcoSync"
+                  width={500}
+                  height={300}
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold">EcoSync</h3>
+                <p className="mt-2 text-muted-foreground">
+                  Built EcoSync AI in a 2-day hackathon to provide smart
+                  sustainability solutions in logistics and energy through a
+                  minimalist dark-themed web platform. Integrated a Supabase
+                  backend with Python (FastAPI) to process user input and
+                  deliver actionable insights—ML integration planned for future
+                  iterations.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Supabase
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    FastAPI (Python)
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    HTML/CSS/JS
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    CSS
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    JS
+                  </span>
+                </div>
+                <div className="mt-6 flex items-center justify-between">
+                  {/* <Link
+                    href="https://edulearn-platform.example.com"
+                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    View Project
+                    <ExternalLink className="ml-1 h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="https://github.com/yourusername/edulearn"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <Github className="mr-1 h-4 w-4" />
+                    Code
+                  </Link> */}
+                </div>
+              </div>
+            </div>
+            {/* Project 8 */}
+            <div
+              className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={800}
+            >
+              <div className="aspect-video w-full overflow-hidden">
+                <Image
+                  src="/images.jpeg"
+                  alt="SevaVerse"
+                  width={500}
+                  height={300}
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold">SevaVerse</h3>
+                <p className="mt-2 text-muted-foreground">
+                  Developed SevaVerse, a platform connecting NGOs, volunteers,
+                  and donors to enhance child welfare with task management,
+                  dashboards, and secure logins. Used Node.js with Prisma and
+                  SQLite for backend, and Tailwind CSS for a clean, responsive
+                  UI—future-ready for mobile, maps, and notification
+                  integration.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Node.js (Express.js)
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Prisma + SQLite
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Tailwind CSS
+                  </span>
+                </div>
+                <div className="mt-6 flex items-center justify-between">
+                  {/* <Link
+                    href="https://travelbuddy-app.example.com"
+                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    View Project
+                    <ExternalLink className="ml-1 h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="https://github.com/yourusername/travelbuddy"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <Github className="mr-1 h-4 w-4" />
+                    Code
+                  </Link> */}
+                </div>
+              </div>
+            </div>
+            {/* Project 9 */}
+            <div
+              className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={900}
+            >
+              <div className="aspect-video w-full overflow-hidden">
+                <Image
+                  src="/images.jpeg"
+                  alt="CropLink"
+                  width={500}
+                  height={300}
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold">CropLink</h3>
+                <p className="mt-2 text-muted-foreground">
+                  Created CropLink, a farm-to-consumer web app that enables
+                  direct produce listings, demand tracking, and logistic
+                  coordination between farmers and buyers. Focused on
+                  transparent supply chains, it uses Supabase for real-time data
+                  handling and integrates Gemini API for demand forecasting
+                  suggestions.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    SQL / PostgreSQL / Supabase
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Gemini API
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Twilio for sms integration
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    HTML
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    CSS
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    JS
+                  </span>
+                </div>
+                <div className="mt-6 flex items-center justify-between">
+                  {/* <Link
+                    href="https://musicstudio-app.example.com"
+                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    View Project
+                    <ExternalLink className="ml-1 h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="https://github.com/yourusername/musicstudio"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <Github className="mr-1 h-4 w-4" />
+                    Code
+                  </Link> */}
+                </div>
+              </div>
+            </div>
+            {/* Project 10
+            <div
+              className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={1000}
+            >
+              <div className="aspect-video w-full overflow-hidden">
+                <Image
+                  src="/projects/ecotrack-thumbnail.jpg"
+                  alt="EcoTrack - Environmental Monitoring System"
+                  width={500}
+                  height={300}
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold">EcoTrack</h3>
+                <p className="mt-2 text-muted-foreground">
+                  An environmental monitoring system that tracks air quality,
+                  water levels, and pollution using IoT sensors. Includes
+                  predictive analytics and public awareness dashboards.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Python
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    TensorFlow
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    Arduino
+                  </span>
+                </div>
+                <div className="mt-6 flex items-center justify-between">
+                  <Link
+                    href="https://ecotrack-project.example.com"
+                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    View Project
+                    <ExternalLink className="ml-1 h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="https://github.com/yourusername/ecotrack"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <Github className="mr-1 h-4 w-4" />
+                    Code
+                  </Link>
+                </div>
+              </div>
+            </div> */}
           </div>
         </div>
       </section>

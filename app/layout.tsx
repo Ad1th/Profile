@@ -1,34 +1,29 @@
-import type React from "react";
-import "./globals.css";
-import { ThemeProvider } from "../components/theme-provider";
+import type React from "react"
+import "@/app/globals.css"
+import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata = {
-  title: "Adith Manikonda",
-  description:
-    "Personal portfolio website of Adith Manikonda, an Engineering Freshman at VIT",
-};
+  title: "John Doe - Full Stack Developer",
+  description: "Personal portfolio website of John Doe, a Full Stack Developer and UI/UX Designer",
+    generator: 'v0.dev'
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  console.log("Layout component rendering");
-  console.log("ThemeProvider being used from:", "../components/theme-provider");
-  // console.log("Environment:", process.env.NODE_ENV);
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
+
+
+
+import './globals.css'

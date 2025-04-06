@@ -86,7 +86,7 @@ export function Timeline() {
     },
     {
       year: "",
-      title: "Learnt MSWlogo, Qbasic ",
+      title: "Learnt MSWlogo, QBasic ",
       description: "",
     },
     {

@@ -283,19 +283,6 @@ export default function AboutMe() {
         </div>
       </section>
 
-      {/* Journey Timeline */}
-      <section id="journey" className="py-20 md:py-32">
-        <div className="container px-4 md:px-6">
-          <h2
-            className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 mb-16 animate-on-scroll"
-            data-animation="fade-up"
-          >
-            My Journey
-          </h2>
-          <Timeline />
-        </div>
-      </section>
-
       {/* Experience Section */}
       <section
         id="experience"
@@ -753,6 +740,19 @@ export default function AboutMe() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Journey Timeline */}
+      <section id="journey" className="py-20 md:py-32">
+        <div className="container px-4 md:px-6">
+          <h2
+            className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 mb-16 animate-on-scroll"
+            data-animation="fade-up"
+          >
+            My Journey
+          </h2>
+          <Timeline />
         </div>
       </section>
 

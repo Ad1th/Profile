@@ -1079,45 +1079,58 @@ export default function AboutMe() {
             className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 animate-on-scroll"
             data-animation="fade-up"
           >
-            Achievements
+            Achievements & Certifications
           </h2>
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: "Tech Innovation Award",
+                title:
+                  "Cent Percent Attendance – Vellore Institute of Technology (2024–25)",
+                year: "2024-25",
+                description:
+                  "Awarded a Certificate of Appreciation for achieving 100% attendance in the academic year 2024–25 in B.Tech. Computer Science and Engineering (Information Security).",
+              },
+              {
+                title: "First Place in Hackathon – CodeWars",
+                year: "2024",
+                description:
+                  "Won a hackathon - CodeWars - Conducted by NPS KRM.",
+              },
+              {
+                title: "PC Building Competition - Second Place",
                 year: "2023",
                 description:
-                  "Recognized for developing an innovative solution that improved efficiency by 40%.",
+                  "Achieved second place in a competitive PC building event, hosted by NPS HSR.",
               },
               {
-                title: "Open Source Contributor",
-                year: "2022",
+                title: "Python Certification",
+                year: "2025",
                 description:
-                  "Contributed to several major open source projects with over 500 commits.",
+                  "Recieved a certification in Python programming from HackerRank.",
               },
               {
-                title: "Speaker at TechConf",
-                year: "2021",
+                title: "SQL Basic Skill Certification",
+                year: "2025",
                 description:
-                  "Delivered a keynote presentation on modern web development practices.",
+                  "Received a certification in SQL (Basic) from HackerRank.",
               },
               {
-                title: "Published Research Paper",
+                title: "SQL Intermeddiate Skill certification",
+                year: "2025",
+                description:
+                  "Received a certification in SQL (Intermediate) from HackerRank.",
+              },
+              {
+                title: "Use AI Builder and Power Apps to Process Invoice Data",
                 year: "2020",
                 description:
-                  "Co-authored a research paper on AI applications in web development.",
+                  "Received a Certificate of Completion for a course on using AI Builder and Power Apps to process invoice data from Coursera.",
               },
               {
-                title: "Hackathon Winner",
+                title: "Virtual Internship in Mechanical Engineering",
                 year: "2019",
                 description:
-                  "Won first place at the Global Code Challenge for an innovative healthcare solution.",
-              },
-              {
-                title: "Certified Cloud Architect",
-                year: "2018",
-                description:
-                  "Earned advanced certification in cloud architecture and deployment.",
+                  "Completed a virtual internship in Mechanical Engineering by Mindler.",
               },
             ].map((achievement, index) => (
               <div
@@ -1128,7 +1141,7 @@ export default function AboutMe() {
               >
                 <div className="flex items-start space-x-4">
                   <div className="mt-1 flex-shrink-0">
-                    <Award className="h-6 w-6 text-purple-500" />
+                    <Award className="h-9 w-9 text-purple-500" />
                   </div>
                   <div>
                     <h3 className="text-xl font-bold">{achievement.title}</h3>

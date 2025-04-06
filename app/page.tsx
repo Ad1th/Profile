@@ -1157,7 +1157,7 @@ export default function AboutMe() {
         </div>
       </section>
 
-      {/* Hackathons Section with Apple-style animations */}
+      {/* Hackathons Section */}
       <section id="hackathons" className="py-20 md:py-32 perspective">
         <div className="container px-4 md:px-6">
           <h2
@@ -1166,25 +1166,87 @@ export default function AboutMe() {
           >
             Hackathons
           </h2>
-          <div className="mt-16 space-y-16">
-            {[1, 2, 3].map((hackathon, index) => (
+          <div className="perspective-wrapper">
+            <div className="mt-16 space-y-16">
+              {/* Hackathon 1 */}
               <div
-                key={hackathon}
                 className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
                 data-animation="apple-zoom-spin"
-                data-delay={300 * index}
+                data-delay={300}
                 style={{
                   transformStyle: "preserve-3d",
-                  transform: "rotateY(0deg) scale(0.9)",
-                  opacity: 0,
+                  // Don't set transform and opacity inline - let the CSS and JavaScript handle it
                 }}
               >
                 <div className="flex flex-col gap-6 md:flex-row md:items-start">
                   <div className="flex-shrink-0 perspective-element">
                     <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
                       <Image
-                        src={`/placeholder.svg?height=150&width=150&text=Hackathon+${hackathon}`}
-                        alt={`Hackathon ${hackathon}`}
+                        src="/images.jpeg"
+                        alt="TechCrunch Disrupt Hackathon"
+                        width={150}
+                        height={150}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                      <div>
+                        <h3 className="text-2xl font-bold">Women Techies'25</h3>
+                        <p className="text-sm text-muted-foreground">
+                          April 2025 • VIT Vellore, India
+                        </p>
+                      </div>
+                    </div>
+                    <p className="mt-4 text-lg">
+                      Built SevaVerse at Women Techies'25 – a collaborative
+                      platform connecting NGOs, volunteers, and well-wishers to
+                      streamline child welfare initiatives. It features
+                      role-based access, secure authentication, task management,
+                      and dashboards for both NGOs and volunteers, using
+                      Node.js, Prisma, and SQLite.
+                    </p>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                        Node.js + Express Backend
+                      </span>
+                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                        Prisma ORM + SQLite
+                      </span>
+                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                        Tailwind CSS Frontend
+                      </span>
+                    </div>
+                    <div className="mt-6">
+                      <Link
+                        href="https://devpost.com/software/carbonfootprint-ar"
+                        className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-purple-700"
+                      >
+                        View Project
+                        <ExternalLink className="ml-2 h-4 w-4" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hackathon 2 */}
+              <div
+                className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
+                data-animation="apple-zoom-spin"
+                data-delay={300}
+                style={{
+                  transformStyle: "preserve-3d",
+                  // Don't set transform and opacity inline - let the CSS and JavaScript handle it
+                }}
+              >
+                <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                  <div className="flex-shrink-0 perspective-element">
+                    <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
+                      <Image
+                        src="/images.jpeg"
+                        alt="TechCrunch Disrupt Hackathon"
                         width={150}
                         height={150}
                         className="h-full w-full object-cover"
@@ -1195,32 +1257,35 @@ export default function AboutMe() {
                     <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
                       <div>
                         <h3 className="text-2xl font-bold">
-                          Hackathon Name {hackathon}
+                          Yantra Central Hack
                         </h3>
                         <p className="text-sm text-muted-foreground">
-                          October 2023 • San Francisco, CA
+                          January 2025 • VIT Vellore, India
                         </p>
                       </div>
                     </div>
                     <p className="mt-4 text-lg">
-                      Developed an innovative solution for [problem statement].
-                      Our team created a [brief description of the project]
-                      using [technologies used].
+                      Built OptiSync at Yantra Central Hack – a sustainability
+                      platform tailored for the textile industry, using an ML
+                      model to optimize water and electricity usage, reduce
+                      operational costs, and promote eco-efficiency. Powered by
+                      a Python backend, Supabase, and real-time analytics.
                     </p>
                     <div className="mt-6 flex flex-wrap gap-2">
                       <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        React
+                        Python with ML
                       </span>
                       <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        Node.js
+                        Supabase / SQL / PostgreSQL
                       </span>
                       <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        MongoDB
+                        {" "}
+                        HTML / CSS / JS
                       </span>
                     </div>
                     <div className="mt-6">
                       <Link
-                        href="#"
+                        href="https://github.com/yourusername/mediconnect"
                         className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-purple-700"
                       >
                         View Project
@@ -1230,7 +1295,123 @@ export default function AboutMe() {
                   </div>
                 </div>
               </div>
-            ))}
+
+              {/* Hackathon 3 */}
+              <div
+                className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
+                data-animation="apple-zoom-spin"
+                data-delay={300}
+                style={{
+                  transformStyle: "preserve-3d",
+                  // Don't set transform and opacity inline - let the CSS and JavaScript handle it
+                }}
+              >
+                <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                  <div className="flex-shrink-0 perspective-element">
+                    <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
+                      <Image
+                        src="/images.jpeg"
+                        alt="TechCrunch Disrupt Hackathon"
+                        width={150}
+                        height={150}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                      <div>
+                        <h3 className="text-2xl font-bold">DevJams</h3>
+                        <p className="text-sm text-muted-foreground">
+                          September 2024 • VIT Vellore, India
+                        </p>
+                      </div>
+                    </div>
+                    <p className="mt-4 text-lg">
+                      Built Therddit at DevJams – a smart Chrome extension that
+                      uses the Gemini API to analyze browsing patterns, detect
+                      distractions, and deliver AI-powered nudges to help users
+                      stay productive without blocking websites.
+                    </p>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                        Gemini API
+                      </span>
+                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                        Chrome Extension (JavaScript + React)
+                      </span>
+                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                        FastAPI (Python backend)
+                      </span>
+                    </div>
+                    <div className="mt-6">
+                      {/* <Link
+                        href="https://cryptobank-project.example.com"
+                        className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-purple-700"
+                      >
+                        View Project
+                        <ExternalLink className="ml-2 h-4 w-4" />
+                      </Link> */}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Hackathon 4 */}
+            <div
+              className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
+              data-animation="apple-zoom-spin"
+              data-delay={300}
+              style={{
+                transformStyle: "preserve-3d",
+                // Don't set transform and opacity inline - let the CSS and JavaScript handle it
+              }}
+            >
+              <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                <div className="flex-shrink-0 perspective-element">
+                  <div className="h-32 w-32 overflow-hidden rounded-xl bg-muted shadow-md">
+                    <Image
+                      src="/images.jpeg"
+                      alt="TechCrunch Disrupt Hackathon"
+                      width={150}
+                      height={150}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                    <div>
+                      <h3 className="text-2xl font-bold">CodeWars</h3>
+                      <p className="text-sm text-muted-foreground">
+                        February 2024 • NPS KRM, Blr, India
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-lg"></p>
+                  {/* <div className="mt-6 flex flex-wrap gap-2">
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      Solidity
+                    </span>
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      React
+                    </span>
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      Ethereum
+                    </span>
+                  </div> */}
+                  <div className="mt-6">
+                    {/* <Link
+                      href="https://cryptobank-project.example.com"
+                      className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-purple-700"
+                    >
+                      View Project
+                      <ExternalLink className="ml-2 h-4 w-4" />
+                    </Link> */}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1341,7 +1522,7 @@ export default function AboutMe() {
       {/* Footer */}
       <footer className="border-t border-purple-900/20 bg-background py-6 md:py-8">
         <div className="container flex flex-col items-center justify-between gap-4 px-4 md:flex-row md:px-6">
-          <p className="text-center text-sm text-muted-foreground md:text-left">
+          <p className="text-center text-sm text-muted-foreground md:text-">
             &copy; {new Date().getFullYear()} Adith Manikonda. All rights
             reserved.
           </p>

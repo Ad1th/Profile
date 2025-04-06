@@ -1218,7 +1218,7 @@ export default function AboutMe() {
                         Tailwind CSS Frontend
                       </span>
                     </div>
-                    <div className="mt-6">
+                    {/* <div className="mt-6">
                       <Link
                         href="https://devpost.com/software/carbonfootprint-ar"
                         className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-purple-700"
@@ -1226,7 +1226,7 @@ export default function AboutMe() {
                         View Project
                         <ExternalLink className="ml-2 h-4 w-4" />
                       </Link>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -1283,7 +1283,7 @@ export default function AboutMe() {
                         HTML / CSS / JS
                       </span>
                     </div>
-                    <div className="mt-6">
+                    {/* <div className="mt-6">
                       <Link
                         href="https://github.com/yourusername/mediconnect"
                         className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-purple-700"
@@ -1291,7 +1291,7 @@ export default function AboutMe() {
                         View Project
                         <ExternalLink className="ml-2 h-4 w-4" />
                       </Link>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

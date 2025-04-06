@@ -1346,7 +1346,7 @@ export default function AboutMe() {
             reserved.
           </p>
           <nav className="flex gap-4 sm:gap-6">
-            <Link
+            {/* <Link
               href="#"
               className="text-sm text-muted-foreground hover:text-purple-500 hover:underline underline-offset-4"
             >
@@ -1357,7 +1357,7 @@ export default function AboutMe() {
               className="text-sm text-muted-foreground hover:text-purple-500 hover:underline underline-offset-4"
             >
               Terms of Service
-            </Link>
+            </Link> */}
           </nav>
         </div>
       </footer>

@@ -195,21 +195,21 @@ export default function AboutMe() {
               </div>
               <div className="flex space-x-4 mt-4">
                 <Link
-                  href="#"
+                  href="https://github.com/Ad1th"
                   className="text-muted-foreground hover:text-purple-500 transition-colors transform hover:scale-110"
                 >
                   <Github className="h-6 w-6" />
                   <span className="sr-only">GitHub</span>
                 </Link>
                 <Link
-                  href="#"
+                  href="https://www.linkedin.com/in/adith-manikonda/"
                   className="text-muted-foreground hover:text-purple-500 transition-colors transform hover:scale-110"
                 >
                   <Linkedin className="h-6 w-6" />
                   <span className="sr-only">LinkedIn</span>
                 </Link>
                 <Link
-                  href="#"
+                  href="mailto: adith2505@outlook.com"
                   className="text-muted-foreground hover:text-purple-500 transition-colors transform hover:scale-110"
                 >
                   <Mail className="h-6 w-6" />

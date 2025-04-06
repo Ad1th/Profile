@@ -1,92 +1,137 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
 
 export function Timeline() {
-  const timelineRef = useRef<HTMLDivElement>(null)
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!timelineRef.current) return
+      if (!timelineRef.current) return;
 
-      const timelineItems = timelineRef.current.querySelectorAll(".timeline-item")
-      const timelineHeight = timelineRef.current.offsetHeight
-      const timelineTop = timelineRef.current.getBoundingClientRect().top
-      const timelineBottom = timelineRef.current.getBoundingClientRect().bottom
+      const timelineItems =
+        timelineRef.current.querySelectorAll(".timeline-item");
+      const timelineHeight = timelineRef.current.offsetHeight;
+      const timelineTop = timelineRef.current.getBoundingClientRect().top;
+      const timelineBottom = timelineRef.current.getBoundingClientRect().bottom;
 
       if (timelineTop < window.innerHeight && timelineBottom > 0) {
         timelineItems.forEach((item, index) => {
-          const itemElement = item as HTMLElement
-          const itemTop = itemElement.offsetTop
-          const itemHeight = itemElement.offsetHeight
-          const itemPosition = (itemTop + itemHeight / 2) / timelineHeight
+          const itemElement = item as HTMLElement;
+          const itemTop = itemElement.offsetTop;
+          const itemHeight = itemElement.offsetHeight;
+          const itemPosition = (itemTop + itemHeight / 2) / timelineHeight;
 
           // Calculate progress based on scroll position
-          const viewportMiddle = window.innerHeight / 2
-          const itemViewportPosition = itemElement.getBoundingClientRect().top + itemHeight / 2
-          const distanceFromMiddle = Math.abs(viewportMiddle - itemViewportPosition)
-          const maxDistance = window.innerHeight * 0.6
-          const progress = 1 - Math.min(distanceFromMiddle / maxDistance, 1)
+          const viewportMiddle = window.innerHeight / 2;
+          const itemViewportPosition =
+            itemElement.getBoundingClientRect().top + itemHeight / 2;
+          const distanceFromMiddle = Math.abs(
+            viewportMiddle - itemViewportPosition
+          );
+          const maxDistance = window.innerHeight * 0.6;
+          const progress = 1 - Math.min(distanceFromMiddle / maxDistance, 1);
 
           if (progress > 0) {
-            itemElement.style.opacity = Math.min(progress * 1.5, 1).toString()
-            itemElement.style.transform = `translateX(${(1 - progress) * (index % 2 === 0 ? -20 : 20)}px)`
+            itemElement.style.opacity = Math.min(progress * 1.5, 1).toString();
+            itemElement.style.transform = `translateX(${
+              (1 - progress) * (index % 2 === 0 ? -20 : 20)
+            }px)`;
 
-            const dot = itemElement.querySelector(".timeline-dot") as HTMLElement
+            const dot = itemElement.querySelector(
+              ".timeline-dot"
+            ) as HTMLElement;
             if (dot) {
-              dot.style.transform = `scale(${Math.max(progress * 1.5, 0.5)})`
-              dot.style.backgroundColor = progress > 0.8 ? "rgb(168, 85, 247)" : "rgb(168, 85, 247, 0.5)"
+              dot.style.transform = `scale(${Math.max(progress * 1.5, 0.5)})`;
+              dot.style.backgroundColor =
+                progress > 0.8 ? "rgb(168, 85, 247)" : "rgb(168, 85, 247, 0.5)";
             }
 
-            const line = itemElement.querySelector(".timeline-line") as HTMLElement
+            const line = itemElement.querySelector(
+              ".timeline-line"
+            ) as HTMLElement;
             if (line) {
-              line.style.height = `${progress * 100}%`
+              line.style.height = `${progress * 100}%`;
             }
           }
-        })
+        });
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    handleScroll() // Initial check
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const timelineData = [
     {
-      year: "2023",
-      title: "Senior Frontend Developer",
-      description: "Leading the frontend development team at Tech Innovations Inc.",
+      year: "2006",
+      title: "Born in Hyderabad",
+      description: "",
     },
     {
-      year: "2021",
-      title: "Full Stack Developer",
-      description: "Joined Digital Solutions Ltd. to work on full-stack applications.",
+      year: "",
+      title: "Studied at DPS East, Bangalore",
+      description: "",
+    },
+
+    {
+      year: "",
+      title: "Learnt Basic Robotics",
+      description:
+        "Understood basic robotics principles and programming, built a DPDT robot",
     },
     {
-      year: "2019",
-      title: "Hackathon Winner",
-      description: "Won first place at the Global Code Challenge.",
+      year: "",
+      title: "Learnt MSWlogo, Qbasic ",
+      description: "",
     },
     {
-      year: "2018",
-      title: "Certified Cloud Architect",
-      description: "Earned advanced certification in cloud architecture.",
+      year: "",
+      title: "Joined Green Wood High International School, Bengaluru",
+      description: "",
     },
     {
-      year: "2016",
-      title: "Junior Web Developer",
-      description: "Started my career at Creative Web Agency.",
+      year: "",
+      title: "Learnt Intermediate and Advanced Robotics",
+      description:
+        "Understood deeper robotics principles, worked on EV3, Started discovering electronics",
     },
     {
-      year: "2015",
-      title: "Graduated University",
-      description: "Earned Bachelor's degree in Computer Science.",
+      year: "",
+      title: "Learnt Java, HTML, Scratch",
+      description: "",
     },
-  ]
+    {
+      year: "2022",
+      title: "Attained ICSE Degree",
+      description: "at Green Wood High International School, Bangalore.",
+    },
+    {
+      year: "",
+      title: "Learnt Python, SQL",
+      description: "",
+    },
+    {
+      year: "",
+      title: "Dived deeper into Robotics",
+      description:
+        "Worked on Arduino, circuit electronics, EV3, and non-microcontroller-based robotics. Continued discovering electronics",
+    },
+    {
+      year: "2024",
+      title: "Attained CBSE Degree",
+      description: "At National Public School, Koramanagala, Bangalore.",
+    },
+    {
+      year: "2024",
+      title: "Joined VIT Vellore",
+      description: "",
+    },
+  ];
 
   return (
     <div ref={timelineRef} className="relative mx-auto max-w-4xl">
@@ -99,7 +144,11 @@ export function Timeline() {
             index % 2 === 0 ? "flex-row" : "flex-row-reverse"
           }`}
         >
-          <div className={`w-1/2 ${index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"}`}>
+          <div
+            className={`w-1/2 ${
+              index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"
+            }`}
+          >
             <div className="inline-flex items-center px-3 py-1 text-sm rounded-full bg-purple-500/10 text-purple-600 mb-2">
               {item.year}
             </div>
@@ -115,6 +164,5 @@ export function Timeline() {
         </div>
       ))}
     </div>
-  )
+  );
 }
-

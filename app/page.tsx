@@ -283,7 +283,7 @@ export default function AboutMe() {
         </div>
       </section>
 
-      {/* Experience Section */}
+      {/* Experience Section
       <section
         id="experience"
         className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32"
@@ -351,7 +351,7 @@ export default function AboutMe() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Skills Section */}
       <section id="skills" className="py-20 md:py-32">

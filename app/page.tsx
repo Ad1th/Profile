@@ -1249,14 +1249,14 @@ export default function AboutMe() {
           </h2>
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {[
+              "Robotics",
               "Photography",
-              "Hiking",
-              "Reading",
-              "Cooking",
+              "Cycling",
+              "Trekking",
               "Gaming",
-              "Painting",
               "Music",
               "Traveling",
+              "Gardening",
             ].map((hobby, index) => (
               <div
                 key={hobby}
@@ -1266,7 +1266,7 @@ export default function AboutMe() {
               >
                 <div className="aspect-square w-full overflow-hidden">
                   <Image
-                    src={`/placeholder.svg?height=300&width=300&text=${hobby}`}
+                    src={`/images.jpeg?height=300&width=300&text=${hobby}`}
                     alt={hobby}
                     width={300}
                     height={300}

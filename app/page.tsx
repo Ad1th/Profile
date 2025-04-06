@@ -79,12 +79,14 @@ export default function AboutMe() {
             >
               About
             </Link>
-            <Link
+
+            {/* <Link
               href="#experience"
               className="text-sm font-medium hover:text-purple-500 transition-colors"
             >
               Experience
-            </Link>
+            </Link> */}
+
             <Link
               href="#skills"
               className="text-sm font-medium hover:text-purple-500 transition-colors"

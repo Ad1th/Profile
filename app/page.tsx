@@ -515,7 +515,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/images.jpeg"
+                  src="/cloudify.png"
                   alt="Cloudify - Cloud Storage Platform"
                   width={500}
                   height={300}
@@ -542,13 +542,13 @@ export default function AboutMe() {
                   </span>
                 </div>
                 <div className="mt-6 flex items-center justify-between">
-                  <Link
+                  {/* <Link
                     href="https://cloudify-mfcpjt.netlify.app/"
                     className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
                   >
                     View Project
                     <ExternalLink className="ml-1 h-4 w-4" />
-                  </Link>
+                  </Link> */}
                   {/* <Link
                     href="https://github.com/yourusername/cloudify"
                     className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
@@ -567,10 +567,10 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/images.jpeg"
+                  src="/threddit.png"
                   alt="Threddit"
-                  width={500}
-                  height={300}
+                  width={160}
+                  height={190}
                   className="object-cover transition-transform group-hover:scale-105"
                 />
               </div>
@@ -680,7 +680,7 @@ export default function AboutMe() {
               data-delay={400}
             >
               <Image
-                src="/images.jpeg"
+                src="/echochamber.png"
                 alt="EchoChamber"
                 width={500}
                 height={300}

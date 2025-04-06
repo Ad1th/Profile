@@ -969,12 +969,13 @@ export default function AboutMe() {
               <div className="p-6">
                 <h3 className="text-xl font-bold">CropLink</h3>
                 <p className="mt-2 text-muted-foreground">
-                  Created CropLink, a farm-to-consumer web app that enables
-                  direct produce listings, demand tracking, and logistic
-                  coordination between farmers and buyers. Focused on
-                  transparent supply chains, it uses Supabase for real-time data
-                  handling and integrates Gemini API for demand forecasting
-                  suggestions.
+                  Created CropLink, a Farm to labourer sms based application
+                  that enables direct communication between farmers and
+                  labourers, streamlining workflows.
+                  <p>
+                    Also provides detailed crop data, tailored to the farms,
+                    soil type, climate, size, etc.
+                  </p>
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
@@ -1014,7 +1015,9 @@ export default function AboutMe() {
                 </div>
               </div>
             </div>
-            {/* Project 10
+            {/* Project 10 */}
+            <div>
+              {/* Project 10
             <div
               className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
               data-animation="fade-up"
@@ -1065,6 +1068,7 @@ export default function AboutMe() {
                 </div>
               </div>
             </div> */}
+            </div>
           </div>
         </div>
       </section>

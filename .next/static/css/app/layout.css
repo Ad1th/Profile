@@ -898,6 +898,9 @@ video {
 .h-svh {
   height: 100svh;
 }
+.h-32 {
+  height: 8rem;
+}
 .max-h-96 {
   max-height: 24rem;
 }
@@ -1002,6 +1005,9 @@ video {
 }
 .w-px {
   width: 1px;
+}
+.w-32 {
+  width: 8rem;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1298,6 +1304,9 @@ video {
 }
 .rounded-sm {
   border-radius: calc(var(--radius) - 4px);
+}
+.rounded-xl {
+  border-radius: 0.75rem;
 }
 .rounded-t-\[10px\] {
   border-top-left-radius: 10px;
@@ -3276,6 +3285,10 @@ video {
   .md\:py-8 {
     padding-top: 2rem;
     padding-bottom: 2rem;
+  }
+
+  .md\:text-left {
+    text-align: left;
   }
 
   .md\:text-2xl {

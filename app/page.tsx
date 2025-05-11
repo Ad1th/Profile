@@ -221,7 +221,7 @@ export default function AboutMe() {
               className="flex items-center justify-center animate-on-scroll"
               data-animation="fade-left"
             >
-              <div
+              {/* <div
                 className="relative h-[300px] w-[300px] overflow-hidden rounded-full border-4 border-purple-500/20 bg-muted md:h-[400px] md:w-[400px] transform transition-all hover:rotate-3 hover:scale-105"
                 style={{
                   boxShadow: "0 0 60px rgba(139, 92, 246, 0.2)",
@@ -237,7 +237,7 @@ export default function AboutMe() {
                   className="object-cover"
                   priority
                 />
-              </div>
+              </div> */}
             </div>
           </div>
           <div

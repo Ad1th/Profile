@@ -285,7 +285,8 @@ export default function AboutMe() {
         </div>
       </section>
 
-      {/* Experience Section
+      <div>
+        {/* Experience Section
       <section
         id="experience"
         className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32"
@@ -354,6 +355,7 @@ export default function AboutMe() {
           </div>
         </div>
       </section> */}
+      </div>
 
       {/* Skills Section */}
       <section id="skills" className="py-20 md:py-32">
@@ -1352,7 +1354,7 @@ export default function AboutMe() {
               >
                 <div className="aspect-square w-full overflow-hidden">
                   <Image
-                    src={`/images.jpeg?height=300&width=300&text=${hobby}`}
+                    src={`/${hobby.toLowerCase()}.png?height=300&width=300`}
                     alt={hobby}
                     width={300}
                     height={300}

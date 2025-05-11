@@ -787,6 +787,8 @@ export default function AboutMe() {
               </div>
             </div>
             {/* Project 6 */}
+            <div>
+              {/* 
             <div
               className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
               data-animation="fade-up"
@@ -822,7 +824,7 @@ export default function AboutMe() {
                   </span>
                 </div>
                 <div className="mt-6 flex items-center justify-between">
-                  {/* <Link
+                   <Link
                     href="https://smarthome-demo.example.com"
                     className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
                   >
@@ -835,9 +837,11 @@ export default function AboutMe() {
                   >
                     <Github className="mr-1 h-4 w-4" />
                     Code
-                  </Link> */}
+                  </Link> 
                 </div>
               </div>
+            </div> 
+            */}
             </div>
             {/* Project 7 */}
             <div

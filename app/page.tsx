@@ -442,7 +442,10 @@ export default function AboutMe() {
                   }}
                 >
                   <h3 className="text-xl font-bold">
-                    Software Development & Engineering
+                    <br></br>
+                  </h3>
+                  <h3 className="text-xl font-bold">
+                    <br></br>
                   </h3>
 
                   <div
@@ -504,7 +507,10 @@ export default function AboutMe() {
                   style={{ width: "70%" }}
                 >
                   <h3 className="text-xl font-bold">
-                    AI, Robotics & Emerging Tech
+                    <br></br>
+                  </h3>
+                  <h3 className="text-xl font-bold">
+                    <br></br>
                   </h3>
                   <div className="mt-6 grid grid-cols-1 gap-5">
                     {[
@@ -557,7 +563,10 @@ export default function AboutMe() {
                   data-delay="20"
                 >
                   <h3 className="text-xl font-bold">
-                    Creativity & Personal Interests
+                    <br></br>
+                  </h3>
+                  <h3 className="text-xl font-bold">
+                    <br></br>
                   </h3>
                   <div className="mt-6 grid grid-cols-1 gap-5">
                     {[

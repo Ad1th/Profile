@@ -404,7 +404,7 @@ export default function AboutMe() {
               position: "relative",
               overflow: "hidden",
               width: "100vw",
-              height: "80vh",
+              height: "100vh",
             }}
           >
             <div

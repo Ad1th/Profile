@@ -92,3 +92,62 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.skills-scroll {
+  position: relative;
+  width: 60vw;
+  height: 100vh;
+  overflow: hidden;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.skills-scroll-inner {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  align-items: flex-start; /* Align panels to the top */
+}
+
+.skills-scroll::-webkit-scrollbar {
+  height: 80px;
+}
+.skills-scroll::-webkit-scrollbar-thumb {
+  background: #a855f7;
+  border-radius: 4px;
+}
+.skills-scroll::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+.horiscroll {
+  flex-shrink: 0;
+  min-width: 60vw;
+  max-width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 0; /* Remove extra padding */
+  display: flex;
+}
+
+/* Only center the heading panel and add top padding */
+.horiscroll:first-child {
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 26vh; /* Adjust this for desired top gap */
+  padding-bottom: 0 !important; /* Remove bottom gap */
+}
+
+/* Reduce space below the cards */
+.horiscroll > * {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Remove any extra padding/margin from the section */
+#skills {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0;
+}

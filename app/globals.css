@@ -114,7 +114,8 @@
 }
 
 .hackathon-card {
-  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-on-scroll[data-animation="apple-zoom-spin"].animate-in {
@@ -155,3 +156,35 @@
   box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.2);
 }
 
+#skils .horiscroll {
+  height: 100vh;
+  width: 60vw;
+}
+
+.skills-scroll {
+  /* display: flex; */
+  flex-direction: row;
+  gap: 2rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #a855f7 #f3f4f6;
+  -webkit-overflow-scrolling: touch;
+  flex-wrap: nowrap;
+}
+.skills-scroll::-webkit-scrollbar {
+  height: 80px;
+}
+.skills-scroll::-webkit-scrollbar-thumb {
+  background: #a855f7;
+  border-radius: 4px;
+}
+.skills-scroll::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+.horiscroll {
+  flex-shrink: 0;
+  min-width: 150px;
+  max-width: 300px;
+}

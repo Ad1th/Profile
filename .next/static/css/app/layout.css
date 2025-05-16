@@ -2135,12 +2135,12 @@ video {
 }
 
 #skils .horiscroll {
-  height: 100vh;
+  height: 40vw;
   width: 60vw;
 }
 
 .skills-scroll {
-  /* display: flex; */
+  display: flex;
   flex-direction: row;
   gap: 2rem;
   overflow-x: auto;

@@ -15,10 +15,14 @@ import Link from "next/link";
 import { MobileNav } from "@/components/mobile-nav";
 import { Timeline } from "@/components/timeline";
 import { KonamiCode } from "@/components/konami-code";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function AboutMe() {
   const [scrollY, setScrollY] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
+  const skillsScrollRef = useRef<HTMLDivElement>(null);
+  const skillsInnerRef = useRef<HTMLDivElement>(null);
 
   // Function to handle scroll animations
   useEffect(() => {
@@ -45,9 +49,39 @@ export default function AboutMe() {
     const animatedElements = document.querySelectorAll(".animate-on-scroll");
     animatedElements.forEach((el) => observer.observe(el));
 
+    gsap.registerPlugin(ScrollTrigger);
+    const outer = skillsScrollRef.current;
+    const inner = skillsInnerRef.current;
+    if (outer && inner) {
+      const panels = inner.querySelectorAll(".horiscroll");
+      const numPanels = panels.length;
+      const panelWidth = outer.offsetWidth;
+
+      // Set each panel to be the width of the container
+      panels.forEach((panel) => {
+        (panel as HTMLElement).style.minWidth = `${panelWidth}px`;
+        (panel as HTMLElement).style.maxWidth = `${panelWidth}px`;
+      });
+
+      gsap.to(inner, {
+        x: () => `-${panelWidth * (numPanels - 1)}px`,
+        ease: "none",
+        scrollTrigger: {
+          trigger: outer,
+          start: "top top",
+          end: () => `+=${panelWidth * (numPanels - 1)}`,
+          scrub: true,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+    }
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       animatedElements.forEach((el) => observer.unobserve(el));
+      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
@@ -122,7 +156,7 @@ export default function AboutMe() {
         </div>
       </nav>
 
-      {/* Hero Section - Taller */}
+      {/* Hero Section */}
       <section
         ref={heroRef}
         className="relative min-h-[100vh] flex items-center justify-center overflow-hidden"
@@ -197,6 +231,7 @@ export default function AboutMe() {
                 <Link
                   href="https://github.com/Ad1th"
                   className="text-muted-foreground hover:text-purple-500 transition-colors transform hover:scale-110"
+                  target="_blank"
                 >
                   <Github className="h-6 w-6" />
                   <span className="sr-only">GitHub</span>
@@ -204,6 +239,7 @@ export default function AboutMe() {
                 <Link
                   href="https://www.linkedin.com/in/adith-manikonda/"
                   className="text-muted-foreground hover:text-purple-500 transition-colors transform hover:scale-110"
+                  target="_blank"
                 >
                   <Linkedin className="h-6 w-6" />
                   <span className="sr-only">LinkedIn</span>
@@ -285,6 +321,7 @@ export default function AboutMe() {
         </div>
       </section>
 
+      {/* Experience Section */}
       <div>
         {/* Experience Section
       <section
@@ -358,100 +395,202 @@ export default function AboutMe() {
       </div>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 md:py-32">
-        <div className="container px-4 md:px-6">
-          <h2
-            className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 animate-on-scroll"
-            data-animation="fade-up"
+      <section id="skills" className="pt-32 pb-0 md:pt-40 md:pb-0">
+        <section id="horizontal">
+          <div
+            ref={skillsScrollRef}
+            className="skills-scroll"
+            style={{
+              position: "relative",
+              overflow: "hidden",
+              width: "100vw",
+              height: "80vh",
+            }}
           >
-            Skills
-          </h2>
-          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <div
-              className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
-              data-animation="fade-up"
-              data-delay="100"
+              ref={skillsInnerRef}
+              className="skills-scroll-inner"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "10%",
+                height: "50%",
+              }}
             >
-              <h3 className="text-xl font-bold">
-                Software Development & Engineering
-              </h3>
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                {[
-                  "Python",
-                  "Java",
-                  "C, C++ Basics",
-                  "HTML, CSS, Tailwind CSS",
-                  "JavaScript, Express js",
-                  "SQL, DBMS",
-                  "API Development (Fast API, Gemini API",
-                  "Web Hosting",
-                  "Git/GitHub",
-                  "Chrome Extension Development",
-                ].map((skill) => (
-                  <div key={skill} className="flex items-center space-x-2">
-                    <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                    <span>{skill}</span>
-                  </div>
-                ))}
+              <div className="horiscroll">
+                <h2
+                  className="text-6xl md:text-8xl font-extrabold tracking-tighter text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600"
+                  style={{
+                    width: "100%",
+                    margin: 0,
+                    paddingTop: "40vh", // Match CSS for top gap
+                    paddingBottom: 0, // Remove bottom gap
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  Skills
+                </h2>
               </div>
-            </div>
-            <div
-              className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
-              data-animation="fade-up"
-              data-delay="200"
-            >
-              <h3 className="text-xl font-bold">
-                AI, Robotics & Emerging Tech
-              </h3>
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                {[
-                  "AI Builder",
-                  "Low Code Development",
-                  "Research",
-                  "Robotics",
-                  "Arduino",
-                  "Mindstorms EV3",
-                  "Automation",
-                  "AI Integration in Web Apps",
-                  "Task Automation",
-                  "UI/UX Basics",
-                ].map((skill) => (
-                  <div key={skill} className="flex items-center space-x-2">
-                    <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                    <span>{skill}</span>
+              <div className="horiscroll">
+                <div
+                  className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+                  data-animation="fade-up"
+                  data-delay="100"
+                  style={{ width: "70%" }}
+                >
+                  <h3 className="text-xl font-bold">
+                    Software Development & Engineering
+                  </h3>
+
+                  <div className="mt-6 grid grid-cols-1 gap-5">
+                    {[
+                      "Software Development & Engineering",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                    ].map((skill) => (
+                      <div
+                        key={skill}
+                        className="text-5xl h-3 font-bold flex items-center space-x-2"
+                      >
+                        {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
+                        <span>{skill}</span>
+                      </div>
+                    ))}
+                    {[
+                      "Python",
+                      "Java",
+                      "C, C++ Basics",
+                      "HTML, CSS, Tailwind CSS",
+                      "JavaScript, Express js",
+                      "SQL, DBMS",
+                      "API Development (Fast API, Gemini API",
+                      "Web Hosting",
+                      "Git/GitHub",
+                      "Chrome Extension Development",
+                    ].map((skill) => (
+                      <div
+                        key={skill}
+                        className="text-xl flex items-center space-x-2"
+                      >
+                        <div className="h-2 w-2 rounded-full bg-purple-500 "></div>
+                        <span>{skill}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
-            <div
-              className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
-              data-animation="fade-up"
-              data-delay="300"
-            >
-              <h3 className="text-xl font-bold">
-                Creativity & Personal Interests
-              </h3>
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                {[
-                  "Audio Editing Basics",
-                  "Photo Editing Basics",
-                  "Video Editing Basics",
-                  "Electronics and Soldering",
-                  "Cycling",
-                  "Gardening",
-                  "Cubing",
-                  "PC Building",
-                  "Basic UI/UX Design (Figma, Canva)",
-                ].map((skill) => (
-                  <div key={skill} className="flex items-center space-x-2">
-                    <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                    <span>{skill}</span>
+
+              <div className="horiscroll">
+                <div
+                  className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+                  data-animation="fade-up"
+                  data-delay="200"
+                  style={{ width: "70%" }}
+                >
+                  <h3 className="text-xl font-bold">
+                    AI, Robotics & Emerging Tech
+                  </h3>
+                  <div className="mt-6 grid grid-cols-1 gap-5">
+                    {[
+                      "AI, Robotics & Emerging Tech",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                    ].map((skill) => (
+                      <div
+                        key={skill}
+                        className="text-5xl font-bold flex items-center space-x-2"
+                      >
+                        {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
+                        <span>{skill}</span>
+                      </div>
+                    ))}
+                    {[
+                      "AI Builder",
+                      "Low Code Development",
+                      "Research",
+                      "Robotics",
+                      "Arduino",
+                      "Mindstorms EV3",
+                      "Automation",
+                      "AI Integration in Web Apps",
+                      "Task Automation",
+                      "UI/UX Basics",
+                    ].map((skill) => (
+                      <div
+                        key={skill}
+                        className=" text-xl flex items-center space-x-2"
+                      >
+                        <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+                        <span>{skill}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+              </div>
+
+              <div className="horiscroll">
+                <div
+                  className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+                  data-animation="fade-up"
+                  data-delay="20"
+                >
+                  <h3 className="text-xl font-bold">
+                    Creativity & Personal Interests
+                  </h3>
+                  <div className="mt-6 grid grid-cols-1 gap-5">
+                    {[
+                      "Creativity & Personal Interests",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                    ].map((skill) => (
+                      <div
+                        key={skill}
+                        className="text-5xl font-bold flex items-center space-x-2"
+                      >
+                        {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
+                        <span>{skill}</span>
+                      </div>
+                    ))}
+                    {[
+                      "Audio Editing Basics",
+                      "Photo Editing Basics",
+                      "Video Editing Basics",
+                      "Electronics and Soldering",
+                      "Cycling",
+                      "Gardening",
+                      "Cubing",
+                      "PC Building",
+                      "Basic UI/UX Design (Figma, Canva)",
+                    ].map((skill) => (
+                      <div
+                        key={skill}
+                        className="text-xl flex items-center space-x-2"
+                      >
+                        <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+                        <span>{skill}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </section>
 
       {/* Languages Section */}

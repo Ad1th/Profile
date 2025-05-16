@@ -436,13 +436,22 @@ export default function AboutMe() {
                   className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
                   data-animation="fade-up"
                   data-delay="100"
-                  style={{ width: "70%" }}
+                  style={{
+                    width: "70%",
+                    paddingRight: "2rem",
+                  }}
                 >
                   <h3 className="text-xl font-bold">
                     Software Development & Engineering
                   </h3>
 
-                  <div className="mt-6 grid grid-cols-1 gap-5">
+                  <div
+                    className="mt-6 grid grid-cols-1 gap-5"
+                    style={{
+                      width: "70%",
+                      paddingRight: "2rem",
+                    }}
+                  >
                     {[
                       "Software Development & Engineering",
                       "",
@@ -474,6 +483,10 @@ export default function AboutMe() {
                       <div
                         key={skill}
                         className="text-xl flex items-center space-x-2"
+                        style={{
+                          width: "70%",
+                          paddingRight: "2rem",
+                        }}
                       >
                         <div className="h-2 w-2 rounded-full bg-purple-500 "></div>
                         <span>{skill}</span>
@@ -487,7 +500,7 @@ export default function AboutMe() {
                 <div
                   className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
                   data-animation="fade-up"
-                  data-delay="200"
+                  data-delay="20"
                   style={{ width: "70%" }}
                 >
                   <h3 className="text-xl font-bold">

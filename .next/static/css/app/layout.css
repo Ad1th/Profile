@@ -2136,7 +2136,7 @@ video {
 
 #skils .horiscroll {
   height: 40vw;
-  width: 60vw;
+  width: 40vw;
 }
 
 .skills-scroll {
@@ -2163,8 +2163,8 @@ video {
 }
 .horiscroll {
   flex-shrink: 0;
-  min-width: 150px;
-  max-width: 300px;
+  min-width: 100px;
+  max-width: 150px;
 }
 .file\:border-0::file-selector-button {
   border-width: 0px;

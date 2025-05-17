@@ -292,14 +292,14 @@ export default function AboutMe() {
       >
         <div className="container px-4 md:px-6">
           <div
-            className="mx-auto max-w-3xl text-center animate-on-scroll"
+            className="mx-auto max-w-5xl text-center animate-on-scroll"
             data-animation="fade-up"
           >
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
+            <h2 className="text-4xl font-bold tracking-tighter sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
               About Me
             </h2>
             <div className="mt-8 text-left space-y-4">
-              <p className="text-lg">
+              <p className="text-2xl leading-relaxed">
                 Hey there! I’m Adith — a CSE student at VIT Vellore who likes to
                 break stuff (intentionally) and then build it back better. I’m
                 super into creating cool things with code, whether it's a web
@@ -308,7 +308,7 @@ export default function AboutMe() {
                 my toes into the world of robotics, because why stop at software
                 when you can make things move?{" "}
               </p>
-              <p className="text-lg">
+              <p className="text-2xl leading-relaxed">
                 I’ve built everything from anonymous forums to hackathon
                 projects powered by AI, working with stacks like React, FastAPI,
                 Supabase, and a sprinkle of Python magic. I enjoy late-night

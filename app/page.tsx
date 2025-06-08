@@ -892,7 +892,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/images.jpeg"
+                  src="/snek.png"
                   alt="Snek"
                   width={500}
                   height={300}

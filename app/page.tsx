@@ -438,7 +438,7 @@ export default function AboutMe() {
                   data-delay="100"
                   style={{
                     width: "70%",
-                    paddingTop: "10vh",
+                    paddingTop: "0vh",
                     paddingRight: "2rem",
                   }}
                 >
@@ -460,7 +460,7 @@ export default function AboutMe() {
                       {["Software Development & Engineering"].map((skillh1) => (
                         <div
                           key={skillh1}
-                          className="text-4xl font-bold flex items-center space-x-2"
+                          className="text-3xl font-bold flex items-center space-x-2"
                         >
                           {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
                           <span>{skillh1}</span>
@@ -513,7 +513,7 @@ export default function AboutMe() {
                     {["AI, Robotics & Emerging Tech"].map((skillh2) => (
                       <div
                         key={skillh2}
-                        className="text-4xl font-bold flex items-center space-x-2"
+                        className="text-3xl font-bold flex items-center space-x-2"
                       >
                         {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
                         <span>{skillh2}</span>
@@ -571,7 +571,7 @@ export default function AboutMe() {
                       .map((skillh3) => (
                         <div
                           key={skillh3}
-                          className="text-4xl font-bold flex items-center space-x-2"
+                          className="text-3xl font-bold flex items-center space-x-2"
                         >
                           {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
                           <span>{skillh3}</span>

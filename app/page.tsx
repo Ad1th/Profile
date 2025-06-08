@@ -435,9 +435,9 @@ export default function AboutMe() {
                 <div
                   className="mt-10 rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-7 animate-on-scroll"
                   data-animation="fade-up"
-                  data-delay="100"
+                  data-delay="20"
                   style={{
-                    width: "100%",
+                    width: "120%",
                     paddingTop: "0vh",
                     paddingRight: "0",
                   }}
@@ -499,7 +499,7 @@ export default function AboutMe() {
                 <div
                   className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-7 animate-on-scroll"
                   data-animation="fade-up"
-                  data-delay="20"
+                  data-delay="100"
                   style={{ width: "100%" }}
                 >
                   <h3 className="text-xl font-bold">

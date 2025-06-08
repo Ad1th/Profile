@@ -38,7 +38,7 @@ export function MobileNav() {
 
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm">
-          <div className="container flex h-full flex-col items-center justify-center pt-16">
+          <div className="container flex h-full flex-col items-center justify-center pt-26">
             <button
               className="absolute right-4 top-4 p-2 rounded-md hover:bg-muted"
               onClick={toggleMenu}

@@ -1,19 +1,23 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { X } from "lucide-react"
+import { useState } from "react";
+import Link from "next/link";
+import { X } from "lucide-react";
 
 export function MobileNav() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className="md:hidden">
-      <button className="p-2 rounded-md hover:bg-muted" onClick={toggleMenu} aria-label="Toggle menu">
+      <button
+        className="p-2 rounded-md hover:bg-muted"
+        onClick={toggleMenu}
+        aria-label="Toggle menu"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -34,7 +38,7 @@ export function MobileNav() {
 
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm">
-          <div className="container flex h-full flex-col items-center justify-center">
+          <div className="container flex h-full flex-col items-center justify-center pt-16">
             <button
               className="absolute right-4 top-4 p-2 rounded-md hover:bg-muted"
               onClick={toggleMenu}
@@ -83,6 +87,5 @@ export function MobileNav() {
         </div>
       )}
     </div>
-  )
+  );
 }
-

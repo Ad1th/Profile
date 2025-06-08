@@ -802,7 +802,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/images.jpeg"
+                  src="/lhospital.png"
                   alt="HOSPITECH"
                   width={500}
                   height={300}
@@ -812,11 +812,11 @@ export default function AboutMe() {
               <div className="p-6">
                 <h3 className="text-xl font-bold">HOSPITECH</h3>
                 <p className="mt-2 text-muted-foreground">
-                  Developed Hospitech, a lightweight clinic management system
-                  using Python and SQL to digitize patient records,
-                  appointments, and doctor profiles for small clinics. Designed
-                  an intuitive interface with secure admin/doctor logins,
-                  streamlining workflows without complex DBMS overhead..
+                  Developed lhospital, aka, Hospitech, a lightweight clinic
+                  management system using Python and SQL to digitize patient
+                  records, appointments, and doctor profiles for small clinics.
+                  Designed an intuitive interface with secure admin/doctor
+                  logins, streamlining workflows without complex DBMS overhead..
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">

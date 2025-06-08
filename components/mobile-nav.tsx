@@ -66,6 +66,13 @@ export function MobileNav() {
                 className="text-lg font-medium hover:text-purple-500 transition-colors"
                 onClick={toggleMenu}
               >
+                Achievements
+              </Link>
+              <Link
+                href="#achievements"
+                className="text-lg font-medium hover:text-purple-500 transition-colors"
+                onClick={toggleMenu}
+              >
                 Projects
               </Link>
               <Link

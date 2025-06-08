@@ -437,7 +437,7 @@ export default function AboutMe() {
                   data-animation="fade-up"
                   data-delay="100"
                   style={{
-                    width: "70%",
+                    width: "100%",
                     paddingTop: "0vh",
                     paddingRight: "0",
                   }}
@@ -500,7 +500,7 @@ export default function AboutMe() {
                   className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
                   data-animation="fade-up"
                   data-delay="20"
-                  style={{ width: "50%" }}
+                  style={{ width: "100%" }}
                 >
                   <h3 className="text-xl font-bold">
                     <br></br>

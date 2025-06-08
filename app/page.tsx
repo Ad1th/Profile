@@ -940,8 +940,6 @@ export default function AboutMe() {
               </div>
             </div>
             {/* Project 6 */}
-            <div>
-              {/* 
             <div
               className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
               data-animation="fade-up"
@@ -949,53 +947,51 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/konectus.png"
-                  alt="KonectUs"
+                  src="/profile.png"
+                  alt="Profile/Portfolio Website"
                   width={500}
                   height={300}
                   className="object-cover transition-transform group-hover:scale-105"
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold">KonectUs</h3>
+                <h3 className="text-xl font-bold">Profile/Portfolio Website</h3>
                 <p className="mt-2 text-muted-foreground">
-                  Developed KonectUs, a social platform connecting users through
-                  shared interests via confessions, forums, and real-time
-                  chat—fully anonymous and interactive. Used Supabase for user
-                  data handling, with scalable backend logic and a responsive
-                  frontend optimized for full-screen Chrome experience.
+                  Designed and developed this portfolio site with Next.js and
+                  Tailwind CSS to showcase my projects, skills, and journey.
+                  Features include responsive layouts, smooth section-based
+                  navigation, scroll-triggered animations, and a modern,
+                  accessible UI. The codebase is modular and open for future
+                  enhancements.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
-                    Supabase
+                    Next.js
                   </span>
                   <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
-                    JavaScript (HTML/CSS)
+                    React
                   </span>
                   <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
-                    Node.js / FastAPI{" "}
+                    Tailwind CSS
+                  </span>
+                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
+                    GSAP
                   </span>
                 </div>
                 <div className="mt-6 flex items-center justify-between">
-                   <Link
-                    href="https://smarthome-demo.example.com"
-                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
-                  >
-                    View Project
-                    <ExternalLink className="ml-1 h-4 w-4" />
-                  </Link>
-                  <Link
-                    href="https://github.com/yourusername/smarthome"
+                  {/* <Link
+                    href="https://github.com/Ad1th/profile"
                     className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <Github className="mr-1 h-4 w-4" />
                     Code
-                  </Link> 
+                  </Link> */}
                 </div>
               </div>
-            </div> 
-            */}
             </div>
+
             {/* Project 7 */}
             <div
               className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
@@ -1161,42 +1157,64 @@ export default function AboutMe() {
             </div>
             {/* Project 10 */}
             <div>
-              {/* Project 10
+              {/* 
             <div
               className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-card shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 animate-on-scroll"
               data-animation="fade-up"
-              data-delay={1000}
+              data-delay={600}
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/projects/ecotrack-thumbnail.jpg"
-                  alt="EcoTrack - Environmental Monitoring System"
+                  src="/konectus.png"
+                  alt="KonectUs"
                   width={500}
                   height={300}
                   className="object-cover transition-transform group-hover:scale-105"
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold">EcoTrack</h3>
+                <h3 className="text-xl font-bold">KonectUs</h3>
                 <p className="mt-2 text-muted-foreground">
-                  An environmental monitoring system that tracks air quality,
-                  water levels, and pollution using IoT sensors. Includes
-                  predictive analytics and public awareness dashboards.
+                  Developed KonectUs, a social platform connecting users through
+                  shared interests via confessions, forums, and real-time
+                  chat—fully anonymous and interactive. Used Supabase for user
+                  data handling, with scalable backend logic and a responsive
+                  frontend optimized for full-screen Chrome experience.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
-                    Python
+                    Supabase
                   </span>
                   <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
-                    TensorFlow
+                    JavaScript (HTML/CSS)
                   </span>
                   <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
-                    Arduino
+                    Node.js / FastAPI{" "}
                   </span>
                 </div>
-                
+                <div className="mt-6 flex items-center justify-between">
+                   <Link
+                    href="https://smarthome-demo.example.com"
+                    className="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    View Project
+                    <ExternalLink className="ml-1 h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="https://github.com/yourusername/smarthome"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <Github className="mr-1 h-4 w-4" />
+                    Code
+                  </Link> 
+                </div>
               </div>
-            </div> */}
+            </div> 
+            */}
+            </div>
+            <div>
+              {/* Project 10
+               */}
             </div>
           </div>
         </div>

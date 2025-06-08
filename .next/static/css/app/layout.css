@@ -1003,6 +1003,9 @@ video {
 .w-px {
   width: 1px;
 }
+.w-\[70\%\] {
+  width: 70%;
+}
 .min-w-0 {
   min-width: 0px;
 }
@@ -1027,11 +1030,11 @@ video {
 .min-w-\[var\(--radix-select-trigger-width\)\] {
   min-width: var(--radix-select-trigger-width);
 }
-.max-w-3xl {
-  max-width: 48rem;
-}
 .max-w-4xl {
   max-width: 56rem;
+}
+.max-w-5xl {
+  max-width: 64rem;
 }
 .max-w-\[--skeleton-width\] {
   max-width: var(--skeleton-width);
@@ -1047,9 +1050,6 @@ video {
 }
 .max-w-md {
   max-width: 28rem;
-}
-.max-w-5xl {
-  max-width: 64rem;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1268,6 +1268,11 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
 .overflow-auto {
   overflow: auto;
@@ -1551,6 +1556,9 @@ video {
 .p-\[1px\] {
   padding: 1px;
 }
+.p-10 {
+  padding: 2.5rem;
+}
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
@@ -1669,9 +1677,6 @@ video {
 }
 .text-right {
   text-align: right;
-}
-.text-justify {
-  text-align: justify;
 }
 .align-middle {
   vertical-align: middle;
@@ -2172,8 +2177,8 @@ video {
 }
 .horiscroll {
   flex-shrink: 0;
-  min-width: 100px;
-  max-width: 150px;
+  min-width: 70px;
+  max-width: 100px;
 }
 .file\:border-0::file-selector-button {
   border-width: 0px;
@@ -2247,6 +2252,10 @@ video {
 }
 .hover\:-translate-y-2:hover {
   --tw-translate-y: -0.5rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:-translate-y-7:hover {
+  --tw-translate-y: -1.75rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .hover\:rotate-3:hover {
@@ -3118,11 +3127,6 @@ video {
   .md\:py-8 {
     padding-top: 2rem;
     padding-bottom: 2rem;
-  }
-
-  .md\:px-3 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
   }
 
   .md\:pb-0 {

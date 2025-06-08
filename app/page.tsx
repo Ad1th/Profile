@@ -424,7 +424,7 @@ export default function AboutMe() {
                     width: "100%",
                     margin: 0,
                     paddingTop: "40vh", // Match CSS for top gap
-                    paddingBottom: 0, // Remove bottom gap
+                    paddingBottom: "150vh", // Remove bottom gap
                     alignSelf: "flex-start",
                   }}
                 >
@@ -433,7 +433,7 @@ export default function AboutMe() {
               </div>
               <div className="horiscroll">
                 <div
-                  className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+                  className="rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-7 animate-on-scroll"
                   data-animation="fade-up"
                   data-delay="100"
                   style={{
@@ -455,46 +455,41 @@ export default function AboutMe() {
                       paddingRight: "2rem",
                     }}
                   >
-                    {[
-                      "Software Development & Engineering",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                    ].map((skill) => (
-                      <div
-                        key={skill}
-                        className="text-5xl h-3 font-bold flex items-center space-x-2"
-                      >
-                        {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
-                        <span>{skill}</span>
-                      </div>
-                    ))}
-                    {[
-                      "Python",
-                      "Java",
-                      "C, C++ Basics",
-                      "HTML, CSS, Tailwind CSS",
-                      "JavaScript, Express js",
-                      "SQL, DBMS",
-                      "API Development (Fast API, Gemini API",
-                      "Web Hosting",
-                      "Git/GitHub",
-                      "Chrome Extension Development",
-                    ].map((skill) => (
-                      <div
-                        key={skill}
-                        className="text-xl flex items-center space-x-2"
-                        style={{
-                          width: "70%",
-                          paddingRight: "2rem",
-                        }}
-                      >
-                        <div className="h-2 w-2 rounded-full bg-purple-500 "></div>
-                        <span>{skill}</span>
-                      </div>
-                    ))}
+                    <div className="mt-6 grid grid-cols-1 gap-5">
+                      {["Software Development & Engineering"].map((skillh1) => (
+                        <div
+                          key={skillh1}
+                          className="text-5xl font-bold flex items-center space-x-2"
+                        >
+                          {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
+                          <span>{skillh1}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <ul className="mt-6 space-y-3 w-[70%] pr-8">
+                      {[
+                        "Python",
+                        "Java",
+                        "C, C++ Basics",
+                        "HTML, CSS, Tailwind CSS",
+                        "JavaScript, Express js",
+                        "SQL, DBMS",
+                        "API Development (Fast API, Gemini API)",
+                        "Web Hosting",
+                        "Git/GitHub",
+                        "Chrome Extension Development",
+                      ].map((skill1) => (
+                        <li
+                          key={skill1}
+                          className="text-xl flex items-center space-x-2"
+                          role="listitem"
+                        >
+                          <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+                          <span>{skill1}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -512,24 +507,15 @@ export default function AboutMe() {
                   <h3 className="text-xl font-bold">
                     <br></br>
                   </h3>
+
                   <div className="mt-6 grid grid-cols-1 gap-5">
-                    {[
-                      "AI, Robotics & Emerging Tech",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                    ].map((skill) => (
+                    {["AI, Robotics & Emerging Tech"].map((skillh2) => (
                       <div
-                        key={skill}
+                        key={skillh2}
                         className="text-5xl font-bold flex items-center space-x-2"
                       >
                         {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
-                        <span>{skill}</span>
+                        <span>{skillh2}</span>
                       </div>
                     ))}
                     {[
@@ -543,13 +529,13 @@ export default function AboutMe() {
                       "AI Integration in Web Apps",
                       "Task Automation",
                       "UI/UX Basics",
-                    ].map((skill) => (
+                    ].map((skill2) => (
                       <div
-                        key={skill}
+                        key={skill2}
                         className=" text-xl flex items-center space-x-2"
                       >
                         <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                        <span>{skill}</span>
+                        <span>{skill2}</span>
                       </div>
                     ))}
                   </div>
@@ -579,34 +565,39 @@ export default function AboutMe() {
                       "",
                       "",
                       "",
-                    ].map((skill) => (
-                      <div
-                        key={skill}
-                        className="text-5xl font-bold flex items-center space-x-2"
-                      >
-                        {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
-                        <span>{skill}</span>
-                      </div>
-                    ))}
-                    {[
-                      "Audio Editing Basics",
-                      "Photo Editing Basics",
-                      "Video Editing Basics",
-                      "Electronics and Soldering",
-                      "Cycling",
-                      "Gardening",
-                      "Cubing",
-                      "PC Building",
-                      "Basic UI/UX Design (Figma, Canva)",
-                    ].map((skill) => (
-                      <div
-                        key={skill}
-                        className="text-xl flex items-center space-x-2"
-                      >
-                        <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                        <span>{skill}</span>
-                      </div>
-                    ))}
+                    ]
+                      .filter((skillh3) => skillh3 !== "")
+                      .map((skillh3) => (
+                        <div
+                          key={skillh3}
+                          className="text-5xl font-bold flex items-center space-x-2"
+                        >
+                          {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
+                          <span>{skillh3}</span>
+                        </div>
+                      ))}
+                    <ul className="mt-6 space-y-3 w-[70%] pr-8">
+                      {[
+                        "Audio Editing Basics",
+                        "Photo Editing Basics",
+                        "Video Editing Basics",
+                        "Electronics and Soldering",
+                        "Cycling",
+                        "Gardening",
+                        "Cubing",
+                        "PC Building",
+                        "Basic UI/UX Design (Figma, Canva)",
+                      ].map((skill3) => (
+                        <li
+                          key={skill3}
+                          className="text-xl flex items-center space-x-2"
+                          role="listitem"
+                        >
+                          <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+                          <span>{skill3}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </div>

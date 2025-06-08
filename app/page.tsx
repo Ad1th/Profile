@@ -424,7 +424,7 @@ export default function AboutMe() {
                     width: "100%",
                     margin: 0,
                     paddingTop: "40vh", // Match CSS for top gap
-                    paddingBottom: "150vh", // Remove bottom gap
+                    paddingBottom: "0", // Remove bottom gap
                     alignSelf: "flex-start",
                   }}
                 >
@@ -433,11 +433,12 @@ export default function AboutMe() {
               </div>
               <div className="horiscroll">
                 <div
-                  className="rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-7 animate-on-scroll"
+                  className="mt-10 rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-7 animate-on-scroll"
                   data-animation="fade-up"
                   data-delay="100"
                   style={{
                     width: "70%",
+                    paddingTop: "10vh",
                     paddingRight: "2rem",
                   }}
                 >
@@ -459,7 +460,7 @@ export default function AboutMe() {
                       {["Software Development & Engineering"].map((skillh1) => (
                         <div
                           key={skillh1}
-                          className="text-5xl font-bold flex items-center space-x-2"
+                          className="text-4xl font-bold flex items-center space-x-2"
                         >
                           {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
                           <span>{skillh1}</span>
@@ -499,7 +500,7 @@ export default function AboutMe() {
                   className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
                   data-animation="fade-up"
                   data-delay="20"
-                  style={{ width: "70%" }}
+                  style={{ width: "50%" }}
                 >
                   <h3 className="text-xl font-bold">
                     <br></br>
@@ -512,7 +513,7 @@ export default function AboutMe() {
                     {["AI, Robotics & Emerging Tech"].map((skillh2) => (
                       <div
                         key={skillh2}
-                        className="text-5xl font-bold flex items-center space-x-2"
+                        className="text-4xl font-bold flex items-center space-x-2"
                       >
                         {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
                         <span>{skillh2}</span>
@@ -570,13 +571,13 @@ export default function AboutMe() {
                       .map((skillh3) => (
                         <div
                           key={skillh3}
-                          className="text-5xl font-bold flex items-center space-x-2"
+                          className="text-4xl font-bold flex items-center space-x-2"
                         >
                           {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
                           <span>{skillh3}</span>
                         </div>
                       ))}
-                    <ul className="mt-6 space-y-3 w-[70%] pr-8">
+                    <ul className="mt-6 space-y-3 w-[50%] pr-3">
                       {[
                         "Audio Editing Basics",
                         "Photo Editing Basics",

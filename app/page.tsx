@@ -439,7 +439,6 @@ export default function AboutMe() {
                   style={{
                     width: "120%",
                     paddingTop: "0vh",
-                    paddingRight: "0",
                   }}
                 >
                   <h3 className="text-xl font-bold">
@@ -453,7 +452,6 @@ export default function AboutMe() {
                     className="mt-6 grid grid-cols-1 gap-5"
                     style={{
                       width: "70%",
-                      paddingRight: "0",
                     }}
                   >
                     <div className="mt-6 grid grid-cols-1 gap-5">

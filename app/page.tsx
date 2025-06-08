@@ -1048,7 +1048,7 @@ export default function AboutMe() {
             >
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="/images.jpeg"
+                  src="/sevaverse.png"
                   alt="SevaVerse"
                   width={500}
                   height={300}

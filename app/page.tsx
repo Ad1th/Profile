@@ -24,8 +24,30 @@ export default function AboutMe() {
   const skillsScrollRef = useRef<HTMLDivElement>(null);
   const skillsInnerRef = useRef<HTMLDivElement>(null);
 
+  const [blobs, setBlobs] = useState<
+    {
+      width: number;
+      height: number;
+      top: number;
+      left: number;
+      opacity: number;
+      scale: number;
+      duration: number;
+    }[]
+  >([]);
   // Function to handle scroll animations
   useEffect(() => {
+    setBlobs(
+      Array.from({ length: 20 }).map(() => ({
+        width: Math.random() * 300 + 50,
+        height: Math.random() * 300 + 50,
+        top: Math.random() * 100,
+        left: Math.random() * 100,
+        opacity: Math.random() * 0.5,
+        scale: Math.random() * 0.5 + 0.5,
+        duration: Math.random() * 10 + 10,
+      }))
+    );
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
@@ -167,21 +189,19 @@ export default function AboutMe() {
       >
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 z-0 opacity-10">
-            {Array.from({ length: 20 }).map((_, i) => (
+            {blobs.map((blob, i) => (
               <div
                 key={i}
                 className="absolute rounded-full bg-purple-500"
                 style={{
-                  width: `${Math.random() * 300 + 50}px`,
-                  height: `${Math.random() * 300 + 50}px`,
-                  top: `${Math.random() * 100}%`,
-                  left: `${Math.random() * 100}%`,
-                  opacity: Math.random() * 0.5,
-                  transform: `scale(${Math.random() * 0.5 + 0.5})`,
+                  width: `${blob.width}px`,
+                  height: `${blob.height}px`,
+                  top: `${blob.top}%`,
+                  left: `${blob.left}%`,
+                  opacity: blob.opacity,
+                  transform: `scale(${blob.scale})`,
                   filter: "blur(50px)",
-                  animation: `float ${
-                    Math.random() * 10 + 10
-                  }s ease-in-out infinite alternate`,
+                  animation: `float ${blob.duration}s ease-in-out infinite alternate`,
                 }}
               />
             ))}

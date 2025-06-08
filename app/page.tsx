@@ -497,7 +497,7 @@ export default function AboutMe() {
 
               <div className="horiscroll">
                 <div
-                  className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+                  className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-7 animate-on-scroll"
                   data-animation="fade-up"
                   data-delay="20"
                   style={{ width: "100%" }}
@@ -545,7 +545,7 @@ export default function AboutMe() {
 
               <div className="horiscroll">
                 <div
-                  className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+                  className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-7 animate-on-scroll"
                   data-animation="fade-up"
                   data-delay="20"
                 >

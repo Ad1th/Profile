@@ -76,6 +76,13 @@ export function MobileNav() {
                 Achievements
               </Link>
               <Link
+                href="#github-achievements"
+                className="text-lg font-medium hover:text-purple-500 transition-colors"
+                onClick={toggleMenu}
+              >
+                GitHub Achievements
+              </Link>
+              <Link
                 href="#hackathons"
                 className="text-lg font-medium hover:text-purple-500 transition-colors"
                 onClick={toggleMenu}

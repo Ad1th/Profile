@@ -1,4 +1,4 @@
-// File: /Users/adith/Documents/Dev/Projects/Profile/app/page.tsx
+// File: /home/runner/work/Profile/Profile/app/page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

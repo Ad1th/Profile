@@ -162,6 +162,12 @@ export default function AboutMe() {
               Achievements
             </Link>
             <Link
+              href="#github-achievements"
+              className="text-sm font-medium hover:text-purple-500 transition-colors"
+            >
+              GitHub Achievements
+            </Link>
+            <Link
               href="#hackathons"
               className="text-sm font-medium hover:text-purple-500 transition-colors"
             >
@@ -1324,6 +1330,109 @@ export default function AboutMe() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GitHub Achievements Section */}
+      <section
+        id="github-achievements"
+        className="py-20 md:py-32"
+      >
+        <div className="container px-4 md:px-6">
+          <h2
+            className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 animate-on-scroll"
+            data-animation="fade-up"
+          >
+            GitHub Achievements Guide
+          </h2>
+          <div className="mt-8 max-w-4xl mx-auto text-center">
+            <p className="text-lg text-muted-foreground mb-8">
+              Wondering where to find GitHub achievements? Here's your complete guide!
+            </p>
+          </div>
+          
+          <div className="mt-16 grid gap-8 lg:grid-cols-2">
+            {/* How to Find GitHub Achievements */}
+            <div
+              className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={100}
+            >
+              <h3 className="text-2xl font-bold mb-6 flex items-center">
+                <Award className="h-8 w-8 text-purple-500 mr-3" />
+                How to Find GitHub Achievements
+              </h3>
+              <div className="space-y-4 text-muted-foreground">
+                <div className="flex items-start space-x-3">
+                  <div className="h-2 w-2 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
+                  <p><strong>Method 1:</strong> Visit your GitHub profile at github.com/[your-username]</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="h-2 w-2 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
+                  <p><strong>Method 2:</strong> Click on your profile picture in the top-right corner and select "Your profile"</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="h-2 w-2 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
+                  <p><strong>Method 3:</strong> Go to Settings → Public profile → Achievements section</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="h-2 w-2 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
+                  <p>Your achievements will be displayed as badges on your profile</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Popular GitHub Achievements */}
+            <div
+              className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={200}
+            >
+              <h3 className="text-2xl font-bold mb-6">Popular GitHub Achievements</h3>
+              <div className="space-y-3">
+                {[
+                  { name: "Arctic Code Vault Contributor", desc: "Contributed code to repositories in the 2020 GitHub Archive Program" },
+                  { name: "Pull Shark", desc: "Opened multiple pull requests that have been merged" },
+                  { name: "Quickdraw", desc: "Closed an issue or pull request within 5 minutes of opening" },
+                  { name: "Pair Extraordinaire", desc: "Co-authored commits with multiple users" },
+                  { name: "Public Sponsor", desc: "Sponsored other developers through GitHub Sponsors" },
+                  { name: "YOLO", desc: "Merged a pull request without reviewing it" }
+                ].map((achievement, index) => (
+                  <div key={achievement.name} className="flex items-start space-x-3">
+                    <div className="h-2 w-2 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
+                    <div>
+                      <p className="font-medium">{achievement.name}</p>
+                      <p className="text-sm text-muted-foreground">{achievement.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* My GitHub Profile CTA */}
+          <div className="mt-16 text-center">
+            <div
+              className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay={300}
+            >
+              <h3 className="text-2xl font-bold mb-4">Check Out My GitHub Profile</h3>
+              <p className="text-muted-foreground mb-6">
+                Visit my GitHub profile to see my achievements, contributions, and projects in action!
+              </p>
+              <Link
+                href="https://github.com/Ad1th"
+                className="inline-flex items-center rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-3 text-sm font-medium text-white shadow transition-all hover:shadow-lg hover:scale-105 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="mr-2 h-5 w-5" />
+                View My GitHub Profile
+                <ExternalLink className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

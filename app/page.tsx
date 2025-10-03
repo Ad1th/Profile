@@ -1256,6 +1256,13 @@ export default function AboutMe() {
             {[
               {
                 title:
+                  "AI solutions Track Winner - Code 2 Create (C2C) Hackathon",
+                year: "2025",
+                description:
+                  " Won the AI solutions track at Code 2 Create (C2C) Hackathon held at VIT Vellore, organized by ACM, by building a blind assistance tool using image recognition and Raspberry Pi for real-time audio feedback.",
+              },
+              {
+                title:
                   "Cent Percent Attendance – Vellore Institute of Technology (2024–25)",
                 year: "2024-25",
                 description:
@@ -1312,7 +1319,7 @@ export default function AboutMe() {
               >
                 <div className="flex items-start space-x-4">
                   <div className="mt-1 flex-shrink-0">
-                    <Award className="h-9 w-9 text-purple-500" />
+                    <Award className="h-10 w-10 text-purple-500" />
                   </div>
                   <div>
                     <h3 className="text-xl font-bold">{achievement.title}</h3>

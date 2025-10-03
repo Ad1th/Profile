@@ -1336,7 +1336,92 @@ export default function AboutMe() {
             data-animation="fade-up"
           >
             Hackathons
+          </h2>
+
+          <div className="mt-16 space-y-8">
+            {/* Hackathon 1 */}
+            <div
+              className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
+              data-animation="apple-zoom-spin"
+              data-delay={100}
+              style={{
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                <div className="flex-shrink-0 perspective-element"></div>
+                <div className="flex-1">
+                  <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                    <div>
+                      <h3 className="text-2xl font-bold">
+                        Code 2 Create (C2C) - AI solutions Track Winner
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        September 2025 • VIT Vellore, India
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-lg">
+                    Built a blind assistance tool which uses image recognition
+                    to analyze surroundings and provide real-time feedback to
+                    visually impaired users via audio in their local dialect.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      Python + ML
+                    </span>
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      Raspberry Pi (edge computing)
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Hackathon 2 */}
+            <div
+              className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
+              data-animation="apple-zoom-spin"
+              data-delay={200}
+              style={{
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                <div className="flex-shrink-0 perspective-element"></div>
+                <div className="flex-1">
+                  <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                    <div>
+                      <h3 className="text-2xl font-bold">Women Techies'25</h3>
+                      <p className="text-sm text-muted-foreground">
+                        April 2025 • VIT Vellore, India
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-lg">
+                    Built SevaVerse at Women Techies'25 – a collaborative
+                    platform connecting NGOs, volunteers, and well-wishers to
+                    streamline child welfare initiatives. It features role-based
+                    access, secure authentication, task management, and
+                    dashboards for both NGOs and volunteers, using Node.js,
+                    Prisma, and SQLite.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      Node.js + Express Backend
+                    </span>
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      Prisma ORM + SQLite
+                    </span>
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      Tailwind CSS Frontend
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Hackathon 3 */}
             <div
               className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
               data-animation="apple-zoom-spin"
@@ -1351,187 +1436,83 @@ export default function AboutMe() {
                   <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
                     <div>
                       <h3 className="text-2xl font-bold break-words">
-                        Code 2 Create (C2C)
+                        Yantra Central Hack
                       </h3>
                       <p className="text-sm text-muted-foreground break-words">
-                        September 2025 • VIT Vellore, India
+                        January 2025 • VIT Vellore, India
                       </p>
                     </div>
-                    Built
                   </div>
-                  <p className="mt-4 text-lg break-words"></p>
+                  <p className="mt-4 text-lg break-words">
+                    Built OptiSync at Yantra Central Hack – a sustainability
+                    platform tailored for the textile industry, using an ML
+                    model to optimize water and electricity usage, reduce
+                    operational costs, and promote eco-efficiency. Powered by a
+                    Python backend, Supabase, and real-time analytics.
+                  </p>
                   <div className="mt-6 flex flex-wrap gap-2">
                     <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
                       Python with ML
                     </span>
                     <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                      Raspberry Pi (edge computing)
+                      Supabase / SQL / PostgreSQL
+                    </span>
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      HTML / CSS / JS
                     </span>
                   </div>
                 </div>
               </div>
             </div>
-          </h2>
-          <div className="perspective-wrapper">
-            <div className="mt-16 space-y-16">
-              {/* Hackathon 1 */}
-              <div
-                className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
-                data-animation="apple-zoom-spin"
-                data-delay={300}
-                style={{
-                  transformStyle: "preserve-3d",
-                  // Don't set transform and opacity inline - let the CSS and JavaScript handle it
-                }}
-              >
-                <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                  <div className="flex-shrink-0 perspective-element"></div>
-                  <div className="flex-1">
-                    <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
-                      <div>
-                        <h3 className="text-2xl font-bold">Women Techies'25</h3>
-                        <p className="text-sm text-muted-foreground">
-                          April 2025 • VIT Vellore, India
-                        </p>
-                      </div>
-                    </div>
-                    <p className="mt-4 text-lg">
-                      Built SevaVerse at Women Techies'25 – a collaborative
-                      platform connecting NGOs, volunteers, and well-wishers to
-                      streamline child welfare initiatives. It features
-                      role-based access, secure authentication, task management,
-                      and dashboards for both NGOs and volunteers, using
-                      Node.js, Prisma, and SQLite.
-                    </p>
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        Node.js + Express Backend
-                      </span>
-                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        Prisma ORM + SQLite
-                      </span>
-                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        Tailwind CSS Frontend
-                      </span>
-                    </div>
-                    {/* <div className="mt-6">
-                      <Link
-                        href="https://devpost.com/software/carbonfootprint-ar"
-                        className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-purple-700"
-                      >
-                        View Project
-                        <ExternalLink className="ml-2 h-4 w-4" />
-                      </Link>
-                    </div> */}
-                  </div>
-                </div>
-              </div>
 
-              {/* Hackathon 2 */}
-              <div
-                className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
-                data-animation="apple-zoom-spin"
-                data-delay={300}
-                style={{
-                  transformStyle: "preserve-3d",
-                }}
-              >
-                <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                  <div className="flex-shrink-0 perspective-element"></div>
-                  <div className="flex-1">
-                    <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
-                      <div>
-                        <h3 className="text-2xl font-bold break-words">
-                          Yantra Central Hack
-                        </h3>
-                        <p className="text-sm text-muted-foreground break-words">
-                          January 2025 • VIT Vellore, India
-                        </p>
-                      </div>
-                    </div>
-                    <p className="mt-4 text-lg break-words">
-                      Built OptiSync at Yantra Central Hack – a sustainability
-                      platform tailored for the textile industry, using an ML
-                      model to optimize water and electricity usage, reduce
-                      operational costs, and promote eco-efficiency. Powered by
-                      a Python backend, Supabase, and real-time analytics.
-                    </p>
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        Python with ML
-                      </span>
-                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        Supabase / SQL / PostgreSQL
-                      </span>
-                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        HTML / CSS / JS
-                      </span>
+            {/* Hackathon 4 */}
+            <div
+              className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
+              data-animation="apple-zoom-spin"
+              data-delay={400}
+              style={{
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                <div className="flex-shrink-0 perspective-element"></div>
+                <div className="flex-1">
+                  <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                    <div>
+                      <h3 className="text-2xl font-bold">DevJams</h3>
+                      <p className="text-sm text-muted-foreground">
+                        September 2024 • VIT Vellore, India
+                      </p>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Hackathon 3 */}
-              <div
-                className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
-                data-animation="apple-zoom-spin"
-                data-delay={300}
-                style={{
-                  transformStyle: "preserve-3d",
-                  // Don't set transform and opacity inline - let the CSS and JavaScript handle it
-                }}
-              >
-                <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                  <div className="flex-shrink-0 perspective-element"></div>
-                  <div className="flex-1">
-                    <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
-                      <div>
-                        <h3 className="text-2xl font-bold">DevJams</h3>
-                        <p className="text-sm text-muted-foreground">
-                          September 2024 • VIT Vellore, India
-                        </p>
-                      </div>
-                    </div>
-                    <p className="mt-4 text-lg">
-                      Built Therddit at DevJams – a smart Chrome extension that
-                      uses the Gemini API to analyze browsing patterns, detect
-                      distractions, and deliver AI-powered nudges to help users
-                      stay productive without blocking websites.
-                    </p>
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        Gemini API
-                      </span>
-                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        Chrome Extension (JavaScript + React)
-                      </span>
-                      <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                        FastAPI (Python backend)
-                      </span>
-                    </div>
-                    <div className="mt-6">
-                      {/* <Link
-                        href="https://cryptobank-project.example.com"
-                        className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-purple-700"
-                      >
-                        View Project
-                        <ExternalLink className="ml-2 h-4 w-4" />
-                      </Link> */}
-                    </div>
+                  <p className="mt-4 text-lg">
+                    Built Therddit at DevJams – a smart Chrome extension that
+                    uses the Gemini API to analyze browsing patterns, detect
+                    distractions, and deliver AI-powered nudges to help users
+                    stay productive without blocking websites.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      Gemini API
+                    </span>
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      Chrome Extension (JavaScript + React)
+                    </span>
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      FastAPI (Python backend)
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <br></br>
-            {/* Hackathon 4 */}
+            {/* Hackathon 5*/}
             <div
               className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
               data-animation="apple-zoom-spin"
-              data-delay={300}
+              data-delay={500}
               style={{
                 transformStyle: "preserve-3d",
-                // Don't set transform and opacity inline - let the CSS and JavaScript handle it
               }}
             >
               <div className="flex flex-col gap-6 md:flex-row md:items-start">
@@ -1545,7 +1526,7 @@ export default function AboutMe() {
                       </p>
                     </div>
                   </div>
-                  <p className="mt-4 text-lg"></p>
+                  <p className="mt-4 text-lg">Won first place.</p>
                 </div>
               </div>
             </div>

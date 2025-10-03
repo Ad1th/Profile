@@ -2,3 +2,5 @@ node_modules
 old_code
 new_code
 saves
+.next
+.vscode

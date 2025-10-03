@@ -1336,6 +1336,41 @@ export default function AboutMe() {
             data-animation="fade-up"
           >
             Hackathons
+            {/* Hackathon 2 */}
+            <div
+              className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
+              data-animation="apple-zoom-spin"
+              data-delay={300}
+              style={{
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                <div className="flex-shrink-0 perspective-element"></div>
+                <div className="flex-1">
+                  <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                    <div>
+                      <h3 className="text-2xl font-bold break-words">
+                        Code 2 Create (C2C)
+                      </h3>
+                      <p className="text-sm text-muted-foreground break-words">
+                        September 2025 • VIT Vellore, India
+                      </p>
+                    </div>
+                    Built
+                  </div>
+                  <p className="mt-4 text-lg break-words"></p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      Python with ML
+                    </span>
+                    <span className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
+                      Raspberry Pi (edge computing)
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </h2>
           <div className="perspective-wrapper">
             <div className="mt-16 space-y-16">

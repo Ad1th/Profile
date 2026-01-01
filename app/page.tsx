@@ -17,6 +17,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { MobileNav } from "@/components/mobile-nav";
 import { Timeline } from "@/components/timeline";
 import { KonamiCode } from "@/components/konami-code";
+import { DisableDevTools } from "@/components/disable-devtools";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import {
   ScrollProgress,
@@ -143,6 +144,9 @@ export default function AboutMe() {
 
         {/* Konami Code Easter Eggs */}
         <KonamiCode />
+        
+        {/* Disable Dev Tools */}
+        <DisableDevTools />
 
         {/* Navigation */}
         <motion.nav
@@ -347,7 +351,7 @@ export default function AboutMe() {
             </div>
           </div>
           <div
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+            className="absolute bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
             onClick={scrollToContent}
           >
             <ChevronDown className="h-8 w-8 text-purple-500" />

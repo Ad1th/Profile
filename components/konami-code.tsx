@@ -1,15 +1,19 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from "lucide-react"
+import { useEffect, useState } from "react";
+import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
 
 export function KonamiCode() {
-  const [showInstructions, setShowInstructions] = useState(false)
-  const [showQuote1, setShowQuote1] = useState(false)
-  const [showQuote2, setShowQuote2] = useState(false)
-  const [keysPressed, setKeysPressed] = useState<string[]>([])
-  const [pressedKeys1, setPressedKeys1] = useState<{ [key: string]: boolean }>({})
-  const [pressedKeys2, setPressedKeys2] = useState<{ [key: string]: boolean }>({})
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [showQuote1, setShowQuote1] = useState(false);
+  const [showQuote2, setShowQuote2] = useState(false);
+  const [keysPressed, setKeysPressed] = useState<string[]>([]);
+  const [pressedKeys1, setPressedKeys1] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+  const [pressedKeys2, setPressedKeys2] = useState<{ [key: string]: boolean }>(
+    {}
+  );
 
   // Konami Code: up, up, down, down, left, right, left, right, b, a
   const konamiCode1 = [
@@ -23,7 +27,7 @@ export function KonamiCode() {
     "ArrowRight",
     "b",
     "a",
-  ]
+  ];
   // Second code: down, down, up, up, right, left, right, left, a, b
   const konamiCode2 = [
     "ArrowDown",
@@ -36,69 +40,81 @@ export function KonamiCode() {
     "ArrowLeft",
     "a",
     "b",
-  ]
+  ];
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Show instructions when Shift+K is pressed
       if (e.shiftKey && e.key.toLowerCase() === "k") {
-        setShowInstructions(true)
-        return
+        setShowInstructions(true);
+        return;
       }
 
       // Hide instructions when Escape is pressed
       if (e.key === "Escape") {
-        setShowInstructions(false)
-        setShowQuote1(false)
-        setShowQuote2(false)
-        return
+        setShowInstructions(false);
+        setShowQuote1(false);
+        setShowQuote2(false);
+        return;
       }
 
       // Track keys for Konami code
-      const newKeysPressed = [...keysPressed, e.key]
+      const newKeysPressed = [...keysPressed, e.key];
       if (newKeysPressed.length > 10) {
-        newKeysPressed.shift()
+        newKeysPressed.shift();
       }
-      setKeysPressed(newKeysPressed)
+      setKeysPressed(newKeysPressed);
 
-      // Check for first Konami code
-      const isKonami1 = konamiCode1.every((key, index) => {
-        return newKeysPressed[newKeysPressed.length - konamiCode1.length + index] === key
-      })
+      // Check for first Konami code - only when we have enough keys
+      const isKonami1 =
+        newKeysPressed.length >= konamiCode1.length &&
+        konamiCode1.every((key, index) => {
+          return (
+            newKeysPressed[
+              newKeysPressed.length - konamiCode1.length + index
+            ] === key
+          );
+        });
 
-      // Check for second Konami code
-      const isKonami2 = konamiCode2.every((key, index) => {
-        return newKeysPressed[newKeysPressed.length - konamiCode2.length + index] === key
-      })
+      // Check for second Konami code - only when we have enough keys
+      const isKonami2 =
+        newKeysPressed.length >= konamiCode2.length &&
+        konamiCode2.every((key, index) => {
+          return (
+            newKeysPressed[
+              newKeysPressed.length - konamiCode2.length + index
+            ] === key
+          );
+        });
 
       // Update pressed keys for visualization
       if (konamiCode1.includes(e.key)) {
-        setPressedKeys1((prev) => ({ ...prev, [e.key]: true }))
+        setPressedKeys1((prev) => ({ ...prev, [e.key]: true }));
       }
 
       if (konamiCode2.includes(e.key)) {
-        setPressedKeys2((prev) => ({ ...prev, [e.key]: true }))
+        setPressedKeys2((prev) => ({ ...prev, [e.key]: true }));
       }
 
       // Show quotes if Konami code is entered
       if (isKonami1) {
-        setShowQuote1(true)
-        setTimeout(() => setShowQuote1(false), 5000)
-        setPressedKeys1({})
+        setShowQuote1(true);
+        setTimeout(() => setShowQuote1(false), 5000);
+        setPressedKeys1({});
       }
 
       if (isKonami2) {
-        setShowQuote2(true)
-        setTimeout(() => setShowQuote2(false), 5000)
-        setPressedKeys2({})
+        setShowQuote2(true);
+        setTimeout(() => setShowQuote2(false), 5000);
+        setPressedKeys2({});
       }
-    }
+    };
 
-    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown)
-    }
-  }, [keysPressed])
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [keysPressed]);
 
   return (
     <>
@@ -113,7 +129,9 @@ export function KonamiCode() {
               ✕
             </button>
             <h3 className="text-xl font-bold">Secret Konami Codes</h3>
-            <p className="mt-2 text-muted-foreground">Press these key sequences to reveal hidden quotes:</p>
+            <p className="mt-2 text-muted-foreground">
+              Press these key sequences to reveal hidden quotes:
+            </p>
 
             <div className="mt-6 space-y-6">
               <div>
@@ -196,9 +214,10 @@ export function KonamiCode() {
 
       {/* Hint for Konami code */}
       <div className="fixed bottom-4 right-4 z-40 text-xs text-muted-foreground opacity-50 hover:opacity-100">
-        <button onClick={() => setShowInstructions(true)}>Press Shift+K for secret codes</button>
+        <button onClick={() => setShowInstructions(true)}>
+          Press Shift+K for secret codes
+        </button>
       </div>
     </>
-  )
+  );
 }
-

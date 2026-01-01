@@ -5,8 +5,9 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function CustomCursor() {
   const [isPointer, setIsPointer] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isClicking, setIsClicking] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -16,9 +17,12 @@ export function CustomCursor() {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    setHasMounted(true);
+
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
+      setIsVisible(true);
     };
 
     const handleMouseEnter = () => setIsVisible(true);
@@ -58,7 +62,11 @@ export function CustomCursor() {
     };
   }, [cursorX, cursorY]);
 
-  // Don't render on touch devices
+  // Don't render on touch devices or before mount
+  if (!hasMounted) {
+    return null;
+  }
+
   if (typeof window !== "undefined" && "ontouchstart" in window) {
     return null;
   }

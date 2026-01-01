@@ -430,7 +430,7 @@ export default function AboutMe() {
                 {
                   title: "Technical Core",
                   company: "Mozilla Firefox Club, VIT Vellore",
-                  period: "Dec 2024 - Present",
+                  period: "March 2025 - Present",
                   description:
                     "Contributing to technical projects and initiatives at the Mozilla Firefox Club, promoting open-source technologies and collaborative development among students.",
                   skills: [

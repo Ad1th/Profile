@@ -74,14 +74,14 @@ export function AdvancedCursor() {
     <>
       {/* Main cursor dot */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
         }}
       >
         <motion.div
-          className="w-3 h-3 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"
+          className="w-3 h-3 bg-purple-500 rounded-full -translate-x-1/2 -translate-y-1/2"
           animate={{
             scale: isClicking ? 0.6 : isPointer ? 0.6 : 1,
             opacity: isVisible ? 1 : 0,
@@ -99,14 +99,14 @@ export function AdvancedCursor() {
         }}
       >
         <motion.div
-          className="rounded-full border border-purple-500/50 -translate-x-1/2 -translate-y-1/2"
+          className="rounded-full border-2 border-purple-500/60 -translate-x-1/2 -translate-y-1/2"
           animate={{
-            width: isPointer ? 48 : 32,
-            height: isPointer ? 48 : 32,
-            opacity: isVisible ? (isPointer ? 0.8 : 0.4) : 0,
+            width: isPointer ? 56 : 40,
+            height: isPointer ? 56 : 40,
+            opacity: isVisible ? (isPointer ? 1 : 0.6) : 0,
             borderColor: isClicking
-              ? "rgba(139, 92, 246, 0.8)"
-              : "rgba(139, 92, 246, 0.5)",
+              ? "rgba(139, 92, 246, 1)"
+              : "rgba(139, 92, 246, 0.6)",
           }}
           transition={{ duration: 0.2 }}
         />

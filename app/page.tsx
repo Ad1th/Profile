@@ -57,6 +57,9 @@ export default function AboutMe() {
   >([]);
   // Function to handle scroll animations
   useEffect(() => {
+    // Scroll to top on page load/reload
+    window.scrollTo(0, 0);
+    
     setBlobs(
       Array.from({ length: 20 }).map(() => ({
         width: Math.random() * 300 + 50,
@@ -256,7 +259,7 @@ export default function AboutMe() {
                         <TextScramble
                           text="Adith Manikonda"
                           scrambleSpeed={30}
-                          revealDelay={500}
+                          revealDelay={800}
                         />
                       </span>
                     </motion.h1>

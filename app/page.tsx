@@ -15,14 +15,10 @@ import Link from "next/link";
 import { MobileNav } from "@/components/mobile-nav";
 import { Timeline } from "@/components/timeline";
 import { KonamiCode } from "@/components/konami-code";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function AboutMe() {
   const [scrollY, setScrollY] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
-  const skillsScrollRef = useRef<HTMLDivElement>(null);
-  const skillsInnerRef = useRef<HTMLDivElement>(null);
 
   const [blobs, setBlobs] = useState<
     {
@@ -71,39 +67,9 @@ export default function AboutMe() {
     const animatedElements = document.querySelectorAll(".animate-on-scroll");
     animatedElements.forEach((el) => observer.observe(el));
 
-    gsap.registerPlugin(ScrollTrigger);
-    const outer = skillsScrollRef.current;
-    const inner = skillsInnerRef.current;
-    if (outer && inner) {
-      const panels = inner.querySelectorAll(".horiscroll");
-      const numPanels = panels.length;
-      const panelWidth = outer.offsetWidth;
-
-      // Set each panel to be the width of the container
-      panels.forEach((panel) => {
-        (panel as HTMLElement).style.minWidth = `${panelWidth}px`;
-        (panel as HTMLElement).style.maxWidth = `${panelWidth}px`;
-      });
-
-      gsap.to(inner, {
-        x: () => `-${panelWidth * (numPanels - 1)}px`,
-        ease: "none",
-        scrollTrigger: {
-          trigger: outer,
-          start: "top top",
-          end: () => `+=${panelWidth * (numPanels - 1)}`,
-          scrub: true,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-    }
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       animatedElements.forEach((el) => observer.unobserve(el));
-      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
@@ -135,14 +101,12 @@ export default function AboutMe() {
             >
               About
             </Link>
-
-            {/* <Link
+            <Link
               href="#experience"
               className="text-sm font-medium hover:text-purple-500 transition-colors"
             >
               Experience
-            </Link> */}
-
+            </Link>
             <Link
               href="#skills"
               className="text-sm font-medium hover:text-purple-500 transition-colors"
@@ -342,8 +306,6 @@ export default function AboutMe() {
       </section>
 
       {/* Experience Section */}
-      <div>
-        {/* Experience Section
       <section
         id="experience"
         className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32"
@@ -355,276 +317,244 @@ export default function AboutMe() {
           >
             Experience
           </h2>
-          <div className="mt-16 space-y-16">
+          <div className="mt-16 space-y-12">
             {[
               {
-                title: "Senior Frontend Developer",
-                company: "Tech Innovations Inc.",
-                period: "2021 - Present",
+                title: "Technical Team Member",
+                company: "Linux Club, VIT Vellore",
+                period: "Dec 2024 - Present",
                 description:
-                  "Leading the frontend development team in building responsive and accessible web applications. Implementing modern frontend technologies and best practices.",
+                  "Contributing to technical projects and initiatives at the Linux Club, promoting open-source technologies and collaborative development among students.",
+                skills: ["Linux", "Open Source", "Technical Projects"],
               },
               {
-                title: "Full Stack Developer",
-                company: "Digital Solutions Ltd.",
-                period: "2018 - 2021",
+                title: "Technical Team Member",
+                company: "ACM-W VIT",
+                period: "Oct 2024 - Present",
                 description:
-                  "Developed and maintained full-stack applications using React, Node.js, and MongoDB. Collaborated with designers and product managers to deliver high-quality software.",
-              },
-              {
-                title: "Junior Web Developer",
-                company: "Creative Web Agency",
-                period: "2016 - 2018",
-                description:
-                  "Built responsive websites and web applications for various clients. Worked with HTML, CSS, JavaScript, and PHP.",
+                  "Active member of ACM-W VIT chapter, participating in technical events, workshops, and hackathons focused on advancing computing and technology.",
+                skills: ["Technical Events", "Workshops", "Community Building"],
               },
             ].map((job, index) => (
               <div
                 key={index}
-                className="grid md:grid-cols-[200px_1fr] gap-8 animate-on-scroll"
-                data-animation="fade-right"
+                className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 animate-on-scroll"
+                data-animation="fade-up"
                 data-delay={index * 100}
               >
-                <div className="space-y-1">
-                  <div className="inline-flex items-center px-3 py-1 text-sm rounded-full bg-purple-500/10 text-purple-600">
-                    {job.period}
-                  </div>
-                  <h3 className="text-xl font-bold">{job.company}</h3>
-                </div>
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold">{job.title}</h3>
-                  <p className="text-muted-foreground">{job.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {["React", "TypeScript", "Node.js", "MongoDB", "AWS"].map(
-                      (tech) => (
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-bold">{job.title}</h3>
+                    <p className="text-lg text-purple-500">{job.company}</p>
+                    <p className="text-muted-foreground">{job.description}</p>
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {job.skills.map((tech) => (
                         <span
                           key={tech}
                           className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600"
                         >
                           {tech}
                         </span>
-                      )
-                    )}
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <span className="inline-flex items-center px-3 py-1 text-sm rounded-full bg-purple-500/10 text-purple-600">
+                      {job.period}
+                    </span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </section> */}
-      </div>
+      </section>
 
       {/* Skills Section */}
-      <section id="skills" className="pt-32 pb-0 md:pt-40 md:pb-0">
-        <section id="horizontal">
-          <div
-            ref={skillsScrollRef}
-            className="skills-scroll"
-            style={{
-              position: "relative",
-              overflow: "hidden",
-              width: "100vw",
-              height: "100vh",
-            }}
+      <section id="skills" className="py-20 md:py-32">
+        <div className="container px-4 md:px-6">
+          <h2
+            className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 animate-on-scroll"
+            data-animation="fade-up"
           >
+            Skills
+          </h2>
+          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {/* Programming Languages */}
             <div
-              ref={skillsInnerRef}
-              className="skills-scroll-inner"
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                width: "10%",
-                height: "50%",
-              }}
+              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay="0"
             >
-              <div className="horiscroll">
-                <h2
-                  className="text-6xl md:text-8xl font-extrabold tracking-tighter text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600"
-                  style={{
-                    width: "100%",
-                    margin: 0,
-                    paddingTop: "40vh", // Match CSS for top gap
-                    paddingBottom: "0", // Remove bottom gap
-                    alignSelf: "flex-start",
-                  }}
-                >
-                  Skills
-                </h2>
-              </div>
-              <div className="horiscroll">
-                <div
-                  className="mt-10 rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-7 animate-on-scroll"
-                  data-animation="fade-up"
-                  data-delay="20"
-                  style={{
-                    width: "120%",
-                    paddingTop: "0vh",
-                    alignSelf: "flex-start",
-                  }}
-                >
-                  <h3 className="text-xl font-bold">
-                    <br></br>
-                  </h3>
-                  <h3 className="text-xl font-bold">
-                    <br></br>
-                  </h3>
-
-                  <div
-                    className="mt-6 grid grid-cols-1 gap-5"
-                    style={{
-                      width: "70%",
-                      alignSelf: "flex-start",
-                    }}
+              <h3 className="text-xl font-bold text-purple-500 mb-4">
+                Programming Languages
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Python",
+                  "Java",
+                  "C",
+                  "C++",
+                  "JavaScript",
+                  "TypeScript",
+                  "SQL",
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
                   >
-                    <div className="mt-6 grid grid-cols-1 gap-5">
-                      {["Software Development & Engineering"].map((skillh1) => (
-                        <div
-                          key={skillh1}
-                          className="text-3xl font-bold flex items-center space-x-2"
-                        >
-                          {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
-                          <span>{skillh1}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <ul className="mt-6 space-y-3 w-[70%] pr-8">
-                      {[
-                        "Python",
-                        "Java",
-                        "C, C++ Basics",
-                        "HTML, CSS, Tailwind CSS",
-                        "JavaScript, Express js",
-                        "SQL, DBMS",
-                        "API Development (Fast API, Gemini API)",
-                        "Web Hosting",
-                        "Git/GitHub",
-                        "Chrome Extension Development",
-                      ].map((skill1) => (
-                        <li
-                          key={skill1}
-                          className="text-xl flex items-center space-x-2"
-                          role="listitem"
-                        >
-                          <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                          <span>{skill1}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+                    {skill}
+                  </span>
+                ))}
               </div>
+            </div>
 
-              <div className="horiscroll">
-                <div
-                  className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-7 animate-on-scroll"
-                  data-animation="fade-up"
-                  data-delay="100"
-                  style={{ width: "100%" }}
-                >
-                  <h3 className="text-xl font-bold">
-                    <br></br>
-                  </h3>
-                  <h3 className="text-xl font-bold">
-                    <br></br>
-                  </h3>
-
-                  <div className="mt-6 grid grid-cols-1 gap-5">
-                    {["AI, Robotics & Emerging Tech"].map((skillh2) => (
-                      <div
-                        key={skillh2}
-                        className="text-3xl font-bold flex items-center space-x-2"
-                      >
-                        {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
-                        <span>{skillh2}</span>
-                      </div>
-                    ))}
-                    {[
-                      "AI Builder",
-                      "Low Code Development",
-                      "Research",
-                      "Robotics",
-                      "Arduino",
-                      "Mindstorms EV3",
-                      "Automation",
-                      "AI Integration in Web Apps",
-                      "Task Automation",
-                      "UI/UX Basics",
-                    ].map((skill2) => (
-                      <div
-                        key={skill2}
-                        className=" text-xl flex items-center space-x-2"
-                      >
-                        <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                        <span>{skill2}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            {/* Frameworks & Libraries */}
+            <div
+              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay="100"
+            >
+              <h3 className="text-xl font-bold text-purple-500 mb-4">
+                Frameworks & Libraries
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "React",
+                  "Next.js",
+                  "Node.js",
+                  "Express.js",
+                  "FastAPI",
+                  "Tailwind CSS",
+                  "GSAP",
+                  "Prisma",
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
+                  >
+                    {skill}
+                  </span>
+                ))}
               </div>
+            </div>
 
-              <div className="horiscroll">
-                <div
-                  className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-7 animate-on-scroll"
-                  data-animation="fade-up"
-                  data-delay="20"
-                >
-                  <h3 className="text-xl font-bold">
-                    <br></br>
-                  </h3>
-                  <h3 className="text-xl font-bold">
-                    <br></br>
-                  </h3>
-                  <div className="mt-6 grid grid-cols-1 gap-5">
-                    {[
-                      "Creativity & Personal Interests",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                    ]
-                      .filter((skillh3) => skillh3 !== "")
-                      .map((skillh3) => (
-                        <div
-                          key={skillh3}
-                          className="text-3xl font-bold flex items-center space-x-2"
-                        >
-                          {/* <div className="h-2 w-2 rounded-full bg-purple-500"></div> */}
-                          <span>{skillh3}</span>
-                        </div>
-                      ))}
-                    <ul className="mt-6 space-y-3 w-[50%] pr-3">
-                      {[
-                        "Audio Editing Basics",
-                        "Photo Editing Basics",
-                        "Video Editing Basics",
-                        "Electronics and Soldering",
-                        "Cycling",
-                        "Gardening",
-                        "Cubing",
-                        "PC Building",
-                        "Basic UI/UX Design (Figma, Canva)",
-                      ].map((skill3) => (
-                        <li
-                          key={skill3}
-                          className="text-xl flex items-center space-x-2"
-                          role="listitem"
-                        >
-                          <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                          <span>{skill3}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+            {/* Databases & Backend */}
+            <div
+              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay="200"
+            >
+              <h3 className="text-xl font-bold text-purple-500 mb-4">
+                Databases & Backend
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "PostgreSQL",
+                  "MySQL",
+                  "SQLite",
+                  "Supabase",
+                  "MongoDB",
+                  "REST APIs",
+                  "Gemini API",
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Tools & Platforms */}
+            <div
+              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay="300"
+            >
+              <h3 className="text-xl font-bold text-purple-500 mb-4">
+                Tools & Platforms
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Git/GitHub",
+                  "VS Code",
+                  "Vercel",
+                  "Netlify",
+                  "Linux",
+                  "Chrome Extensions",
+                  "Figma",
+                  "Canva",
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* AI & Emerging Tech */}
+            <div
+              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay="400"
+            >
+              <h3 className="text-xl font-bold text-purple-500 mb-4">
+                AI & Emerging Tech
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Machine Learning",
+                  "AI Integration",
+                  "Gemini API",
+                  "AI Builder",
+                  "Low Code Development",
+                  "Automation",
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Hardware & Robotics */}
+            <div
+              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
+              data-animation="fade-up"
+              data-delay="500"
+            >
+              <h3 className="text-xl font-bold text-purple-500 mb-4">
+                Hardware & Robotics
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Arduino",
+                  "Raspberry Pi",
+                  "Mindstorms EV3",
+                  "Electronics",
+                  "Soldering",
+                  "PC Building",
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
+                  >
+                    {skill}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </section>
 
       {/* Languages Section */}

@@ -16,16 +16,16 @@ export function Reveal({
   className = "",
   delay = 0,
   direction = "up",
-  duration = 0.5,
+  duration = 0.4,
 }: RevealProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -50px 0px" });
 
   const directions = {
-    up: { y: 75, x: 0 },
-    down: { y: -75, x: 0 },
-    left: { y: 0, x: 75 },
-    right: { y: 0, x: -75 },
+    up: { y: 30, x: 0 },
+    down: { y: -30, x: 0 },
+    left: { y: 0, x: 30 },
+    right: { y: 0, x: -30 },
   };
 
   return (
@@ -42,7 +42,7 @@ export function Reveal({
         }}
         transition={{
           duration,
-          delay,
+          delay: Math.min(delay, 0.3),
           ease: [0.25, 0.4, 0.25, 1],
         }}
       >

@@ -797,7 +797,6 @@ export default function AboutMe() {
                   <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600">
                     SQL/ PostgreSQL
                   </span>
-                  <span className="inline-flex items-center rounded-md bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-600"></span>
                 </div>
                 <div className="mt-6 flex items-center justify-between">
                   {/* <Link

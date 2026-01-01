@@ -25,7 +25,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       const anchor = target.closest('a[href^="#"]');
       if (anchor) {
         const href = anchor.getAttribute("href");
-        if (href && href.startsWith("#")) {
+        if (href && href.startsWith("#") && href.length > 1) {
           e.preventDefault();
           const element = document.querySelector(href);
           if (element) {

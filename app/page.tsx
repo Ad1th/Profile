@@ -144,7 +144,7 @@ export default function AboutMe() {
 
         {/* Konami Code Easter Eggs */}
         <KonamiCode />
-        
+
         {/* Disable Dev Tools */}
         <DisableDevTools />
 
@@ -663,7 +663,112 @@ export default function AboutMe() {
             </Reveal>
 
             <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Project 1 */}
+              {/* Project 1 - BlindSpot */}
+              <Reveal delay={0.1}>
+                <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                  <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-purple-900/30 to-indigo-900/30 flex items-center justify-center">
+                    <span className="text-4xl">👁️</span>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold">BlindSpot</h3>
+                    <p className="mt-2 text-muted-foreground text-sm">
+                      Led edge integration & deployment of a spatio-temporal
+                      assistive device for the visually impaired. Deployed
+                      YOLOv8-seg and CNN-LSTM models on Raspberry Pi 5 for
+                      real-time object detection and motion classification with
+                      LLM-powered audio narration.
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {[
+                        "Raspberry Pi",
+                        "YOLOv8",
+                        "CNN-LSTM",
+                        "Edge AI",
+                        "Python",
+                      ].map((tech) => (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </SpotlightCard>
+              </Reveal>
+              {/* Project 2 - Point Wave Energy */}
+              <Reveal delay={0.2}>
+                <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                  <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-blue-900/30 to-cyan-900/30 flex items-center justify-center">
+                    <span className="text-4xl">🌊</span>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold">
+                      Point Wave Energy Harvester
+                    </h3>
+                    <p className="mt-2 text-muted-foreground text-sm">
+                      Designed power conditioning circuitry for buoy-based wave
+                      energy harvesting. Built full-wave rectifier, DC-DC boost
+                      converter with Op-AMP 741 ICs, and implemented MPPT
+                      algorithm with IoT telemetry via ESP8266 & ThingSpeak
+                      dashboard.
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {[
+                        "Op-AMP 741",
+                        "Boost Converter",
+                        "Arduino",
+                        "ESP8266",
+                        "MPPT",
+                      ].map((tech) => (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </SpotlightCard>
+              </Reveal>
+              {/* Project 3 - OWC Wave Energy */}
+              <Reveal delay={0.3}>
+                <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                  <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-teal-900/30 to-blue-900/30 flex items-center justify-center">
+                    <span className="text-4xl">💨</span>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold">
+                      OWC Wave Energy Harvester
+                    </h3>
+                    <p className="mt-2 text-muted-foreground text-sm">
+                      Adapted point-source oscillator circuitry for Oscillating
+                      Water Column energy harvesting. Modified power
+                      conditioning stages with ACS712 current sensors and
+                      voltage dividers for air-pressure-driven turbine output
+                      regulation.
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {[
+                        "ACS712",
+                        "Voltage Dividers",
+                        "Power Electronics",
+                        "Signal Conditioning",
+                      ].map((tech) => (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </SpotlightCard>
+              </Reveal>
+              {/* Project 4 - Cloudify */}
               <Reveal delay={0.1}>
                 <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                   <div className="aspect-video w-full overflow-hidden">
@@ -696,16 +801,16 @@ export default function AboutMe() {
                   </div>
                 </SpotlightCard>
               </Reveal>
-              {/* Project 2 */}
+              {/* Project 5 - Threddit */}
               <Reveal delay={0.2}>
                 <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
-                  <div className="aspect-video w-full overflow-hidden">
+                  <div className="aspect-video w-full overflow-hidden bg-black/20 flex items-center justify-center">
                     <Image
                       src="/threddit.png"
                       alt="Threddit"
                       width={500}
                       height={300}
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="object-contain h-full w-full transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
                   <div className="p-6">
@@ -735,7 +840,7 @@ export default function AboutMe() {
                   </div>
                 </SpotlightCard>
               </Reveal>
-              {/* Project 3 */}
+              {/* Project 6 - HOSPITECH */}
               <Reveal delay={0.3}>
                 <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                   <div className="aspect-video w-full overflow-hidden">
@@ -768,8 +873,8 @@ export default function AboutMe() {
                   </div>
                 </SpotlightCard>
               </Reveal>
-              {/* Project 4 */}
-              <Reveal delay={0.4}>
+              {/* Project 7 - EchoChamber */}
+              <Reveal delay={0.1}>
                 <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                   <div className="aspect-video w-full overflow-hidden">
                     <Image
@@ -803,8 +908,8 @@ export default function AboutMe() {
                   </div>
                 </SpotlightCard>
               </Reveal>
-              {/* Project 5 */}
-              <Reveal delay={0.5}>
+              {/* Project 8 - Snek */}
+              <Reveal delay={0.2}>
                 <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                   <div className="aspect-video w-full overflow-hidden">
                     <Image
@@ -836,8 +941,8 @@ export default function AboutMe() {
                   </div>
                 </SpotlightCard>
               </Reveal>
-              {/* Project 6 */}
-              <Reveal delay={0.6}>
+              {/* Project 9 - Portfolio */}
+              <Reveal delay={0.3}>
                 <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                   <div className="aspect-video w-full overflow-hidden">
                     <Image
@@ -873,9 +978,8 @@ export default function AboutMe() {
                   </div>
                 </SpotlightCard>
               </Reveal>
-
-              {/* Project 7 */}
-              <Reveal delay={0.7}>
+              {/* Project 10 - EcoSync */}
+              <Reveal delay={0.1}>
                 <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                   <div className="aspect-video w-full overflow-hidden">
                     <Image
@@ -907,8 +1011,8 @@ export default function AboutMe() {
                   </div>
                 </SpotlightCard>
               </Reveal>
-              {/* Project 8 */}
-              <Reveal delay={0.8}>
+              {/* Project 11 - SevaVerse */}
+              <Reveal delay={0.2}>
                 <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                   <div className="aspect-video w-full overflow-hidden">
                     <Image

@@ -445,165 +445,95 @@ export default function AboutMe() {
                 </h2>
               </div>
 
-              {/* Programming Languages */}
+              {/* Software Development & Engineering */}
               <div className="horiscroll flex items-center justify-center p-8">
-                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
-                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
-                    Programming Languages
+                <div className="rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 w-[90%] max-w-2xl">
+                  <h3 className="text-3xl font-bold mb-8">
+                    Software Development & Engineering
                   </h3>
-                  <div className="flex flex-wrap gap-3">
+                  <ul className="space-y-4">
                     {[
                       "Python",
                       "Java",
-                      "C",
-                      "C++",
-                      "JavaScript",
-                      "TypeScript",
-                      "SQL",
-                    ].map((skill) => (
-                      <span
-                        key={skill}
-                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Frameworks & Libraries */}
-              <div className="horiscroll flex items-center justify-center p-8">
-                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
-                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
-                    Frameworks & Libraries
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {[
-                      "React",
-                      "Next.js",
-                      "Node.js",
-                      "Express.js",
-                      "FastAPI",
-                      "Tailwind CSS",
-                      "GSAP",
-                      "Prisma",
-                    ].map((skill) => (
-                      <span
-                        key={skill}
-                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Databases & Backend */}
-              <div className="horiscroll flex items-center justify-center p-8">
-                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
-                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
-                    Databases & Backend
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {[
-                      "PostgreSQL",
-                      "MySQL",
-                      "SQLite",
-                      "Supabase",
-                      "MongoDB",
-                      "REST APIs",
-                      "Gemini API",
-                    ].map((skill) => (
-                      <span
-                        key={skill}
-                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Tools & Platforms */}
-              <div className="horiscroll flex items-center justify-center p-8">
-                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
-                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
-                    Tools & Platforms
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {[
+                      "C, C++ Basics",
+                      "HTML, CSS, Tailwind CSS",
+                      "JavaScript, Express js",
+                      "SQL, DBMS",
+                      "API Development (Fast API, Gemini API)",
+                      "Web Hosting",
                       "Git/GitHub",
-                      "VS Code",
-                      "Vercel",
-                      "Netlify",
-                      "Linux",
-                      "Chrome Extensions",
-                      "Figma",
-                      "Canva",
+                      "Chrome Extension Development",
                     ].map((skill) => (
-                      <span
+                      <li
                         key={skill}
-                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
+                        className="text-xl flex items-center space-x-3"
                       >
-                        {skill}
-                      </span>
+                        <div className="h-2.5 w-2.5 rounded-full bg-purple-500 flex-shrink-0"></div>
+                        <span>{skill}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               </div>
 
-              {/* AI & Emerging Tech */}
+              {/* AI, Robotics & Emerging Tech */}
               <div className="horiscroll flex items-center justify-center p-8">
-                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
-                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
-                    AI & Emerging Tech
+                <div className="rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 w-[90%] max-w-2xl">
+                  <h3 className="text-3xl font-bold mb-8">
+                    AI, Robotics & Emerging Tech
                   </h3>
-                  <div className="flex flex-wrap gap-3">
+                  <ul className="space-y-4">
                     {[
-                      "Machine Learning",
-                      "AI Integration",
-                      "Gemini API",
                       "AI Builder",
                       "Low Code Development",
+                      "Research",
+                      "Robotics",
+                      "Arduino",
+                      "Mindstorms EV3",
                       "Automation",
+                      "AI Integration in Web Apps",
+                      "Task Automation",
+                      "UI/UX Basics",
                     ].map((skill) => (
-                      <span
+                      <li
                         key={skill}
-                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
+                        className="text-xl flex items-center space-x-3"
                       >
-                        {skill}
-                      </span>
+                        <div className="h-2.5 w-2.5 rounded-full bg-purple-500 flex-shrink-0"></div>
+                        <span>{skill}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               </div>
 
-              {/* Hardware & Robotics */}
+              {/* Creativity & Personal Interests */}
               <div className="horiscroll flex items-center justify-center p-8">
-                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
-                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
-                    Hardware & Robotics
+                <div className="rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 w-[90%] max-w-2xl">
+                  <h3 className="text-3xl font-bold mb-8">
+                    Creativity & Personal Interests
                   </h3>
-                  <div className="flex flex-wrap gap-3">
+                  <ul className="space-y-4">
                     {[
-                      "Arduino",
-                      "Raspberry Pi",
-                      "Mindstorms EV3",
-                      "Electronics",
-                      "Soldering",
+                      "Audio Editing Basics",
+                      "Photo Editing Basics",
+                      "Video Editing Basics",
+                      "Electronics and Soldering",
+                      "Cycling",
+                      "Gardening",
+                      "Cubing",
                       "PC Building",
+                      "Basic UI/UX Design (Figma, Canva)",
                     ].map((skill) => (
-                      <span
+                      <li
                         key={skill}
-                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
+                        className="text-xl flex items-center space-x-3"
                       >
-                        {skill}
-                      </span>
+                        <div className="h-2.5 w-2.5 rounded-full bg-purple-500 flex-shrink-0"></div>
+                        <span>{skill}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               </div>
             </div>

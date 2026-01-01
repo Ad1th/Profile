@@ -1131,6 +1131,12 @@ export default function AboutMe() {
                     "Achieved second place in a competitive PC building event, hosted by NPS HSR.",
                 },
                 {
+                  title: "OCI Foundations Certification",
+                  year: "2025",
+                  description:
+                    "Obtained the Oracle Cloud Infrastructure (OCI) Foundations certification, demonstrating foundational knowledge of OCI services and cloud concepts.",
+                },
+                {
                   title: "Python Certification",
                   year: "2025",
                   description:

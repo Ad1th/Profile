@@ -15,10 +15,14 @@ import Link from "next/link";
 import { MobileNav } from "@/components/mobile-nav";
 import { Timeline } from "@/components/timeline";
 import { KonamiCode } from "@/components/konami-code";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function AboutMe() {
   const [scrollY, setScrollY] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
+  const skillsScrollRef = useRef<HTMLDivElement>(null);
+  const skillsInnerRef = useRef<HTMLDivElement>(null);
 
   const [blobs, setBlobs] = useState<
     {
@@ -67,9 +71,39 @@ export default function AboutMe() {
     const animatedElements = document.querySelectorAll(".animate-on-scroll");
     animatedElements.forEach((el) => observer.observe(el));
 
+    gsap.registerPlugin(ScrollTrigger);
+    const outer = skillsScrollRef.current;
+    const inner = skillsInnerRef.current;
+    if (outer && inner) {
+      const panels = inner.querySelectorAll(".horiscroll");
+      const numPanels = panels.length;
+      const panelWidth = outer.offsetWidth;
+
+      // Set each panel to be the width of the container
+      panels.forEach((panel) => {
+        (panel as HTMLElement).style.minWidth = `${panelWidth}px`;
+        (panel as HTMLElement).style.maxWidth = `${panelWidth}px`;
+      });
+
+      gsap.to(inner, {
+        x: () => `-${panelWidth * (numPanels - 1)}px`,
+        ease: "none",
+        scrollTrigger: {
+          trigger: outer,
+          start: "top top",
+          end: () => `+=${panelWidth * (numPanels - 1)}`,
+          scrub: true,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+    }
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       animatedElements.forEach((el) => observer.unobserve(el));
+      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
@@ -381,190 +415,200 @@ export default function AboutMe() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 md:py-32">
-        <div className="container px-4 md:px-6">
-          <h2
-            className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 animate-on-scroll"
-            data-animation="fade-up"
+      <section id="skills" className="pt-32 pb-0 md:pt-40 md:pb-0">
+        <section id="horizontal">
+          <div
+            ref={skillsScrollRef}
+            className="skills-scroll"
+            style={{
+              position: "relative",
+              overflow: "hidden",
+              width: "100vw",
+              height: "100vh",
+            }}
           >
-            Skills
-          </h2>
-          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {/* Programming Languages */}
             <div
-              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
-              data-animation="fade-up"
-              data-delay="0"
+              ref={skillsInnerRef}
+              className="skills-scroll-inner"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "max-content",
+                height: "100%",
+                alignItems: "center",
+              }}
             >
-              <h3 className="text-xl font-bold text-purple-500 mb-4">
-                Programming Languages
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Python",
-                  "Java",
-                  "C",
-                  "C++",
-                  "JavaScript",
-                  "TypeScript",
-                  "SQL",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
-                  >
-                    {skill}
-                  </span>
-                ))}
+              {/* Title Panel */}
+              <div className="horiscroll flex items-center justify-center">
+                <h2 className="text-6xl md:text-8xl font-extrabold tracking-tighter text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
+                  Skills
+                </h2>
               </div>
-            </div>
 
-            {/* Frameworks & Libraries */}
-            <div
-              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
-              data-animation="fade-up"
-              data-delay="100"
-            >
-              <h3 className="text-xl font-bold text-purple-500 mb-4">
-                Frameworks & Libraries
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "React",
-                  "Next.js",
-                  "Node.js",
-                  "Express.js",
-                  "FastAPI",
-                  "Tailwind CSS",
-                  "GSAP",
-                  "Prisma",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
-                  >
-                    {skill}
-                  </span>
-                ))}
+              {/* Programming Languages */}
+              <div className="horiscroll flex items-center justify-center p-8">
+                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
+                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
+                    Programming Languages
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {[
+                      "Python",
+                      "Java",
+                      "C",
+                      "C++",
+                      "JavaScript",
+                      "TypeScript",
+                      "SQL",
+                    ].map((skill) => (
+                      <span
+                        key={skill}
+                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
 
-            {/* Databases & Backend */}
-            <div
-              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
-              data-animation="fade-up"
-              data-delay="200"
-            >
-              <h3 className="text-xl font-bold text-purple-500 mb-4">
-                Databases & Backend
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "PostgreSQL",
-                  "MySQL",
-                  "SQLite",
-                  "Supabase",
-                  "MongoDB",
-                  "REST APIs",
-                  "Gemini API",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
-                  >
-                    {skill}
-                  </span>
-                ))}
+              {/* Frameworks & Libraries */}
+              <div className="horiscroll flex items-center justify-center p-8">
+                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
+                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
+                    Frameworks & Libraries
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {[
+                      "React",
+                      "Next.js",
+                      "Node.js",
+                      "Express.js",
+                      "FastAPI",
+                      "Tailwind CSS",
+                      "GSAP",
+                      "Prisma",
+                    ].map((skill) => (
+                      <span
+                        key={skill}
+                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
 
-            {/* Tools & Platforms */}
-            <div
-              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
-              data-animation="fade-up"
-              data-delay="300"
-            >
-              <h3 className="text-xl font-bold text-purple-500 mb-4">
-                Tools & Platforms
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Git/GitHub",
-                  "VS Code",
-                  "Vercel",
-                  "Netlify",
-                  "Linux",
-                  "Chrome Extensions",
-                  "Figma",
-                  "Canva",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
-                  >
-                    {skill}
-                  </span>
-                ))}
+              {/* Databases & Backend */}
+              <div className="horiscroll flex items-center justify-center p-8">
+                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
+                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
+                    Databases & Backend
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {[
+                      "PostgreSQL",
+                      "MySQL",
+                      "SQLite",
+                      "Supabase",
+                      "MongoDB",
+                      "REST APIs",
+                      "Gemini API",
+                    ].map((skill) => (
+                      <span
+                        key={skill}
+                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
 
-            {/* AI & Emerging Tech */}
-            <div
-              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
-              data-animation="fade-up"
-              data-delay="400"
-            >
-              <h3 className="text-xl font-bold text-purple-500 mb-4">
-                AI & Emerging Tech
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Machine Learning",
-                  "AI Integration",
-                  "Gemini API",
-                  "AI Builder",
-                  "Low Code Development",
-                  "Automation",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
-                  >
-                    {skill}
-                  </span>
-                ))}
+              {/* Tools & Platforms */}
+              <div className="horiscroll flex items-center justify-center p-8">
+                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
+                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
+                    Tools & Platforms
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {[
+                      "Git/GitHub",
+                      "VS Code",
+                      "Vercel",
+                      "Netlify",
+                      "Linux",
+                      "Chrome Extensions",
+                      "Figma",
+                      "Canva",
+                    ].map((skill) => (
+                      <span
+                        key={skill}
+                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
 
-            {/* Hardware & Robotics */}
-            <div
-              className="rounded-lg border border-purple-500/20 bg-card p-6 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-1 animate-on-scroll"
-              data-animation="fade-up"
-              data-delay="500"
-            >
-              <h3 className="text-xl font-bold text-purple-500 mb-4">
-                Hardware & Robotics
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Arduino",
-                  "Raspberry Pi",
-                  "Mindstorms EV3",
-                  "Electronics",
-                  "Soldering",
-                  "PC Building",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="inline-flex items-center rounded-md bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-600"
-                  >
-                    {skill}
-                  </span>
-                ))}
+              {/* AI & Emerging Tech */}
+              <div className="horiscroll flex items-center justify-center p-8">
+                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
+                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
+                    AI & Emerging Tech
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {[
+                      "Machine Learning",
+                      "AI Integration",
+                      "Gemini API",
+                      "AI Builder",
+                      "Low Code Development",
+                      "Automation",
+                    ].map((skill) => (
+                      <span
+                        key={skill}
+                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Hardware & Robotics */}
+              <div className="horiscroll flex items-center justify-center p-8">
+                <div className="rounded-lg border border-purple-500/20 bg-card p-8 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 max-w-lg">
+                  <h3 className="text-2xl font-bold text-purple-500 mb-6">
+                    Hardware & Robotics
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {[
+                      "Arduino",
+                      "Raspberry Pi",
+                      "Mindstorms EV3",
+                      "Electronics",
+                      "Soldering",
+                      "PC Building",
+                    ].map((skill) => (
+                      <span
+                        key={skill}
+                        className="inline-flex items-center rounded-md bg-purple-500/10 px-4 py-2 text-lg font-medium text-purple-600"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </section>
 
       {/* Languages Section */}

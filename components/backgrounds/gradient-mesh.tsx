@@ -1,26 +1,45 @@
 "use client";
 
-// Simplified static gradient - no animations to reduce GPU load
+// Simplified static gradient with blue tinge for glassy feel
 export function GradientMesh() {
   return (
     <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
-      {/* Static gradient background */}
+      {/* Purple gradient orb - top left */}
       <div
         className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full opacity-30"
         style={{
           background:
-            "radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%)",
           filter: "blur(80px)",
           transform: "translate(-20%, -20%)",
         }}
       />
+      {/* Blue-violet gradient orb - center right */}
+      <div
+        className="absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full opacity-20"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(99, 155, 255, 0.2) 0%, transparent 70%)",
+          filter: "blur(100px)",
+          transform: "translate(30%, 0%)",
+        }}
+      />
+      {/* Indigo gradient orb - bottom */}
       <div
         className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full opacity-25"
         style={{
           background:
-            "radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(124, 102, 241, 0.2) 0%, transparent 70%)",
           filter: "blur(80px)",
           transform: "translate(20%, 20%)",
+        }}
+      />
+      {/* Subtle blue-purple tinge overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(99, 155, 255, 0.1) 0%, transparent 50%, rgba(139, 92, 246, 0.12) 100%)",
         }}
       />
     </div>

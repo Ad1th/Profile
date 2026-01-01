@@ -320,20 +320,30 @@ export default function AboutMe() {
           <div className="mt-16 space-y-12">
             {[
               {
-                title: "Technical Team Member",
-                company: "Linux Club, VIT Vellore",
-                period: "Dec 2024 - Present",
-                description:
-                  "Contributing to technical projects and initiatives at the Linux Club, promoting open-source technologies and collaborative development among students.",
-                skills: ["Linux", "Open Source", "Technical Projects"],
+                title: "Intern",
+                company: "IIT Hyderabad",
+                period: "Dec 2025 - present",
+                description: "",
+                skills: ["Databases", "", ""],
               },
               {
-                title: "Technical Team Member",
-                company: "ACM-W VIT",
-                period: "Oct 2024 - Present",
+                title: "Software Developer Intern",
+                company: "Matrix Capital",
+                period: "May 2025 - June 2025",
+                description: "",
+                skills: ["Web Development", "", ""],
+              },
+              {
+                title: "Technical Core",
+                company: "Mozilla Firefox Club, VIT Vellore",
+                period: "Dec 2024 - Present",
                 description:
-                  "Active member of ACM-W VIT chapter, participating in technical events, workshops, and hackathons focused on advancing computing and technology.",
-                skills: ["Technical Events", "Workshops", "Community Building"],
+                  "Contributing to technical projects and initiatives at the Mozilla Firefox Club, promoting open-source technologies and collaborative development among students.",
+                skills: [
+                  "Backend Development",
+                  "Open Source",
+                  "Technical Projects",
+                ],
               },
             ].map((job, index) => (
               <div

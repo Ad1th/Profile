@@ -59,7 +59,7 @@ export default function AboutMe() {
   useEffect(() => {
     // Scroll to top on page load/reload
     window.scrollTo(0, 0);
-    
+
     setBlobs(
       Array.from({ length: 20 }).map(() => ({
         width: Math.random() * 300 + 50,
@@ -688,6 +688,111 @@ export default function AboutMe() {
               </Reveal>
 
               <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {/* Coming Soon - Research & AI */}
+                <Reveal delay={0.02}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-dashed border-purple-500/30 bg-card/30 backdrop-blur-sm h-full transition-all hover:border-purple-500/50">
+                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-emerald-900/20 to-cyan-900/20 flex items-center justify-center">
+                      <span className="text-4xl opacity-60">📚</span>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-xl font-bold text-muted-foreground/80">
+                          Coming Soon
+                        </h3>
+                        <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-2 py-0.5 text-xs font-medium text-emerald-400 border border-emerald-500/30 animate-pulse">
+                          70% Complete
+                        </span>
+                      </div>
+                      <p className="mt-2 text-muted-foreground/60 text-sm">
+                        A research-grade system exploring the intersection of
+                        NLP, document analysis, and trust verification in
+                        academic content. Fighting misinformation, one citation
+                        at a time.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {["ML/NLP", "Research Integrity", "Python"].map(
+                          (tech) => (
+                            <span
+                              key={tech}
+                              className="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400/70 border border-emerald-500/20"
+                            >
+                              {tech}
+                            </span>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+                {/* Coming Soon - Systems & Databases */}
+                <Reveal delay={0.035}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-dashed border-purple-500/30 bg-card/30 backdrop-blur-sm h-full transition-all hover:border-purple-500/50">
+                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-amber-900/20 to-orange-900/20 flex items-center justify-center">
+                      <span className="text-4xl opacity-60">⚡</span>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-xl font-bold text-muted-foreground/80">
+                          Coming Soon
+                        </h3>
+                        <span className="inline-flex items-center rounded-full bg-amber-500/20 px-2 py-0.5 text-xs font-medium text-amber-400 border border-amber-500/30 animate-pulse">
+                          In Progress
+                        </span>
+                      </div>
+                      <p className="mt-2 text-muted-foreground/60 text-sm">
+                        Deep-diving into database internals and query
+                        optimization. A systems-focused project exploring
+                        execution plans, performance analysis, and optimizer
+                        behavior.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {["Systems", "Databases", "Performance"].map((tech) => (
+                          <span
+                            key={tech}
+                            className="inline-flex items-center rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-400/70 border border-amber-500/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+                {/* Project 0 - Scotland Yard */}
+                <Reveal delay={0.05}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-red-900/30 to-orange-900/30 flex items-center justify-center">
+                      <span className="text-4xl">🎮</span>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-xl font-bold">Scotland Yard</h3>
+                        <span className="inline-flex items-center rounded-full bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-400 border border-green-500/30">
+                          100+ Users
+                        </span>
+                      </div>
+                      <p className="mt-2 text-muted-foreground text-sm">
+                        Architected real-time multiplayer backend for a digital
+                        adaptation of Scotland Yard board game for Gravitas tech
+                        fest. Built 200-node graph-based map with multi-modal
+                        transport, supporting 6-team lobbies with turn-based
+                        asymmetric gameplay (1 fugitive vs 5 detectives).
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {["Node.js", "Express", "PostgreSQL", "Redis"].map(
+                          (tech) => (
+                            <span
+                              key={tech}
+                              className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                            >
+                              {tech}
+                            </span>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
                 {/* Project 1 - BlindSpot */}
                 <Reveal delay={0.1}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
@@ -725,8 +830,37 @@ export default function AboutMe() {
                 {/* Project 2 - Point Wave Energy */}
                 <Reveal delay={0.25}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
-                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-blue-900/30 to-cyan-900/30 flex items-center justify-center">
-                      <span className="text-4xl">🌊</span>
+                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-blue-900/30 to-cyan-900/30 relative">
+                      <div className="grid grid-cols-2 w-full h-full gap-0.5">
+                        {/* Left side - Full view */}
+                        <div className="relative overflow-hidden row-span-1">
+                          <Image
+                            src="/wave-energy-3.jpg"
+                            alt="Wave Harvester Full View"
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          />
+                        </div>
+                        {/* Right side - Circuits stacked */}
+                        <div className="flex flex-col gap-0.5 h-full">
+                          <div className="relative overflow-hidden flex-1">
+                            <Image
+                              src="/wave-energy-1.jpg"
+                              alt="Arduino UNO Controller"
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
+                          </div>
+                          <div className="relative overflow-hidden flex-1">
+                            <Image
+                              src="/wave-energy-2.jpg"
+                              alt="Power Conditioning Circuit"
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div className="p-6">
                       <h3 className="text-xl font-bold">

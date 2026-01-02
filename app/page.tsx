@@ -758,7 +758,7 @@ export default function AboutMe() {
                     </div>
                   </SpotlightCard>
                 </Reveal>
-                {/* Project 0 - Scotland Yard */}
+                {/* Scotland Yard */}
                 <Reveal delay={0.05}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                     <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-red-900/30 to-orange-900/30 flex items-center justify-center">
@@ -793,7 +793,7 @@ export default function AboutMe() {
                     </div>
                   </SpotlightCard>
                 </Reveal>
-                {/* Project 1 - BlindSpot */}
+                {/* BlindSpot */}
                 <Reveal delay={0.1}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                     <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-purple-900/30 to-indigo-900/30 flex items-center justify-center">
@@ -827,8 +827,43 @@ export default function AboutMe() {
                     </div>
                   </SpotlightCard>
                 </Reveal>
-                {/* Project 2 - Point Wave Energy */}
-                <Reveal delay={0.25}>
+                {/* OWC Wave Energy */}
+                <Reveal delay={0.15}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-teal-900/30 to-blue-900/30 flex items-center justify-center">
+                      <span className="text-4xl">🌊💨</span>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold">
+                        OWC Wave Energy Harvester
+                      </h3>
+                      <p className="mt-2 text-muted-foreground text-sm">
+                        Adapted point-source oscillator circuitry for
+                        Oscillating Water Column energy harvesting. Modified
+                        power conditioning stages with ACS712 current sensors
+                        and voltage dividers for air-pressure-driven turbine
+                        output regulation.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {[
+                          "ACS712",
+                          "Voltage Dividers",
+                          "Power Electronics",
+                          "Signal Conditioning",
+                        ].map((tech) => (
+                          <span
+                            key={tech}
+                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+                {/* Point Wave Energy */}
+                <Reveal delay={0.2}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                     <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-blue-900/30 to-cyan-900/30 relative">
                       <div className="grid grid-cols-2 w-full h-full gap-0.5">
@@ -892,43 +927,8 @@ export default function AboutMe() {
                     </div>
                   </SpotlightCard>
                 </Reveal>
-                {/* Project 3 - OWC Wave Energy */}
-                <Reveal delay={0.4}>
-                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
-                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-teal-900/30 to-blue-900/30 flex items-center justify-center">
-                      <span className="text-4xl">🌊💨</span>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold">
-                        OWC Wave Energy Harvester
-                      </h3>
-                      <p className="mt-2 text-muted-foreground text-sm">
-                        Adapted point-source oscillator circuitry for
-                        Oscillating Water Column energy harvesting. Modified
-                        power conditioning stages with ACS712 current sensors
-                        and voltage dividers for air-pressure-driven turbine
-                        output regulation.
-                      </p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {[
-                          "ACS712",
-                          "Voltage Dividers",
-                          "Power Electronics",
-                          "Signal Conditioning",
-                        ].map((tech) => (
-                          <span
-                            key={tech}
-                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Reveal>
-                {/* Project 4 - Cloudify */}
-                <Reveal delay={0.1}>
+                {/* Cloudify */}
+                <Reveal delay={0.25}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                     <div className="aspect-video w-full overflow-hidden">
                       <Image
@@ -960,8 +960,151 @@ export default function AboutMe() {
                     </div>
                   </SpotlightCard>
                 </Reveal>
-                {/* Project 5 - Threddit */}
-                <Reveal delay={0.25}>
+                {/* CropLink */}
+                <Reveal delay={0.3}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                    <div className="aspect-video w-full overflow-hidden">
+                      <Image
+                        src="/images.jpeg"
+                        alt="CropLink"
+                        width={500}
+                        height={300}
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold">CropLink</h3>
+                      <p className="mt-2 text-muted-foreground text-sm">
+                        Created CropLink, a Farm to labourer sms based
+                        application that enables direct communication between
+                        farmers and labourers. Also provides detailed crop data
+                        tailored to farms, soil type, climate.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {[
+                          "PostgreSQL/Supabase",
+                          "Gemini API",
+                          "Twilio SMS",
+                          "HTML/CSS/JS",
+                        ].map((tech) => (
+                          <span
+                            key={tech}
+                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+                {/* Portfolio Website */}
+                <Reveal delay={0.35}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                    <div className="aspect-video w-full overflow-hidden">
+                      <Image
+                        src="/profile.png"
+                        alt="Profile/Portfolio Website"
+                        width={500}
+                        height={300}
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold">
+                        Profile/Portfolio Website
+                      </h3>
+                      <p className="mt-2 text-muted-foreground text-sm">
+                        Designed and developed this portfolio site with Next.js
+                        and Tailwind CSS to showcase my projects, skills, and
+                        journey. Features responsive layouts, smooth animations,
+                        and a modern UI.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {["Next.js", "React", "Tailwind CSS", "GSAP"].map(
+                          (tech) => (
+                            <span
+                              key={tech}
+                              className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                            >
+                              {tech}
+                            </span>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+                {/* SevaVerse */}
+                <Reveal delay={0.4}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                    <div className="aspect-video w-full overflow-hidden">
+                      <Image
+                        src="/sevaverse.png"
+                        alt="SevaVerse"
+                        width={500}
+                        height={300}
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold">SevaVerse</h3>
+                      <p className="mt-2 text-muted-foreground text-sm">
+                        Developed SevaVerse, a platform connecting NGOs,
+                        volunteers, and donors to enhance child welfare with
+                        task management and dashboards. Used Node.js with Prisma
+                        and SQLite for backend.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {["Node.js", "Prisma + SQLite", "Tailwind CSS"].map(
+                          (tech) => (
+                            <span
+                              key={tech}
+                              className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                            >
+                              {tech}
+                            </span>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+                {/* EcoSync */}
+                <Reveal delay={0.45}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                    <div className="aspect-video w-full overflow-hidden">
+                      <Image
+                        src="/EcoSync.png"
+                        alt="EcoSync"
+                        width={500}
+                        height={300}
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold">EcoSync</h3>
+                      <p className="mt-2 text-muted-foreground text-sm">
+                        Built Powerpal By EcoSync AI in a 2-day hackathon to
+                        provide smart sustainability solutions in logistics and
+                        energy. Integrated a Supabase backend with Python
+                        (FastAPI).
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {["Supabase", "FastAPI", "HTML/CSS/JS"].map((tech) => (
+                          <span
+                            key={tech}
+                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+                {/* Threddit */}
+                <Reveal delay={0.5}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                     <div className="aspect-video w-full overflow-hidden bg-black/20 flex items-center justify-center">
                       <Image
@@ -1000,42 +1143,8 @@ export default function AboutMe() {
                     </div>
                   </SpotlightCard>
                 </Reveal>
-                {/* Project 6 - HOSPITECH */}
-                <Reveal delay={0.4}>
-                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
-                    <div className="aspect-video w-full overflow-hidden">
-                      <Image
-                        src="/lhospital.png"
-                        alt="HOSPITECH"
-                        width={500}
-                        height={300}
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold">HOSPITECH</h3>
-                      <p className="mt-2 text-muted-foreground text-sm">
-                        Developed a lightweight clinic management system using
-                        Python and SQL to digitize patient records,
-                        appointments, and doctor profiles for small clinics.
-                        Designed an intuitive interface with secure admin/doctor
-                        logins.
-                      </p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {["Python", "SQL/MySQL", "Tkinter"].map((tech) => (
-                          <span
-                            key={tech}
-                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Reveal>
-                {/* Project 7 - EchoChamber */}
-                <Reveal delay={0.1}>
+                {/* EchoChamber */}
+                <Reveal delay={0.55}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                     <div className="aspect-video w-full overflow-hidden">
                       <Image
@@ -1069,8 +1178,42 @@ export default function AboutMe() {
                     </div>
                   </SpotlightCard>
                 </Reveal>
-                {/* Project 8 - Snek */}
-                <Reveal delay={0.25}>
+                {/* HOSPITECH */}
+                <Reveal delay={0.6}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                    <div className="aspect-video w-full overflow-hidden">
+                      <Image
+                        src="/lhospital.png"
+                        alt="HOSPITECH"
+                        width={500}
+                        height={300}
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold">HOSPITECH</h3>
+                      <p className="mt-2 text-muted-foreground text-sm">
+                        Developed a lightweight clinic management system using
+                        Python and SQL to digitize patient records,
+                        appointments, and doctor profiles for small clinics.
+                        Designed an intuitive interface with secure admin/doctor
+                        logins.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {["Python", "SQL/MySQL", "Tkinter"].map((tech) => (
+                          <span
+                            key={tech}
+                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+                {/* Snek */}
+                <Reveal delay={0.65}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                     <div className="aspect-video w-full overflow-hidden">
                       <Image
@@ -1091,149 +1234,6 @@ export default function AboutMe() {
                       </p>
                       <div className="mt-4 flex flex-wrap gap-2">
                         {["Python", "Pygame"].map((tech) => (
-                          <span
-                            key={tech}
-                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Reveal>
-                {/* Project 9 - Portfolio */}
-                <Reveal delay={0.4}>
-                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
-                    <div className="aspect-video w-full overflow-hidden">
-                      <Image
-                        src="/profile.png"
-                        alt="Profile/Portfolio Website"
-                        width={500}
-                        height={300}
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold">
-                        Profile/Portfolio Website
-                      </h3>
-                      <p className="mt-2 text-muted-foreground text-sm">
-                        Designed and developed this portfolio site with Next.js
-                        and Tailwind CSS to showcase my projects, skills, and
-                        journey. Features responsive layouts, smooth animations,
-                        and a modern UI.
-                      </p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {["Next.js", "React", "Tailwind CSS", "GSAP"].map(
-                          (tech) => (
-                            <span
-                              key={tech}
-                              className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
-                            >
-                              {tech}
-                            </span>
-                          )
-                        )}
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Reveal>
-                {/* Project 10 - EcoSync */}
-                <Reveal delay={0.1}>
-                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
-                    <div className="aspect-video w-full overflow-hidden">
-                      <Image
-                        src="/EcoSync.png"
-                        alt="EcoSync"
-                        width={500}
-                        height={300}
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold">EcoSync</h3>
-                      <p className="mt-2 text-muted-foreground text-sm">
-                        Built Powerpal By EcoSync AI in a 2-day hackathon to
-                        provide smart sustainability solutions in logistics and
-                        energy. Integrated a Supabase backend with Python
-                        (FastAPI).
-                      </p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {["Supabase", "FastAPI", "HTML/CSS/JS"].map((tech) => (
-                          <span
-                            key={tech}
-                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Reveal>
-                {/* Project 11 - SevaVerse */}
-                <Reveal delay={0.25}>
-                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
-                    <div className="aspect-video w-full overflow-hidden">
-                      <Image
-                        src="/sevaverse.png"
-                        alt="SevaVerse"
-                        width={500}
-                        height={300}
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold">SevaVerse</h3>
-                      <p className="mt-2 text-muted-foreground text-sm">
-                        Developed SevaVerse, a platform connecting NGOs,
-                        volunteers, and donors to enhance child welfare with
-                        task management and dashboards. Used Node.js with Prisma
-                        and SQLite for backend.
-                      </p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {["Node.js", "Prisma + SQLite", "Tailwind CSS"].map(
-                          (tech) => (
-                            <span
-                              key={tech}
-                              className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
-                            >
-                              {tech}
-                            </span>
-                          )
-                        )}
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Reveal>
-                {/* Project 12 - CropLink */}
-                <Reveal delay={0.4}>
-                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
-                    <div className="aspect-video w-full overflow-hidden">
-                      <Image
-                        src="/images.jpeg"
-                        alt="CropLink"
-                        width={500}
-                        height={300}
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold">CropLink</h3>
-                      <p className="mt-2 text-muted-foreground text-sm">
-                        Created CropLink, a Farm to labourer sms based
-                        application that enables direct communication between
-                        farmers and labourers. Also provides detailed crop data
-                        tailored to farms, soil type, climate.
-                      </p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {[
-                          "PostgreSQL/Supabase",
-                          "Gemini API",
-                          "Twilio SMS",
-                          "HTML/CSS/JS",
-                        ].map((tech) => (
                           <span
                             key={tech}
                             className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"

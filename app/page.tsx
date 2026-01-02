@@ -765,11 +765,20 @@ export default function AboutMe() {
                       <span className="text-4xl">🎮</span>
                     </div>
                     <div className="p-6">
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-xl font-bold">Scotland Yard</h3>
-                        <span className="inline-flex items-center rounded-full bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-400 border border-green-500/30">
-                          100+ Users
-                        </span>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <h3 className="text-xl font-bold">Scotland Yard</h3>
+                          <span className="inline-flex items-center rounded-full bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-400 border border-green-500/30">
+                            100+ Users
+                          </span>
+                        </div>
+                        <Link
+                          href="https://github.com/Ad1th/Gravitas-Backend-25-Complete"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-purple-400 transition-colors"
+                        >
+                          <Github className="h-5 w-5" />
+                        </Link>
                       </div>
                       <p className="mt-2 text-muted-foreground text-sm">
                         Architected real-time multiplayer backend for a digital
@@ -940,7 +949,16 @@ export default function AboutMe() {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-bold">Cloudify</h3>
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-bold">Cloudify</h3>
+                        <Link
+                          href="https://github.com/Ad1th/file-mgmt"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-purple-400 transition-colors"
+                        >
+                          <Github className="h-5 w-5" />
+                        </Link>
+                      </div>
                       <p className="mt-2 text-muted-foreground text-sm">
                         A cloud storage platform inspired by Google Drive,
                         designed for seamless file management with secure
@@ -1011,9 +1029,18 @@ export default function AboutMe() {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-bold">
-                        Profile/Portfolio Website
-                      </h3>
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-bold">
+                          Profile/Portfolio Website
+                        </h3>
+                        <Link
+                          href="https://github.com/Ad1th/Profile"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-purple-400 transition-colors"
+                        >
+                          <Github className="h-5 w-5" />
+                        </Link>
+                      </div>
                       <p className="mt-2 text-muted-foreground text-sm">
                         Designed and developed this portfolio site with Next.js
                         and Tailwind CSS to showcase my projects, skills, and
@@ -1048,7 +1075,16 @@ export default function AboutMe() {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-bold">SevaVerse</h3>
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-bold">SevaVerse</h3>
+                        <Link
+                          href="https://github.com/Ad1th/SevaVerse"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-purple-400 transition-colors"
+                        >
+                          <Github className="h-5 w-5" />
+                        </Link>
+                      </div>
                       <p className="mt-2 text-muted-foreground text-sm">
                         Developed SevaVerse, a platform connecting NGOs,
                         volunteers, and donors to enhance child welfare with
@@ -1083,7 +1119,16 @@ export default function AboutMe() {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-bold">EcoSync</h3>
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-bold">EcoSync</h3>
+                        <Link
+                          href="https://github.com/Ad1th/OptiSync"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-purple-400 transition-colors"
+                        >
+                          <Github className="h-5 w-5" />
+                        </Link>
+                      </div>
                       <p className="mt-2 text-muted-foreground text-sm">
                         Built Powerpal By EcoSync AI in a 2-day hackathon to
                         provide smart sustainability solutions in logistics and
@@ -1116,7 +1161,16 @@ export default function AboutMe() {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-bold">Threddit</h3>
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-bold">Threddit</h3>
+                        <Link
+                          href="https://github.com/Ad1th/3braincells_DevJams-24"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-purple-400 transition-colors"
+                        >
+                          <Github className="h-5 w-5" />
+                        </Link>
+                      </div>
                       <p className="mt-2 text-muted-foreground text-sm">
                         Built a productivity-focused Chrome extension using
                         React, FastAPI, and Gemini API in a 2-day hackathon;
@@ -1156,7 +1210,16 @@ export default function AboutMe() {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-bold">EchoChamber</h3>
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-bold">EchoChamber</h3>
+                        <Link
+                          href="https://github.com/Ad1th/EchoChamber"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-purple-400 transition-colors"
+                        >
+                          <Github className="h-5 w-5" />
+                        </Link>
+                      </div>
                       <p className="mt-2 text-muted-foreground text-sm">
                         Built an anonymous forum web app enabling users to post
                         confessions, chat, and share thoughts freely. Used
@@ -1191,7 +1254,16 @@ export default function AboutMe() {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-bold">HOSPITECH</h3>
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-bold">HOSPITECH</h3>
+                        <Link
+                          href="https://github.com/Ad1th/Hospitech--Hospital-Management-System"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-purple-400 transition-colors"
+                        >
+                          <Github className="h-5 w-5" />
+                        </Link>
+                      </div>
                       <p className="mt-2 text-muted-foreground text-sm">
                         Developed a lightweight clinic management system using
                         Python and SQL to digitize patient records,
@@ -1225,7 +1297,16 @@ export default function AboutMe() {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-bold">Snek</h3>
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-bold">Snek</h3>
+                        <Link
+                          href="https://github.com/Ad1th/Snek---Snake_Game"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-purple-400 transition-colors"
+                        >
+                          <Github className="h-5 w-5" />
+                        </Link>
+                      </div>
                       <p className="mt-2 text-muted-foreground text-sm">
                         Built a retro-style snake game using Python and Pygame
                         with a clean UI, menu screen, and dynamic difficulty. My

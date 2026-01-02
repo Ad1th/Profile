@@ -896,7 +896,7 @@ export default function AboutMe() {
                 <Reveal delay={0.4}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                     <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-teal-900/30 to-blue-900/30 flex items-center justify-center">
-                      <span className="text-4xl">💨</span>
+                      <span className="text-4xl">🌊💨</span>
                     </div>
                     <div className="p-6">
                       <h3 className="text-xl font-bold">

@@ -392,26 +392,36 @@ export default function AboutMe() {
               <Reveal>
                 <div className="mx-auto max-w-5xl text-center">
                   <h2 className="text-4xl font-bold tracking-tighter sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
-                    About Me
+                    Hey, I'm Adith 👋
                   </h2>
                   <div className="mt-8 text-left space-y-4">
-                    <p className="text-2xl leading-relaxed">
-                      Hey there! I’m Adith — a CSE student at VIT Vellore who
-                      likes to break stuff (intentionally) and then build it
-                      back better. I’m super into creating cool things with
-                      code, whether it's a web app, a Chrome extension that
-                      keeps you productive, or even a Google Drive clone that
-                      actually makes sense. I’m also dipping my toes into the
-                      world of robotics, because why stop at software when you
-                      can make things move?{" "}
+                    <p className="text-xl leading-relaxed text-muted-foreground">
+                      I like building things, breaking them, and then figuring
+                      out why they broke.
                     </p>
-                    <p className="text-2xl leading-relaxed">
-                      I’ve built everything from anonymous forums to hackathon
-                      projects powered by AI, working with stacks like React,
-                      FastAPI, Supabase, and a sprinkle of Python magic. I enjoy
-                      late-night debugging sessions (not really, but they build
-                      character), working with awesome teams, and dreaming up
-                      solutions that make tech more human.
+                    <p className="text-lg leading-relaxed">
+                      I'm a CSE student who enjoys backend-heavy projects that
+                      feel real: multiplayer games with actual users, AI tools
+                      that do something useful, anonymous forums, productivity
+                      extensions, and apps that bridge gaps outside the screen
+                      (like farmers texting laborers directly).
+                    </p>
+                    <p className="text-lg leading-relaxed">
+                      Sometimes I dip into hardware to keep myself honest:
+                      running edge ML on Raspberry Pi for assistive tech, or
+                      wiring up wave energy experiments with sensors and
+                      telemetry. Turns out when latency, power limits, and
+                      physics fight back, your software design improves fast.
+                    </p>
+                    <p className="text-lg leading-relaxed">
+                      Mostly, I care about shipping systems that run, scale, and
+                      survive real usage. Buzzwords don't interest me much, but
+                      behavior does.
+                    </p>
+                    <p className="text-lg leading-relaxed text-muted-foreground/80 italic">
+                      Scroll around for things I've built. If you like working
+                      on systems that break in interesting ways (and then get
+                      fixed properly), we'll probably get along.
                     </p>
                   </div>
                 </div>

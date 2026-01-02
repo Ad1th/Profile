@@ -700,7 +700,7 @@ export default function AboutMe() {
                           Coming Soon
                         </h3>
                         <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-2 py-0.5 text-xs font-medium text-emerald-400 border border-emerald-500/30 animate-pulse">
-                          70% Complete
+                          85% Complete
                         </span>
                       </div>
                       <p className="mt-2 text-muted-foreground/60 text-sm">

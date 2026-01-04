@@ -57,7 +57,7 @@ function ParticleCloud({ count = 1200 }) {
       <PointMaterial
         transparent
         color="#8b5cf6"
-        size={0.03}
+        size={0.06}
         sizeAttenuation={true}
         depthWrite={false}
         blending={THREE.AdditiveBlending}

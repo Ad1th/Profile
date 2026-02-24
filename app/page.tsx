@@ -553,7 +553,7 @@ export default function AboutMe() {
                           "HTML, CSS, Tailwind CSS",
                           "JavaScript, Express js",
                           "SQL, DBMS",
-                          "API Development (Fast API, Gemini API)",
+                          "API Development",
                           "Web Hosting",
                           "Git/GitHub",
                           "Chrome Extension Development",

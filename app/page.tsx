@@ -539,24 +539,21 @@ export default function AboutMe() {
                     </h2>
                   </div>
 
-                  {/* Software Development & Engineering */}
+                  {/* Systems & Backend */}
                   <div className="horiscroll flex items-center justify-center p-8">
                     <div className="rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 w-[90%] max-w-2xl">
                       <h3 className="text-3xl font-bold mb-8">
-                        Software Development & Engineering
+                        Systems & Backend
                       </h3>
                       <ul className="space-y-4">
                         {[
-                          "Python",
-                          "Java",
-                          "C, C++ Basics",
-                          "HTML, CSS, Tailwind CSS",
-                          "JavaScript, Express js",
-                          "SQL, DBMS",
-                          "API Development",
-                          "Web Hosting",
-                          "Git/GitHub",
-                          "Chrome Extension Development",
+                          "Node.js",
+                          "Express",
+                          "PostgreSQL",
+                          "Prisma",
+                          "JWT",
+                          "REST",
+                          "Docker",
                         ].map((skill) => (
                           <li
                             key={skill}
@@ -570,24 +567,19 @@ export default function AboutMe() {
                     </div>
                   </div>
 
-                  {/* AI, Robotics & Emerging Tech */}
+                  {/* Data & Research */}
                   <div className="horiscroll flex items-center justify-center p-8">
                     <div className="rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 w-[90%] max-w-2xl">
                       <h3 className="text-3xl font-bold mb-8">
-                        AI, Robotics & Emerging Tech
+                        Data & Research
                       </h3>
                       <ul className="space-y-4">
                         {[
-                          "AI Builder",
-                          "Low Code Development",
-                          "Research",
-                          "Robotics",
-                          "Arduino",
-                          "Mindstorms EV3",
-                          "Automation",
-                          "AI Integration in Web Apps",
-                          "Task Automation",
-                          "UI/UX Basics",
+                          "Query Plan Analysis",
+                          "EXPLAIN/ANALYZE",
+                          "GROBID",
+                          "ETL Pipelines",
+                          "Similarity Scoring",
                         ].map((skill) => (
                           <li
                             key={skill}
@@ -601,23 +593,43 @@ export default function AboutMe() {
                     </div>
                   </div>
 
-                  {/* Creativity & Personal Interests */}
+                  {/* Frontend */}
                   <div className="horiscroll flex items-center justify-center p-8">
                     <div className="rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 w-[90%] max-w-2xl">
                       <h3 className="text-3xl font-bold mb-8">
-                        Creativity & Personal Interests
+                        Frontend
                       </h3>
                       <ul className="space-y-4">
                         {[
-                          "Audio Editing Basics",
-                          "Photo Editing Basics",
-                          "Video Editing Basics",
-                          "Electronics and Soldering",
-                          "Cycling",
-                          "Gardening",
-                          "Cubing",
-                          "PC Building",
-                          "Basic UI/UX Design (Figma, Canva)",
+                          "React",
+                          "Next.js",
+                          "TypeScript",
+                          "Tailwind",
+                        ].map((skill) => (
+                          <li
+                            key={skill}
+                            className="text-xl flex items-center space-x-3"
+                          >
+                            <div className="h-2.5 w-2.5 rounded-full bg-purple-500 flex-shrink-0"></div>
+                            <span>{skill}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* DevOps */}
+                  <div className="horiscroll flex items-center justify-center p-8">
+                    <div className="rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 w-[90%] max-w-2xl">
+                      <h3 className="text-3xl font-bold mb-8">
+                        DevOps
+                      </h3>
+                      <ul className="space-y-4">
+                        {[
+                          "Azure",
+                          "CI/CD",
+                          "Load Testing",
+                          "Production Debugging",
                         ].map((skill) => (
                           <li
                             key={skill}

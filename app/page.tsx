@@ -1372,6 +1372,9 @@ export default function AboutMe() {
                             <span className="font-semibold text-foreground mr-2">App No:</span> 202641010249
                           </span>
                           <span className="flex items-center bg-card/50 border border-border/50 rounded-md px-3 py-1 text-muted-foreground">
+                            <span className="font-semibold text-foreground mr-2">Filed:</span> 31/01/2026
+                          </span>
+                          <span className="flex items-center bg-card/50 border border-border/50 rounded-md px-3 py-1 text-muted-foreground">
                             <span className="font-semibold text-foreground mr-2">Published:</span> 13/02/2026
                           </span>
                         </div>
@@ -1379,9 +1382,9 @@ export default function AboutMe() {
                           Filed through Vellore Institute of Technology. This ordinary application in the field of Computer Science details an advanced predictive and assistive system providing real-time environmental perception to aid visually impaired individuals.
                         </p>
                       </div>
-                      <div className="flex-shrink-0 text-5xl opacity-80 mt-4 md:mt-0 flex items-center justify-center bg-purple-500/10 w-24 h-24 rounded-2xl border border-purple-500/20 shadow-inner">
+                      {/* <div className="flex-shrink-0 text-5xl opacity-80 mt-4 md:mt-0 flex items-center justify-center bg-purple-500/10 w-24 h-24 rounded-2xl border border-purple-500/20 shadow-inner">
                         📜
-                      </div>
+                      </div> */}
                     </div>
                   </SpotlightCard>
                 </Reveal>

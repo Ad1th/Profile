@@ -190,6 +190,7 @@ export default function AboutMe() {
                   "experience",
                   "skills",
                   "projects",
+                  "patents",
                   "achievements",
                   "hackathons",
                   "hobbies",
@@ -1332,6 +1333,54 @@ export default function AboutMe() {
                             {tech}
                           </span>
                         ))}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+              </div>
+            </div>
+          </section>
+
+          {/* Patents Section */}
+          <section
+            id="patents"
+            className="bg-gradient-to-b from-indigo-950/5 to-purple-950/10 py-20 md:py-32 relative overflow-hidden"
+          >
+            {/* Decorative elements */}
+            <div className="absolute top-1/4 right-0 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl" />
+
+            <div className="container px-4 md:px-6 relative z-10">
+              <Reveal>
+                <h2 className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
+                  Patents
+                </h2>
+              </Reveal>
+
+              <div className="mt-16 max-w-4xl mx-auto">
+                <Reveal>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm transition-all hover:border-purple-500/40">
+                    <div className="p-6 md:p-8 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                      <div className="space-y-4 flex-1">
+                        <h3 className="text-2xl font-bold leading-tight">
+                          "A system for real time environmental perception and assistance for a visually impaired user"
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-3 text-sm mt-3 border-y border-border/10 py-3">
+                          <span className="inline-flex items-center rounded-full bg-green-500/10 px-3 py-1 font-medium text-green-400 border border-green-500/20">
+                            Published
+                          </span>
+                          <span className="flex items-center bg-card/50 border border-border/50 rounded-md px-3 py-1 text-muted-foreground">
+                            <span className="font-semibold text-foreground mr-2">App No:</span> 202641010249
+                          </span>
+                          <span className="flex items-center bg-card/50 border border-border/50 rounded-md px-3 py-1 text-muted-foreground">
+                            <span className="font-semibold text-foreground mr-2">Published:</span> 13/02/2026
+                          </span>
+                        </div>
+                        <p className="text-muted-foreground text-sm leading-relaxed">
+                          Filed through Vellore Institute of Technology. This ordinary application in the field of Computer Science details an advanced predictive and assistive system providing real-time environmental perception to aid visually impaired individuals.
+                        </p>
+                      </div>
+                      <div className="flex-shrink-0 text-5xl opacity-80 mt-4 md:mt-0 flex items-center justify-center bg-purple-500/10 w-24 h-24 rounded-2xl border border-purple-500/20 shadow-inner">
+                        📜
                       </div>
                     </div>
                   </SpotlightCard>

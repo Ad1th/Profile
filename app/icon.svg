@@ -1,0 +1,24 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="circleClip">
+      <circle cx="256" cy="256" r="256"/>
+    </clipPath>
+  </defs>
+
+  <circle cx="256" cy="256" r="256" fill="#F75924"/>
+  
+  <g clipPath="url(#circleClip)">
+    <!-- Drop shadow -->
+    <path d="M 256,100 L 756,600 L 636,900 L 136,400 Z" fill="#D53C18"/>
+  </g>
+  
+  <!-- Left Side White -->
+  <path d="M 256,100 L 136,400 L 196,400 L 212,340 L 256,340 Z" fill="#FFFFFF"/>
+  <!-- Right Side Gray -->
+  <path d="M 256,100 L 376,400 L 316,400 L 300,340 L 256,340 Z" fill="#EAEAEA"/>
+  
+  <!-- Hole -->
+  <path d="M 256,170 L 227,280 L 285,280 Z" fill="#F75924"/>
+  <!-- Hole Shadow -->
+  <path d="M 256,170 L 256,280 L 285,280 Z" fill="#D53C18"/>
+</svg>

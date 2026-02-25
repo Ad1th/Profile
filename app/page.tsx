@@ -236,19 +236,6 @@ export default function AboutMe() {
                   transition={{ duration: 0.8 }}
                 >
                   <div className="space-y-4">
-                    <motion.div
-                      className="inline-flex items-center px-4 py-2 text-sm rounded-full glass text-purple-400 mb-4"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.2, duration: 0.5 }}
-                    >
-                      <span className="relative flex h-2 w-2 mr-2 pulse-dot">
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-                      </span>
-                      <Sparkles className="w-4 h-4 mr-2" />
-                      Available for new opportunities
-                    </motion.div>
-
                     <motion.h1
                       className="text-4xl font-bold tracking-tighter sm:text-6xl xl:text-7xl/none"
                       initial={{ opacity: 0, y: 30 }}

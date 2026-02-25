@@ -448,11 +448,11 @@ export default function AboutMe() {
                     skills: ["Web Development", "", ""],
                   },
                   {
-                    title: "Technical Core",
+                    title: "Technical Head",
                     company: "Mozilla Firefox Club, VIT Vellore",
-                    period: "March 2025 - Present",
+                    period: "Jan 2026 - Present",
                     description:
-                      "Contributing to technical projects and initiatives at the Mozilla Firefox Club, promoting open-source technologies and collaborative development among students.",
+                      "Leading technical initiatives at the Mozilla Firefox Club. Previously served as Technical Core (March 2025 - Dec 2025), promoting open-source technologies and collaborative development among students.",
                     skills: [
                       "Backend Development",
                       "Open Source",

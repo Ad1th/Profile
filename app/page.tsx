@@ -1562,7 +1562,7 @@ export default function AboutMe() {
                       <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
                         <div>
                           <h3 className="text-2xl font-bold">
-                            Women Techies&apos;26 - Finalist
+                            Women Techies&apos;26 - Finalist - Top 10 Teams
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             March 2026 • VIT Vellore, India
@@ -1570,10 +1570,11 @@ export default function AboutMe() {
                         </div>
                       </div>
                       <p className="mt-4 text-lg">
-                        Reached finalist stage at Women Techies&apos;26 by
-                        building AetherQuery, a SQL analytics platform with CSV
-                        upload, SQL execution, and detailed query-plan
-                        visualization for interactive analysis.
+                        Reached finalist stage as a part of the top 10 teams at
+                        Women Techies&apos;26 by building AetherQuery, a SQL
+                        analytics platform with CSV upload, SQL execution, and
+                        detailed query-plan visualization for interactive
+                        analysis.
                       </p>
                     </div>
                   </div>
@@ -1592,11 +1593,9 @@ export default function AboutMe() {
                     <div className="flex-1">
                       <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
                         <div>
-                          <h3 className="text-2xl font-bold">
-                            TechSolstice - MIT Blr
-                          </h3>
+                          <h3 className="text-2xl font-bold">TechSolstice</h3>
                           <p className="text-sm text-muted-foreground">
-                            March 2026 • MIT Blr, India
+                            March 2026 • MIT Bangalore, India
                           </p>
                         </div>
                       </div>

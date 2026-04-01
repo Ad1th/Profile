@@ -1548,38 +1548,7 @@ export default function AboutMe() {
               </h2>
 
               <div className="mt-16 space-y-8">
-                {/* Hackathon 0 */}
-                <div
-                  className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
-                  data-animation="apple-zoom-spin"
-                  style={{
-                    transformStyle: "preserve-3d",
-                  }}
-                >
-                  <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                    <div className="flex-shrink-0 perspective-element"></div>
-                    <div className="flex-1">
-                      <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
-                        <div>
-                          <h3 className="text-2xl font-bold">
-                            TechSolstice - MIT Blr
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            March 2026 • MIT Blr, India
-                          </p>
-                        </div>
-                      </div>
-                      <p className="mt-4 text-lg">
-                        Built archAIc, an AI-driven reliability engineering
-                        platform with microservices observability, chaos
-                        injection, and automated incident analysis workflows for
-                        resilient production-system testing.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Hackathon 0.5 */}
+                {/* Hackathon 1 */}
                 <div
                   className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
                   data-animation="apple-zoom-spin"
@@ -1610,7 +1579,38 @@ export default function AboutMe() {
                   </div>
                 </div>
 
-                {/* Hackathon 1 */}
+                {/* Hackathon 2 */}
+                <div
+                  className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
+                  data-animation="apple-zoom-spin"
+                  style={{
+                    transformStyle: "preserve-3d",
+                  }}
+                >
+                  <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                    <div className="flex-shrink-0 perspective-element"></div>
+                    <div className="flex-1">
+                      <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                        <div>
+                          <h3 className="text-2xl font-bold">
+                            TechSolstice - MIT Blr
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            March 2026 • MIT Blr, India
+                          </p>
+                        </div>
+                      </div>
+                      <p className="mt-4 text-lg">
+                        Built archAIc, an AI-driven reliability engineering
+                        platform with microservices observability, chaos
+                        injection, and automated incident analysis workflows for
+                        resilient production-system testing.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hackathon 3 */}
                 <div
                   className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
                   data-animation="apple-zoom-spin"
@@ -1649,7 +1649,7 @@ export default function AboutMe() {
                   </div>
                 </div>
 
-                {/* Hackathon 2 */}
+                {/* Hackathon 4 */}
                 <div
                   className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
                   data-animation="apple-zoom-spin"
@@ -1693,7 +1693,7 @@ export default function AboutMe() {
                   </div>
                 </div>
 
-                {/* Hackathon 3 */}
+                {/* Hackathon 5 */}
                 <div
                   className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
                   data-animation="apple-zoom-spin"
@@ -1736,7 +1736,7 @@ export default function AboutMe() {
                   </div>
                 </div>
 
-                {/* Hackathon 4 */}
+                {/* Hackathon 6 */}
                 <div
                   className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
                   data-animation="apple-zoom-spin"
@@ -1776,7 +1776,7 @@ export default function AboutMe() {
                   </div>
                 </div>
 
-                {/* Hackathon 5*/}
+                {/* Hackathon 7 */}
                 <div
                   className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
                   data-animation="apple-zoom-spin"

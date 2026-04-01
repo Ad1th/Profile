@@ -69,7 +69,7 @@ export default function AboutMe() {
         opacity: Math.random() * 0.5,
         scale: Math.random() * 0.5 + 0.5,
         duration: Math.random() * 10 + 10,
-      }))
+      })),
     );
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -88,7 +88,7 @@ export default function AboutMe() {
       {
         threshold: 0.05,
         rootMargin: "0px 0px -20px 0px",
-      }
+      },
     );
 
     const animatedElements = document.querySelectorAll(".animate-on-scroll");
@@ -583,24 +583,19 @@ export default function AboutMe() {
                   {/* Frontend */}
                   <div className="horiscroll flex items-center justify-center p-8">
                     <div className="rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 w-[90%] max-w-2xl">
-                      <h3 className="text-3xl font-bold mb-8">
-                        Frontend
-                      </h3>
+                      <h3 className="text-3xl font-bold mb-8">Frontend</h3>
                       <ul className="space-y-4">
-                        {[
-                          "React",
-                          "Next.js",
-                          "TypeScript",
-                          "Tailwind",
-                        ].map((skill) => (
-                          <li
-                            key={skill}
-                            className="text-xl flex items-center space-x-3"
-                          >
-                            <div className="h-2.5 w-2.5 rounded-full bg-purple-500 flex-shrink-0"></div>
-                            <span>{skill}</span>
-                          </li>
-                        ))}
+                        {["React", "Next.js", "TypeScript", "Tailwind"].map(
+                          (skill) => (
+                            <li
+                              key={skill}
+                              className="text-xl flex items-center space-x-3"
+                            >
+                              <div className="h-2.5 w-2.5 rounded-full bg-purple-500 flex-shrink-0"></div>
+                              <span>{skill}</span>
+                            </li>
+                          ),
+                        )}
                       </ul>
                     </div>
                   </div>
@@ -608,9 +603,7 @@ export default function AboutMe() {
                   {/* DevOps */}
                   <div className="horiscroll flex items-center justify-center p-8">
                     <div className="rounded-lg border border-purple-500/20 bg-card p-10 shadow-sm transition-all hover:shadow-md hover:shadow-purple-500/10 hover:-translate-y-2 w-[90%] max-w-2xl">
-                      <h3 className="text-3xl font-bold mb-8">
-                        DevOps
-                      </h3>
+                      <h3 className="text-3xl font-bold mb-8">DevOps</h3>
                       <ul className="space-y-4">
                         {[
                           "Azure",
@@ -698,7 +691,7 @@ export default function AboutMe() {
               </Reveal>
 
               <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {/* Coming Soon - Research & AI */}
+                {/* Hallucination Reference Detector */}
                 <Reveal delay={0.02}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-dashed border-purple-500/30 bg-card/30 backdrop-blur-sm h-full transition-all hover:border-purple-500/50">
                     <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-emerald-900/20 to-cyan-900/20 flex items-center justify-center">
@@ -707,59 +700,91 @@ export default function AboutMe() {
                     <div className="p-6">
                       <div className="flex items-center gap-2">
                         <h3 className="text-xl font-bold text-muted-foreground/80">
-                          Coming Soon
+                          Hallucination Reference Detector
                         </h3>
-                        <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-2 py-0.5 text-xs font-medium text-emerald-400 border border-emerald-500/30 animate-pulse">
-                          85% Complete
-                        </span>
                       </div>
                       <p className="mt-2 text-muted-foreground/60 text-sm">
-                        A research-grade system exploring the intersection of
-                        NLP, document analysis, and trust verification in
-                        academic content. Fighting misinformation, one citation
-                        at a time.
+                        Research-grade pipeline for citation-grounded trust
+                        verification in academic text using NLP, reference
+                        extraction, and claim-to-source consistency checks to
+                        reduce hallucinated or unsupported statements.
                       </p>
                       <div className="mt-4 flex flex-wrap gap-2">
-                        {["ML/NLP", "Research Integrity", "Python"].map(
-                          (tech) => (
-                            <span
-                              key={tech}
-                              className="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400/70 border border-emerald-500/20"
-                            >
-                              {tech}
-                            </span>
-                          )
-                        )}
+                        {[
+                          "NLP",
+                          "Reference Verification",
+                          "Research Integrity",
+                          "Python",
+                        ].map((tech) => (
+                          <span
+                            key={tech}
+                            className="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400/70 border border-emerald-500/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   </SpotlightCard>
                 </Reveal>
-                {/* Coming Soon - Systems & Databases */}
+                {/* archAIc */}
                 <Reveal delay={0.035}>
-                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-dashed border-purple-500/30 bg-card/30 backdrop-blur-sm h-full transition-all hover:border-purple-500/50">
-                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-amber-900/20 to-orange-900/20 flex items-center justify-center">
-                      <span className="text-4xl opacity-60">⚡</span>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-amber-900/30 to-red-900/30 flex items-center justify-center">
+                      <span className="text-4xl">🛡️</span>
                     </div>
                     <div className="p-6">
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-xl font-bold text-muted-foreground/80">
-                          Coming Soon
-                        </h3>
-                        <span className="inline-flex items-center rounded-full bg-amber-500/20 px-2 py-0.5 text-xs font-medium text-amber-400 border border-amber-500/30 animate-pulse">
-                          In Progress
-                        </span>
-                      </div>
-                      <p className="mt-2 text-muted-foreground/60 text-sm">
-                        Deep-diving into database internals and query
-                        optimization. A systems-focused project exploring
-                        execution plans, performance analysis, and optimizer
-                        behavior.
+                      <h3 className="text-xl font-bold">archAIc</h3>
+                      <p className="mt-2 text-muted-foreground text-sm">
+                        Built an AI-driven reliability engineering platform with
+                        6 FastAPI microservices, OpenTelemetry trace propagation
+                        (`X-Trace-ID`), and chaos controls for
+                        timeout/error/cpu/crash/bad-data failure injection.
                       </p>
                       <div className="mt-4 flex flex-wrap gap-2">
-                        {["Systems", "Databases", "Performance"].map((tech) => (
+                        {[
+                          "FastAPI Microservices",
+                          "Prometheus/Grafana/Jaeger/Loki",
+                          "Chaos Engineering",
+                          "Kubernetes",
+                          "Next.js",
+                        ].map((tech) => (
                           <span
                             key={tech}
-                            className="inline-flex items-center rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-400/70 border border-amber-500/20"
+                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+                {/* Argus (AetherQuery) */}
+                <Reveal delay={0.05}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-sky-900/30 to-indigo-900/30 flex items-center justify-center">
+                      <span className="text-4xl">🧠</span>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold">Argus (AetherQuery)</h3>
+                      <p className="mt-2 text-muted-foreground text-sm">
+                        Full-stack SQL analytics workspace for exact vs adaptive
+                        approximate query execution across DuckDB, PostgreSQL,
+                        and MySQL with EXPLAIN-plan normalization, benchmark
+                        speedup/error tracking, and plan-graph visualization.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {[
+                          "FastAPI",
+                          "React 19 + TypeScript",
+                          "DuckDB/PostgreSQL/MySQL",
+                          "Approx Query Processing",
+                          "ReactFlow",
+                        ].map((tech) => (
+                          <span
+                            key={tech}
+                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
                           >
                             {tech}
                           </span>
@@ -769,7 +794,7 @@ export default function AboutMe() {
                   </SpotlightCard>
                 </Reveal>
                 {/* Scotland Yard */}
-                <Reveal delay={0.05}>
+                <Reveal delay={0.1}>
                   <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
                     <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-red-900/30 to-orange-900/30 flex items-center justify-center">
                       <span className="text-4xl">🎮</span>
@@ -806,7 +831,7 @@ export default function AboutMe() {
                             >
                               {tech}
                             </span>
-                          )
+                          ),
                         )}
                       </div>
                     </div>
@@ -1066,7 +1091,7 @@ export default function AboutMe() {
                             >
                               {tech}
                             </span>
-                          )
+                          ),
                         )}
                       </div>
                     </div>
@@ -1110,7 +1135,7 @@ export default function AboutMe() {
                             >
                               {tech}
                             </span>
-                          )
+                          ),
                         )}
                       </div>
                     </div>
@@ -1245,7 +1270,7 @@ export default function AboutMe() {
                             >
                               {tech}
                             </span>
-                          )
+                          ),
                         )}
                       </div>
                     </div>
@@ -1361,24 +1386,38 @@ export default function AboutMe() {
                     <div className="p-6 md:p-8 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
                       <div className="space-y-4 flex-1">
                         <h3 className="text-2xl font-bold leading-tight">
-                          "A system for real time environmental perception and assistance for a visually impaired user"
+                          "A system for real time environmental perception and
+                          assistance for a visually impaired user"
                         </h3>
                         <div className="flex flex-wrap items-center gap-3 text-sm mt-3 border-y border-border/10 py-3">
                           <span className="inline-flex items-center rounded-full bg-green-500/10 px-3 py-1 font-medium text-green-400 border border-green-500/20">
                             Published
                           </span>
                           <span className="flex items-center bg-card/50 border border-border/50 rounded-md px-3 py-1 text-muted-foreground">
-                            <span className="font-semibold text-foreground mr-2">App No:</span> 202641010249
+                            <span className="font-semibold text-foreground mr-2">
+                              App No:
+                            </span>{" "}
+                            202641010249
                           </span>
                           <span className="flex items-center bg-card/50 border border-border/50 rounded-md px-3 py-1 text-muted-foreground">
-                            <span className="font-semibold text-foreground mr-2">Filed:</span> 31/01/2026
+                            <span className="font-semibold text-foreground mr-2">
+                              Filed:
+                            </span>{" "}
+                            31/01/2026
                           </span>
                           <span className="flex items-center bg-card/50 border border-border/50 rounded-md px-3 py-1 text-muted-foreground">
-                            <span className="font-semibold text-foreground mr-2">Published:</span> 13/02/2026
+                            <span className="font-semibold text-foreground mr-2">
+                              Published:
+                            </span>{" "}
+                            13/02/2026
                           </span>
                         </div>
                         <p className="text-muted-foreground text-sm leading-relaxed">
-                          Filed through Vellore Institute of Technology. This ordinary application in the field of Computer Science details an advanced predictive and assistive system providing real-time environmental perception to aid visually impaired individuals.
+                          Filed through Vellore Institute of Technology. This
+                          ordinary application in the field of Computer Science
+                          details an advanced predictive and assistive system
+                          providing real-time environmental perception to aid
+                          visually impaired individuals.
                         </p>
                       </div>
                       {/* <div className="flex-shrink-0 text-5xl opacity-80 mt-4 md:mt-0 flex items-center justify-center bg-purple-500/10 w-24 h-24 rounded-2xl border border-purple-500/20 shadow-inner">

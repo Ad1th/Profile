@@ -693,17 +693,17 @@ export default function AboutMe() {
               <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {/* Hallucination Reference Detector */}
                 <Reveal delay={0.02}>
-                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-dashed border-purple-500/30 bg-card/30 backdrop-blur-sm h-full transition-all hover:border-purple-500/50">
-                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-emerald-900/20 to-cyan-900/20 flex items-center justify-center">
-                      <span className="text-4xl opacity-60">📚</span>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-emerald-900/30 to-cyan-900/30 flex items-center justify-center">
+                      <span className="text-4xl">📚</span>
                     </div>
                     <div className="p-6">
                       <div className="flex items-center gap-2">
-                        <h3 className="text-xl font-bold text-muted-foreground/80">
-                          Hallucination Reference Detector
+                        <h3 className="text-xl font-bold">
+                          Reference Hallucination Detector
                         </h3>
                       </div>
-                      <p className="mt-2 text-muted-foreground/60 text-sm">
+                      <p className="mt-2 text-muted-foreground text-sm">
                         Research-grade pipeline for citation-grounded trust
                         verification in academic text using NLP, reference
                         extraction, and claim-to-source consistency checks to
@@ -718,7 +718,7 @@ export default function AboutMe() {
                         ].map((tech) => (
                           <span
                             key={tech}
-                            className="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400/70 border border-emerald-500/20"
+                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
                           >
                             {tech}
                           </span>
@@ -748,39 +748,6 @@ export default function AboutMe() {
                           "Chaos Engineering",
                           "Kubernetes",
                           "Next.js",
-                        ].map((tech) => (
-                          <span
-                            key={tech}
-                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Reveal>
-                {/* Argus (AetherQuery) */}
-                <Reveal delay={0.05}>
-                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
-                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-sky-900/30 to-indigo-900/30 flex items-center justify-center">
-                      <span className="text-4xl">🧠</span>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold">Argus (AetherQuery)</h3>
-                      <p className="mt-2 text-muted-foreground text-sm">
-                        Full-stack SQL analytics workspace for exact vs adaptive
-                        approximate query execution across DuckDB, PostgreSQL,
-                        and MySQL with EXPLAIN-plan normalization, benchmark
-                        speedup/error tracking, and plan-graph visualization.
-                      </p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {[
-                          "FastAPI",
-                          "React 19 + TypeScript",
-                          "DuckDB/PostgreSQL/MySQL",
-                          "Approx Query Processing",
-                          "ReactFlow",
                         ].map((tech) => (
                           <span
                             key={tech}
@@ -859,6 +826,39 @@ export default function AboutMe() {
                           "CNN-LSTM",
                           "Edge AI",
                           "Python",
+                        ].map((tech) => (
+                          <span
+                            key={tech}
+                            className="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 border border-purple-500/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+                {/* Argus */}
+                <Reveal delay={0.12}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm h-full transition-all hover:border-purple-500/40">
+                    <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-sky-900/30 to-indigo-900/30 flex items-center justify-center">
+                      <span className="text-4xl">🧠</span>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold">Argus</h3>
+                      <p className="mt-2 text-muted-foreground text-sm">
+                        Built a SQL analytics workspace where users upload CSV
+                        files, run SQL commands, inspect detailed query plans,
+                        and explore operator-level execution graphs for
+                        performance analysis.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {[
+                          "FastAPI",
+                          "React + TypeScript",
+                          "DuckDB",
+                          "Query Plan Analysis",
+                          "ReactFlow",
                         ].map((tech) => (
                           <span
                             key={tech}
@@ -1548,6 +1548,68 @@ export default function AboutMe() {
               </h2>
 
               <div className="mt-16 space-y-8">
+                {/* Hackathon 0 */}
+                <div
+                  className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
+                  data-animation="apple-zoom-spin"
+                  style={{
+                    transformStyle: "preserve-3d",
+                  }}
+                >
+                  <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                    <div className="flex-shrink-0 perspective-element"></div>
+                    <div className="flex-1">
+                      <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                        <div>
+                          <h3 className="text-2xl font-bold">
+                            TechSolstice - MIT Blr
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            March 2026 • MIT Blr, India
+                          </p>
+                        </div>
+                      </div>
+                      <p className="mt-4 text-lg">
+                        Built archAIc, an AI-driven reliability engineering
+                        platform with microservices observability, chaos
+                        injection, and automated incident analysis workflows for
+                        resilient production-system testing.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hackathon 0.5 */}
+                <div
+                  className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"
+                  data-animation="apple-zoom-spin"
+                  style={{
+                    transformStyle: "preserve-3d",
+                  }}
+                >
+                  <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                    <div className="flex-shrink-0 perspective-element"></div>
+                    <div className="flex-1">
+                      <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                        <div>
+                          <h3 className="text-2xl font-bold">
+                            Women Techies&apos;26 - Finalist
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            March 2026 • VIT Vellore, India
+                          </p>
+                        </div>
+                      </div>
+                      <p className="mt-4 text-lg">
+                        Reached finalist stage at Women Techies&apos;26 by
+                        building AetherQuery, a SQL analytics platform with CSV
+                        upload, SQL execution, and detailed query-plan
+                        visualization for interactive analysis.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Hackathon 1 */}
                 <div
                   className="hackathon-card rounded-lg border border-purple-500/20 bg-card p-8 shadow-lg transition-all hover:shadow-xl hover:shadow-purple-500/20 animate-on-scroll"

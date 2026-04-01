@@ -1426,6 +1426,29 @@ export default function AboutMe() {
                     </div>
                   </SpotlightCard>
                 </Reveal>
+
+                <Reveal delay={0.05}>
+                  <SpotlightCard className="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-card/50 backdrop-blur-sm transition-all hover:border-purple-500/40 mt-8">
+                    <div className="p-6 md:p-8 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                      <div className="space-y-4 flex-1">
+                        <h3 className="text-2xl font-bold leading-tight">
+                          Upcoming Patent
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-3 text-sm mt-3 border-y border-border/10 py-3">
+                          <span className="inline-flex items-center rounded-full bg-amber-500/10 px-3 py-1 font-medium text-amber-400 border border-amber-500/20">
+                            Filed
+                          </span>
+                        </div>
+                        <p className="text-muted-foreground text-sm leading-relaxed">
+                          Filed an upcoming patent based on electronics and
+                          instrumentation data from the OWC and Point Wave
+                          Harvester systems, covering sensing, power
+                          conditioning, and performance analysis workflows.
+                        </p>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
               </div>
             </div>
           </section>

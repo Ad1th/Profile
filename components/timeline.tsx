@@ -131,6 +131,26 @@ export function Timeline() {
       title: "Joined VIT Vellore",
       description: "",
     },
+    {
+      year: "Mar 2025",
+      title: "Joined MFC",
+      description: "",
+    },
+    {
+      year: "2025",
+      title: "Internship at Matrix Capital",
+      description: "",
+    },
+    {
+      year: "2025",
+      title: "Internship at IITH",
+      description: "",
+    },
+    {
+      year: "Jan 2026",
+      title: "Technical Head, MFC",
+      description: "",
+    },
   ];
 
   return (

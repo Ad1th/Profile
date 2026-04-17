@@ -171,8 +171,8 @@ export default function Portfolio() {
       align-items: center;
       justify-content: center;
       gap: 8px;
-      min-height: 48px;
-      padding: 0 28px;
+      min-height: 50px;
+      padding: 0 30px;
       background: #FF7A1F;
       color: #111111;
       font-weight: 600;
@@ -181,7 +181,7 @@ export default function Portfolio() {
       border-radius: 999px;
       text-decoration: none;
       transition: transform 0.15s ease, background 0.2s ease;
-      border: 1px solid rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,122,31,0.3);
       cursor: pointer;
     }
     .btn-primary:hover { background: #e86f14; transform: translateY(-1px); }
@@ -191,9 +191,9 @@ export default function Portfolio() {
       align-items: center;
       justify-content: center;
       gap: 8px;
-      min-height: 48px;
-      padding: 0 28px;
-      background: transparent;
+      min-height: 50px;
+      padding: 0 30px;
+      background: #1A1A1A;
       color: #E5E5E5;
       font-weight: 500;
       font-size: 0.86rem;
@@ -204,7 +204,7 @@ export default function Portfolio() {
       transition: border-color 0.2s ease, color 0.2s ease;
       cursor: pointer;
     }
-    .btn-ghost:hover { border-color: #FF7A1F; color: #FF7A1F; }
+    .btn-ghost:hover { border-color: #FF7A1F; color: #FF7A1F; background: #1A1A1A; }
 
     .card {
       background: #1A1A1A;
@@ -337,22 +337,10 @@ export default function Portfolio() {
     { name: "French", level: "Basic", p: 2 },
   ];
 
-  const projects = [
-    {
-      name: "Reference Hallucination Detector",
-      emoji: "📚",
-      description:
-        "Research-grade pipeline for citation-grounded trust verification in academic text using NLP, reference extraction, and claim-to-source consistency checks.",
-      stack: ["NLP", "Reference Verification", "Python"],
-      github: null,
-    },
-    {
-      name: "archAIc",
-      emoji: "🛡️",
-      description:
         "AI-driven reliability engineering platform with 6 FastAPI microservices, OpenTelemetry trace propagation, and chaos controls for failure injection.",
       stack: ["FastAPI", "Prometheus/Grafana", "Kubernetes", "Next.js"],
       github: null,
+      image: null,
     },
     {
       name: "Scotland Yard",
@@ -362,6 +350,7 @@ export default function Portfolio() {
       stack: ["Node.js", "Express", "PostgreSQL", "Redis"],
       github: "https://github.com/Ad1th/Gravitas-Backend-25-Complete",
       badge: "100+ Users",
+      image: null,
     },
     {
       name: "BlindSpot",
@@ -370,6 +359,7 @@ export default function Portfolio() {
         "Edge integration and deployment of a spatio-temporal assistive device for the visually impaired. YOLOv8-seg and CNN-LSTM on Raspberry Pi 5 with LLM-powered audio narration.",
       stack: ["Raspberry Pi", "YOLOv8", "CNN-LSTM", "Edge AI"],
       github: null,
+      image: null,
     },
     {
       name: "Argus",
@@ -378,6 +368,7 @@ export default function Portfolio() {
         "SQL analytics workspace where users upload CSV files, run SQL commands, inspect detailed query plans, and explore operator-level execution graphs.",
       stack: ["FastAPI", "React + TypeScript", "DuckDB", "ReactFlow"],
       github: null,
+      image: null,
     },
     {
       name: "OWC Wave Energy Harvester",
@@ -386,6 +377,7 @@ export default function Portfolio() {
         "Adapted point-source oscillator circuitry for Oscillating Water Column energy harvesting with ACS712 current sensors and voltage dividers.",
       stack: ["ACS712", "Power Electronics", "Signal Conditioning"],
       github: null,
+      image: "/wave-energy-4.jpg",
     },
     {
       name: "Point Wave Energy Harvester",
@@ -394,6 +386,7 @@ export default function Portfolio() {
         "Power conditioning circuitry for buoy-based wave energy harvesting. Full-wave rectifier, DC-DC boost converter, MPPT algorithm, IoT telemetry via ESP8266.",
       stack: ["Op-AMP 741", "Boost Converter", "Arduino", "ESP8266"],
       github: null,
+      image: "/wave-energy-3.jpg",
     },
     {
       name: "Cloudify",
@@ -402,6 +395,7 @@ export default function Portfolio() {
         "Cloud storage platform inspired by Google Drive with secure uploads, structured folder organization, and AI-driven search and data insights.",
       stack: ["PostgreSQL", "Express.js", "Vercel"],
       github: "https://github.com/Ad1th/file-mgmt",
+      image: "/cloudify.png",
     },
     {
       name: "CropLink",
@@ -410,6 +404,7 @@ export default function Portfolio() {
         "Farm-to-labourer SMS application enabling direct communication between farmers and labourers, with crop data tailored to farm, soil type, and climate.",
       stack: ["PostgreSQL/Supabase", "Gemini API", "Twilio SMS"],
       github: null,
+      image: null,
     },
     {
       name: "Threddit",
@@ -418,6 +413,7 @@ export default function Portfolio() {
         "Productivity Chrome extension analyzing web usage and delivering personalized nudges. Saved users 36–48 minutes daily by reducing distractions.",
       stack: ["React", "FastAPI", "Gemini API", "Chrome Extensions"],
       github: "https://github.com/Ad1th/3braincells_DevJams-24",
+      image: "/threddit.png",
     },
     {
       name: "EchoChamber",
@@ -426,6 +422,7 @@ export default function Portfolio() {
         "Anonymous forum web app enabling users to post confessions, chat, and share thoughts freely, with Supabase real-time data handling.",
       stack: ["HTML/CSS/JS", "PostgreSQL", "Supabase"],
       github: "https://github.com/Ad1th/EchoChamber",
+      image: "/echochamber.png",
     },
     {
       name: "SevaVerse",
@@ -434,6 +431,7 @@ export default function Portfolio() {
         "Platform connecting NGOs, volunteers, and donors to enhance child welfare with task management and dashboards.",
       stack: ["Node.js", "Prisma + SQLite", "Tailwind CSS"],
       github: "https://github.com/Ad1th/SevaVerse",
+      image: "/sevaverse.png",
     },
     {
       name: "EcoSync",
@@ -442,6 +440,7 @@ export default function Portfolio() {
         "Smart sustainability solutions for logistics and energy, built in a 2-day hackathon with Supabase backend and Python FastAPI.",
       stack: ["Supabase", "FastAPI", "HTML/CSS/JS"],
       github: "https://github.com/Ad1th/OptiSync",
+      image: "/EcoSync.png",
     },
     {
       name: "HOSPITECH",
@@ -450,6 +449,7 @@ export default function Portfolio() {
         "Lightweight clinic management system to digitize patient records, appointments, and doctor profiles with secure admin/doctor logins.",
       stack: ["Python", "SQL/MySQL", "Tkinter"],
       github: "https://github.com/Ad1th/Hospitech--Hospital-Management-System",
+      image: "/lhospital.png",
     },
     {
       name: "Snek",
@@ -458,6 +458,7 @@ export default function Portfolio() {
         "Retro-style snake game with clean UI, menu screen, and dynamic difficulty. First project from grade 12.",
       stack: ["Python", "Pygame"],
       github: "https://github.com/Ad1th/Snek---Snake_Game",
+      image: "/snek.png",
     },
   ];
 
@@ -576,7 +577,20 @@ export default function Portfolio() {
   const heroFocus = [
     "Backend systems",
     "AI + edge deployment",
-    "Calm, production-minded execution",
+    "Reliable delivery",
+  ];
+
+  const patents = [
+    {
+      title:
+        "A system for real time environmental perception and assistance for a visually impaired user",
+      status: "Published",
+      appNo: "202641010249",
+      filed: "31/01/2026",
+      published: "13/02/2026",
+      description:
+        "Filed through Vellore Institute of Technology. This ordinary application in the field of Computer Science details an advanced predictive and assistive system providing real-time environmental perception to aid visually impaired individuals.",
+    },
   ];
 
   return (
@@ -674,31 +688,30 @@ export default function Portfolio() {
 
       <section
         id="hero"
-        className="mx-auto grid min-h-[calc(100vh-60px)] max-w-6xl items-center gap-10 px-6 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14"
+        className="mx-auto grid min-h-[calc(100vh-60px)] max-w-6xl items-center gap-12 px-6 py-24 text-center lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-16 lg:text-left"
       >
-        <div className="max-w-3xl">
+        <div className="mx-auto max-w-3xl lg:mx-0">
           <SectionLabel>Engineering Student · VIT Vellore</SectionLabel>
-          <h1 className="max-w-3xl text-[clamp(3rem,7vw,5.5rem)] leading-[1.02] tracking-[-0.03em] text-[#E5E5E5]">
+          <h1 className="mx-auto max-w-3xl text-[clamp(3rem,7vw,5.2rem)] leading-[1.02] tracking-[-0.03em] text-[#E5E5E5] lg:mx-0">
             Hi, I&apos;m <span className="text-[#FF7A1F]">Adith Manikonda</span>
           </h1>
-          <p className="mt-5 max-w-2xl text-[clamp(1rem,2vw,1.14rem)] leading-8 text-[#A0A0A0]">
-            Software Developer | Engineering Student | Tech Enthusiast. I build
-            backend-heavy systems, practical AI tools, and edge devices that
-            solve real problems without noise.
+          <p className="mx-auto mt-5 max-w-2xl text-[clamp(1rem,2vw,1.08rem)] leading-8 text-[#A0A0A0] lg:mx-0">
+            Backend systems, practical AI, and edge deployments built to hold up
+            under real use.
           </p>
-          <p className="mt-5 flex items-center gap-2 text-sm text-[#A0A0A0]">
+          <p className="mt-5 flex items-center justify-center gap-2 text-sm text-[#A0A0A0] lg:justify-start">
             <MapPin size={14} className="text-[#FF7A1F]" />
             VIT, Vellore, India
           </p>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a href="#projects" className="btn-primary sm:w-auto">
+          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap lg:justify-start">
+            <a href="#projects" className="btn-primary w-full sm:w-auto">
               View Projects
             </a>
-            <a href="#about" className="btn-ghost sm:w-auto">
+            <a href="#about" className="btn-ghost w-full sm:w-auto">
               About Me
             </a>
           </div>
-          <div className="mt-8 flex items-center gap-5">
+          <div className="mt-8 flex items-center justify-center gap-5 lg:justify-start">
             <a
               href="https://github.com/Ad1th"
               target="_blank"
@@ -727,40 +740,9 @@ export default function Portfolio() {
           </div>
         </div>
 
-        <aside className="card fade-in border-[#333333] bg-[#1A1A1A] p-7 shadow-none">
-          <div className="space-y-4">
-            <p className="text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#A0A0A0]">
-              Current focus
-            </p>
-            <h2 className="text-[clamp(1.7rem,3vw,2.35rem)] leading-[1.08] text-[#E5E5E5]">
-              Systems that stay calm under load.
-            </h2>
-            <p className="max-w-[34ch] text-sm leading-7 text-[#A0A0A0]">
-              I build software that earns trust through clarity, observability,
-              and disciplined execution.
-            </p>
-          </div>
-
-          <div className="mt-7 grid grid-cols-2 gap-3">
-            {heroStats.map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-xl border border-[#333333] bg-[#111111] px-4 py-3"
-              >
-                <p className="mb-1 text-[1.45rem] leading-none text-[#E5E5E5]">
-                  {stat.value}
-                </p>
-                <p className="text-[0.74rem] text-[#A0A0A0]">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {heroFocus.map((item) => (
-              <Tag key={item} label={item} />
-            ))}
-          </div>
-        </aside>
+        <div className="hidden min-h-[360px] lg:block" aria-hidden="true">
+          <div className="h-full w-full rounded-[1.5rem] border border-[#333333] bg-[#1A1A1A]" />
+        </div>
       </section>
 
       <Divider />
@@ -1052,6 +1034,17 @@ export default function Portfolio() {
                 gap: "14px",
               }}
             >
+              {project.image && (
+                <div className="overflow-hidden rounded-2xl border border-[#333333] bg-[#111111]">
+                  <Image
+                    src={project.image}
+                    alt={project.name}
+                    width={800}
+                    height={450}
+                    className="h-44 w-full object-cover"
+                  />
+                </div>
+              )}
               <div
                 style={{
                   display: "flex",
@@ -1131,17 +1124,84 @@ export default function Portfolio() {
           <SectionLabel>Patents</SectionLabel>
           <SectionTitle>Intellectual property</SectionTitle>
         </div>
-        <p
-          className="fade-in"
+        <div
           style={{
-            marginTop: "32px",
-            color: "#A0A0A0",
-            fontSize: "0.95rem",
-            fontStyle: "italic",
+            marginTop: "48px",
+            display: "grid",
+            gap: "16px",
           }}
         >
-          Patent details coming soon.
-        </p>
+          {patents.map((patent) => (
+            <div
+              key={patent.appNo}
+              className="card fade-in"
+              style={{ padding: "26px 28px" }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  gap: "12px",
+                  marginBottom: "14px",
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "1.05rem",
+                    fontWeight: 600,
+                    color: "#E5E5E5",
+                    lineHeight: 1.4,
+                    maxWidth: "52rem",
+                  }}
+                >
+                  {patent.title}
+                </h3>
+                <span
+                  style={{
+                    fontSize: "0.78rem",
+                    color: "#4ade80",
+                    background: "rgba(74,222,128,0.08)",
+                    border: "1px solid rgba(74,222,128,0.2)",
+                    borderRadius: "999px",
+                    padding: "4px 12px",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {patent.status}
+                </span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "8px",
+                  marginBottom: "14px",
+                }}
+              >
+                <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                  App No: {patent.appNo}
+                </span>
+                <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                  Filed: {patent.filed}
+                </span>
+                <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                  Published: {patent.published}
+                </span>
+              </div>
+              <p
+                style={{
+                  fontSize: "0.9rem",
+                  color: "#A0A0A0",
+                  lineHeight: 1.7,
+                }}
+              >
+                {patent.description}
+              </p>
+            </div>
+          ))}
+        </div>
       </section>
 
       <Divider />

@@ -337,9 +337,21 @@ export default function Portfolio() {
     { name: "French", level: "Basic", p: 2 },
   ];
 
+  const projects = [
+    {
+      name: "archAIc",
+      emoji: "🛡️",
+      description:
         "AI-driven reliability engineering platform with 6 FastAPI microservices, OpenTelemetry trace propagation, and chaos controls for failure injection.",
-      stack: ["FastAPI", "Prometheus/Grafana", "Kubernetes", "Next.js"],
+      stack: [
+        "FastAPI Microservices",
+        "Prometheus/Grafana/Jaeger/Loki",
+        "Chaos Engineering",
+        "Kubernetes",
+        "Next.js",
+      ],
       github: null,
+      badge: "Research",
       image: null,
     },
     {
@@ -565,19 +577,6 @@ export default function Portfolio() {
     "Music",
     "Traveling",
     "Gardening",
-  ];
-
-  const heroStats = [
-    { value: `${projects.length}`, label: "projects" },
-    { value: `${experience.length}`, label: "roles" },
-    { value: `${hackathons.length}`, label: "hackathons" },
-    { value: `${achievements.length}`, label: "awards" },
-  ];
-
-  const heroFocus = [
-    "Backend systems",
-    "AI + edge deployment",
-    "Reliable delivery",
   ];
 
   const patents = [

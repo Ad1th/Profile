@@ -40,10 +40,12 @@ npm run lint
 
 ## Key Project Highlights
 
-- Hallucination Reference Detector (85% complete)
+- Hallucination Reference Detector
+- Scotland Yard
 - archAIc
 - Argus
 - BlindSpot
+- Wave Energy Harvesters
 
 ## Project Structure
 

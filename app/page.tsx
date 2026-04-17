@@ -317,42 +317,38 @@ export default function Portfolio() {
     },
     {
       title: "Frontend",
-      skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-    },
-    {
-      title: "AI & Edge",
-      skills: ["YOLOv8", "CNN-LSTM", "Raspberry Pi", "FastAPI", "Gemini API"],
+      skills: ["React", "Next.js", "TypeScript", "Tailwind"],
     },
     {
       title: "DevOps",
-      skills: ["Azure", "CI/CD", "Load Testing", "Production Debugging"],
+      skills: ["Azure", "CI/CD", "Load Testing"],
     },
   ];
 
   const languages = [
-    { name: "English", level: "Native", p: 5 },
-    { name: "Hindi", level: "Fluent", p: 4 },
-    { name: "Telugu", level: "Intermediate", p: 3 },
-    { name: "Kannada", level: "Intermediate", p: 3 },
-    { name: "French", level: "Basic", p: 2 },
+    { name: "English", level: "Native", proficiency: 5 },
+    { name: "Hindi", level: "Fluent", proficiency: 4 },
+    { name: "Telugu", level: "Intermediate", proficiency: 3 },
+    { name: "Kannada", level: "Intermediate", proficiency: 3 },
+    { name: "French", level: "Basic", proficiency: 2 },
   ];
 
   const projects = [
+    {
+      name: "Reference Hallucination Detector",
+      emoji: "📚",
+      description:
+        "Research-grade pipeline for citation-grounded trust verification in academic text using NLP, reference extraction, and claim-to-source consistency checks.",
+      stack: ["NLP", "Reference Verification", "Python"],
+      github: null,
+    },
     {
       name: "archAIc",
       emoji: "🛡️",
       description:
         "AI-driven reliability engineering platform with 6 FastAPI microservices, OpenTelemetry trace propagation, and chaos controls for failure injection.",
-      stack: [
-        "FastAPI Microservices",
-        "Prometheus/Grafana/Jaeger/Loki",
-        "Chaos Engineering",
-        "Kubernetes",
-        "Next.js",
-      ],
+      stack: ["FastAPI", "Prometheus/Grafana", "Kubernetes", "Next.js"],
       github: null,
-      badge: "Research",
-      image: null,
     },
     {
       name: "Scotland Yard",
@@ -362,7 +358,6 @@ export default function Portfolio() {
       stack: ["Node.js", "Express", "PostgreSQL", "Redis"],
       github: "https://github.com/Ad1th/Gravitas-Backend-25-Complete",
       badge: "100+ Users",
-      image: null,
     },
     {
       name: "BlindSpot",
@@ -371,7 +366,6 @@ export default function Portfolio() {
         "Edge integration and deployment of a spatio-temporal assistive device for the visually impaired. YOLOv8-seg and CNN-LSTM on Raspberry Pi 5 with LLM-powered audio narration.",
       stack: ["Raspberry Pi", "YOLOv8", "CNN-LSTM", "Edge AI"],
       github: null,
-      image: null,
     },
     {
       name: "Argus",
@@ -380,7 +374,6 @@ export default function Portfolio() {
         "SQL analytics workspace where users upload CSV files, run SQL commands, inspect detailed query plans, and explore operator-level execution graphs.",
       stack: ["FastAPI", "React + TypeScript", "DuckDB", "ReactFlow"],
       github: null,
-      image: null,
     },
     {
       name: "OWC Wave Energy Harvester",
@@ -389,7 +382,6 @@ export default function Portfolio() {
         "Adapted point-source oscillator circuitry for Oscillating Water Column energy harvesting with ACS712 current sensors and voltage dividers.",
       stack: ["ACS712", "Power Electronics", "Signal Conditioning"],
       github: null,
-      image: "/wave-energy-4.jpg",
     },
     {
       name: "Point Wave Energy Harvester",
@@ -398,7 +390,6 @@ export default function Portfolio() {
         "Power conditioning circuitry for buoy-based wave energy harvesting. Full-wave rectifier, DC-DC boost converter, MPPT algorithm, IoT telemetry via ESP8266.",
       stack: ["Op-AMP 741", "Boost Converter", "Arduino", "ESP8266"],
       github: null,
-      image: "/wave-energy-3.jpg",
     },
     {
       name: "Cloudify",
@@ -407,7 +398,6 @@ export default function Portfolio() {
         "Cloud storage platform inspired by Google Drive with secure uploads, structured folder organization, and AI-driven search and data insights.",
       stack: ["PostgreSQL", "Express.js", "Vercel"],
       github: "https://github.com/Ad1th/file-mgmt",
-      image: "/cloudify.png",
     },
     {
       name: "CropLink",
@@ -416,7 +406,6 @@ export default function Portfolio() {
         "Farm-to-labourer SMS application enabling direct communication between farmers and labourers, with crop data tailored to farm, soil type, and climate.",
       stack: ["PostgreSQL/Supabase", "Gemini API", "Twilio SMS"],
       github: null,
-      image: null,
     },
     {
       name: "Threddit",
@@ -425,7 +414,6 @@ export default function Portfolio() {
         "Productivity Chrome extension analyzing web usage and delivering personalized nudges. Saved users 36–48 minutes daily by reducing distractions.",
       stack: ["React", "FastAPI", "Gemini API", "Chrome Extensions"],
       github: "https://github.com/Ad1th/3braincells_DevJams-24",
-      image: "/threddit.png",
     },
     {
       name: "EchoChamber",
@@ -434,16 +422,14 @@ export default function Portfolio() {
         "Anonymous forum web app enabling users to post confessions, chat, and share thoughts freely, with Supabase real-time data handling.",
       stack: ["HTML/CSS/JS", "PostgreSQL", "Supabase"],
       github: "https://github.com/Ad1th/EchoChamber",
-      image: "/echochamber.png",
     },
     {
       name: "SevaVerse",
       emoji: "🤝",
       description:
-        "Platform connecting NGOs, volunteers, and donors to enhance child welfare with task management and dashboards.",
+        "Platform connecting NGOs, volunteers, and well-wishers to streamline child welfare initiatives with task management and dashboards.",
       stack: ["Node.js", "Prisma + SQLite", "Tailwind CSS"],
       github: "https://github.com/Ad1th/SevaVerse",
-      image: "/sevaverse.png",
     },
     {
       name: "EcoSync",
@@ -452,7 +438,6 @@ export default function Portfolio() {
         "Smart sustainability solutions for logistics and energy, built in a 2-day hackathon with Supabase backend and Python FastAPI.",
       stack: ["Supabase", "FastAPI", "HTML/CSS/JS"],
       github: "https://github.com/Ad1th/OptiSync",
-      image: "/EcoSync.png",
     },
     {
       name: "HOSPITECH",
@@ -461,7 +446,6 @@ export default function Portfolio() {
         "Lightweight clinic management system to digitize patient records, appointments, and doctor profiles with secure admin/doctor logins.",
       stack: ["Python", "SQL/MySQL", "Tkinter"],
       github: "https://github.com/Ad1th/Hospitech--Hospital-Management-System",
-      image: "/lhospital.png",
     },
     {
       name: "Snek",
@@ -470,101 +454,106 @@ export default function Portfolio() {
         "Retro-style snake game with clean UI, menu screen, and dynamic difficulty. First project from grade 12.",
       stack: ["Python", "Pygame"],
       github: "https://github.com/Ad1th/Snek---Snake_Game",
-      image: "/snek.png",
     },
   ];
 
   const achievements = [
     {
-      title: "AI Solutions Track Winner – Code 2 Create (C2C) Hackathon",
+      title: "AI solutions Track Winner - Code 2 Create (C2C) Hackathon",
       year: "2025",
       description:
-        "Won the AI solutions track at VIT Vellore, organized by ACM, by building a blind assistance tool using image recognition and Raspberry Pi for real-time audio feedback.",
+        "Won the AI solutions track at Code 2 Create (C2C) Hackathon held at VIT Vellore, organized by ACM, by building a blind assistance tool using image recognition and Raspberry Pi for real-time audio feedback.",
     },
     {
-      title: "Cent Percent Attendance – VIT (2024–25)",
-      year: "2024–25",
+      title:
+        "Cent Percent Attendance – Vellore Institute of Technology (2024–25)",
+      year: "2024-25",
       description:
-        "Awarded Certificate of Appreciation for 100% attendance in B.Tech. Computer Science and Engineering (Information Security).",
+        "Awarded a Certificate of Appreciation for achieving 100% attendance in the academic year 2024–25 in B.Tech. Computer Science and Engineering (Information Security).",
     },
     {
-      title: "First Place – CodeWars Hackathon",
+      title: "First Place in Hackathon – CodeWars",
       year: "2024",
-      description: "Won CodeWars hackathon conducted by NPS KRM.",
+      description: "Won a hackathon - CodeWars - Conducted by NPS KRM.",
     },
     {
       title: "Second Place – PC Building Competition",
       year: "2023",
       description:
-        "Second place in a competitive PC building event hosted by NPS HSR.",
+        "Achieved second place in a competitive PC building event, hosted by NPS HSR.",
     },
     {
       title: "OCI Foundations Certification",
       year: "2025",
       description:
-        "Oracle Cloud Infrastructure Foundations certification demonstrating foundational knowledge of OCI services and cloud concepts.",
+        "Obtained the Oracle Cloud Infrastructure (OCI) Foundations certification, demonstrating foundational knowledge of OCI services and cloud concepts.",
     },
     {
-      title: "Python Certification – HackerRank",
-      year: "2025",
-      description: "Python programming certification from HackerRank.",
-    },
-    {
-      title: "SQL Basic + Intermediate – HackerRank",
+      title: "Python Certification",
       year: "2025",
       description:
-        "Certifications in SQL Basic and SQL Intermediate from HackerRank.",
+        "Recieved a certification in Python programming from HackerRank.",
     },
     {
-      title: "AI Builder & Power Apps – Coursera",
+      title: "SQL Basic Skill Certification",
+      year: "2025",
+      description: "Received a certification in SQL (Basic) from HackerRank.",
+    },
+    {
+      title: "SQL Intermeddiate Skill certification",
+      year: "2025",
+      description:
+        "Received a certification in SQL (Intermediate) from HackerRank.",
+    },
+    {
+      title: "Use AI Builder and Power Apps to Process Invoice Data",
       year: "2020",
       description:
-        "Certificate of Completion for using AI Builder and Power Apps to process invoice data.",
+        "Received a Certificate of Completion for a course on using AI Builder and Power Apps to process invoice data from Coursera.",
+    },
+    {
+      title: "Virtual Internship in Mechanical Engineering",
+      year: "2019",
+      description:
+        "Completed a virtual internship in Mechanical Engineering by Mindler.",
     },
   ];
 
   const hackathons = [
     {
-      name: "Women Techies '26 – Finalist, Top 10 Teams",
-      when: "March 2026 · VIT Vellore",
-      desc: "Reached finalist stage by building AetherQuery, a SQL analytics platform with CSV upload, SQL execution, and detailed query-plan visualization.",
-      tags: [],
+      name: "Women Techies'26 - Finalist - Top 10 Teams",
+      when: "March 2026 • VIT Vellore, India",
+      desc: "Reached finalist stage as a part of the top 10 teams at Women Techies'26 by building AetherQuery, a SQL analytics platform with CSV upload, SQL execution, and detailed query-plan visualization for interactive analysis.",
     },
     {
-      name: "Code 2 Create (C2C) – AI Track Winner",
-      when: "Feb 2026 · VIT Vellore",
-      desc: "Won the AI solutions track by building BlindSpot, an assistive device for the visually impaired using Raspberry Pi and YOLOv8 with LLM-powered audio narration.",
-      tags: ["Winner"],
+      name: "TechSolstice",
+      when: "March 2026 • MIT Bangalore, India",
+      desc: "Built archAIc, an AI-driven reliability engineering platform with microservices observability, chaos injection, and automated incident analysis workflows for resilient production-system testing.",
     },
     {
-      name: "HackVita 4.0 – Top 10 Teams",
-      when: "Jan 2026 · VIT Vellore",
-      desc: "Built a comprehensive healthcare solution in the top 10 teams.",
-      tags: [],
+      name: "Code 2 Create (C2C) - AI solutions Track Winner",
+      when: "September 2025 • VIT Vellore, India",
+      desc: "Built a blind assistance tool which uses image recognition to analyze surroundings and provide real-time feedback to visually impaired users via audio in their local dialect.",
     },
     {
-      name: "Gravitas – Top 6 Teams",
-      when: "Nov 2025 · VIT Vellore",
-      desc: "Built Scotland Yard, a real-time multiplayer digital board game backend with 200-node graph-based map and asymmetric gameplay.",
-      tags: [],
+      name: "Women Techies'25",
+      when: "April 2025 • VIT Vellore, India",
+      desc: "Built SevaVerse at Women Techies'25 – a collaborative platform connecting NGOs, volunteers, and well-wishers to streamline child welfare initiatives.",
     },
     {
-      name: "Hack The Verse 3.0 – Top 5 Teams",
-      when: "Oct 2025 · VIT Vellore",
-      desc: "Top 5 finish building a full-stack platform under 24 hours.",
-      tags: [],
+      name: "Yantra Central Hack",
+      when: "January 2025 • VIT Vellore, India",
+      desc: "Built OptiSync at Yantra Central Hack – a sustainability platform tailored for the textile industry.",
     },
     {
-      name: "DevJams – Participant",
-      when: "Sep 2024 · VIT Vellore",
-      desc: "Built Threddit – a smart Chrome extension using Gemini API to analyze browsing patterns and deliver AI-powered productivity nudges.",
-      tags: [],
+      name: "DevJams",
+      when: "September 2024 • VIT Vellore, India",
+      desc: "Built Therddit at DevJams – a smart Chrome extension that uses the Gemini API to analyze browsing patterns and deliver AI-powered nudges.",
     },
     {
-      name: "CodeWars – First Place",
-      when: "Feb 2024 · NPS KRM, Bangalore",
+      name: "CodeWars",
+      when: "February 2024 • NPS KRM, Blr, India",
       desc: "Won first place.",
-      tags: ["Winner"],
     },
   ];
 
@@ -590,7 +579,22 @@ export default function Portfolio() {
       description:
         "Filed through Vellore Institute of Technology. This ordinary application in the field of Computer Science details an advanced predictive and assistive system providing real-time environmental perception to aid visually impaired individuals.",
     },
+    // Second patent was only a placeholder in some versions
   ];
+
+  const projectImages: Partial<
+    Record<(typeof projects)[number]["name"], string>
+  > = {
+    "OWC Wave Energy Harvester": "/wave-energy-4.jpg",
+    "Point Wave Energy Harvester": "/wave-energy-3.jpg",
+    Cloudify: "/cloudify.png",
+    Threddit: "/threddit.png",
+    EchoChamber: "/echochamber.png",
+    SevaVerse: "/sevaverse.png",
+    EcoSync: "/EcoSync.png",
+    HOSPITECH: "/lhospital.png",
+    Snek: "/snek.png",
+  };
 
   return (
     <>
@@ -996,7 +1000,8 @@ export default function Portfolio() {
                         flex: 1,
                         height: "3px",
                         borderRadius: "2px",
-                        background: index < lang.p ? "#FF7A1F" : "#333333",
+                        background:
+                          index < lang.proficiency ? "#FF7A1F" : "#333333",
                       }}
                     />
                   ))}
@@ -1022,97 +1027,109 @@ export default function Portfolio() {
             gap: "16px",
           }}
         >
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="card fade-in"
-              style={{
-                padding: "24px 26px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "14px",
-              }}
-            >
-              {project.image && (
-                <div className="overflow-hidden rounded-2xl border border-[#333333] bg-[#111111]">
-                  <Image
-                    src={project.image}
-                    alt={project.name}
-                    width={800}
-                    height={450}
-                    className="h-44 w-full object-cover"
-                  />
-                </div>
-              )}
+          {projects.map((project, index) => {
+            const projectImage = projectImages[project.name];
+
+            return (
               <div
+                key={index}
+                className="card fade-in"
                 style={{
+                  padding: "24px 26px",
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
+                  flexDirection: "column",
+                  gap: "14px",
                 }}
               >
+                {projectImage && (
+                  <div className="overflow-hidden rounded-2xl border border-[#333333] bg-[#111111]">
+                    <Image
+                      src={projectImage}
+                      alt={project.name}
+                      width={800}
+                      height={450}
+                      className="h-44 w-full object-cover"
+                    />
+                  </div>
+                )}
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "10px" }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                  }}
                 >
-                  <span style={{ fontSize: "1.3rem" }}>{project.emoji}</span>
-                  <h3
+                  <div
                     style={{
-                      fontSize: "1rem",
-                      fontWeight: 600,
-                      color: "#E5E5E5",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
                     }}
                   >
-                    {project.name}
-                  </h3>
-                </div>
-                <div
-                  style={{ display: "flex", gap: "8px", alignItems: "center" }}
-                >
-                  {project.badge && (
-                    <span
+                    <span style={{ fontSize: "1.3rem" }}>{project.emoji}</span>
+                    <h3
                       style={{
-                        fontSize: "0.68rem",
+                        fontSize: "1rem",
                         fontWeight: 600,
-                        color: "#4ade80",
-                        background: "rgba(74,222,128,0.1)",
-                        border: "1px solid rgba(74,222,128,0.25)",
-                        borderRadius: "999px",
-                        padding: "2px 8px",
+                        color: "#E5E5E5",
                       }}
                     >
-                      {project.badge}
-                    </span>
-                  )}
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="social-icon"
-                      aria-label="GitHub"
-                    >
-                      <Github size={16} />
-                    </a>
-                  )}
+                      {project.name}
+                    </h3>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "8px",
+                      alignItems: "center",
+                    }}
+                  >
+                    {project.badge && (
+                      <span
+                        style={{
+                          fontSize: "0.68rem",
+                          fontWeight: 600,
+                          color: "#4ade80",
+                          background: "rgba(74,222,128,0.1)",
+                          border: "1px solid rgba(74,222,128,0.25)",
+                          borderRadius: "999px",
+                          padding: "2px 8px",
+                        }}
+                      >
+                        {project.badge}
+                      </span>
+                    )}
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="social-icon"
+                        aria-label="GitHub"
+                      >
+                        <Github size={16} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+                <p
+                  style={{
+                    fontSize: "0.85rem",
+                    color: "#A0A0A0",
+                    lineHeight: 1.65,
+                    flex: 1,
+                  }}
+                >
+                  {project.description}
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                  {project.stack.map((item) => (
+                    <Tag key={item} label={item} />
+                  ))}
                 </div>
               </div>
-              <p
-                style={{
-                  fontSize: "0.85rem",
-                  color: "#A0A0A0",
-                  lineHeight: 1.65,
-                  flex: 1,
-                }}
-              >
-                {project.description}
-              </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                {project.stack.map((item) => (
-                  <Tag key={item} label={item} />
-                ))}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -1318,24 +1335,6 @@ export default function Portfolio() {
                 <div
                   style={{ display: "flex", gap: "8px", alignItems: "center" }}
                 >
-                  {hackathon.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      style={{
-                        fontSize: "0.7rem",
-                        fontWeight: 700,
-                        color: "#FF7A1F",
-                        background: "rgba(255,122,31,0.1)",
-                        border: "1px solid rgba(255,122,31,0.25)",
-                        borderRadius: "999px",
-                        padding: "2px 8px",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.06em",
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
                   <span style={{ fontSize: "0.78rem", color: "#A0A0A0" }}>
                     {hackathon.when}
                   </span>

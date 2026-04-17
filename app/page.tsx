@@ -138,8 +138,8 @@ export default function Portfolio() {
 
     .fade-in {
       opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transform: translateY(12px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     .nav-link {
@@ -173,7 +173,7 @@ export default function Portfolio() {
       gap: 8px;
       min-height: 48px;
       padding: 0 28px;
-      background: linear-gradient(180deg, #ff8731 0%, #ff7a1f 100%);
+      background: #FF7A1F;
       color: #111111;
       font-weight: 600;
       font-size: 0.86rem;
@@ -184,7 +184,7 @@ export default function Portfolio() {
       border: 1px solid rgba(255,255,255,0.04);
       cursor: pointer;
     }
-    .btn-primary:hover { background: linear-gradient(180deg, #ff8e3d 0%, #ef7318 100%); transform: translateY(-1px); }
+    .btn-primary:hover { background: #e86f14; transform: translateY(-1px); }
 
     .btn-ghost {
       display: inline-flex;
@@ -242,8 +242,8 @@ export default function Portfolio() {
       transition: border-color 0.2s ease;
     }
     .hobby-card:hover { border-color: rgba(255,122,31,0.35); }
-    .hobby-card:hover img { transform: scale(1.06); }
-    .hobby-card img { transition: transform 0.4s ease; width: 100%; height: 100%; object-fit: cover; }
+    .hobby-card:hover img { transform: scale(1.02); }
+    .hobby-card img { transition: transform 0.25s ease; width: 100%; height: 100%; object-fit: cover; }
     .hobby-label {
       position: absolute;
       bottom: 0;
@@ -674,193 +674,93 @@ export default function Portfolio() {
 
       <section
         id="hero"
-        style={{
-          ...sectionStyle,
-          minHeight: "calc(100vh - 60px)",
-          display: "grid",
-          alignItems: "center",
-        }}
+        className="mx-auto grid min-h-[calc(100vh-60px)] max-w-6xl items-center gap-10 px-6 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14"
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "32px",
-            alignItems: "center",
-          }}
-        >
-          <div style={{ maxWidth: "720px" }}>
-            <SectionLabel>Engineering Student · VIT Vellore</SectionLabel>
-            <h1
-              style={{
-                fontSize: "clamp(3rem, 7vw, 5.5rem)",
-                fontWeight: 400,
-                lineHeight: 1.02,
-                color: "#E5E5E5",
-                marginBottom: "24px",
-                letterSpacing: "-0.03em",
-              }}
+        <div className="max-w-3xl">
+          <SectionLabel>Engineering Student · VIT Vellore</SectionLabel>
+          <h1 className="max-w-3xl text-[clamp(3rem,7vw,5.5rem)] leading-[1.02] tracking-[-0.03em] text-[#E5E5E5]">
+            Hi, I&apos;m <span className="text-[#FF7A1F]">Adith Manikonda</span>
+          </h1>
+          <p className="mt-5 max-w-2xl text-[clamp(1rem,2vw,1.14rem)] leading-8 text-[#A0A0A0]">
+            Software Developer | Engineering Student | Tech Enthusiast. I build
+            backend-heavy systems, practical AI tools, and edge devices that
+            solve real problems without noise.
+          </p>
+          <p className="mt-5 flex items-center gap-2 text-sm text-[#A0A0A0]">
+            <MapPin size={14} className="text-[#FF7A1F]" />
+            VIT, Vellore, India
+          </p>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a href="#projects" className="btn-primary sm:w-auto">
+              View Projects
+            </a>
+            <a href="#about" className="btn-ghost sm:w-auto">
+              About Me
+            </a>
+          </div>
+          <div className="mt-8 flex items-center gap-5">
+            <a
+              href="https://github.com/Ad1th"
+              target="_blank"
+              rel="noreferrer"
+              className="social-icon"
+              aria-label="GitHub"
             >
-              Hi, I&apos;m{" "}
-              <span style={{ color: "#FF7A1F" }}>Adith Manikonda</span>
-            </h1>
-            <p
-              style={{
-                fontSize: "clamp(1rem, 2vw, 1.14rem)",
-                color: "#A0A0A0",
-                lineHeight: 1.75,
-                maxWidth: "62ch",
-                marginBottom: "18px",
-              }}
+              <Github size={22} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/adith-manikonda/"
+              target="_blank"
+              rel="noreferrer"
+              className="social-icon"
+              aria-label="LinkedIn"
             >
-              Software developer and engineering freshman focused on
-              backend-heavy systems, practical AI, and edge devices that solve
-              real problems without noise.
+              <Linkedin size={22} />
+            </a>
+            <a
+              href="mailto:adith2505@outlook.com"
+              className="social-icon"
+              aria-label="Email"
+            >
+              <Mail size={22} />
+            </a>
+          </div>
+        </div>
+
+        <aside className="card fade-in border-[#333333] bg-[#1A1A1A] p-7 shadow-none">
+          <div className="space-y-4">
+            <p className="text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#A0A0A0]">
+              Current focus
             </p>
-            <p
-              style={{
-                fontSize: "0.92rem",
-                color: "#A0A0A0",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                marginBottom: "40px",
-              }}
-            >
-              <MapPin size={14} style={{ color: "#FF7A1F" }} />
-              VIT, Vellore, India
+            <h2 className="text-[clamp(1.7rem,3vw,2.35rem)] leading-[1.08] text-[#E5E5E5]">
+              Systems that stay calm under load.
+            </h2>
+            <p className="max-w-[34ch] text-sm leading-7 text-[#A0A0A0]">
+              I build software that earns trust through clarity, observability,
+              and disciplined execution.
             </p>
-            <div
-              style={{
-                display: "flex",
-                gap: "12px",
-                flexWrap: "wrap",
-                marginBottom: "40px",
-              }}
-            >
-              <a href="#projects" className="btn-primary">
-                View Projects
-              </a>
-              <a href="#about" className="btn-ghost">
-                About Me
-              </a>
-            </div>
-            <div style={{ display: "flex", gap: "20px" }}>
-              <a
-                href="https://github.com/Ad1th"
-                target="_blank"
-                rel="noreferrer"
-                className="social-icon"
-                aria-label="GitHub"
-              >
-                <Github size={22} />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/adith-manikonda/"
-                target="_blank"
-                rel="noreferrer"
-                className="social-icon"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={22} />
-              </a>
-              <a
-                href="mailto:adith2505@outlook.com"
-                className="social-icon"
-                aria-label="Email"
-              >
-                <Mail size={22} />
-              </a>
-            </div>
           </div>
 
-          <aside
-            className="card fade-in"
-            style={{
-              padding: "28px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "24px",
-              background:
-                "linear-gradient(180deg, rgba(26,26,26,0.98) 0%, rgba(17,17,17,0.98) 100%)",
-            }}
-          >
-            <div>
-              <p
-                style={{
-                  fontSize: "0.72rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                  color: "#A0A0A0",
-                  marginBottom: "10px",
-                }}
+          <div className="mt-7 grid grid-cols-2 gap-3">
+            {heroStats.map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-xl border border-[#333333] bg-[#111111] px-4 py-3"
               >
-                Current focus
-              </p>
-              <h2
-                style={{
-                  fontSize: "clamp(1.7rem, 3vw, 2.35rem)",
-                  lineHeight: 1.08,
-                  marginBottom: "12px",
-                }}
-              >
-                Systems that stay calm under load.
-              </h2>
-              <p
-                style={{
-                  fontSize: "0.92rem",
-                  color: "#A0A0A0",
-                  lineHeight: 1.7,
-                  maxWidth: "34ch",
-                }}
-              >
-                I build software that earns trust through clarity,
-                observability, and disciplined execution.
-              </p>
-            </div>
+                <p className="mb-1 text-[1.45rem] leading-none text-[#E5E5E5]">
+                  {stat.value}
+                </p>
+                <p className="text-[0.74rem] text-[#A0A0A0]">{stat.label}</p>
+              </div>
+            ))}
+          </div>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                gap: "12px",
-              }}
-            >
-              {heroStats.map((stat) => (
-                <div
-                  key={stat.label}
-                  style={{
-                    padding: "14px 14px 12px",
-                    borderRadius: "12px",
-                    background: "#111111",
-                    border: "1px solid #333333",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: "1.45rem",
-                      lineHeight: 1,
-                      color: "#E5E5E5",
-                      marginBottom: "6px",
-                    }}
-                  >
-                    {stat.value}
-                  </p>
-                  <p style={{ fontSize: "0.74rem", color: "#A0A0A0" }}>
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-              {heroFocus.map((item) => (
-                <Tag key={item} label={item} />
-              ))}
-            </div>
-          </aside>
-        </div>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {heroFocus.map((item) => (
+              <Tag key={item} label={item} />
+            ))}
+          </div>
+        </aside>
       </section>
 
       <Divider />

@@ -1,21 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import {
-  Github,
-  Linkedin,
-  Mail,
-  MapPin,
-  ExternalLink,
-  Award,
-  ChevronDown,
-  Menu,
-  X,
-} from "lucide-react";
+import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
+import { Award, Github, Linkedin, Mail, MapPin, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-// ─── Scroll-into-view fade hook ──────────────────────────────────────────────
 function useFadeIn() {
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,25 +19,25 @@ function useFadeIn() {
       },
       { threshold: 0.08, rootMargin: "0px 0px -24px 0px" },
     );
+
     document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 }
 
-// ─── Tiny components ─────────────────────────────────────────────────────────
 function Tag({ label }: { label: string }) {
   return (
     <span
       style={{
         display: "inline-flex",
         alignItems: "center",
-        padding: "2px 10px",
+        padding: "4px 11px",
         fontSize: "0.72rem",
-        fontWeight: 500,
-        letterSpacing: "0.02em",
-        borderRadius: "4px",
-        background: "rgba(255,122,31,0.08)",
-        border: "1px solid rgba(255,122,31,0.18)",
+        fontWeight: 600,
+        letterSpacing: "0.03em",
+        borderRadius: "999px",
+        background: "rgba(255,122,31,0.07)",
+        border: "1px solid rgba(255,122,31,0.16)",
         color: "#FF7A1F",
       }}
     >
@@ -56,17 +46,17 @@ function Tag({ label }: { label: string }) {
   );
 }
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({ children }: { children: ReactNode }) {
   return (
     <span
       style={{
         display: "inline-block",
-        fontSize: "0.72rem",
+        fontSize: "0.7rem",
         fontWeight: 600,
-        letterSpacing: "0.14em",
+        letterSpacing: "0.16em",
         textTransform: "uppercase",
         color: "#FF7A1F",
-        marginBottom: "16px",
+        marginBottom: "14px",
       }}
     >
       {children}
@@ -74,16 +64,16 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SectionTitle({ children }: { children: React.ReactNode }) {
+function SectionTitle({ children }: { children: ReactNode }) {
   return (
     <h2
       style={{
         fontFamily: "'DM Serif Display', Georgia, serif",
-        fontSize: "clamp(2rem, 4vw, 2.8rem)",
+        fontSize: "clamp(2.2rem, 4vw, 3.1rem)",
         fontWeight: 400,
         color: "#E5E5E5",
         lineHeight: 1.15,
-        marginBottom: "0",
+        marginBottom: 0,
       }}
     >
       {children}
@@ -97,14 +87,12 @@ function Divider() {
       style={{
         width: "100%",
         height: "1px",
-        background: "#333333",
-        margin: "0",
+        background: "rgba(51,51,51,0.92)",
       }}
     />
   );
 }
 
-// ─── Main page ────────────────────────────────────────────────────────────────
 export default function Portfolio() {
   useFadeIn();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -129,15 +117,23 @@ export default function Portfolio() {
     "contact",
   ];
 
+  const sectionStyle = {
+    padding: "clamp(72px, 10vw, 112px) 24px",
+    maxWidth: "1200px",
+    margin: "0 auto",
+  } as const;
+
   const css = `
-    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: #111111; color: #E5E5E5; font-family: 'DM Sans', system-ui, sans-serif; }
+    html { scroll-behavior: smooth; color-scheme: dark; }
+    body { background: #111111; color: #E5E5E5; }
+    body, button, input, textarea, select { font-family: 'DM Sans', system-ui, sans-serif; }
+    body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; }
     ::selection { background: rgba(255,122,31,0.25); color: #E5E5E5; }
-    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: #111111; }
-    ::-webkit-scrollbar-thumb { background: #333333; border-radius: 2px; }
+    ::-webkit-scrollbar-thumb { background: #333333; border-radius: 999px; }
     ::-webkit-scrollbar-thumb:hover { background: #FF7A1F; }
 
     .fade-in {
@@ -148,8 +144,8 @@ export default function Portfolio() {
 
     .nav-link {
       font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
+      font-weight: 600;
+      letter-spacing: 0.05em;
       color: #A0A0A0;
       text-decoration: none;
       text-transform: capitalize;
@@ -160,8 +156,10 @@ export default function Portfolio() {
     .nav-link::after {
       content: '';
       position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 1px;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
       background: #FF7A1F;
       transition: width 0.25s ease;
     }
@@ -171,32 +169,36 @@ export default function Portfolio() {
     .btn-primary {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      padding: 11px 28px;
-      background: #FF7A1F;
+      min-height: 48px;
+      padding: 0 28px;
+      background: linear-gradient(180deg, #ff8731 0%, #ff7a1f 100%);
       color: #111111;
       font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 0.03em;
-      border-radius: 6px;
+      font-size: 0.86rem;
+      letter-spacing: 0.04em;
+      border-radius: 999px;
       text-decoration: none;
-      transition: background 0.2s ease, transform 0.15s ease;
-      border: none;
+      transition: transform 0.15s ease, background 0.2s ease;
+      border: 1px solid rgba(255,255,255,0.04);
       cursor: pointer;
     }
-    .btn-primary:hover { background: #e86c10; transform: translateY(-1px); }
+    .btn-primary:hover { background: linear-gradient(180deg, #ff8e3d 0%, #ef7318 100%); transform: translateY(-1px); }
 
     .btn-ghost {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      padding: 11px 28px;
+      min-height: 48px;
+      padding: 0 28px;
       background: transparent;
       color: #E5E5E5;
       font-weight: 500;
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       letter-spacing: 0.03em;
-      border-radius: 6px;
+      border-radius: 999px;
       text-decoration: none;
       border: 1px solid #333333;
       transition: border-color 0.2s ease, color 0.2s ease;
@@ -207,10 +209,10 @@ export default function Portfolio() {
     .card {
       background: #1A1A1A;
       border: 1px solid #333333;
-      border-radius: 10px;
-      transition: border-color 0.2s ease;
+      border-radius: 14px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
     }
-    .card:hover { border-color: rgba(255,122,31,0.35); }
+    .card:hover { border-color: rgba(255,122,31,0.28); }
 
     .social-icon {
       color: #A0A0A0;
@@ -222,28 +224,18 @@ export default function Portfolio() {
     .social-icon:hover { color: #FF7A1F; }
 
     .skill-dot {
-      width: 6px; height: 6px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: #FF7A1F;
       flex-shrink: 0;
       margin-top: 7px;
     }
 
-    .lang-bar-fill {
-      height: 3px;
-      border-radius: 2px;
-      background: #FF7A1F;
-    }
-    .lang-bar-empty {
-      height: 3px;
-      border-radius: 2px;
-      background: #333333;
-    }
-
     .hobby-card {
       position: relative;
       overflow: hidden;
-      border-radius: 10px;
+      border-radius: 14px;
       border: 1px solid #333333;
       aspect-ratio: 1;
       background: #1A1A1A;
@@ -254,9 +246,11 @@ export default function Portfolio() {
     .hobby-card img { transition: transform 0.4s ease; width: 100%; height: 100%; object-fit: cover; }
     .hobby-label {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 28px 16px 14px;
-      background: linear-gradient(to top, rgba(17,17,17,0.85) 0%, transparent 100%);
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 34px 16px 14px;
+      background: linear-gradient(to top, rgba(17,17,17,0.88) 0%, transparent 100%);
       font-weight: 500;
       font-size: 0.95rem;
       color: #E5E5E5;
@@ -265,13 +259,14 @@ export default function Portfolio() {
     @media (max-width: 768px) {
       .hide-mobile { display: none !important; }
       .show-mobile { display: flex !important; }
+      .btn-primary, .btn-ghost { width: 100%; }
+      .nav-link { font-size: 0.92rem; }
     }
     @media (min-width: 769px) {
       .show-mobile { display: none !important; }
     }
   `;
 
-  // ─── DATA ────────────────────────────────────────────────────────────────
   const experience = [
     {
       title: "Intern",
@@ -571,12 +566,23 @@ export default function Portfolio() {
     "Gardening",
   ];
 
-  // ─── RENDER ──────────────────────────────────────────────────────────────
+  const heroStats = [
+    { value: `${projects.length}`, label: "projects" },
+    { value: `${experience.length}`, label: "roles" },
+    { value: `${hackathons.length}`, label: "hackathons" },
+    { value: `${achievements.length}`, label: "awards" },
+  ];
+
+  const heroFocus = [
+    "Backend systems",
+    "AI + edge deployment",
+    "Calm, production-minded execution",
+  ];
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
 
-      {/* ── NAV ── */}
       <nav
         style={{
           position: "sticky",
@@ -602,9 +608,9 @@ export default function Portfolio() {
           }}
         >
           <Link
-            href="#"
+            href="#hero"
             style={{
-              fontFamily: "'DM Serif Display', serif",
+              fontFamily: "'DM Serif Display', Georgia, serif",
               fontSize: "1.2rem",
               color: "#E5E5E5",
               textDecoration: "none",
@@ -614,7 +620,6 @@ export default function Portfolio() {
             Adith<span style={{ color: "#FF7A1F" }}>.</span>
           </Link>
 
-          {/* Desktop nav */}
           <div
             className="hide-mobile"
             style={{ display: "flex", gap: "28px", alignItems: "center" }}
@@ -626,10 +631,9 @@ export default function Portfolio() {
             ))}
           </div>
 
-          {/* Mobile hamburger */}
           <button
             className="show-mobile"
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => setMobileOpen((value) => !value)}
             style={{
               background: "none",
               border: "none",
@@ -642,7 +646,6 @@ export default function Portfolio() {
           </button>
         </div>
 
-        {/* Mobile drawer */}
         {mobileOpen && (
           <div
             style={{
@@ -669,108 +672,200 @@ export default function Portfolio() {
         )}
       </nav>
 
-      {/* ── HERO ── */}
       <section
         id="hero"
         style={{
+          ...sectionStyle,
           minHeight: "calc(100vh - 60px)",
-          display: "flex",
+          display: "grid",
           alignItems: "center",
-          padding: "80px 24px",
-          maxWidth: "1200px",
-          margin: "0 auto",
         }}
       >
-        <div style={{ maxWidth: "720px" }}>
-          <SectionLabel>Engineering Student · VIT Vellore</SectionLabel>
-          <h1
-            style={{
-              fontFamily: "'DM Serif Display', Georgia, serif",
-              fontSize: "clamp(3rem, 7vw, 5.5rem)",
-              fontWeight: 400,
-              lineHeight: 1.05,
-              color: "#E5E5E5",
-              marginBottom: "28px",
-            }}
-          >
-            Hi, I'm <span style={{ color: "#FF7A1F" }}>Adith Manikonda</span>
-          </h1>
-          <p
-            style={{
-              fontSize: "clamp(1rem, 2vw, 1.2rem)",
-              color: "#A0A0A0",
-              lineHeight: 1.7,
-              maxWidth: "580px",
-              marginBottom: "16px",
-            }}
-          >
-            Software Developer &amp; Engineering Freshman. I build backend-heavy
-            systems — multiplayer games, AI tools, edge ML devices, and apps
-            that solve real problems.
-          </p>
-          <p
-            style={{
-              fontSize: "0.9rem",
-              color: "#A0A0A0",
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-              marginBottom: "44px",
-            }}
-          >
-            <MapPin size={14} style={{ color: "#FF7A1F" }} />
-            VIT, Vellore, India
-          </p>
-          <div
-            style={{
-              display: "flex",
-              gap: "12px",
-              flexWrap: "wrap",
-              marginBottom: "48px",
-            }}
-          >
-            <a href="#projects" className="btn-primary">
-              View Projects
-            </a>
-            <a href="#about" className="btn-ghost">
-              About Me
-            </a>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: "32px",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ maxWidth: "720px" }}>
+            <SectionLabel>Engineering Student · VIT Vellore</SectionLabel>
+            <h1
+              style={{
+                fontSize: "clamp(3rem, 7vw, 5.5rem)",
+                fontWeight: 400,
+                lineHeight: 1.02,
+                color: "#E5E5E5",
+                marginBottom: "24px",
+                letterSpacing: "-0.03em",
+              }}
+            >
+              Hi, I&apos;m{" "}
+              <span style={{ color: "#FF7A1F" }}>Adith Manikonda</span>
+            </h1>
+            <p
+              style={{
+                fontSize: "clamp(1rem, 2vw, 1.14rem)",
+                color: "#A0A0A0",
+                lineHeight: 1.75,
+                maxWidth: "62ch",
+                marginBottom: "18px",
+              }}
+            >
+              Software developer and engineering freshman focused on
+              backend-heavy systems, practical AI, and edge devices that solve
+              real problems without noise.
+            </p>
+            <p
+              style={{
+                fontSize: "0.92rem",
+                color: "#A0A0A0",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginBottom: "40px",
+              }}
+            >
+              <MapPin size={14} style={{ color: "#FF7A1F" }} />
+              VIT, Vellore, India
+            </p>
+            <div
+              style={{
+                display: "flex",
+                gap: "12px",
+                flexWrap: "wrap",
+                marginBottom: "40px",
+              }}
+            >
+              <a href="#projects" className="btn-primary">
+                View Projects
+              </a>
+              <a href="#about" className="btn-ghost">
+                About Me
+              </a>
+            </div>
+            <div style={{ display: "flex", gap: "20px" }}>
+              <a
+                href="https://github.com/Ad1th"
+                target="_blank"
+                rel="noreferrer"
+                className="social-icon"
+                aria-label="GitHub"
+              >
+                <Github size={22} />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/adith-manikonda/"
+                target="_blank"
+                rel="noreferrer"
+                className="social-icon"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={22} />
+              </a>
+              <a
+                href="mailto:adith2505@outlook.com"
+                className="social-icon"
+                aria-label="Email"
+              >
+                <Mail size={22} />
+              </a>
+            </div>
           </div>
-          <div style={{ display: "flex", gap: "20px" }}>
-            <a
-              href="https://github.com/Ad1th"
-              target="_blank"
-              className="social-icon"
-              aria-label="GitHub"
+
+          <aside
+            className="card fade-in"
+            style={{
+              padding: "28px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "24px",
+              background:
+                "linear-gradient(180deg, rgba(26,26,26,0.98) 0%, rgba(17,17,17,0.98) 100%)",
+            }}
+          >
+            <div>
+              <p
+                style={{
+                  fontSize: "0.72rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: "#A0A0A0",
+                  marginBottom: "10px",
+                }}
+              >
+                Current focus
+              </p>
+              <h2
+                style={{
+                  fontSize: "clamp(1.7rem, 3vw, 2.35rem)",
+                  lineHeight: 1.08,
+                  marginBottom: "12px",
+                }}
+              >
+                Systems that stay calm under load.
+              </h2>
+              <p
+                style={{
+                  fontSize: "0.92rem",
+                  color: "#A0A0A0",
+                  lineHeight: 1.7,
+                  maxWidth: "34ch",
+                }}
+              >
+                I build software that earns trust through clarity,
+                observability, and disciplined execution.
+              </p>
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gap: "12px",
+              }}
             >
-              <Github size={22} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/adith-manikonda/"
-              target="_blank"
-              className="social-icon"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={22} />
-            </a>
-            <a
-              href="mailto:adith2505@outlook.com"
-              className="social-icon"
-              aria-label="Email"
-            >
-              <Mail size={22} />
-            </a>
-          </div>
+              {heroStats.map((stat) => (
+                <div
+                  key={stat.label}
+                  style={{
+                    padding: "14px 14px 12px",
+                    borderRadius: "12px",
+                    background: "#111111",
+                    border: "1px solid #333333",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: "1.45rem",
+                      lineHeight: 1,
+                      color: "#E5E5E5",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    {stat.value}
+                  </p>
+                  <p style={{ fontSize: "0.74rem", color: "#A0A0A0" }}>
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+              {heroFocus.map((item) => (
+                <Tag key={item} label={item} />
+              ))}
+            </div>
+          </aside>
         </div>
       </section>
 
       <Divider />
 
-      {/* ── ABOUT ── */}
-      <section
-        id="about"
-        style={{ padding: "100px 24px", maxWidth: "1200px", margin: "0 auto" }}
-      >
+      <section id="about" style={sectionStyle}>
         <div className="fade-in" style={{ maxWidth: "680px" }}>
           <SectionLabel>About</SectionLabel>
           <SectionTitle>
@@ -793,14 +888,14 @@ export default function Portfolio() {
             "I'm a CSE student who enjoys backend-heavy projects that feel real: multiplayer games with actual users, AI tools that do something useful, anonymous forums, productivity extensions, and apps that bridge gaps outside the screen (like farmers texting labourers directly).",
             "Sometimes I dip into hardware to keep myself honest — running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. Turns out when latency, power limits, and physics fight back, your software design improves fast.",
             "Mostly, I care about shipping systems that run, scale, and survive real usage. Buzzwords don't interest me much, but behaviour does.",
-          ].map((para, i) => (
+          ].map((para, index) => (
             <p
-              key={i}
+              key={index}
               style={{
                 fontSize: "0.98rem",
-                color: i === 2 ? "#A0A0A0" : "#E5E5E5",
+                color: index === 2 ? "#A0A0A0" : "#E5E5E5",
                 lineHeight: 1.75,
-                fontStyle: i === 2 ? "italic" : "normal",
+                fontStyle: index === 2 ? "italic" : "normal",
               }}
             >
               {para}
@@ -811,26 +906,22 @@ export default function Portfolio() {
 
       <Divider />
 
-      {/* ── EXPERIENCE ── */}
-      <section
-        id="experience"
-        style={{ padding: "100px 24px", maxWidth: "1200px", margin: "0 auto" }}
-      >
+      <section id="experience" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Experience</SectionLabel>
           <SectionTitle>Where I've worked</SectionTitle>
         </div>
         <div
           style={{
-            marginTop: "56px",
+            marginTop: "48px",
             display: "flex",
             flexDirection: "column",
             gap: "16px",
           }}
         >
-          {experience.map((job, i) => (
+          {experience.map((job, index) => (
             <div
-              key={i}
+              key={index}
               className="card fade-in"
               style={{ padding: "28px 32px" }}
             >
@@ -871,7 +962,7 @@ export default function Portfolio() {
                     color: "#A0A0A0",
                     background: "#111111",
                     border: "1px solid #333333",
-                    borderRadius: "4px",
+                    borderRadius: "999px",
                     padding: "4px 12px",
                     whiteSpace: "nowrap",
                   }}
@@ -893,8 +984,8 @@ export default function Portfolio() {
               )}
               {job.skills.length > 0 && (
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                  {job.skills.map((s) => (
-                    <Tag key={s} label={s} />
+                  {job.skills.map((skill) => (
+                    <Tag key={skill} label={skill} />
                   ))}
                 </div>
               )}
@@ -905,26 +996,22 @@ export default function Portfolio() {
 
       <Divider />
 
-      {/* ── SKILLS ── */}
-      <section
-        id="skills"
-        style={{ padding: "100px 24px", maxWidth: "1200px", margin: "0 auto" }}
-      >
+      <section id="skills" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Skills</SectionLabel>
           <SectionTitle>What I work with</SectionTitle>
         </div>
         <div
           style={{
-            marginTop: "56px",
+            marginTop: "48px",
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
             gap: "16px",
           }}
         >
-          {skillGroups.map((group, i) => (
+          {skillGroups.map((group, index) => (
             <div
-              key={i}
+              key={index}
               className="card fade-in"
               style={{ padding: "24px 28px" }}
             >
@@ -974,7 +1061,6 @@ export default function Portfolio() {
           ))}
         </div>
 
-        {/* Languages */}
         <div style={{ marginTop: "64px" }}>
           <h3
             className="fade-in"
@@ -1022,14 +1108,14 @@ export default function Portfolio() {
                   {lang.level}
                 </p>
                 <div style={{ display: "flex", gap: "4px" }}>
-                  {Array.from({ length: 5 }).map((_, i) => (
+                  {Array.from({ length: 5 }).map((_, index) => (
                     <div
-                      key={i}
+                      key={index}
                       style={{
                         flex: 1,
                         height: "3px",
                         borderRadius: "2px",
-                        background: i < lang.p ? "#FF7A1F" : "#333333",
+                        background: index < lang.p ? "#FF7A1F" : "#333333",
                       }}
                     />
                   ))}
@@ -1042,26 +1128,22 @@ export default function Portfolio() {
 
       <Divider />
 
-      {/* ── PROJECTS ── */}
-      <section
-        id="projects"
-        style={{ padding: "100px 24px", maxWidth: "1200px", margin: "0 auto" }}
-      >
+      <section id="projects" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Projects</SectionLabel>
           <SectionTitle>Things I've built</SectionTitle>
         </div>
         <div
           style={{
-            marginTop: "56px",
+            marginTop: "48px",
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
             gap: "16px",
           }}
         >
-          {projects.map((p, i) => (
+          {projects.map((project, index) => (
             <div
-              key={i}
+              key={index}
               className="card fade-in"
               style={{
                 padding: "24px 26px",
@@ -1080,7 +1162,7 @@ export default function Portfolio() {
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "10px" }}
                 >
-                  <span style={{ fontSize: "1.3rem" }}>{p.emoji}</span>
+                  <span style={{ fontSize: "1.3rem" }}>{project.emoji}</span>
                   <h3
                     style={{
                       fontSize: "1rem",
@@ -1088,13 +1170,13 @@ export default function Portfolio() {
                       color: "#E5E5E5",
                     }}
                   >
-                    {p.name}
+                    {project.name}
                   </h3>
                 </div>
                 <div
                   style={{ display: "flex", gap: "8px", alignItems: "center" }}
                 >
-                  {p.badge && (
+                  {project.badge && (
                     <span
                       style={{
                         fontSize: "0.68rem",
@@ -1102,17 +1184,18 @@ export default function Portfolio() {
                         color: "#4ade80",
                         background: "rgba(74,222,128,0.1)",
                         border: "1px solid rgba(74,222,128,0.25)",
-                        borderRadius: "100px",
+                        borderRadius: "999px",
                         padding: "2px 8px",
                       }}
                     >
-                      {p.badge}
+                      {project.badge}
                     </span>
                   )}
-                  {p.github && (
+                  {project.github && (
                     <a
-                      href={p.github}
+                      href={project.github}
                       target="_blank"
+                      rel="noreferrer"
                       className="social-icon"
                       aria-label="GitHub"
                     >
@@ -1129,11 +1212,11 @@ export default function Portfolio() {
                   flex: 1,
                 }}
               >
-                {p.description}
+                {project.description}
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                {p.stack.map((t) => (
-                  <Tag key={t} label={t} />
+                {project.stack.map((item) => (
+                  <Tag key={item} label={item} />
                 ))}
               </div>
             </div>
@@ -1143,11 +1226,7 @@ export default function Portfolio() {
 
       <Divider />
 
-      {/* ── PATENTS (placeholder) ── */}
-      <section
-        id="patents"
-        style={{ padding: "100px 24px", maxWidth: "1200px", margin: "0 auto" }}
-      >
+      <section id="patents" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Patents</SectionLabel>
           <SectionTitle>Intellectual property</SectionTitle>
@@ -1167,26 +1246,22 @@ export default function Portfolio() {
 
       <Divider />
 
-      {/* ── ACHIEVEMENTS ── */}
-      <section
-        id="achievements"
-        style={{ padding: "100px 24px", maxWidth: "1200px", margin: "0 auto" }}
-      >
+      <section id="achievements" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Achievements</SectionLabel>
           <SectionTitle>Certifications &amp; awards</SectionTitle>
         </div>
         <div
           style={{
-            marginTop: "56px",
+            marginTop: "48px",
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
             gap: "16px",
           }}
         >
-          {achievements.map((a, i) => (
+          {achievements.map((achievement, index) => (
             <div
-              key={i}
+              key={index}
               className="card fade-in"
               style={{ padding: "24px 26px", display: "flex", gap: "16px" }}
             >
@@ -1215,7 +1290,7 @@ export default function Portfolio() {
                     lineHeight: 1.4,
                   }}
                 >
-                  {a.title}
+                  {achievement.title}
                 </h3>
                 <p
                   style={{
@@ -1224,7 +1299,7 @@ export default function Portfolio() {
                     marginBottom: "8px",
                   }}
                 >
-                  {a.year}
+                  {achievement.year}
                 </p>
                 <p
                   style={{
@@ -1233,7 +1308,7 @@ export default function Portfolio() {
                     lineHeight: 1.6,
                   }}
                 >
-                  {a.description}
+                  {achievement.description}
                 </p>
               </div>
             </div>
@@ -1243,26 +1318,22 @@ export default function Portfolio() {
 
       <Divider />
 
-      {/* ── HACKATHONS ── */}
-      <section
-        id="hackathons"
-        style={{ padding: "100px 24px", maxWidth: "1200px", margin: "0 auto" }}
-      >
+      <section id="hackathons" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Hackathons</SectionLabel>
           <SectionTitle>Built under pressure</SectionTitle>
         </div>
         <div
           style={{
-            marginTop: "56px",
+            marginTop: "48px",
             display: "flex",
             flexDirection: "column",
             gap: "12px",
           }}
         >
-          {hackathons.map((h, i) => (
+          {hackathons.map((hackathon, index) => (
             <div
-              key={i}
+              key={index}
               className="card fade-in"
               style={{ padding: "24px 28px" }}
             >
@@ -1283,12 +1354,12 @@ export default function Portfolio() {
                     color: "#E5E5E5",
                   }}
                 >
-                  {h.name}
+                  {hackathon.name}
                 </h3>
                 <div
                   style={{ display: "flex", gap: "8px", alignItems: "center" }}
                 >
-                  {h.tags.map((tag) => (
+                  {hackathon.tags.map((tag) => (
                     <span
                       key={tag}
                       style={{
@@ -1297,7 +1368,7 @@ export default function Portfolio() {
                         color: "#FF7A1F",
                         background: "rgba(255,122,31,0.1)",
                         border: "1px solid rgba(255,122,31,0.25)",
-                        borderRadius: "4px",
+                        borderRadius: "999px",
                         padding: "2px 8px",
                         textTransform: "uppercase",
                         letterSpacing: "0.06em",
@@ -1307,7 +1378,7 @@ export default function Portfolio() {
                     </span>
                   ))}
                   <span style={{ fontSize: "0.78rem", color: "#A0A0A0" }}>
-                    {h.when}
+                    {hackathon.when}
                   </span>
                 </div>
               </div>
@@ -1318,7 +1389,7 @@ export default function Portfolio() {
                   lineHeight: 1.65,
                 }}
               >
-                {h.desc}
+                {hackathon.desc}
               </p>
             </div>
           ))}
@@ -1327,18 +1398,14 @@ export default function Portfolio() {
 
       <Divider />
 
-      {/* ── HOBBIES ── */}
-      <section
-        id="hobbies"
-        style={{ padding: "100px 24px", maxWidth: "1200px", margin: "0 auto" }}
-      >
+      <section id="hobbies" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Hobbies</SectionLabel>
           <SectionTitle>Beyond the screen</SectionTitle>
         </div>
         <div
           style={{
-            marginTop: "56px",
+            marginTop: "48px",
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
             gap: "12px",
@@ -1361,21 +1428,17 @@ export default function Portfolio() {
 
       <Divider />
 
-      {/* ── CONTACT ── */}
-      <section
-        id="contact"
-        style={{ padding: "100px 24px", maxWidth: "1200px", margin: "0 auto" }}
-      >
+      <section id="contact" style={sectionStyle}>
         <div className="fade-in" style={{ maxWidth: "560px" }}>
           <SectionLabel>Contact</SectionLabel>
           <SectionTitle>Let's connect</SectionTitle>
           <p
             style={{
               marginTop: "20px",
-              marginBottom: "48px",
+              marginBottom: "40px",
               color: "#A0A0A0",
               fontSize: "0.98rem",
-              lineHeight: 1.7,
+              lineHeight: 1.75,
             }}
           >
             Always open to new opportunities and conversations — whether it's an
@@ -1389,6 +1452,7 @@ export default function Portfolio() {
             <a
               href="https://github.com/Ad1th"
               target="_blank"
+              rel="noreferrer"
               className="btn-ghost"
             >
               <Github size={16} /> GitHub
@@ -1396,6 +1460,7 @@ export default function Portfolio() {
             <a
               href="https://www.linkedin.com/in/adith-manikonda/"
               target="_blank"
+              rel="noreferrer"
               className="btn-ghost"
             >
               <Linkedin size={16} /> LinkedIn
@@ -1404,13 +1469,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer
-        style={{
-          borderTop: "1px solid #333333",
-          padding: "32px 24px",
-        }}
-      >
+      <footer style={{ borderTop: "1px solid #333333", padding: "32px 24px" }}>
         <div
           style={{
             maxWidth: "1200px",

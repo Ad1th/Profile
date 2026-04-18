@@ -763,6 +763,8 @@ export default function Portfolio() {
             planeBaseHeight={16}
             textColor="#FF7A1F"
             asciiQuality={4}
+            scrollDisappearStart={-0.12}
+            scrollDisappearEnd={0.7}
           />
         </div>
       </section>

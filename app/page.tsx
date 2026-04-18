@@ -1,7 +1,7 @@
 "use client";
 
 import type { CSSProperties, ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Award, Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -97,12 +97,38 @@ export default function Portfolio() {
   useFadeIn();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [aboutVisible, setAboutVisible] = useState(false);
+  const aboutTriggerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const aboutNode = aboutTriggerRef.current;
+    if (!aboutNode) return;
+
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      setAboutVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setAboutVisible(Boolean(entry?.isIntersecting));
+      },
+      {
+        threshold: 0.01,
+        rootMargin: "0px 0px -22% 0px",
+      },
+    );
+
+    observer.observe(aboutNode);
+
+    return () => observer.disconnect();
   }, []);
 
   const navLinks = [
@@ -442,6 +468,187 @@ export default function Portfolio() {
       background: transparent;
     }
 
+    .hero-about-split {
+      display: flex;
+      align-items: stretch;
+      min-height: 145vh;
+      width: 100%;
+      overflow: visible;
+      position: relative;
+    }
+
+    .hero-left-panel {
+      width: 100%;
+      min-width: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      background: #5F6CA6;
+      border-right: 2px solid rgba(17, 17, 17, 0.35);
+    }
+
+    .hero-left-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.07;
+      background-image:
+        radial-gradient(circle at 20% 20%, #ffffff 1px, transparent 1px),
+        radial-gradient(circle at 70% 60%, #ffffff 1px, transparent 1px);
+      background-size: 18px 18px, 22px 22px;
+    }
+
+    .hero-left-inner {
+      width: 100%;
+      height: 100%;
+      padding: clamp(92px, 11vh, 124px) clamp(30px, 4vw, 56px) clamp(26px, 5vh, 46px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+      text-align: left;
+    }
+
+    .hero-kicker {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: rgba(243, 235, 221, 0.82);
+      line-height: 1.5;
+    }
+
+    .hero-kicker span + span::before {
+      content: ' • ';
+      opacity: 0.65;
+    }
+
+    .hero-ascii-stage--poster {
+      height: clamp(360px, 58vh, 700px);
+      width: 100%;
+      margin: 0;
+      transform: translateX(-1.5%);
+    }
+
+    .hero-avatar {
+      position: absolute;
+      bottom: clamp(20px, 3vh, 34px);
+      left: clamp(28px, 4.5vw, 62px);
+      width: clamp(150px, 18vw, 260px);
+      height: auto;
+      opacity: 0.92;
+      filter: drop-shadow(0 12px 18px rgba(16, 9, 35, 0.34));
+      animation: avatarFloat 5.8s ease-in-out infinite;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-scroll-indicator {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: rgba(243, 235, 221, 0.82);
+      align-self: flex-start;
+      margin-left: 2px;
+    }
+
+    .about-right-column {
+      width: 100%;
+      min-width: 0;
+      background: #F3EBDD;
+      border-left: none;
+      padding: clamp(130px, 20vh, 220px) clamp(30px, 5vw, 62px) clamp(110px, 16vh, 190px);
+      display: flex;
+      align-items: flex-start;
+      position: absolute;
+      inset: 0;
+      height: 100vh;
+      overflow: hidden;
+      transform: translateX(100%);
+      opacity: 0;
+      transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+      will-change: transform, opacity;
+      z-index: 5;
+      pointer-events: none;
+      box-shadow: -12px 0 40px rgba(0, 0, 0, 0.14);
+    }
+
+    .about-reveal-trigger {
+      position: absolute;
+      top: 104vh;
+      left: 0;
+      display: block;
+      width: 2px;
+      height: 2px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .about-right-column.visible {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      transform: translateX(0);
+      opacity: 1;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      pointer-events: auto;
+    }
+
+    .about-right-panel {
+      width: min(100%, 760px);
+      color: #1f1a17;
+    }
+
+    .about-right-panel .fade-in {
+      max-width: 100% !important;
+    }
+
+    .about-right-panel p {
+      color: rgba(31, 26, 23, 0.88) !important;
+    }
+
+    .about-headline-line {
+      color: #1f1a17 !important;
+    }
+
+    .about-headline-line--underlined {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    .about-headline-line--underlined::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 1px;
+      height: 6px;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(198, 61, 61, 0.68) 0,
+        rgba(198, 61, 61, 0.68) 9px,
+        transparent 9px,
+        transparent 13px
+      );
+      opacity: 0.58;
+      transform: translateX(1px) rotate(-0.8deg);
+    }
+
+    @keyframes avatarFloat {
+      0%,
+      100% { transform: translateY(0px); }
+      50% { transform: translateY(-7px); }
+    }
+
 
     .stack-surface {
       perspective: 1500px;
@@ -486,6 +693,49 @@ export default function Portfolio() {
       .nav-link { font-size: 0.92rem; }
       .hero-ascii-stage {
         height: clamp(250px, 56vw, 420px);
+      }
+      .hero-about-split {
+        display: block;
+        min-height: auto;
+        overflow: visible;
+      }
+      .hero-left-panel {
+        width: 100%;
+        position: relative;
+        top: auto;
+        height: auto;
+        min-height: calc(100vh - 60px);
+        border-right: none;
+      }
+      .hero-left-inner {
+        padding: 32px 24px 26px;
+      }
+      .hero-ascii-stage--poster {
+        height: clamp(250px, 56vw, 420px);
+        transform: none;
+      }
+      .hero-avatar {
+        width: clamp(116px, 29vw, 180px);
+        left: 18px;
+        bottom: 18px;
+      }
+      .about-right-column {
+        width: 100%;
+        min-width: 0;
+        border-left: none;
+        padding: 52px 24px 72px;
+        position: relative;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        transform: none !important;
+        opacity: 1 !important;
+        transition: none;
+        box-shadow: none;
+        pointer-events: auto;
+      }
+      .about-reveal-trigger {
+        display: none;
       }
       .skills-grid {
         grid-template-columns: 1fr;
@@ -874,6 +1124,13 @@ export default function Portfolio() {
     Snek: "/snek.png",
   };
 
+  const heroKickerItems = [
+    skillGroups[0].title,
+    experience[2].skills[0],
+    experience[2].skills[1],
+    experience[2].skills[2],
+  ];
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
@@ -970,77 +1227,97 @@ export default function Portfolio() {
         )}
       </nav>
 
-      <section
-        id="hero"
-        className="mx-auto flex min-h-[calc(100vh-60px)] max-w-[92rem] items-center justify-center px-6 py-20 text-center"
-      >
-        <div className="hero-ascii-stage">
-          <ASCIIText
-            text="Hey, I'm Adith"
-            enableWaves
-            asciiFontSize={8}
-            textFontSize={300}
-            planeBaseHeight={16}
-            textColor="#D96516"
-            asciiQuality={4}
-            scrollDisappearStart={-0.12}
-            scrollDisappearEnd={0.7}
-          />
+      <section className="hero-about-split">
+        <div id="hero" className="hero-left-panel">
+          <div className="hero-left-inner">
+            <div className="hero-kicker">
+              {heroKickerItems.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+            <div className="hero-ascii-stage hero-ascii-stage--poster">
+              <ASCIIText
+                text="Hey, I'm Adith"
+                enableWaves
+                asciiFontSize={8}
+                textFontSize={300}
+                planeBaseHeight={16}
+                textColor="#D96516"
+                asciiQuality={4}
+                scrollDisappearStart={-0.12}
+                scrollDisappearEnd={0.7}
+              />
+            </div>
+            <span className="hero-scroll-indicator">scroll down ↓</span>
+            <Image
+              src="/robot-avatar.svg"
+              alt="Robot avatar"
+              width={320}
+              height={320}
+              className="hero-avatar"
+              priority
+            />
+          </div>
         </div>
-      </section>
 
-      <section
-        id="about"
-        style={{
-          ...sectionStyle,
-          paddingTop: "clamp(34px, 5vw, 64px)",
-          paddingBottom: "clamp(92px, 12vw, 160px)",
-          minHeight: "min(84vh, 860px)",
-        }}
-      >
-        <div className="fade-in" style={{ maxWidth: "680px" }}>
-          <SectionLabel>About</SectionLabel>
-          <SectionTitle
-            style={{
-              fontSize: "clamp(2.65rem, 5vw, 4rem)",
-              lineHeight: 1.08,
-            }}
-          >
-            <span style={{ color: "#FFFFFF" }}>I like building things,</span>
-            <br />
-            <span style={{ color: "#FFFFFF" }}>
-              breaking them, then fixing them again.
-            </span>
-          </SectionTitle>
-        </div>
         <div
-          className="fade-in"
-          style={{
-            marginTop: "40px",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "32px",
-            maxWidth: "900px",
-          }}
+          ref={aboutTriggerRef}
+          className="about-reveal-trigger"
+          aria-hidden="true"
+        />
+
+        <section
+          id="about"
+          className={`about-right-column ${aboutVisible ? "visible" : ""}`.trim()}
         >
-          {[
-            "I'm a CSE student who enjoys backend-heavy projects that feel real: multiplayer games with actual users, AI tools that do something useful, anonymous forums, productivity extensions, and apps that bridge gaps outside the screen (like farmers texting labourers directly).",
-            "Sometimes I dip into hardware to keep myself honest — running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. Turns out when latency, power limits, and physics fight back, your software design improves fast.",
-            "Mostly, I care about shipping systems that run, scale, and survive real usage. Buzzwords don't interest me much, but behaviour does.",
-          ].map((para, index) => (
-            <p
-              key={index}
+          <div className="about-right-panel">
+            <div className="fade-in" style={{ maxWidth: "680px" }}>
+              <SectionLabel>About</SectionLabel>
+              <SectionTitle
+                style={{
+                  fontSize: "clamp(2.65rem, 5vw, 4rem)",
+                  lineHeight: 1.08,
+                }}
+              >
+                <span className="about-headline-line">
+                  I like building things,
+                </span>
+                <br />
+                <span className="about-headline-line about-headline-line--underlined">
+                  breaking them, then fixing them again.
+                </span>
+              </SectionTitle>
+            </div>
+            <div
+              className="fade-in"
               style={{
-                fontSize: "0.98rem",
-                color: index === 2 ? "var(--muted-text)" : "var(--text)",
-                lineHeight: 1.75,
-                fontStyle: index === 2 ? "italic" : "normal",
+                marginTop: "40px",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                gap: "32px",
+                maxWidth: "900px",
               }}
             >
-              {para}
-            </p>
-          ))}
-        </div>
+              {[
+                "I'm a CSE student who enjoys backend-heavy projects that feel real: multiplayer games with actual users, AI tools that do something useful, anonymous forums, productivity extensions, and apps that bridge gaps outside the screen (like farmers texting labourers directly).",
+                "Sometimes I dip into hardware to keep myself honest — running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. Turns out when latency, power limits, and physics fight back, your software design improves fast.",
+                "Mostly, I care about shipping systems that run, scale, and survive real usage. Buzzwords don't interest me much, but behaviour does.",
+              ].map((para, index) => (
+                <p
+                  key={index}
+                  style={{
+                    fontSize: "0.98rem",
+                    color: index === 2 ? "var(--muted-text)" : "var(--text)",
+                    lineHeight: 1.75,
+                    fontStyle: index === 2 ? "italic" : "normal",
+                  }}
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
+          </div>
+        </section>
       </section>
 
       <section
@@ -1216,143 +1493,6 @@ export default function Portfolio() {
               </span>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section id="projects" style={sectionStyle}>
-        <div className="fade-in">
-          <SectionLabel>Projects</SectionLabel>
-          <SectionTitle>Floating builds</SectionTitle>
-        </div>
-        <div className="stack-surface" style={{ marginTop: "48px" }}>
-          <div className="floating-grid">
-            {projects.map((project, index) => {
-              const projectImage = projectImages[project.name];
-              const cardStyle = {
-                "--card-y": `${(index % 4) * -10}px`,
-                "--card-overlap": `${index > 2 ? -14 : 0}px`,
-                "--card-index": `${40 - (index % 12)}`,
-                "--card-rotate": `${((index % 6) - 2.5) * 1.35}deg`,
-                "--card-tiltX": `${((index % 3) - 1) * 0.9}deg`,
-                "--card-tiltY": `${((index % 4) - 1.5) * 0.8}deg`,
-                "--card-z": `${(index % 5) * 2}px`,
-                "--card-hover-y": `${-18 - (index % 3) * 2}px`,
-                "--card-hover-rotate": `${((index % 6) - 2.5) * 0.45}deg`,
-                "--card-hover-tiltX": `${4 + (index % 2)}deg`,
-                "--card-hover-tiltY": `${-5 + (index % 3)}deg`,
-              } as CSSProperties;
-
-              return (
-                <div
-                  key={index}
-                  className="floating-card fade-in"
-                  style={cardStyle}
-                >
-                  <div
-                    style={{
-                      position: "relative",
-                      zIndex: 1,
-                      padding: "22px 24px",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "14px",
-                    }}
-                  >
-                    {projectImage && (
-                      <div className="overflow-hidden rounded-2xl border border-[#333333] bg-[#111111]">
-                        <Image
-                          src={projectImage}
-                          alt={project.name}
-                          width={800}
-                          height={450}
-                          className="h-44 w-full object-cover"
-                        />
-                      </div>
-                    )}
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                        }}
-                      >
-                        <span style={{ fontSize: "1.3rem" }}>
-                          {project.emoji}
-                        </span>
-                        <h3
-                          style={{
-                            fontSize: "1rem",
-                            fontWeight: 600,
-                            color: "var(--text)",
-                          }}
-                        >
-                          {project.name}
-                        </h3>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "8px",
-                          alignItems: "center",
-                        }}
-                      >
-                        {project.badge && (
-                          <span
-                            style={{
-                              fontSize: "0.68rem",
-                              fontWeight: 600,
-                              color: "#4ade80",
-                              background: "rgba(74,222,128,0.1)",
-                              border: "1px solid rgba(74,222,128,0.25)",
-                              borderRadius: "999px",
-                              padding: "2px 8px",
-                            }}
-                          >
-                            {project.badge}
-                          </span>
-                        )}
-                        {project.github && (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="social-icon"
-                            aria-label={`GitHub - ${project.name}`}
-                          >
-                            <Github size={16} />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                    <p
-                      style={{
-                        fontSize: "0.85rem",
-                        color: "var(--muted-text)",
-                        lineHeight: 1.65,
-                        flex: 1,
-                      }}
-                    >
-                      {project.description}
-                    </p>
-                    <div
-                      style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}
-                    >
-                      {project.stack.map((item) => (
-                        <Tag key={item} label={item} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
       </section>
 

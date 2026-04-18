@@ -1,0 +1,20 @@
+/* components/ui/ScrollDisappear.css */
+
+.scroll-disappear {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.scroll-disappear-text {
+  display: inline-block;
+  font-size: clamp(2.5rem, 8vw, 7rem);
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.char {
+  display: inline-block;
+  transform-origin: 50% 100%;
+}

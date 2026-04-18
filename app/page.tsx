@@ -6,7 +6,6 @@ import { Award, Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ASCIIText from "@/components/ui/ascii-text";
-import ScrollDisappear from "@/components/ui/ScrollDisappear";
 
 function useFadeIn() {
   useEffect(() => {
@@ -756,25 +755,15 @@ export default function Portfolio() {
         className="mx-auto flex min-h-[calc(100vh-60px)] max-w-[92rem] items-center justify-center px-6 py-20 text-center"
       >
         <div className="hero-ascii-stage">
-          <ScrollDisappear
-            containerClassName="m-0 block h-full w-full"
-            textClassName="block h-full w-full"
-            scrollStart="top top+=20%"
-            scrollEnd="bottom top-=40%"
-            stagger={0.035}
-            animationDuration={1.1}
-            ease="power2.inOut"
-          >
-            <ASCIIText
-              text="Hey, I'm Adith"
-              enableWaves
-              asciiFontSize={5}
-              textFontSize={300}
-              planeBaseHeight={16}
-              textColor="#ff7a1f"
-              asciiQuality={4}
-            />
-          </ScrollDisappear>
+          <ASCIIText
+            text="Hey, I'm Adith"
+            enableWaves
+            asciiFontSize={8}
+            textFontSize={300}
+            planeBaseHeight={16}
+            textColor="#FF7A1F"
+            asciiQuality={4}
+          />
         </div>
       </section>
 

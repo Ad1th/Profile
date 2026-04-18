@@ -13,7 +13,13 @@ type ASCIITextProps = {
   planeBaseHeight?: number;
   textColor?: string;
   asciiQuality?: number;
+  enableScrollDisappear?: boolean;
+  scrollDisappearStart?: number;
+  scrollDisappearEnd?: number;
 };
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max);
 
 const vertexShader = `
 varying vec2 vUv;
@@ -241,6 +247,9 @@ class CanvasTxt {
   resolutionScale: number;
   logicalWidth = 0;
   logicalHeight = 0;
+  disappearProgress = 0;
+  baselineY = 0;
+  charWidths: number[] = [];
 
   constructor(
     txt: string,
@@ -297,17 +306,51 @@ class CanvasTxt {
       0,
       0,
     );
+
+    this.context.font = this.font;
+    const baselineMetrics = this.context.measureText(this.txt || " ");
+    this.baselineY = 10 + baselineMetrics.actualBoundingBoxAscent;
+    this.charWidths = this.txt.split("").map((char) => {
+      const charMetrics = this.context.measureText(char || " ");
+      return charMetrics.width;
+    });
+  }
+
+  setDisappearProgress(progress: number) {
+    this.disappearProgress = clamp(progress, 0, 1);
   }
 
   render() {
     this.context.clearRect(0, 0, this.logicalWidth, this.logicalHeight);
     this.context.fillStyle = this.color;
     this.context.font = this.font;
+    this.context.textBaseline = "alphabetic";
 
-    const metrics = this.context.measureText(this.txt);
-    const yPos = 10 + metrics.actualBoundingBoxAscent;
+    let cursorX = 10;
+    const totalChars = Math.max(1, this.txt.length);
 
-    this.context.fillText(this.txt, 10, yPos);
+    for (let index = 0; index < this.txt.length; index += 1) {
+      const char = this.txt[index];
+      const charWidth =
+        this.charWidths[index] ?? this.context.measureText(char).width;
+
+      const startDelay = (index / totalChars) * 0.45;
+      const localProgress = clamp(
+        (this.disappearProgress - startDelay) / 0.35,
+        0,
+        1,
+      );
+      const eased = localProgress * localProgress * (3 - 2 * localProgress);
+
+      const yLift = -(this.fontSize * 0.44) * eased;
+      const drift = ((index % 2 === 0 ? -1 : 1) * 2.5 + index * 0.12) * eased;
+
+      this.context.globalAlpha = 1 - eased;
+      this.context.fillText(char, cursorX + drift, this.baselineY + yLift);
+      cursorX += charWidth;
+    }
+
+    this.context.globalAlpha = 1;
   }
 
   get texture() {
@@ -339,6 +382,7 @@ class CanvAscii {
   basePlaneWidth = 0;
   basePlaneHeight = 0;
   animationFrameId = 0;
+  disappearProgress = 0;
 
   constructor(
     {
@@ -416,6 +460,7 @@ class CanvAscii {
       color: this.textColor,
     });
     this.textCanvas.resize();
+    this.textCanvas.setDisappearProgress(this.disappearProgress);
     this.textCanvas.render();
 
     this.texture = new THREE.CanvasTexture(this.textCanvas.texture);
@@ -502,6 +547,11 @@ class CanvAscii {
 
   load() {
     this.animate();
+  }
+
+  setDisappearProgress(progress: number) {
+    this.disappearProgress = clamp(progress, 0, 1);
+    this.textCanvas?.setDisappearProgress(this.disappearProgress);
   }
 
   onMouseMove(evt: MouseEvent | TouchEvent) {
@@ -597,9 +647,13 @@ export default function ASCIIText({
   textColor = "#fdf9f3",
   planeBaseHeight = 8,
   asciiQuality = 1,
+  enableScrollDisappear = true,
+  scrollDisappearStart = 0.04,
+  scrollDisappearEnd = 0.7,
 }: ASCIITextProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const asciiRef = useRef<CanvAscii | null>(null);
+  const disappearProgressRef = useRef(0);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -629,6 +683,7 @@ export default function ASCIIText({
         height,
       );
       await instance.init();
+      instance.setDisappearProgress(disappearProgressRef.current);
       return instance;
     };
 
@@ -695,6 +750,54 @@ export default function ASCIIText({
     planeBaseHeight,
     enableWaves,
     asciiQuality,
+  ]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    if (!enableScrollDisappear) {
+      disappearProgressRef.current = 0;
+      asciiRef.current?.setDisappearProgress(0);
+      return;
+    }
+
+    let frameId = 0;
+
+    const update = () => {
+      frameId = 0;
+      const section = container.closest("section");
+      const targetRect = (section ?? container).getBoundingClientRect();
+      const totalDistance = Math.max(targetRect.height, 1);
+      const sectionProgress = clamp(-targetRect.top / totalDistance, 0, 1);
+      const rawFadeProgress =
+        (sectionProgress - scrollDisappearStart) /
+        Math.max(0.001, scrollDisappearEnd - scrollDisappearStart);
+      const fadeProgress = clamp(rawFadeProgress, 0, 1);
+      const smoothFade = fadeProgress * fadeProgress * (3 - 2 * fadeProgress);
+
+      disappearProgressRef.current = smoothFade;
+      asciiRef.current?.setDisappearProgress(smoothFade);
+    };
+
+    const queueUpdate = () => {
+      if (frameId) return;
+      frameId = window.requestAnimationFrame(update);
+    };
+
+    queueUpdate();
+    window.addEventListener("scroll", queueUpdate, { passive: true });
+    window.addEventListener("resize", queueUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", queueUpdate);
+      window.removeEventListener("resize", queueUpdate);
+      if (frameId) window.cancelAnimationFrame(frameId);
+    };
+  }, [
+    enableScrollDisappear,
+    scrollDisappearStart,
+    scrollDisappearEnd,
   ]);
 
   return (

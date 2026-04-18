@@ -235,13 +235,119 @@ export default function Portfolio() {
     }
     .social-icon:hover { color: var(--accent); }
 
-    .skill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
+    .skills-grid {
+      margin-top: 54px;
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 20px 22px;
+      align-items: start;
+    }
+
+    .skills-panel {
+      position: relative;
+      border-radius: 16px;
+      padding: 24px 26px;
+      background: linear-gradient(162deg, rgba(20, 20, 20, 0.24), rgba(255, 255, 255, 0.06));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
+      backdrop-filter: blur(2px);
+    }
+    .skills-panel:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.24);
+      background: linear-gradient(162deg, rgba(20, 20, 20, 0.27), rgba(255, 255, 255, 0.08));
+    }
+
+    .skills-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: #B83232;
+      margin-bottom: 18px;
+      line-height: 1.2;
+    }
+
+    .skills-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .skills-item {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      color: var(--text);
+      font-size: 0.94rem;
+      line-height: 1.52;
+    }
+
+    .skills-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #B83232;
       flex-shrink: 0;
       margin-top: 7px;
+      box-shadow: 0 0 0 2px rgba(184, 50, 50, 0.16);
+    }
+
+    .languages-shell {
+      margin-top: 82px;
+      display: grid;
+      gap: 18px;
+      padding: 24px 26px 20px;
+      border-radius: 16px;
+      background: linear-gradient(170deg, rgba(20,20,20,0.2), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.14);
+    }
+
+    .language-row {
+      display: grid;
+      grid-template-columns: minmax(120px, 160px) 1fr;
+      gap: 14px 20px;
+      align-items: center;
+    }
+
+    .language-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .language-name {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .language-level {
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: color-mix(in srgb, #B83232 76%, var(--text) 24%);
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .language-meter-track {
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .language-meter-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #B83232 0%, color-mix(in srgb, #B83232 58%, var(--accent) 42%) 100%);
+      transition: width 0.45s ease;
     }
 
     .hobby-card {
@@ -321,6 +427,23 @@ export default function Portfolio() {
       .nav-link { font-size: 0.92rem; }
       .hero-ascii-stage {
         height: clamp(250px, 56vw, 420px);
+      }
+      .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 42px;
+      }
+      .skills-panel {
+        transform: none !important;
+      }
+      .languages-shell {
+        margin-top: 62px;
+        padding: 20px 20px 18px;
+        gap: 14px;
+      }
+      .language-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
       }
       .floating-grid {
         grid-template-columns: 1fr;
@@ -956,59 +1079,32 @@ export default function Portfolio() {
           <SectionLabel>Skills</SectionLabel>
           <SectionTitle>What I work with</SectionTitle>
         </div>
-        <div
-          style={{
-            marginTop: "48px",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: "16px",
-          }}
-        >
+        <div className="skills-grid">
           {skillGroups.map((group, index) => (
             <div
               key={index}
-              className="card fade-in"
-              style={{ padding: "24px 28px" }}
+              className="skills-panel fade-in"
+              style={{
+                gridColumn:
+                  index === 0 || index === skillGroups.length - 1
+                    ? "span 7"
+                    : "span 5",
+                marginTop:
+                  index === 1
+                    ? "18px"
+                    : index === 2
+                      ? "-6px"
+                      : index === 3
+                        ? "12px"
+                        : "0px",
+              }}
             >
-              <h3
-                style={{
-                  fontSize: "0.78rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: "var(--accent)",
-                  marginBottom: "20px",
-                }}
-              >
-                {group.title}
-              </h3>
-              <ul
-                style={{
-                  listStyle: "none",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                }}
-              >
+              <h3 className="skills-title">{group.title}</h3>
+              <ul className="skills-list">
                 {group.skills.map((skill) => (
-                  <li
-                    key={skill}
-                    style={{
-                      display: "flex",
-                      gap: "10px",
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <div className="skill-dot" />
-                    <span
-                      style={{
-                        fontSize: "0.9rem",
-                        color: "var(--text)",
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      {skill}
-                    </span>
+                  <li key={skill} className="skills-item">
+                    <span className="skills-dot" />
+                    <span>{skill}</span>
                   </li>
                 ))}
               </ul>
@@ -1016,71 +1112,35 @@ export default function Portfolio() {
           ))}
         </div>
 
-        <div style={{ marginTop: "64px" }}>
+        <div className="languages-shell fade-in">
           <h3
-            className="fade-in"
+            className="skills-title"
             style={{
-              fontSize: "0.78rem",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "var(--muted-text)",
-              marginBottom: "28px",
+              marginBottom: "6px",
             }}
           >
             Languages
           </h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-              gap: "16px",
-            }}
-          >
-            {languages.map((lang) => (
-              <div
-                key={lang.name}
-                className="card fade-in"
-                style={{ padding: "20px 22px" }}
-              >
-                <p
-                  style={{
-                    fontWeight: 600,
-                    fontSize: "0.95rem",
-                    color: "var(--text)",
-                    marginBottom: "4px",
-                  }}
-                >
-                  {lang.name}
-                </p>
-                <p
-                  style={{
-                    fontSize: "0.78rem",
-                    color: "var(--muted-text)",
-                    marginBottom: "12px",
-                  }}
-                >
-                  {lang.level}
-                </p>
-                <div style={{ display: "flex", gap: "4px" }}>
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        flex: 1,
-                        height: "3px",
-                        borderRadius: "2px",
-                        background:
-                          index < lang.proficiency
-                            ? "var(--accent)"
-                            : "var(--border-color)",
-                      }}
-                    />
-                  ))}
-                </div>
+          {languages.map((lang, index) => (
+            <div
+              key={lang.name}
+              className="language-row"
+              style={{
+                marginLeft: index % 2 === 0 ? "0px" : "2px",
+              }}
+            >
+              <div className="language-meta">
+                <span className="language-name">{lang.name}</span>
+                <span className="language-level">{lang.level}</span>
               </div>
-            ))}
-          </div>
+              <div className="language-meter-track" aria-hidden="true">
+                <div
+                  className="language-meter-fill"
+                  style={{ width: `${(lang.proficiency / 5) * 100}%` }}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

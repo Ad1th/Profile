@@ -1,31 +1,10 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import { Award, Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import ThemeScroll from "@/components/theme-scroll";
-import ASCIIText from "@/components/ui/ascii-text";
-
-function useFadeIn() {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            (entry.target as HTMLElement).style.opacity = "1";
-            (entry.target as HTMLElement).style.transform = "translateY(0)";
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -24px 0px" },
-    );
-
-    document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-}
 
 function Tag({ label }: { label: string }) {
   return (
@@ -94,42 +73,7 @@ function SectionTitle({
 }
 
 export default function Portfolio() {
-  useFadeIn();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [aboutVisible, setAboutVisible] = useState(false);
-  const aboutTriggerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const aboutNode = aboutTriggerRef.current;
-    if (!aboutNode) return;
-
-    if (window.matchMedia("(max-width: 768px)").matches) {
-      setAboutVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setAboutVisible(Boolean(entry?.isIntersecting));
-      },
-      {
-        threshold: 0.01,
-        rootMargin: "0px 0px -22% 0px",
-      },
-    );
-
-    observer.observe(aboutNode);
-
-    return () => observer.disconnect();
-  }, []);
 
   const navLinks = [
     "about",
@@ -143,48 +87,55 @@ export default function Portfolio() {
     "contact",
   ];
 
-  const sectionStyle = {
-    padding: "clamp(72px, 10vw, 112px) 24px",
-    maxWidth: "1200px",
-    margin: "0 auto",
-  } as const;
-
   const experienceColors = {
     heading: "#111111",
-    secondary: "#2A2A2A",
-    tertiary: "#FFFFFF",
-    cardBg: "rgba(255, 255, 255, 0.14)",
+    secondary: "#111111",
+    tertiary: "#111111",
+    cardBg: "rgba(237, 235, 230, 0.82)",
     cardBorder: "rgba(17, 17, 17, 0.22)",
-    tagBg: "rgba(160, 68, 14, 0.46)",
-    tagBorder: "rgba(255, 255, 255, 0.2)",
-    badgeBg: "rgba(140, 58, 12, 0.52)",
-    badgeBorder: "rgba(255, 255, 255, 0.24)",
+    tagBg: "rgba(232, 93, 31, 0.2)",
+    tagBorder: "rgba(17, 17, 17, 0.2)",
+    badgeBg: "rgba(232, 93, 31, 0.2)",
+    badgeBorder: "rgba(17, 17, 17, 0.22)",
   } as const;
 
   const css = `
+    :root {
+      --bg-primary: #E2E2E2;
+      --bg-dark: #0E0E0E;
+      --bg-white: #FFFFFF;
+      --accent: #E85D1F;
+      --text-dark: #111111;
+      --text-light: #F5F5F5;
+      --text: var(--text-dark);
+      --muted-text: rgba(17, 17, 17, 0.66);
+      --surface: rgba(17, 17, 17, 0.06);
+      --border-color: rgba(17, 17, 17, 0.18);
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; color-scheme: dark; }
-    body { background: var(--bg); color: var(--text); transition: background 0.18s linear, color 0.18s linear; }
+    body { background: var(--bg-primary); color: var(--text-dark); }
     body, button, input, textarea, select { font-family: 'DM Sans', system-ui, sans-serif; }
     body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     h1, h2, h3, h4, h5, h6 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; }
-    ::selection { background: rgba(255,122,31,0.25); color: var(--text); }
+    ::selection { background: rgba(232, 93, 31, 0.25); color: var(--text-light); }
     ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
     ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 999px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
     .fade-in {
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
 
     .nav-link {
       font-size: 0.82rem;
       font-weight: 600;
       letter-spacing: 0.05em;
-      color: var(--muted-text);
+      color: rgba(17, 17, 17, 0.66);
       text-decoration: none;
       text-transform: capitalize;
       transition: color 0.2s ease;
@@ -201,7 +152,7 @@ export default function Portfolio() {
       background: var(--accent);
       transition: width 0.25s ease;
     }
-    .nav-link:hover { color: var(--text); }
+    .nav-link:hover { color: var(--text-dark); }
     .nav-link:hover::after { width: 100%; }
 
     .btn-primary {
@@ -222,7 +173,7 @@ export default function Portfolio() {
       border: 1px solid rgba(255,122,31,0.3);
       cursor: pointer;
     }
-    .btn-primary:hover { background: #e86f14; transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
 
     .btn-ghost {
       display: inline-flex;
@@ -248,7 +199,7 @@ export default function Portfolio() {
       background: var(--surface);
       border: 1px solid var(--border-color);
       border-radius: 14px;
-      transition: background 0.1s linear, border-color 0.2s ease, transform 0.2s ease;
+      transition: border-color 0.2s ease;
     }
     .card:hover { border-color: rgba(255,122,31,0.28); }
 
@@ -270,45 +221,30 @@ export default function Portfolio() {
     }
 
     .skills-poster {
-      position: relative;
-      border: 3px solid #111111;
+      border: 1px solid rgba(17, 17, 17, 0.22);
       border-radius: 8px;
       padding: 20px 22px 18px;
-      box-shadow: 6px 6px 0 rgba(17, 17, 17, 0.35);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .skills-poster::after {
-      content: '';
-      position: absolute;
-      inset: 8px;
-      border: 1px dotted rgba(17, 17, 17, 0.45);
-      pointer-events: none;
-      border-radius: 3px;
-    }
-    .skills-poster:hover {
-      transform: translateY(-3px);
-      box-shadow: 9px 9px 0 rgba(17, 17, 17, 0.35);
+      box-shadow: none;
+      transition: border-color 0.2s ease;
     }
 
     .skills-poster--backend {
-      background: #f08a32;
-      color: #111111;
+      background: var(--bg-primary);
+      color: var(--text-dark);
     }
     .skills-poster--databases {
-      background: #d06a36;
-      color: #1a120f;
+      background: rgba(232, 93, 31, 0.14);
+      color: var(--text-dark);
     }
     .skills-poster--observability {
-      background: #b64a2b;
-      color: #fff3ea;
-      transform: rotate(-1.1deg);
+      background: var(--accent);
+      color: var(--text-light);
     }
     .skills-poster--frontend {
-      background: #d8c4b7;
-      color: #4a2720;
-      transform: rotate(3deg);
-      border-color: rgba(74, 39, 32, 0.78);
-      box-shadow: 4px 4px 0 rgba(74, 39, 32, 0.24);
+      background: rgba(237, 235, 230, 0.78);
+      color: var(--text-dark);
+      border-color: rgba(17, 17, 17, 0.28);
+      box-shadow: none;
     }
 
     .skills-poster--backend .skills-poster-title {
@@ -386,7 +322,7 @@ export default function Portfolio() {
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: color-mix(in srgb, var(--text) 64%, #b83232 36%);
+      color: var(--accent);
       margin-bottom: 6px;
     }
 
@@ -399,7 +335,7 @@ export default function Portfolio() {
 
     .language-label {
       font-size: 0.8rem;
-      color: color-mix(in srgb, var(--text) 84%, #111111 16%);
+      color: var(--text);
       line-height: 1.3;
       letter-spacing: 0.01em;
     }
@@ -413,7 +349,7 @@ export default function Portfolio() {
       font-size: 0.67rem;
       text-transform: uppercase;
       letter-spacing: 0.09em;
-      color: color-mix(in srgb, var(--muted-text) 82%, #C63D3D 18%);
+      color: var(--muted-text);
       font-weight: 600;
     }
 
@@ -423,16 +359,15 @@ export default function Portfolio() {
       width: 100%;
       max-width: 500px;
       margin-left: 2px;
-      background: rgba(0, 0, 0, 0.08);
+      background: rgba(245, 245, 245, 0.2);
       overflow: hidden;
     }
 
     .language-bar-fill {
       display: block;
       height: 100%;
-      background: #C63D3D;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 0 1px rgba(120, 22, 22, 0.35);
-      transition: width 0.35s ease;
+      background: var(--accent);
+      box-shadow: none;
     }
 
     .hobby-card {
@@ -453,65 +388,30 @@ export default function Portfolio() {
       left: 0;
       right: 0;
       padding: 34px 16px 14px;
-      background: linear-gradient(to top, rgba(17,17,17,0.88) 0%, transparent 100%);
+      background: rgba(14, 14, 14, 0.74);
       font-weight: 500;
       font-size: 0.95rem;
-      color: #E5E5E5;
+      color: var(--text-light);
     }
 
-    .hero-ascii-stage {
-      position: relative;
-      overflow: visible;
-      height: clamp(360px, 56vh, 680px);
-      width: min(100%, 1340px);
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-primary);
+      color: var(--text-dark);
+    }
+
+    .hero-content {
+      max-width: 1200px;
       margin: 0 auto;
-      background: transparent;
-    }
-
-    .hero-about-split {
-      display: flex;
-      align-items: stretch;
-      min-height: 145vh;
+      padding: 0 24px;
       width: 100%;
-      overflow: visible;
-      position: relative;
-    }
-
-    .hero-left-panel {
-      width: 100%;
-      min-width: 0;
-      position: sticky;
-      top: 0;
-      height: 100vh;
       display: flex;
-      align-items: stretch;
-      overflow: hidden;
-      background: #5F6CA6;
-      border-right: 2px solid rgba(17, 17, 17, 0.35);
-    }
-
-    .hero-left-panel::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.07;
-      background-image:
-        radial-gradient(circle at 20% 20%, #ffffff 1px, transparent 1px),
-        radial-gradient(circle at 70% 60%, #ffffff 1px, transparent 1px);
-      background-size: 18px 18px, 22px 22px;
-    }
-
-    .hero-left-inner {
-      width: 100%;
-      height: 100%;
-      padding: clamp(92px, 11vh, 124px) clamp(30px, 4vw, 56px) clamp(26px, 5vh, 46px);
-      display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: space-between;
-      position: relative;
-      z-index: 1;
-      text-align: left;
+      gap: 64px;
     }
 
     .hero-kicker {
@@ -519,7 +419,7 @@ export default function Portfolio() {
       letter-spacing: 0.14em;
       text-transform: uppercase;
       font-weight: 700;
-      color: rgba(243, 235, 221, 0.82);
+      color: rgba(17, 17, 17, 0.72);
       line-height: 1.5;
     }
 
@@ -528,24 +428,33 @@ export default function Portfolio() {
       opacity: 0.65;
     }
 
-    .hero-ascii-stage--poster {
-      height: clamp(360px, 58vh, 700px);
-      width: 100%;
+    .hero-heading-wrap {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .heading {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 400;
+      line-height: 1.02;
+      color: var(--accent);
+      letter-spacing: 0;
       margin: 0;
-      transform: translateX(-1.5%);
+      white-space: nowrap;
     }
 
     .hero-avatar {
-      position: absolute;
-      bottom: clamp(20px, 3vh, 34px);
-      left: clamp(28px, 4.5vw, 62px);
-      width: clamp(150px, 18vw, 260px);
+      position: relative;
+      width: min(220px, 26vw);
+      max-width: 220px;
       height: auto;
-      opacity: 0.92;
-      filter: drop-shadow(0 12px 18px rgba(16, 9, 35, 0.34));
-      animation: avatarFloat 5.8s ease-in-out infinite;
-      z-index: 2;
-      pointer-events: none;
+      opacity: 0.95;
+      flex-shrink: 0;
     }
 
     .hero-scroll-indicator {
@@ -553,70 +462,43 @@ export default function Portfolio() {
       letter-spacing: 0.1em;
       text-transform: uppercase;
       font-weight: 600;
-      color: rgba(243, 235, 221, 0.82);
+      color: rgba(17, 17, 17, 0.68);
       align-self: flex-start;
-      margin-left: 2px;
     }
 
-    .about-right-column {
-      width: 100%;
-      min-width: 0;
-      background: #F3EBDD;
-      border-left: none;
-      padding: clamp(130px, 20vh, 220px) clamp(30px, 5vw, 62px) clamp(110px, 16vh, 190px);
+    .about {
+      min-height: 100vh;
       display: flex;
-      align-items: flex-start;
-      position: absolute;
-      inset: 0;
-      height: 100vh;
-      overflow: hidden;
-      transform: translateX(100%);
-      opacity: 0;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-      will-change: transform, opacity;
-      z-index: 5;
-      pointer-events: none;
-      box-shadow: -12px 0 40px rgba(0, 0, 0, 0.14);
+      align-items: center;
+      background: var(--bg-dark);
+      color: var(--text-light);
     }
 
-    .about-reveal-trigger {
-      position: absolute;
-      top: 104vh;
-      left: 0;
-      display: block;
-      width: 2px;
-      height: 2px;
-      opacity: 0;
-      pointer-events: none;
+    .about-content {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      display: grid;
+      gap: 24px;
+      --text: var(--text-light);
+      --muted-text: rgba(245, 245, 245, 0.78);
+      --surface: rgba(245, 245, 245, 0.08);
+      --border-color: rgba(245, 245, 245, 0.18);
     }
 
-    .about-right-column.visible {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      transform: translateX(0);
-      opacity: 1;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      pointer-events: auto;
-    }
-
-    .about-right-panel {
-      width: min(100%, 760px);
-      color: #1f1a17;
-    }
-
-    .about-right-panel .fade-in {
+    .about-content .fade-in {
       max-width: 100% !important;
     }
 
-    .about-right-panel p {
-      color: rgba(31, 26, 23, 0.88) !important;
+    .about-content p {
+      color: var(--muted-text) !important;
+      line-height: 1.82;
     }
 
     .about-headline-line {
-      color: #1f1a17 !important;
+      color: var(--text) !important;
+      font-family: 'DM Serif Display', Georgia, serif;
     }
 
     .about-headline-line--underlined {
@@ -631,59 +513,77 @@ export default function Portfolio() {
       left: 0;
       right: 0;
       bottom: 1px;
-      height: 6px;
-      background: repeating-linear-gradient(
-        90deg,
-        rgba(198, 61, 61, 0.68) 0,
-        rgba(198, 61, 61, 0.68) 9px,
-        transparent 9px,
-        transparent 13px
-      );
-      opacity: 0.58;
-      transform: translateX(1px) rotate(-0.8deg);
+      height: 3px;
+      background: rgba(232, 93, 31, 0.58);
+      opacity: 0.7;
     }
 
-    @keyframes avatarFloat {
-      0%,
-      100% { transform: translateY(0px); }
-      50% { transform: translateY(-7px); }
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(72px, 10vw, 112px) 24px;
+      position: relative;
+      z-index: 0;
+      --text: var(--text-dark);
+      --muted-text: rgba(17, 17, 17, 0.66);
+      --surface: rgba(17, 17, 17, 0.06);
+      --border-color: rgba(17, 17, 17, 0.18);
     }
+
+    .section-dark {
+      color: var(--text-light);
+      --text: var(--text-light);
+      --muted-text: rgba(245, 245, 245, 0.72);
+      --surface: rgba(245, 245, 245, 0.08);
+      --border-color: rgba(245, 245, 245, 0.16);
+    }
+
+    .section-silver {
+      color: var(--text-dark);
+    }
+
+    .section-white {
+      color: var(--text-dark);
+    }
+
+    .section-dark::before,
+    .section-silver::before,
+    .section-white::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc((100vw - 100%) / -2);
+      right: calc((100vw - 100%) / -2);
+      z-index: -1;
+    }
+
+    .section-dark::before { background: var(--bg-dark); }
+    .section-silver::before { background: var(--bg-primary); }
+    .section-white::before { background: var(--bg-white); }
 
 
     .stack-surface {
-      perspective: 1500px;
+      perspective: none;
     }
     .floating-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 26px;
-      transform-style: preserve-3d;
+      gap: 16px;
     }
     .floating-card {
-      border-radius: 18px;
-      background: linear-gradient(165deg, rgba(26,26,26,0.96), rgba(17,17,17,0.98));
-      border: 1px solid rgba(51,51,51,0.95);
-      box-shadow: 0 18px 42px rgba(0,0,0,0.42);
-      transform-style: preserve-3d;
-      transform: translateY(var(--card-y, 0px)) rotate(var(--card-rotate, 0deg)) rotateX(var(--card-tiltX, 0deg)) rotateY(var(--card-tiltY, 0deg)) translateZ(var(--card-z, 0px));
-      transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
+      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      transition: border-color 0.2s ease;
       position: relative;
       overflow: hidden;
-      margin-top: var(--card-overlap, 0px);
-      z-index: var(--card-index, 1);
     }
     .floating-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(115deg, rgba(255,122,31,0.09), transparent 40%);
-      opacity: 0.7;
+      content: none;
     }
     .floating-card:hover {
-      border-color: rgba(255,122,31,0.48);
-      box-shadow: 0 28px 62px rgba(0,0,0,0.56);
-      transform: translateY(var(--card-hover-y, -10px)) rotate(var(--card-hover-rotate, 0deg)) rotateX(var(--card-hover-tiltX, 4deg)) rotateY(var(--card-hover-tiltY, -5deg)) translateZ(30px);
+      border-color: rgba(232, 93, 31, 0.38);
     }
 
     @media (max-width: 768px) {
@@ -691,51 +591,24 @@ export default function Portfolio() {
       .show-mobile { display: flex !important; }
       .btn-primary, .btn-ghost { width: 100%; }
       .nav-link { font-size: 0.92rem; }
-      .hero-ascii-stage {
-        height: clamp(250px, 56vw, 420px);
+      .hero-content {
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        padding: 72px 24px 56px;
       }
-      .hero-about-split {
-        display: block;
-        min-height: auto;
-        overflow: visible;
-      }
-      .hero-left-panel {
-        width: 100%;
-        position: relative;
-        top: auto;
-        height: auto;
-        min-height: calc(100vh - 60px);
-        border-right: none;
-      }
-      .hero-left-inner {
-        padding: 32px 24px 26px;
-      }
-      .hero-ascii-stage--poster {
-        height: clamp(250px, 56vw, 420px);
-        transform: none;
+      .hero-heading-wrap {
+        align-items: center;
+        text-align: center;
       }
       .hero-avatar {
-        width: clamp(116px, 29vw, 180px);
-        left: 18px;
-        bottom: 18px;
+        width: min(180px, 48vw);
       }
-      .about-right-column {
-        width: 100%;
-        min-width: 0;
-        border-left: none;
-        padding: 52px 24px 72px;
-        position: relative;
-        top: auto;
-        right: auto;
-        bottom: auto;
-        transform: none !important;
-        opacity: 1 !important;
-        transition: none;
-        box-shadow: none;
-        pointer-events: auto;
+      .about {
+        min-height: auto;
       }
-      .about-reveal-trigger {
-        display: none;
+      .about-content {
+        padding: 64px 24px;
       }
       .skills-grid {
         grid-template-columns: 1fr;
@@ -744,7 +617,7 @@ export default function Portfolio() {
       }
       .skills-poster {
         transform: none !important;
-        box-shadow: 4px 4px 0 rgba(17, 17, 17, 0.32);
+        box-shadow: none;
       }
       .languages-editorial {
         margin-top: 46px;
@@ -763,11 +636,7 @@ export default function Portfolio() {
         gap: 16px;
       }
       .floating-card {
-        transform: translateY(0) !important;
         margin-top: 0 !important;
-      }
-      .floating-card:hover {
-        transform: translateY(-4px) !important;
       }
     }
     @media (min-width: 769px) {
@@ -1134,21 +1003,13 @@ export default function Portfolio() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
-      <ThemeScroll />
 
       <nav
         style={{
-          position: "sticky",
-          top: 0,
+          position: "relative",
           zIndex: 50,
-          background: scrolled
-            ? "color-mix(in srgb, var(--bg) 94%, transparent)"
-            : "var(--bg)",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
-          borderBottom: scrolled
-            ? "1px solid var(--border-color)"
-            : "1px solid transparent",
-          transition: "all 0.3s ease",
+          background: "var(--bg-primary)",
+          borderBottom: "1px solid rgba(17, 17, 17, 0.12)",
         }}
       >
         <div
@@ -1227,106 +1088,77 @@ export default function Portfolio() {
         )}
       </nav>
 
-      <section className="hero-about-split">
-        <div id="hero" className="hero-left-panel">
-          <div className="hero-left-inner">
+      <section id="hero" className="hero">
+        <div className="hero-content">
+          <div className="hero-heading-wrap">
             <div className="hero-kicker">
               {heroKickerItems.map((item) => (
                 <span key={item}>{item}</span>
               ))}
             </div>
-            <div className="hero-ascii-stage hero-ascii-stage--poster">
-              <ASCIIText
-                text="Hey, I'm Adith"
-                enableWaves
-                asciiFontSize={8}
-                textFontSize={300}
-                planeBaseHeight={16}
-                textColor="#D96516"
-                asciiQuality={4}
-                scrollDisappearStart={-0.12}
-                scrollDisappearEnd={0.7}
-              />
-            </div>
+            <h1 className="heading">Hey, I&apos;m Adith</h1>
             <span className="hero-scroll-indicator">scroll down ↓</span>
-            <Image
-              src="/robot-avatar.svg"
-              alt="Robot avatar"
-              width={320}
-              height={320}
-              className="hero-avatar"
-              priority
-            />
           </div>
+          <Image
+            src="/robot-avatar.svg"
+            alt="Robot avatar"
+            width={320}
+            height={320}
+            className="hero-avatar"
+            priority
+          />
         </div>
-
-        <div
-          ref={aboutTriggerRef}
-          className="about-reveal-trigger"
-          aria-hidden="true"
-        />
-
-        <section
-          id="about"
-          className={`about-right-column ${aboutVisible ? "visible" : ""}`.trim()}
-        >
-          <div className="about-right-panel">
-            <div className="fade-in" style={{ maxWidth: "680px" }}>
-              <SectionLabel>About</SectionLabel>
-              <SectionTitle
-                style={{
-                  fontSize: "clamp(2.65rem, 5vw, 4rem)",
-                  lineHeight: 1.08,
-                }}
-              >
-                <span className="about-headline-line">
-                  I like building things,
-                </span>
-                <br />
-                <span className="about-headline-line about-headline-line--underlined">
-                  breaking them, then fixing them again.
-                </span>
-              </SectionTitle>
-            </div>
-            <div
-              className="fade-in"
-              style={{
-                marginTop: "40px",
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                gap: "32px",
-                maxWidth: "900px",
-              }}
-            >
-              {[
-                "I'm a CSE student who enjoys backend-heavy projects that feel real: multiplayer games with actual users, AI tools that do something useful, anonymous forums, productivity extensions, and apps that bridge gaps outside the screen (like farmers texting labourers directly).",
-                "Sometimes I dip into hardware to keep myself honest — running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. Turns out when latency, power limits, and physics fight back, your software design improves fast.",
-                "Mostly, I care about shipping systems that run, scale, and survive real usage. Buzzwords don't interest me much, but behaviour does.",
-              ].map((para, index) => (
-                <p
-                  key={index}
-                  style={{
-                    fontSize: "0.98rem",
-                    color: index === 2 ? "var(--muted-text)" : "var(--text)",
-                    lineHeight: 1.75,
-                    fontStyle: index === 2 ? "italic" : "normal",
-                  }}
-                >
-                  {para}
-                </p>
-              ))}
-            </div>
-          </div>
-        </section>
       </section>
 
-      <section
-        id="experience"
-        style={{
-          ...sectionStyle,
-          marginTop: "clamp(28px, 4vw, 64px)",
-        }}
-      >
+      <section id="about" className="about">
+        <div className="about-content">
+          <div className="fade-in" style={{ maxWidth: "680px" }}>
+            <SectionLabel>About</SectionLabel>
+            <SectionTitle
+              style={{
+                fontSize: "clamp(2.65rem, 5vw, 4rem)",
+                lineHeight: 1.08,
+              }}
+            >
+              <span className="about-headline-line">I like building things,</span>
+              <br />
+              <span className="about-headline-line about-headline-line--underlined">
+                breaking them, then fixing them again.
+              </span>
+            </SectionTitle>
+          </div>
+          <div
+            className="fade-in"
+            style={{
+              marginTop: "40px",
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: "32px",
+              maxWidth: "900px",
+            }}
+          >
+            {[
+              "I'm a CSE student who enjoys backend-heavy projects that feel real: multiplayer games with actual users, AI tools that do something useful, anonymous forums, productivity extensions, and apps that bridge gaps outside the screen (like farmers texting labourers directly).",
+              "Sometimes I dip into hardware to keep myself honest — running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. Turns out when latency, power limits, and physics fight back, your software design improves fast.",
+              "Mostly, I care about shipping systems that run, scale, and survive real usage. Buzzwords don't interest me much, but behaviour does.",
+            ].map((para, index) => (
+              <p
+                key={index}
+                style={{
+                  fontSize: "0.98rem",
+                  color: index === 2 ? "var(--muted-text)" : "var(--text)",
+                  lineHeight: 1.82,
+                  fontStyle: index === 2 ? "italic" : "normal",
+                }}
+              >
+                {para}
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" className="section section-silver">
         <div className="fade-in">
           <SectionLabel>Experience</SectionLabel>
           <SectionTitle>Where I've worked</SectionTitle>
@@ -1434,7 +1266,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section id="skills" style={sectionStyle}>
+      <section id="skills" className="section section-white">
         <div className="fade-in">
           <SectionLabel>Skills</SectionLabel>
           <SectionTitle>What I work with</SectionTitle>
@@ -1496,7 +1328,121 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section id="patents" style={sectionStyle}>
+      <section id="projects" className="section section-silver">
+        <div className="fade-in">
+          <SectionLabel>Projects</SectionLabel>
+          <SectionTitle>Built and shipped</SectionTitle>
+        </div>
+        <div
+          style={{
+            marginTop: "48px",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(290px, 1fr))",
+            gap: "16px",
+          }}
+        >
+          {projects.map((project) => {
+            const imageSrc = projectImages[project.name];
+            return (
+              <div
+                key={project.name}
+                className="card fade-in"
+                style={{
+                  padding: "0",
+                  overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
+                  minHeight: "360px",
+                }}
+              >
+                {imageSrc && (
+                  <Image
+                    src={imageSrc}
+                    alt={project.name}
+                    width={720}
+                    height={420}
+                    style={{
+                      width: "100%",
+                      height: "180px",
+                      objectFit: "cover",
+                      borderBottom: "1px solid var(--border-color)",
+                    }}
+                  />
+                )}
+                <div
+                  style={{
+                    padding: "20px 22px 22px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "12px",
+                    flex: 1,
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "flex-start",
+                      gap: "10px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                      }}
+                    >
+                      <span style={{ fontSize: "1.1rem" }}>{project.emoji}</span>
+                      <h3
+                        style={{
+                          fontSize: "0.98rem",
+                          fontWeight: 600,
+                          color: "var(--text)",
+                        }}
+                      >
+                        {project.name}
+                      </h3>
+                    </div>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="social-icon"
+                        aria-label={`GitHub - ${project.name}`}
+                      >
+                        <Github size={16} />
+                      </a>
+                    )}
+                  </div>
+
+                  <p
+                    style={{
+                      fontSize: "0.85rem",
+                      color: "var(--muted-text)",
+                      lineHeight: 1.65,
+                      flex: 1,
+                    }}
+                  >
+                    {project.description}
+                  </p>
+
+                  <div
+                    style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}
+                  >
+                    {project.stack.map((item) => (
+                      <Tag key={item} label={item} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id="patents" className="section section-white">
         <div className="fade-in">
           <SectionLabel>Patents</SectionLabel>
           <SectionTitle>Intellectual property</SectionTitle>
@@ -1538,16 +1484,9 @@ export default function Portfolio() {
                 <span
                   style={{
                     fontSize: "0.78rem",
-                    color:
-                      patent.status === "Published" ? "#4ade80" : "#fbbf24",
-                    background:
-                      patent.status === "Published"
-                        ? "rgba(74,222,128,0.08)"
-                        : "rgba(251,191,36,0.12)",
-                    border:
-                      patent.status === "Published"
-                        ? "1px solid rgba(74,222,128,0.2)"
-                        : "1px solid rgba(251,191,36,0.3)",
+                    color: "var(--text-dark)",
+                    background: "rgba(232, 93, 31, 0.18)",
+                    border: "1px solid rgba(17, 17, 17, 0.2)",
                     borderRadius: "999px",
                     padding: "4px 12px",
                     whiteSpace: "nowrap",
@@ -1566,17 +1505,50 @@ export default function Portfolio() {
                   }}
                 >
                   {patent.appNo && (
-                    <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        border: "1px solid rgba(17, 17, 17, 0.2)",
+                        background: "rgba(232, 93, 31, 0.12)",
+                        borderRadius: "999px",
+                        padding: "4px 12px",
+                        fontSize: "0.88rem",
+                        color: "var(--text-dark)",
+                      }}
+                    >
                       App No: {patent.appNo}
                     </span>
                   )}
                   {patent.filed && (
-                    <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        border: "1px solid rgba(17, 17, 17, 0.2)",
+                        background: "rgba(232, 93, 31, 0.12)",
+                        borderRadius: "999px",
+                        padding: "4px 12px",
+                        fontSize: "0.88rem",
+                        color: "var(--text-dark)",
+                      }}
+                    >
                       Filed: {patent.filed}
                     </span>
                   )}
                   {patent.published && (
-                    <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        border: "1px solid rgba(17, 17, 17, 0.2)",
+                        background: "rgba(232, 93, 31, 0.12)",
+                        borderRadius: "999px",
+                        padding: "4px 12px",
+                        fontSize: "0.88rem",
+                        color: "var(--text-dark)",
+                      }}
+                    >
                       Published: {patent.published}
                     </span>
                   )}
@@ -1596,7 +1568,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section id="achievements" style={sectionStyle}>
+      <section id="achievements" className="section section-dark">
         <div className="fade-in">
           <SectionLabel>Achievements</SectionLabel>
           <SectionTitle>Certifications &amp; awards</SectionTitle>
@@ -1666,7 +1638,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section id="hackathons" style={sectionStyle}>
+      <section id="hackathons" className="section section-silver">
         <div className="fade-in">
           <SectionLabel>Hackathons</SectionLabel>
           <SectionTitle>Live sprint stack</SectionTitle>
@@ -1674,25 +1646,7 @@ export default function Portfolio() {
         <div className="stack-surface" style={{ marginTop: "48px" }}>
           <div className="floating-grid">
             {hackathons.map((hackathon, index) => (
-              <div
-                key={index}
-                className="floating-card fade-in"
-                style={
-                  {
-                    "--card-y": `${(index % 3) * -8}px`,
-                    "--card-overlap": `${index > 1 ? -10 : 0}px`,
-                    "--card-index": `${30 - index}`,
-                    "--card-rotate": `${((index % 5) - 2) * 1.25}deg`,
-                    "--card-tiltX": `${((index % 3) - 1) * 0.8}deg`,
-                    "--card-tiltY": `${((index % 4) - 1.5) * 0.75}deg`,
-                    "--card-z": `${(index % 4) * 2}px`,
-                    "--card-hover-y": `${-15 - (index % 2) * 2}px`,
-                    "--card-hover-rotate": `${((index % 5) - 2) * 0.4}deg`,
-                    "--card-hover-tiltX": `${4 + (index % 2)}deg`,
-                    "--card-hover-tiltY": `${-4 + (index % 3)}deg`,
-                  } as CSSProperties
-                }
-              >
+              <div key={index} className="floating-card fade-in">
                 <div
                   style={{
                     position: "relative",
@@ -1754,7 +1708,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section id="hobbies" style={sectionStyle}>
+      <section id="hobbies" className="section section-white">
         <div className="fade-in">
           <SectionLabel>Hobbies</SectionLabel>
           <SectionTitle>Beyond the screen</SectionTitle>
@@ -1782,7 +1736,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section id="contact" style={sectionStyle}>
+      <section id="contact" className="section section-dark">
         <div className="fade-in" style={{ maxWidth: "560px" }}>
           <SectionLabel>Contact</SectionLabel>
           <SectionTitle>Let's connect</SectionTitle>
@@ -1844,7 +1798,7 @@ export default function Portfolio() {
             Designed &amp; built by{" "}
             <span style={{ color: "var(--accent)" }}>Adith Manikonda</span>
           </p>
-          <p style={{ fontSize: "0.78rem", color: "#555555" }}>
+          <p style={{ fontSize: "0.78rem", color: "var(--muted-text)" }}>
             © {new Date().getFullYear()} · All rights reserved
           </p>
         </div>

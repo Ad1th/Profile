@@ -236,118 +236,163 @@ export default function Portfolio() {
     .social-icon:hover { color: var(--accent); }
 
     .skills-grid {
-      margin-top: 54px;
+      margin-top: 58px;
       display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 20px 22px;
+      grid-template-columns: 1.18fr 0.82fr 1fr;
+      gap: 18px;
       align-items: start;
     }
 
-    .skills-panel {
+    .skills-poster {
       position: relative;
-      border-radius: 16px;
-      padding: 24px 26px;
-      background: linear-gradient(162deg, rgba(20, 20, 20, 0.24), rgba(255, 255, 255, 0.06));
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-      transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
-      backdrop-filter: blur(2px);
+      border: 3px solid #111111;
+      border-radius: 8px;
+      padding: 20px 22px 18px;
+      box-shadow: 6px 6px 0 rgba(17, 17, 17, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .skills-panel:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.24);
-      background: linear-gradient(162deg, rgba(20, 20, 20, 0.27), rgba(255, 255, 255, 0.08));
+    .skills-poster::after {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px dotted rgba(17, 17, 17, 0.45);
+      pointer-events: none;
+      border-radius: 3px;
+    }
+    .skills-poster:hover {
+      transform: translateY(-3px);
+      box-shadow: 9px 9px 0 rgba(17, 17, 17, 0.35);
     }
 
-    .skills-title {
-      font-size: 0.84rem;
-      font-weight: 700;
-      letter-spacing: 0.11em;
+    .skills-poster--backend {
+      background: #f08a32;
+      color: #111111;
+    }
+    .skills-poster--databases {
+      background: #d06a36;
+      color: #1a120f;
+    }
+    .skills-poster--observability {
+      background: #b64a2b;
+      color: #fff3ea;
+      transform: rotate(-1.1deg);
+    }
+    .skills-poster--frontend {
+      background: #e6d2c4;
+      color: #4a2720;
+      transform: rotate(0.9deg);
+    }
+
+    .skills-poster-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
-      color: #B83232;
-      margin-bottom: 18px;
-      line-height: 1.2;
+      margin-bottom: 14px;
+      line-height: 1.1;
     }
 
     .skills-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .skills-item {
       display: flex;
-      gap: 11px;
+      gap: 10px;
       align-items: flex-start;
-      color: var(--text);
-      font-size: 0.94rem;
-      line-height: 1.52;
+      font-size: 0.93rem;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .skills-poster--frontend .skills-item {
+      font-size: 0.87rem;
+      line-height: 1.4;
+      font-weight: 500;
     }
 
     .skills-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #B83232;
+      width: 6px;
+      height: 6px;
+      border-radius: 1px;
+      background: currentColor;
       flex-shrink: 0;
       margin-top: 7px;
-      box-shadow: 0 0 0 2px rgba(184, 50, 50, 0.16);
+    }
+    .skills-poster--databases .skills-dot {
+      border-radius: 999px;
+    }
+    .skills-poster--observability .skills-dot {
+      width: 7px;
+      height: 2px;
+      border-radius: 0;
+      margin-top: 10px;
+      background: rgba(255, 243, 234, 0.9);
+    }
+    .skills-poster--frontend .skills-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      opacity: 0.78;
     }
 
-    .languages-shell {
-      margin-top: 82px;
-      display: grid;
-      gap: 18px;
-      padding: 24px 26px 20px;
-      border-radius: 16px;
-      background: linear-gradient(170deg, rgba(20,20,20,0.2), rgba(255,255,255,0.05));
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.14);
-    }
-
-    .language-row {
-      display: grid;
-      grid-template-columns: minmax(120px, 160px) 1fr;
-      gap: 14px 20px;
-      align-items: center;
-    }
-
-    .language-meta {
+    .languages-editorial {
+      margin-top: 46px;
+      max-width: 560px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 10px;
+      padding-left: 2px;
+    }
+
+    .languages-heading {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: color-mix(in srgb, var(--text) 64%, #b83232 36%);
+      margin-bottom: 3px;
+    }
+
+    .language-line {
+      display: grid;
+      grid-template-columns: minmax(120px, 150px) minmax(80px, 110px) 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: 2px 0;
     }
 
     .language-name {
-      font-size: 0.96rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.2;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: color-mix(in srgb, var(--text) 90%, #111111 10%);
+      line-height: 1.35;
     }
 
     .language-level {
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
+      font-size: 0.72rem;
       text-transform: uppercase;
-      color: color-mix(in srgb, #B83232 76%, var(--text) 24%);
-      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: color-mix(in srgb, var(--muted-text) 84%, #b83232 16%);
       line-height: 1.25;
+      white-space: nowrap;
     }
 
-    .language-meter-track {
-      height: 6px;
+    .language-bar-track {
+      height: 2px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.16);
+      background: rgba(255, 255, 255, 0.26);
       overflow: hidden;
-      position: relative;
     }
 
-    .language-meter-fill {
+    .language-bar-fill {
       height: 100%;
+      background: color-mix(in srgb, #b83232 68%, var(--accent) 32%);
       border-radius: 999px;
-      background: linear-gradient(90deg, #B83232 0%, color-mix(in srgb, #B83232 58%, var(--accent) 42%) 100%);
-      transition: width 0.45s ease;
+      transition: width 0.35s ease;
     }
 
     .hobby-card {
@@ -433,17 +478,19 @@ export default function Portfolio() {
         gap: 14px;
         margin-top: 42px;
       }
-      .skills-panel {
+      .skills-poster {
         transform: none !important;
+        box-shadow: 4px 4px 0 rgba(17, 17, 17, 0.32);
       }
-      .languages-shell {
-        margin-top: 62px;
-        padding: 20px 20px 18px;
-        gap: 14px;
+      .languages-editorial {
+        margin-top: 36px;
+        max-width: 100%;
+        gap: 8px;
       }
-      .language-row {
+      .language-line {
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 4px;
+        padding: 3px 0;
       }
       .floating-grid {
         grid-template-columns: 1fr;
@@ -489,44 +536,55 @@ export default function Portfolio() {
 
   const skillGroups = [
     {
+      key: "backend",
       title: "Systems & Backend",
+      emphasis: "strong",
       skills: [
         "Node.js",
-        "Express",
-        "PostgreSQL",
-        "Prisma",
-        "JWT",
-        "REST",
-        "Docker",
+        "Express.js",
+        "REST API Design",
+        "Prisma ORM",
+        "JWT Auth",
+        "Backend Architecture",
       ],
     },
     {
-      title: "Data & Research",
+      key: "databases",
+      title: "Databases & Storage",
+      emphasis: "strong",
+      skills: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Supabase"],
+    },
+    {
+      key: "observability",
+      title: "Observability & DevOps",
+      emphasis: "strong",
       skills: [
-        "Query Plan Analysis",
-        "EXPLAIN/ANALYZE",
-        "GROBID",
-        "ETL Pipelines",
-        "Similarity Scoring",
+        "Docker",
+        "Git",
+        "CI/CD",
+        "k6 (Load Testing)",
+        "Postman",
+        "Prometheus",
+        "Grafana",
+        "Loki",
+        "Jaeger",
       ],
     },
     {
+      key: "frontend",
       title: "Frontend",
-      skills: ["React", "Next.js", "TypeScript", "Tailwind"],
+      emphasis: "lite",
+      skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
     },
-    {
-      title: "DevOps",
-      skills: ["Azure", "CI/CD", "Load Testing"],
-    },
-  ];
+  ] as const;
 
   const languages = [
-    { name: "English", level: "Native", proficiency: 5 },
-    { name: "Hindi", level: "Fluent", proficiency: 4 },
-    { name: "Telugu", level: "Intermediate", proficiency: 3 },
-    { name: "Kannada", level: "Intermediate", proficiency: 3 },
-    { name: "French", level: "Basic", proficiency: 2 },
-  ];
+    { name: "English", level: "Native", proficiency: 1 },
+    { name: "Hindi", level: "Fluent", proficiency: 0.86 },
+    { name: "Telugu", level: "Intermediate", proficiency: 0.62 },
+    { name: "Kannada", level: "Intermediate", proficiency: 0.58 },
+    { name: "French", level: "Basic", proficiency: 0.32 },
+  ] as const;
 
   const projects = [
     {
@@ -1083,23 +1141,27 @@ export default function Portfolio() {
           {skillGroups.map((group, index) => (
             <div
               key={index}
-              className="skills-panel fade-in"
+              className={`skills-poster skills-poster--${group.key} fade-in`}
               style={{
                 gridColumn:
-                  index === 0 || index === skillGroups.length - 1
-                    ? "span 7"
-                    : "span 5",
+                  index === 0
+                    ? "1 / span 2"
+                    : index === 1
+                      ? "3 / span 1"
+                      : index === 2
+                        ? "2 / span 2"
+                        : "1 / span 1",
                 marginTop:
                   index === 1
-                    ? "18px"
+                    ? "14px"
                     : index === 2
-                      ? "-6px"
+                      ? "8px"
                       : index === 3
-                        ? "12px"
+                        ? "-18px"
                         : "0px",
               }}
             >
-              <h3 className="skills-title">{group.title}</h3>
+              <h3 className="skills-poster-title">{group.title}</h3>
               <ul className="skills-list">
                 {group.skills.map((skill) => (
                   <li key={skill} className="skills-item">
@@ -1112,33 +1174,18 @@ export default function Portfolio() {
           ))}
         </div>
 
-        <div className="languages-shell fade-in">
-          <h3
-            className="skills-title"
-            style={{
-              marginBottom: "6px",
-            }}
-          >
-            Languages
-          </h3>
-          {languages.map((lang, index) => (
-            <div
-              key={lang.name}
-              className="language-row"
-              style={{
-                marginLeft: index % 2 === 0 ? "0px" : "2px",
-              }}
-            >
-              <div className="language-meta">
-                <span className="language-name">{lang.name}</span>
-                <span className="language-level">{lang.level}</span>
-              </div>
-              <div className="language-meter-track" aria-hidden="true">
-                <div
-                  className="language-meter-fill"
-                  style={{ width: `${(lang.proficiency / 5) * 100}%` }}
+        <div className="languages-editorial fade-in">
+          <h3 className="languages-heading">Languages</h3>
+          {languages.map((lang) => (
+            <div key={lang.name} className="language-line">
+              <span className="language-name">{lang.name}</span>
+              <span className="language-level">{lang.level}</span>
+              <span className="language-bar-track" aria-hidden="true">
+                <span
+                  className="language-bar-fill"
+                  style={{ width: `${Math.round(lang.proficiency * 100)}%` }}
                 />
-              </div>
+              </span>
             </div>
           ))}
         </div>

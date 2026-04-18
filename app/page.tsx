@@ -850,10 +850,13 @@ export default function Portfolio() {
         "Filed through Vellore Institute of Technology. This ordinary application in the field of Computer Science details an advanced predictive and assistive system providing real-time environmental perception to aid visually impaired individuals.",
     },
     {
-      title: "Filed work in electronics and instrumentation",
-      status: "Upcoming - Filed",
+      title:
+        "WAVE ENERGY GENERATOR ELECTRICAL CIRCUIT WITH MAXIMUM POWER POINT TRACKING AND IOT TELEMETRY SYSTEM",
+      status: "Published",
+      appNo: "202641032830",
+      filed: "Mar 18, 2026",
       description:
-        "Filed work focused on the electronics stack: sensing circuits, signal conditioning, instrumentation, and power-conditioning design.",
+        "Built a wave energy harvesting circuit with full-bridge rectification, DC-DC boost conversion, real-time sensing, and MPPT-based control, integrated with IoT telemetry for monitoring; resulted in a published patent.",
     },
   ];
 
@@ -1413,7 +1416,7 @@ export default function Portfolio() {
                   {patent.status}
                 </span>
               </div>
-              {patent.appNo && patent.filed && patent.published && (
+              {(patent.appNo || patent.filed || patent.published) && (
                 <div
                   style={{
                     display: "flex",
@@ -1422,15 +1425,21 @@ export default function Portfolio() {
                     marginBottom: "14px",
                   }}
                 >
-                  <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
-                    App No: {patent.appNo}
-                  </span>
-                  <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
-                    Filed: {patent.filed}
-                  </span>
-                  <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
-                    Published: {patent.published}
-                  </span>
+                  {patent.appNo && (
+                    <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                      App No: {patent.appNo}
+                    </span>
+                  )}
+                  {patent.filed && (
+                    <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                      Filed: {patent.filed}
+                    </span>
+                  )}
+                  {patent.published && (
+                    <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                      Published: {patent.published}
+                    </span>
+                  )}
                 </div>
               )}
               <p

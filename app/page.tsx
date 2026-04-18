@@ -280,7 +280,7 @@ export default function Portfolio() {
     .skills-poster--frontend {
       background: #d8c4b7;
       color: #4a2720;
-      transform: rotate(0.9deg);
+      transform: rotate(3deg);
       border-color: rgba(74, 39, 32, 0.78);
       box-shadow: 4px 4px 0 rgba(74, 39, 32, 0.24);
     }
@@ -361,7 +361,7 @@ export default function Portfolio() {
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: color-mix(in srgb, var(--text) 64%, #b83232 36%);
-      margin-bottom: 3px;
+      margin-bottom: 6px;
     }
 
     .language-line {

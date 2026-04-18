@@ -126,7 +126,7 @@ export default function Portfolio() {
   const css = `
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; color-scheme: dark; }
-    body { background: var(--bg); color: var(--text); transition: none; }
+    body { background: var(--bg); color: var(--text); transition: background 0.18s linear, color 0.18s linear; }
     body, button, input, textarea, select { font-family: 'DM Sans', system-ui, sans-serif; }
     body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     h1, h2, h3, h4, h5, h6 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; }

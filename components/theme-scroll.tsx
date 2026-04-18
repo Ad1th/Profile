@@ -23,6 +23,14 @@ type SectionTheme = {
   accent?: string;
 };
 
+const clamp = (value: number, min = 0, max = 1) =>
+  Math.min(Math.max(value, min), max);
+
+const easeInOutCubic = (value: number) => {
+  const t = clamp(value);
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+};
+
 const SECTION_THEMES: Record<SectionId, SectionTheme> = {
   hero: { bg: "#111111", text: "#E5E5E5", accent: "#FF7A1F" },
   about: { bg: "#111111", text: "#E5E5E5", accent: "#FF7A1F" },
@@ -101,21 +109,94 @@ const relativeLuminance = (hex: string) => {
   return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
 };
 
+const contrastRatio = (a: string, b: string) => {
+  const l1 = relativeLuminance(a);
+  const l2 = relativeLuminance(b);
+  const lighter = Math.max(l1, l2);
+  const darker = Math.min(l1, l2);
+  return (lighter + 0.05) / (darker + 0.05);
+};
+
+const pickReadableText = (background: string, preferred: string) => {
+  if (contrastRatio(preferred, background) >= 4.2) return preferred;
+
+  const dark = "#111111";
+  const light = "#E5E5E5";
+  return contrastRatio(dark, background) > contrastRatio(light, background)
+    ? dark
+    : light;
+};
+
 export default function ThemeScroll() {
   useEffect(() => {
     const root = document.documentElement;
     let frameId = 0;
-    let lastSection: SectionId | null = null;
+    const transitionStartRatio = 0.8;
+    const transitionEndRatio = 0.2;
 
-    const applyTheme = (sectionId: SectionId) => {
-      if (sectionId === lastSection) return;
-      lastSection = sectionId;
+    const updateTheme = () => {
+      frameId = 0;
+      const viewportHeight = Math.max(window.innerHeight, 1);
+      const transitionStartY = viewportHeight * transitionStartRatio;
+      const transitionEndY = viewportHeight * transitionEndRatio;
 
-      const theme = SECTION_THEMES[sectionId];
-      const bg = theme.bg;
-      const text = theme.text;
-      const accent = theme.accent ?? text;
-      const mutedText = mixHex(text, bg, 0.38);
+      const sections = SECTION_ORDER.map((sectionId) => ({
+        id: sectionId,
+        element: document.getElementById(sectionId),
+      })).filter((entry) => entry.element);
+
+      if (sections.length === 0) return;
+
+      let currentIndex = 0;
+      let nextIndex = Math.min(1, sections.length - 1);
+      let rawProgress = 0;
+
+      for (let i = 1; i < sections.length; i += 1) {
+        const sectionTop = (
+          sections[i].element as HTMLElement
+        ).getBoundingClientRect().top;
+
+        if (sectionTop <= transitionEndY) {
+          currentIndex = i;
+          nextIndex = Math.min(i + 1, sections.length - 1);
+          rawProgress = 0;
+          continue;
+        }
+
+        if (sectionTop < transitionStartY) {
+          currentIndex = i - 1;
+          nextIndex = i;
+          rawProgress = clamp(
+            (transitionStartY - sectionTop) /
+              Math.max(1, transitionStartY - transitionEndY),
+          );
+          break;
+        }
+
+        nextIndex = i;
+        rawProgress = 0;
+        break;
+      }
+      const currentSection = sections[currentIndex];
+      const nextSection = sections[nextIndex];
+
+      const currentTheme = SECTION_THEMES[currentSection.id as SectionId];
+      const nextTheme = SECTION_THEMES[nextSection.id as SectionId];
+      const easedProgress = easeInOutCubic(rawProgress);
+
+      const bg = mixHex(currentTheme.bg, nextTheme.bg, easedProgress);
+      const blendedText = mixHex(
+        currentTheme.text,
+        nextTheme.text,
+        easedProgress,
+      );
+      const blendedAccent = mixHex(
+        currentTheme.accent ?? currentTheme.text,
+        nextTheme.accent ?? nextTheme.text,
+        easedProgress,
+      );
+      const text = pickReadableText(bg, blendedText);
+      const mutedText = mixHex(text, bg, 0.35);
       const isLightBackground = relativeLuminance(bg) > 0.52;
       const surface = isLightBackground
         ? "rgba(17, 17, 17, 0.12)"
@@ -127,7 +208,7 @@ export default function ThemeScroll() {
       root.style.setProperty("--bg", bg);
       root.style.setProperty("--text", text);
       root.style.setProperty("--muted-text", mutedText);
-      root.style.setProperty("--accent", accent);
+      root.style.setProperty("--accent", blendedAccent);
       root.style.setProperty("--surface", surface);
       root.style.setProperty("--border-color", borderColor);
       root.style.setProperty("--background", rgbToHslValue(hexToRgb(bg)));
@@ -136,24 +217,6 @@ export default function ThemeScroll() {
         "--muted-foreground",
         rgbToHslValue(hexToRgb(mutedText)),
       );
-    };
-
-    const getActiveSection = (): SectionId => {
-      const markerY = window.scrollY + window.innerHeight * 0.35;
-      let active: SectionId = "hero";
-
-      for (const sectionId of SECTION_ORDER) {
-        const section = document.getElementById(sectionId);
-        if (!section) continue;
-        if (section.offsetTop <= markerY) active = sectionId;
-      }
-
-      return active;
-    };
-
-    const updateTheme = () => {
-      frameId = 0;
-      applyTheme(getActiveSection());
     };
 
     const requestUpdate = () => {

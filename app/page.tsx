@@ -849,7 +849,12 @@ export default function Portfolio() {
       description:
         "Filed through Vellore Institute of Technology. This ordinary application in the field of Computer Science details an advanced predictive and assistive system providing real-time environmental perception to aid visually impaired individuals.",
     },
-    // Second patent was only a placeholder in some versions
+    {
+      title: "Filed work in electronics and instrumentation",
+      status: "Upcoming - Filed",
+      description:
+        "Filed work focused on the electronics stack: sensing circuits, signal conditioning, instrumentation, and power-conditioning design.",
+    },
   ];
 
   const projectImages: Partial<
@@ -1362,7 +1367,7 @@ export default function Portfolio() {
         >
           {patents.map((patent) => (
             <div
-              key={patent.appNo}
+              key={`${patent.title}-${patent.status}`}
               className="card fade-in"
               style={{ padding: "26px 28px" }}
             >
@@ -1390,9 +1395,16 @@ export default function Portfolio() {
                 <span
                   style={{
                     fontSize: "0.78rem",
-                    color: "#4ade80",
-                    background: "rgba(74,222,128,0.08)",
-                    border: "1px solid rgba(74,222,128,0.2)",
+                    color:
+                      patent.status === "Published" ? "#4ade80" : "#fbbf24",
+                    background:
+                      patent.status === "Published"
+                        ? "rgba(74,222,128,0.08)"
+                        : "rgba(251,191,36,0.12)",
+                    border:
+                      patent.status === "Published"
+                        ? "1px solid rgba(74,222,128,0.2)"
+                        : "1px solid rgba(251,191,36,0.3)",
                     borderRadius: "999px",
                     padding: "4px 12px",
                     whiteSpace: "nowrap",
@@ -1401,24 +1413,26 @@ export default function Portfolio() {
                   {patent.status}
                 </span>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "8px",
-                  marginBottom: "14px",
-                }}
-              >
-                <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
-                  App No: {patent.appNo}
-                </span>
-                <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
-                  Filed: {patent.filed}
-                </span>
-                <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
-                  Published: {patent.published}
-                </span>
-              </div>
+              {patent.appNo && patent.filed && patent.published && (
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "8px",
+                    marginBottom: "14px",
+                  }}
+                >
+                  <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                    App No: {patent.appNo}
+                  </span>
+                  <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                    Filed: {patent.filed}
+                  </span>
+                  <span className="rounded-full border border-[#333333] bg-[#111111] px-3 py-1 text-sm text-[#A0A0A0]">
+                    Published: {patent.published}
+                  </span>
+                </div>
+              )}
               <p
                 style={{
                   fontSize: "0.9rem",

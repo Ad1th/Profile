@@ -1,10 +1,11 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { Award, Github, Linkedin, Mail, MapPin, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import ASCIIText from "@/components/ui/ascii-text";
 
 function useFadeIn() {
   useEffect(() => {
@@ -256,11 +257,105 @@ export default function Portfolio() {
       color: #E5E5E5;
     }
 
+    .hero-ascii-stage {
+      position: relative;
+      overflow: hidden;
+      height: clamp(130px, 22vw, 210px);
+      border: 1px solid rgba(255,122,31,0.24);
+      border-radius: 22px;
+      background: radial-gradient(circle at 30% 20%, rgba(255,122,31,0.13), rgba(26,26,26,0.9) 62%), #1A1A1A;
+      box-shadow: 0 20px 44px rgba(0,0,0,0.45);
+    }
+    .hero-ascii-stage::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(17,17,17,0) 0%, rgba(17,17,17,0.52) 100%);
+    }
+
+    .hero-stack {
+      perspective: 1400px;
+      position: relative;
+      min-height: 420px;
+      width: 100%;
+    }
+    .hero-stack-card {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: min(92%, 350px);
+      border-radius: 16px;
+      border: 1px solid #333333;
+      background: #1A1A1A;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.42);
+      padding: 16px;
+      transition: transform 0.28s ease, border-color 0.28s ease;
+      transform-style: preserve-3d;
+    }
+    .hero-stack-card:hover {
+      border-color: rgba(255,122,31,0.48);
+      transform: translateY(-8px) translateZ(28px) rotateX(6deg) rotateY(-6deg) !important;
+    }
+
+    .stack-surface {
+      perspective: 1500px;
+    }
+    .floating-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 22px;
+      transform-style: preserve-3d;
+    }
+    .floating-card {
+      border-radius: 18px;
+      background: linear-gradient(165deg, rgba(26,26,26,0.96), rgba(17,17,17,0.98));
+      border: 1px solid rgba(51,51,51,0.95);
+      box-shadow: 0 16px 34px rgba(0,0,0,0.42);
+      transform-style: preserve-3d;
+      transform: translateY(var(--card-y, 0px)) rotate(var(--card-rotate, 0deg)) translateZ(0px);
+      transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .floating-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, rgba(255,122,31,0.09), transparent 40%);
+      opacity: 0.7;
+    }
+    .floating-card:hover {
+      border-color: rgba(255,122,31,0.48);
+      box-shadow: 0 24px 52px rgba(0,0,0,0.56);
+      transform: translateY(var(--card-hover-y, -10px)) rotate(var(--card-hover-rotate, 0deg)) translateZ(24px);
+    }
+
     @media (max-width: 768px) {
       .hide-mobile { display: none !important; }
       .show-mobile { display: flex !important; }
       .btn-primary, .btn-ghost { width: 100%; }
       .nav-link { font-size: 0.92rem; }
+      .hero-stack {
+        min-height: 260px;
+      }
+      .hero-stack-card {
+        position: relative;
+        width: 100%;
+        margin: 0 0 12px;
+      }
+      .floating-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .floating-card {
+        transform: none !important;
+      }
+      .floating-card:hover {
+        transform: translateY(-4px) !important;
+      }
     }
     @media (min-width: 769px) {
       .show-mobile { display: none !important; }
@@ -691,11 +786,21 @@ export default function Portfolio() {
 
       <section
         id="hero"
-        className="mx-auto grid min-h-[calc(100vh-60px)] max-w-6xl items-center gap-12 px-6 py-24 text-center lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-16 lg:text-left"
+        className="mx-auto grid min-h-[calc(100vh-60px)] max-w-6xl items-center gap-12 px-6 py-24 text-center lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-16 lg:text-left"
       >
         <div className="mx-auto max-w-3xl lg:mx-0">
           <SectionLabel>Engineering Student · VIT Vellore</SectionLabel>
-          <h1 className="mx-auto max-w-3xl text-[clamp(3rem,7vw,5.2rem)] leading-[1.02] tracking-[-0.03em] text-[#E5E5E5] lg:mx-0">
+          <div className="hero-ascii-stage">
+            <ASCIIText
+              text="Hi, I'm Adith Manikonda"
+              enableWaves
+              asciiFontSize={6}
+              textFontSize={170}
+              planeBaseHeight={8.2}
+              textColor="#ff7a1f"
+            />
+          </div>
+          <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(2.4rem,6vw,4.4rem)] leading-[1.03] tracking-[-0.03em] text-[#E5E5E5] lg:mx-0">
             Hi, I&apos;m <span className="text-[#FF7A1F]">Adith Manikonda</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[clamp(1rem,2vw,1.08rem)] leading-8 text-[#A0A0A0] lg:mx-0">
@@ -743,8 +848,33 @@ export default function Portfolio() {
           </div>
         </div>
 
-        <div className="hidden min-h-[360px] lg:block" aria-hidden="true">
-          <div className="h-full w-full rounded-[1.5rem] border border-[#333333] bg-[#1A1A1A]" />
+        <div className="hero-stack hidden lg:block" aria-hidden="true">
+          {projects.slice(0, 3).map((project, index) => {
+            const top = 18 + index * 92;
+            const rotation = [-7, 4, -3][index] ?? 0;
+            const z = (3 - index) * 14;
+
+            return (
+              <div
+                key={project.name}
+                className="hero-stack-card"
+                style={{
+                  top,
+                  transform: `translateZ(${z}px) rotate(${rotation}deg)`,
+                }}
+              >
+                <div className="mb-2 flex items-center gap-3">
+                  <span className="text-lg">{project.emoji}</span>
+                  <p className="text-sm font-semibold text-[#E5E5E5]">
+                    {project.name}
+                  </p>
+                </div>
+                <p className="line-clamp-2 text-xs leading-relaxed text-[#A0A0A0]">
+                  {project.description}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -1017,119 +1147,130 @@ export default function Portfolio() {
       <section id="projects" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Projects</SectionLabel>
-          <SectionTitle>Things I've built</SectionTitle>
+          <SectionTitle>Floating builds</SectionTitle>
         </div>
-        <div
-          style={{
-            marginTop: "48px",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: "16px",
-          }}
-        >
-          {projects.map((project, index) => {
-            const projectImage = projectImages[project.name];
+        <div className="stack-surface" style={{ marginTop: "48px" }}>
+          <div className="floating-grid">
+            {projects.map((project, index) => {
+              const projectImage = projectImages[project.name];
+              const cardStyle = {
+                "--card-y": `${(index % 4) * -6}px`,
+                "--card-rotate": `${((index % 5) - 2) * 1.25}deg`,
+                "--card-hover-y": `${-14 - (index % 3) * 2}px`,
+                "--card-hover-rotate": `${((index % 5) - 2) * 0.55}deg`,
+              } as CSSProperties;
 
-            return (
-              <div
-                key={index}
-                className="card fade-in"
-                style={{
-                  padding: "24px 26px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "14px",
-                }}
-              >
-                {projectImage && (
-                  <div className="overflow-hidden rounded-2xl border border-[#333333] bg-[#111111]">
-                    <Image
-                      src={projectImage}
-                      alt={project.name}
-                      width={800}
-                      height={450}
-                      className="h-44 w-full object-cover"
-                    />
-                  </div>
-                )}
+              return (
                 <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                  }}
+                  key={index}
+                  className="floating-card fade-in"
+                  style={cardStyle}
                 >
                   <div
                     style={{
+                      position: "relative",
+                      zIndex: 1,
+                      padding: "22px 24px",
                       display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
+                      flexDirection: "column",
+                      gap: "14px",
                     }}
                   >
-                    <span style={{ fontSize: "1.3rem" }}>{project.emoji}</span>
-                    <h3
+                    {projectImage && (
+                      <div className="overflow-hidden rounded-2xl border border-[#333333] bg-[#111111]">
+                        <Image
+                          src={projectImage}
+                          alt={project.name}
+                          width={800}
+                          height={450}
+                          className="h-44 w-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div
                       style={{
-                        fontSize: "1rem",
-                        fontWeight: 600,
-                        color: "#E5E5E5",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
                       }}
                     >
-                      {project.name}
-                    </h3>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "8px",
-                      alignItems: "center",
-                    }}
-                  >
-                    {project.badge && (
-                      <span
+                      <div
                         style={{
-                          fontSize: "0.68rem",
-                          fontWeight: 600,
-                          color: "#4ade80",
-                          background: "rgba(74,222,128,0.1)",
-                          border: "1px solid rgba(74,222,128,0.25)",
-                          borderRadius: "999px",
-                          padding: "2px 8px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
                         }}
                       >
-                        {project.badge}
-                      </span>
-                    )}
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="social-icon"
-                        aria-label="GitHub"
+                        <span style={{ fontSize: "1.3rem" }}>
+                          {project.emoji}
+                        </span>
+                        <h3
+                          style={{
+                            fontSize: "1rem",
+                            fontWeight: 600,
+                            color: "#E5E5E5",
+                          }}
+                        >
+                          {project.name}
+                        </h3>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "8px",
+                          alignItems: "center",
+                        }}
                       >
-                        <Github size={16} />
-                      </a>
-                    )}
+                        {project.badge && (
+                          <span
+                            style={{
+                              fontSize: "0.68rem",
+                              fontWeight: 600,
+                              color: "#4ade80",
+                              background: "rgba(74,222,128,0.1)",
+                              border: "1px solid rgba(74,222,128,0.25)",
+                              borderRadius: "999px",
+                              padding: "2px 8px",
+                            }}
+                          >
+                            {project.badge}
+                          </span>
+                        )}
+                        {project.github && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="social-icon"
+                            aria-label={`GitHub - ${project.name}`}
+                          >
+                            <Github size={16} />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    <p
+                      style={{
+                        fontSize: "0.85rem",
+                        color: "#A0A0A0",
+                        lineHeight: 1.65,
+                        flex: 1,
+                      }}
+                    >
+                      {project.description}
+                    </p>
+                    <div
+                      style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}
+                    >
+                      {project.stack.map((item) => (
+                        <Tag key={item} label={item} />
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <p
-                  style={{
-                    fontSize: "0.85rem",
-                    color: "#A0A0A0",
-                    lineHeight: 1.65,
-                    flex: 1,
-                  }}
-                >
-                  {project.description}
-                </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                  {project.stack.map((item) => (
-                    <Tag key={item} label={item} />
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -1297,60 +1438,76 @@ export default function Portfolio() {
       <section id="hackathons" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Hackathons</SectionLabel>
-          <SectionTitle>Built under pressure</SectionTitle>
+          <SectionTitle>Live sprint stack</SectionTitle>
         </div>
-        <div
-          style={{
-            marginTop: "48px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "12px",
-          }}
-        >
-          {hackathons.map((hackathon, index) => (
-            <div
-              key={index}
-              className="card fade-in"
-              style={{ padding: "24px 28px" }}
-            >
+        <div className="stack-surface" style={{ marginTop: "48px" }}>
+          <div className="floating-grid">
+            {hackathons.map((hackathon, index) => (
               <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: "8px",
-                  marginBottom: "8px",
-                }}
+                key={index}
+                className="floating-card fade-in"
+                style={
+                  {
+                    "--card-y": `${(index % 3) * -5}px`,
+                    "--card-rotate": `${((index % 4) - 1.5) * 1.1}deg`,
+                    "--card-hover-y": `${-12 - (index % 2) * 2}px`,
+                    "--card-hover-rotate": `${((index % 4) - 1.5) * 0.45}deg`,
+                  } as CSSProperties
+                }
               >
-                <h3
+                <div
                   style={{
-                    fontSize: "1rem",
-                    fontWeight: 600,
-                    color: "#E5E5E5",
+                    position: "relative",
+                    zIndex: 1,
+                    padding: "24px 28px",
                   }}
                 >
-                  {hackathon.name}
-                </h3>
-                <div
-                  style={{ display: "flex", gap: "8px", alignItems: "center" }}
-                >
-                  <span style={{ fontSize: "0.78rem", color: "#A0A0A0" }}>
-                    {hackathon.when}
-                  </span>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      justifyContent: "space-between",
+                      alignItems: "flex-start",
+                      gap: "8px",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <h3
+                      style={{
+                        fontSize: "1rem",
+                        fontWeight: 600,
+                        color: "#E5E5E5",
+                      }}
+                    >
+                      <span style={{ marginRight: "8px" }}>🏁</span>
+                      {hackathon.name}
+                    </h3>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "8px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Tag label="Hackathon" />
+                      <span style={{ fontSize: "0.78rem", color: "#A0A0A0" }}>
+                        {hackathon.when}
+                      </span>
+                    </div>
+                  </div>
+                  <p
+                    style={{
+                      fontSize: "0.88rem",
+                      color: "#A0A0A0",
+                      lineHeight: 1.65,
+                    }}
+                  >
+                    {hackathon.desc}
+                  </p>
                 </div>
               </div>
-              <p
-                style={{
-                  fontSize: "0.88rem",
-                  color: "#A0A0A0",
-                  lineHeight: 1.65,
-                }}
-              >
-                {hackathon.desc}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 

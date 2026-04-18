@@ -123,6 +123,18 @@ export default function Portfolio() {
     margin: "0 auto",
   } as const;
 
+  const experienceColors = {
+    heading: "#111111",
+    secondary: "#2A2A2A",
+    tertiary: "#FFFFFF",
+    cardBg: "rgba(255, 255, 255, 0.14)",
+    cardBorder: "rgba(17, 17, 17, 0.22)",
+    tagBg: "rgba(160, 68, 14, 0.46)",
+    tagBorder: "rgba(255, 255, 255, 0.2)",
+    badgeBg: "rgba(140, 58, 12, 0.52)",
+    badgeBorder: "rgba(255, 255, 255, 0.24)",
+  } as const;
+
   const css = `
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; color-scheme: dark; }
@@ -848,7 +860,11 @@ export default function Portfolio() {
             <div
               key={index}
               className="card fade-in"
-              style={{ padding: "28px 32px" }}
+              style={{
+                padding: "28px 32px",
+                background: experienceColors.cardBg,
+                border: `1px solid ${experienceColors.cardBorder}`,
+              }}
             >
               <div
                 style={{
@@ -865,7 +881,7 @@ export default function Portfolio() {
                     style={{
                       fontSize: "1.1rem",
                       fontWeight: 600,
-                      color: "var(--text)",
+                      color: experienceColors.heading,
                       marginBottom: "4px",
                     }}
                   >
@@ -874,7 +890,7 @@ export default function Portfolio() {
                   <p
                     style={{
                       fontSize: "0.9rem",
-                      color: "var(--accent)",
+                      color: experienceColors.secondary,
                       fontWeight: 500,
                     }}
                   >
@@ -884,9 +900,9 @@ export default function Portfolio() {
                 <span
                   style={{
                     fontSize: "0.78rem",
-                    color: "var(--muted-text)",
-                    background: "var(--bg)",
-                    border: "1px solid var(--border-color)",
+                    color: experienceColors.tertiary,
+                    background: experienceColors.badgeBg,
+                    border: `1px solid ${experienceColors.badgeBorder}`,
                     borderRadius: "999px",
                     padding: "4px 12px",
                     whiteSpace: "nowrap",
@@ -899,7 +915,7 @@ export default function Portfolio() {
                 <p
                   style={{
                     fontSize: "0.88rem",
-                    color: "var(--muted-text)",
+                    color: experienceColors.secondary,
                     lineHeight: 1.65,
                     marginBottom: "12px",
                   }}
@@ -910,7 +926,23 @@ export default function Portfolio() {
               {job.skills.length > 0 && (
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                   {job.skills.map((skill) => (
-                    <Tag key={skill} label={skill} />
+                    <span
+                      key={skill}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        padding: "4px 11px",
+                        fontSize: "0.72rem",
+                        fontWeight: 600,
+                        letterSpacing: "0.03em",
+                        borderRadius: "999px",
+                        background: experienceColors.tagBg,
+                        border: `1px solid ${experienceColors.tagBorder}`,
+                        color: experienceColors.tertiary,
+                      }}
+                    >
+                      {skill}
+                    </span>
                   ))}
                 </div>
               )}

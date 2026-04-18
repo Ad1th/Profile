@@ -34,7 +34,7 @@ const easeInOutCubic = (value: number) => {
 const SECTION_THEMES: Record<SectionId, SectionTheme> = {
   hero: { bg: "#111111", text: "#E5E5E5", accent: "#FF7A1F" },
   about: { bg: "#111111", text: "#E5E5E5", accent: "#FF7A1F" },
-  experience: { bg: "#FF7A1F", text: "#111111" },
+  experience: { bg: "#E6671A", text: "#111111", accent: "#2A2A2A" },
   skills: { bg: "#E6A8A1", text: "#C63D3D" },
   projects: { bg: "#6F6BAE", text: "#F2C6BD" },
   patents: { bg: "#F4E62A", text: "#111111" },

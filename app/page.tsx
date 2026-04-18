@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Award, Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import ThemeScroll from "@/components/theme-scroll";
 import ASCIIText from "@/components/ui/ascii-text";
 
 function useFadeIn() {
@@ -37,9 +38,9 @@ function Tag({ label }: { label: string }) {
         fontWeight: 600,
         letterSpacing: "0.03em",
         borderRadius: "999px",
-        background: "rgba(255,122,31,0.07)",
-        border: "1px solid rgba(255,122,31,0.16)",
-        color: "#FF7A1F",
+        background: "var(--surface)",
+        border: "1px solid var(--border-color)",
+        color: "var(--text)",
       }}
     >
       {label}
@@ -56,7 +57,7 @@ function SectionLabel({ children }: { children: ReactNode }) {
         fontWeight: 600,
         letterSpacing: "0.16em",
         textTransform: "uppercase",
-        color: "#FF7A1F",
+        color: "var(--accent)",
         marginBottom: "14px",
       }}
     >
@@ -65,16 +66,26 @@ function SectionLabel({ children }: { children: ReactNode }) {
   );
 }
 
-function SectionTitle({ children }: { children: ReactNode }) {
+function SectionTitle({
+  children,
+  style,
+  className,
+}: {
+  children: ReactNode;
+  style?: React.CSSProperties;
+  className?: string;
+}) {
   return (
     <h2
+      className={className}
       style={{
         fontFamily: "'DM Serif Display', Georgia, serif",
         fontSize: "clamp(2.2rem, 4vw, 3.1rem)",
         fontWeight: 400,
-        color: "#E5E5E5",
+        color: "var(--text)",
         lineHeight: 1.15,
         marginBottom: 0,
+        ...style,
       }}
     >
       {children}
@@ -115,15 +126,15 @@ export default function Portfolio() {
   const css = `
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; color-scheme: dark; }
-    body { background: #111111; color: #E5E5E5; }
+    body { background: var(--bg); color: var(--text); transition: none; }
     body, button, input, textarea, select { font-family: 'DM Sans', system-ui, sans-serif; }
     body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     h1, h2, h3, h4, h5, h6 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; }
-    ::selection { background: rgba(255,122,31,0.25); color: #E5E5E5; }
+    ::selection { background: rgba(255,122,31,0.25); color: var(--text); }
     ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: #111111; }
-    ::-webkit-scrollbar-thumb { background: #333333; border-radius: 999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #FF7A1F; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
     .fade-in {
       opacity: 0;
@@ -135,7 +146,7 @@ export default function Portfolio() {
       font-size: 0.82rem;
       font-weight: 600;
       letter-spacing: 0.05em;
-      color: #A0A0A0;
+      color: var(--muted-text);
       text-decoration: none;
       text-transform: capitalize;
       transition: color 0.2s ease;
@@ -149,10 +160,10 @@ export default function Portfolio() {
       left: 0;
       width: 0;
       height: 1px;
-      background: #FF7A1F;
+      background: var(--accent);
       transition: width 0.25s ease;
     }
-    .nav-link:hover { color: #E5E5E5; }
+    .nav-link:hover { color: var(--text); }
     .nav-link:hover::after { width: 100%; }
 
     .btn-primary {
@@ -162,7 +173,7 @@ export default function Portfolio() {
       gap: 8px;
       min-height: 50px;
       padding: 0 30px;
-      background: #FF7A1F;
+      background: var(--accent);
       color: #111111;
       font-weight: 600;
       font-size: 0.86rem;
@@ -182,41 +193,41 @@ export default function Portfolio() {
       gap: 8px;
       min-height: 50px;
       padding: 0 30px;
-      background: #1A1A1A;
-      color: #E5E5E5;
+      background: var(--surface);
+      color: var(--text);
       font-weight: 500;
       font-size: 0.86rem;
       letter-spacing: 0.03em;
       border-radius: 999px;
       text-decoration: none;
-      border: 1px solid #333333;
+      border: 1px solid var(--border-color);
       transition: border-color 0.2s ease, color 0.2s ease;
       cursor: pointer;
     }
-    .btn-ghost:hover { border-color: #FF7A1F; color: #FF7A1F; background: #1A1A1A; }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
 
     .card {
-      background: #1A1A1A;
-      border: 1px solid #333333;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
       border-radius: 14px;
-      transition: border-color 0.2s ease, transform 0.2s ease;
+      transition: background 0.1s linear, border-color 0.2s ease, transform 0.2s ease;
     }
     .card:hover { border-color: rgba(255,122,31,0.28); }
 
     .social-icon {
-      color: #A0A0A0;
+      color: var(--muted-text);
       transition: color 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .social-icon:hover { color: #FF7A1F; }
+    .social-icon:hover { color: var(--accent); }
 
     .skill-dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #FF7A1F;
+      background: var(--accent);
       flex-shrink: 0;
       margin-top: 7px;
     }
@@ -225,9 +236,9 @@ export default function Portfolio() {
       position: relative;
       overflow: hidden;
       border-radius: 14px;
-      border: 1px solid #333333;
+      border: 1px solid var(--border-color);
       aspect-ratio: 1;
-      background: #1A1A1A;
+      background: var(--surface);
       transition: border-color 0.2s ease;
     }
     .hobby-card:hover { border-color: rgba(255,122,31,0.35); }
@@ -648,16 +659,19 @@ export default function Portfolio() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
+      <ThemeScroll />
 
       <nav
         style={{
           position: "sticky",
           top: 0,
           zIndex: 50,
-          background: scrolled ? "rgba(17,17,17,0.95)" : "#111111",
+          background: scrolled
+            ? "color-mix(in srgb, var(--bg) 94%, transparent)"
+            : "var(--bg)",
           backdropFilter: scrolled ? "blur(12px)" : "none",
           borderBottom: scrolled
-            ? "1px solid #333333"
+            ? "1px solid var(--border-color)"
             : "1px solid transparent",
           transition: "all 0.3s ease",
         }}
@@ -678,12 +692,12 @@ export default function Portfolio() {
             style={{
               fontFamily: "'DM Serif Display', Georgia, serif",
               fontSize: "1.2rem",
-              color: "#E5E5E5",
+              color: "var(--text)",
               textDecoration: "none",
               letterSpacing: "0.01em",
             }}
           >
-            Adith<span style={{ color: "#FF7A1F" }}>.</span>
+            Adith<span style={{ color: "var(--accent)" }}>.</span>
           </Link>
 
           <div
@@ -703,7 +717,7 @@ export default function Portfolio() {
             style={{
               background: "none",
               border: "none",
-              color: "#E5E5E5",
+              color: "var(--text)",
               cursor: "pointer",
               padding: "4px",
             }}
@@ -715,8 +729,8 @@ export default function Portfolio() {
         {mobileOpen && (
           <div
             style={{
-              background: "#1A1A1A",
-              borderTop: "1px solid #333333",
+              background: "var(--surface)",
+              borderTop: "1px solid var(--border-color)",
               padding: "20px 24px",
               display: "flex",
               flexDirection: "column",
@@ -749,7 +763,7 @@ export default function Portfolio() {
             asciiFontSize={8}
             textFontSize={300}
             planeBaseHeight={16}
-            textColor="#FF7A1F"
+            textColor="#D96516"
             asciiQuality={4}
             scrollDisappearStart={-0.12}
             scrollDisappearEnd={0.7}
@@ -757,13 +771,28 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section id="about" style={sectionStyle}>
+      <section
+        id="about"
+        style={{
+          ...sectionStyle,
+          paddingTop: "clamp(34px, 5vw, 64px)",
+          paddingBottom: "clamp(92px, 12vw, 160px)",
+          minHeight: "min(84vh, 860px)",
+        }}
+      >
         <div className="fade-in" style={{ maxWidth: "680px" }}>
           <SectionLabel>About</SectionLabel>
-          <SectionTitle>
-            I like building things,
+          <SectionTitle
+            style={{
+              fontSize: "clamp(2.65rem, 5vw, 4rem)",
+              lineHeight: 1.08,
+            }}
+          >
+            <span style={{ color: "#FFFFFF" }}>I like building things,</span>
             <br />
-            breaking them, then fixing them.
+            <span style={{ color: "#FFFFFF" }}>
+              breaking them, then fixing them again.
+            </span>
           </SectionTitle>
         </div>
         <div
@@ -785,7 +814,7 @@ export default function Portfolio() {
               key={index}
               style={{
                 fontSize: "0.98rem",
-                color: index === 2 ? "#A0A0A0" : "#E5E5E5",
+                color: index === 2 ? "var(--muted-text)" : "var(--text)",
                 lineHeight: 1.75,
                 fontStyle: index === 2 ? "italic" : "normal",
               }}
@@ -796,7 +825,13 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section id="experience" style={sectionStyle}>
+      <section
+        id="experience"
+        style={{
+          ...sectionStyle,
+          marginTop: "clamp(28px, 4vw, 64px)",
+        }}
+      >
         <div className="fade-in">
           <SectionLabel>Experience</SectionLabel>
           <SectionTitle>Where I've worked</SectionTitle>
@@ -830,7 +865,7 @@ export default function Portfolio() {
                     style={{
                       fontSize: "1.1rem",
                       fontWeight: 600,
-                      color: "#E5E5E5",
+                      color: "var(--text)",
                       marginBottom: "4px",
                     }}
                   >
@@ -839,7 +874,7 @@ export default function Portfolio() {
                   <p
                     style={{
                       fontSize: "0.9rem",
-                      color: "#FF7A1F",
+                      color: "var(--accent)",
                       fontWeight: 500,
                     }}
                   >
@@ -849,9 +884,9 @@ export default function Portfolio() {
                 <span
                   style={{
                     fontSize: "0.78rem",
-                    color: "#A0A0A0",
-                    background: "#111111",
-                    border: "1px solid #333333",
+                    color: "var(--muted-text)",
+                    background: "var(--bg)",
+                    border: "1px solid var(--border-color)",
                     borderRadius: "999px",
                     padding: "4px 12px",
                     whiteSpace: "nowrap",
@@ -864,7 +899,7 @@ export default function Portfolio() {
                 <p
                   style={{
                     fontSize: "0.88rem",
-                    color: "#A0A0A0",
+                    color: "var(--muted-text)",
                     lineHeight: 1.65,
                     marginBottom: "12px",
                   }}
@@ -909,7 +944,7 @@ export default function Portfolio() {
                   fontWeight: 600,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
-                  color: "#FF7A1F",
+                  color: "var(--accent)",
                   marginBottom: "20px",
                 }}
               >
@@ -936,7 +971,7 @@ export default function Portfolio() {
                     <span
                       style={{
                         fontSize: "0.9rem",
-                        color: "#E5E5E5",
+                        color: "var(--text)",
                         lineHeight: 1.4,
                       }}
                     >
@@ -957,7 +992,7 @@ export default function Portfolio() {
               fontWeight: 600,
               letterSpacing: "0.1em",
               textTransform: "uppercase",
-              color: "#A0A0A0",
+              color: "var(--muted-text)",
               marginBottom: "28px",
             }}
           >
@@ -980,7 +1015,7 @@ export default function Portfolio() {
                   style={{
                     fontWeight: 600,
                     fontSize: "0.95rem",
-                    color: "#E5E5E5",
+                    color: "var(--text)",
                     marginBottom: "4px",
                   }}
                 >
@@ -989,7 +1024,7 @@ export default function Portfolio() {
                 <p
                   style={{
                     fontSize: "0.78rem",
-                    color: "#A0A0A0",
+                    color: "var(--muted-text)",
                     marginBottom: "12px",
                   }}
                 >
@@ -1004,7 +1039,9 @@ export default function Portfolio() {
                         height: "3px",
                         borderRadius: "2px",
                         background:
-                          index < lang.proficiency ? "#FF7A1F" : "#333333",
+                          index < lang.proficiency
+                            ? "var(--accent)"
+                            : "var(--border-color)",
                       }}
                     />
                   ))}
@@ -1086,7 +1123,7 @@ export default function Portfolio() {
                           style={{
                             fontSize: "1rem",
                             fontWeight: 600,
-                            color: "#E5E5E5",
+                            color: "var(--text)",
                           }}
                         >
                           {project.name}
@@ -1130,7 +1167,7 @@ export default function Portfolio() {
                     <p
                       style={{
                         fontSize: "0.85rem",
-                        color: "#A0A0A0",
+                        color: "var(--muted-text)",
                         lineHeight: 1.65,
                         flex: 1,
                       }}
@@ -1184,7 +1221,7 @@ export default function Portfolio() {
                   style={{
                     fontSize: "1.05rem",
                     fontWeight: 600,
-                    color: "#E5E5E5",
+                    color: "var(--text)",
                     lineHeight: 1.4,
                     maxWidth: "52rem",
                   }}
@@ -1226,7 +1263,7 @@ export default function Portfolio() {
               <p
                 style={{
                   fontSize: "0.9rem",
-                  color: "#A0A0A0",
+                  color: "var(--muted-text)",
                   lineHeight: 1.7,
                 }}
               >
@@ -1269,14 +1306,14 @@ export default function Portfolio() {
                   justifyContent: "center",
                 }}
               >
-                <Award size={18} style={{ color: "#FF7A1F" }} />
+                <Award size={18} style={{ color: "var(--accent)" }} />
               </div>
               <div>
                 <h3
                   style={{
                     fontSize: "0.9rem",
                     fontWeight: 600,
-                    color: "#E5E5E5",
+                    color: "var(--text)",
                     marginBottom: "4px",
                     lineHeight: 1.4,
                   }}
@@ -1286,7 +1323,7 @@ export default function Portfolio() {
                 <p
                   style={{
                     fontSize: "0.75rem",
-                    color: "#FF7A1F",
+                    color: "var(--accent)",
                     marginBottom: "8px",
                   }}
                 >
@@ -1295,7 +1332,7 @@ export default function Portfolio() {
                 <p
                   style={{
                     fontSize: "0.82rem",
-                    color: "#A0A0A0",
+                    color: "var(--muted-text)",
                     lineHeight: 1.6,
                   }}
                 >
@@ -1355,7 +1392,7 @@ export default function Portfolio() {
                       style={{
                         fontSize: "1rem",
                         fontWeight: 600,
-                        color: "#E5E5E5",
+                        color: "var(--text)",
                       }}
                     >
                       <span style={{ marginRight: "8px" }}>🏁</span>
@@ -1369,7 +1406,12 @@ export default function Portfolio() {
                       }}
                     >
                       <Tag label="Hackathon" />
-                      <span style={{ fontSize: "0.78rem", color: "#A0A0A0" }}>
+                      <span
+                        style={{
+                          fontSize: "0.78rem",
+                          color: "var(--muted-text)",
+                        }}
+                      >
                         {hackathon.when}
                       </span>
                     </div>
@@ -1377,7 +1419,7 @@ export default function Portfolio() {
                   <p
                     style={{
                       fontSize: "0.88rem",
-                      color: "#A0A0A0",
+                      color: "var(--muted-text)",
                       lineHeight: 1.65,
                     }}
                   >
@@ -1426,7 +1468,7 @@ export default function Portfolio() {
             style={{
               marginTop: "20px",
               marginBottom: "40px",
-              color: "#A0A0A0",
+              color: "var(--muted-text)",
               fontSize: "0.98rem",
               lineHeight: 1.75,
             }}
@@ -1459,7 +1501,12 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <footer style={{ borderTop: "1px solid #333333", padding: "32px 24px" }}>
+      <footer
+        style={{
+          borderTop: "1px solid var(--border-color)",
+          padding: "32px 24px",
+        }}
+      >
         <div
           style={{
             maxWidth: "1200px",
@@ -1471,9 +1518,9 @@ export default function Portfolio() {
             gap: "12px",
           }}
         >
-          <p style={{ fontSize: "0.82rem", color: "#A0A0A0" }}>
+          <p style={{ fontSize: "0.82rem", color: "var(--muted-text)" }}>
             Designed &amp; built by{" "}
-            <span style={{ color: "#FF7A1F" }}>Adith Manikonda</span>
+            <span style={{ color: "var(--accent)" }}>Adith Manikonda</span>
           </p>
           <p style={{ fontSize: "0.78rem", color: "#555555" }}>
             © {new Date().getFullYear()} · All rights reserved

@@ -5,6 +5,12 @@
 
 @layer base {
   :root {
+    --bg: #111111;
+    --text: #e5e5e5;
+    --muted-text: #a0a0a0;
+    --accent: #d96516;
+    --surface: rgba(26, 26, 26, 0.96);
+    --border-color: rgba(51, 51, 51, 0.95);
     --background: 0 0% 6.7%; /* #111111 */
     --foreground: 0 0% 89.8%; /* #E5E5E5 */
     --card: 0 0% 10.2%; /* #1A1A1A */
@@ -17,7 +23,7 @@
     --secondary-foreground: 0 0% 89.8%;
     --muted: 0 0% 10.2%;
     --muted-foreground: 0 0% 62.7%; /* #A0A0A0 */
-    --accent: 0 0% 10.2%;
+    --ui-accent: 0 0% 10.2%;
     --accent-foreground: 0 0% 89.8%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -37,15 +43,17 @@
   html {
     scroll-behavior: smooth;
     color-scheme: dark;
+    background: var(--bg);
   }
 
   body {
-    background: hsl(var(--background));
-    color: hsl(var(--foreground));
+    background: var(--bg);
+    color: var(--text);
     font-family: "DM Sans", system-ui, sans-serif;
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
+    transition: background 0.1s linear;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -66,7 +74,7 @@
   }
 
   a:hover {
-    color: #ff7a1f;
+    color: var(--accent);
   }
 }
 
@@ -111,7 +119,7 @@
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff7a1f;
+  background: var(--accent);
 }
 
 html {
@@ -121,7 +129,7 @@ html {
 /* ── Selection ── */
 ::selection {
   background: rgba(255, 122, 31, 0.25);
-  color: #e5e5e5;
+  color: var(--text);
 }
 
 /* ── Focus visible ── */

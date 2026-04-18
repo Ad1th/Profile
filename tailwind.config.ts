@@ -42,7 +42,7 @@ const config = {
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
+          DEFAULT: "hsl(var(--ui-accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
@@ -105,4 +105,3 @@ const config = {
 } satisfies Config
 
 export default config
-

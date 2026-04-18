@@ -367,7 +367,7 @@ export default function Portfolio() {
     .language-line {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 3px;
       padding: 1px 0;
     }
 
@@ -392,14 +392,20 @@ export default function Portfolio() {
     }
 
     .language-bar-track {
-      height: 2px;
-      background: rgba(0, 0, 0, 0.15);
+      display: block;
+      height: 3px;
+      width: 100%;
+      max-width: 500px;
+      margin-left: 2px;
+      background: rgba(0, 0, 0, 0.08);
       overflow: hidden;
     }
 
     .language-bar-fill {
+      display: block;
       height: 100%;
       background: #C63D3D;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 0 1px rgba(120, 22, 22, 0.35);
       transition: width 0.35s ease;
     }
 
@@ -496,8 +502,11 @@ export default function Portfolio() {
         gap: 8px;
       }
       .language-line {
-        gap: 5px;
+        gap: 3px;
         padding: 2px 0;
+      }
+      .language-bar-track {
+        max-width: 100%;
       }
       .floating-grid {
         grid-template-columns: 1fr;
@@ -586,11 +595,12 @@ export default function Portfolio() {
   ] as const;
 
   const languages = [
-    { name: "English", level: "Native", barWidth: "97%" },
-    { name: "Hindi", level: "Fluent", barWidth: "84%" },
-    { name: "Telugu", level: "Intermediate", barWidth: "67%" },
-    { name: "Kannada", level: "Intermediate", barWidth: "61%" },
-    { name: "French", level: "Basic", barWidth: "34%" },
+    { name: "English", level: "Native", barWidth: "100%" },
+    { name: "Hindi", level: "Fluent", barWidth: "92%" },
+    { name: "Telugu", level: "Intermediate", barWidth: "73%" },
+    { name: "Kannada", level: "Intermediate", barWidth: "58%" },
+    { name: "French", level: "Basic", barWidth: "32%" },
+    // { name: "Tamil", level: "Just Started", barWidth: "18%" },
   ] as const;
 
   const projects = [

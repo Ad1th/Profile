@@ -278,9 +278,16 @@ export default function Portfolio() {
       transform: rotate(-1.1deg);
     }
     .skills-poster--frontend {
-      background: #e6d2c4;
+      background: #d8c4b7;
       color: #4a2720;
       transform: rotate(0.9deg);
+      border-color: rgba(74, 39, 32, 0.78);
+      box-shadow: 4px 4px 0 rgba(74, 39, 32, 0.24);
+    }
+
+    .skills-poster--backend .skills-poster-title {
+      font-size: 0.96rem;
+      letter-spacing: 0.14em;
     }
 
     .skills-poster-title {
@@ -340,11 +347,11 @@ export default function Portfolio() {
     }
 
     .languages-editorial {
-      margin-top: 46px;
+      margin-top: 70px;
       max-width: 560px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
       padding-left: 2px;
     }
 
@@ -358,40 +365,41 @@ export default function Portfolio() {
     }
 
     .language-line {
-      display: grid;
-      grid-template-columns: minmax(120px, 150px) minmax(80px, 110px) 1fr;
-      align-items: center;
-      gap: 12px;
-      padding: 2px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 1px 0;
     }
 
-    .language-name {
-      font-size: 0.86rem;
-      font-weight: 500;
-      color: color-mix(in srgb, var(--text) 90%, #111111 10%);
-      line-height: 1.35;
+    .language-label {
+      font-size: 0.8rem;
+      color: color-mix(in srgb, var(--text) 84%, #111111 16%);
+      line-height: 1.3;
+      letter-spacing: 0.01em;
     }
 
-    .language-level {
-      font-size: 0.72rem;
+    .language-sep {
+      opacity: 0.7;
+      margin: 0 3px;
+    }
+
+    .language-proficiency {
+      font-size: 0.67rem;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: color-mix(in srgb, var(--muted-text) 84%, #b83232 16%);
-      line-height: 1.25;
-      white-space: nowrap;
+      letter-spacing: 0.09em;
+      color: color-mix(in srgb, var(--muted-text) 82%, #C63D3D 18%);
+      font-weight: 600;
     }
 
     .language-bar-track {
       height: 2px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.26);
+      background: rgba(0, 0, 0, 0.15);
       overflow: hidden;
     }
 
     .language-bar-fill {
       height: 100%;
-      background: color-mix(in srgb, #b83232 68%, var(--accent) 32%);
-      border-radius: 999px;
+      background: #C63D3D;
       transition: width 0.35s ease;
     }
 
@@ -483,14 +491,13 @@ export default function Portfolio() {
         box-shadow: 4px 4px 0 rgba(17, 17, 17, 0.32);
       }
       .languages-editorial {
-        margin-top: 36px;
+        margin-top: 46px;
         max-width: 100%;
         gap: 8px;
       }
       .language-line {
-        grid-template-columns: 1fr;
-        gap: 4px;
-        padding: 3px 0;
+        gap: 5px;
+        padding: 2px 0;
       }
       .floating-grid {
         grid-template-columns: 1fr;
@@ -579,11 +586,11 @@ export default function Portfolio() {
   ] as const;
 
   const languages = [
-    { name: "English", level: "Native", proficiency: 1 },
-    { name: "Hindi", level: "Fluent", proficiency: 0.86 },
-    { name: "Telugu", level: "Intermediate", proficiency: 0.62 },
-    { name: "Kannada", level: "Intermediate", proficiency: 0.58 },
-    { name: "French", level: "Basic", proficiency: 0.32 },
+    { name: "English", level: "Native", barWidth: "97%" },
+    { name: "Hindi", level: "Fluent", barWidth: "84%" },
+    { name: "Telugu", level: "Intermediate", barWidth: "67%" },
+    { name: "Kannada", level: "Intermediate", barWidth: "61%" },
+    { name: "French", level: "Basic", barWidth: "34%" },
   ] as const;
 
   const projects = [
@@ -1178,12 +1185,15 @@ export default function Portfolio() {
           <h3 className="languages-heading">Languages</h3>
           {languages.map((lang) => (
             <div key={lang.name} className="language-line">
-              <span className="language-name">{lang.name}</span>
-              <span className="language-level">{lang.level}</span>
+              <p className="language-label">
+                <span>{lang.name}</span>
+                <span className="language-sep">-</span>
+                <span className="language-proficiency">{lang.level}</span>
+              </p>
               <span className="language-bar-track" aria-hidden="true">
                 <span
                   className="language-bar-fill"
-                  style={{ width: `${Math.round(lang.proficiency * 100)}%` }}
+                  style={{ width: lang.barWidth }}
                 />
               </span>
             </div>

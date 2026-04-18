@@ -249,6 +249,7 @@ class CanvasTxt {
   logicalHeight = 0;
   disappearProgress = 0;
   baselineY = 0;
+  horizontalPadding = 20;
   charWidths: number[] = [];
 
   constructor(
@@ -279,12 +280,14 @@ class CanvasTxt {
   resize() {
     this.context.font = this.font;
     const metrics = this.context.measureText(this.txt);
+    const verticalPadding = Math.ceil(this.fontSize * 0.62);
 
-    const textWidth = Math.ceil(metrics.width) + 20;
+    const textWidth = Math.ceil(metrics.width) + this.horizontalPadding * 2;
     const textHeight =
       Math.ceil(
         metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent,
-      ) + 20;
+      ) +
+      verticalPadding * 2;
 
     this.logicalWidth = textWidth;
     this.logicalHeight = textHeight;
@@ -309,7 +312,7 @@ class CanvasTxt {
 
     this.context.font = this.font;
     const baselineMetrics = this.context.measureText(this.txt || " ");
-    this.baselineY = 10 + baselineMetrics.actualBoundingBoxAscent;
+    this.baselineY = verticalPadding + baselineMetrics.actualBoundingBoxAscent;
     this.charWidths = this.txt.split("").map((char) => {
       const charMetrics = this.context.measureText(char || " ");
       return charMetrics.width;
@@ -326,7 +329,7 @@ class CanvasTxt {
     this.context.font = this.font;
     this.context.textBaseline = "alphabetic";
 
-    let cursorX = 10;
+    let cursorX = this.horizontalPadding;
     const totalChars = Math.max(1, this.txt.length);
 
     for (let index = 0; index < this.txt.length; index += 1) {
@@ -794,11 +797,7 @@ export default function ASCIIText({
       window.removeEventListener("resize", queueUpdate);
       if (frameId) window.cancelAnimationFrame(frameId);
     };
-  }, [
-    enableScrollDisappear,
-    scrollDisappearStart,
-    scrollDisappearEnd,
-  ]);
+  }, [enableScrollDisappear, scrollDisappearStart, scrollDisappearEnd]);
 
   return (
     <div

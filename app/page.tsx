@@ -82,18 +82,6 @@ function SectionTitle({ children }: { children: ReactNode }) {
   );
 }
 
-function Divider() {
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "1px",
-        background: "rgba(51,51,51,0.92)",
-      }}
-    />
-  );
-}
-
 export default function Portfolio() {
   useFadeIn();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -769,8 +757,6 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <Divider />
-
       <section id="about" style={sectionStyle}>
         <div className="fade-in" style={{ maxWidth: "680px" }}>
           <SectionLabel>About</SectionLabel>
@@ -809,8 +795,6 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-
-      <Divider />
 
       <section id="experience" style={sectionStyle}>
         <div className="fade-in">
@@ -899,8 +883,6 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-
-      <Divider />
 
       <section id="skills" style={sectionStyle}>
         <div className="fade-in">
@@ -1032,8 +1014,6 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-
-      <Divider />
 
       <section id="projects" style={sectionStyle}>
         <div className="fade-in">
@@ -1172,8 +1152,6 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <Divider />
-
       <section id="patents" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Patents</SectionLabel>
@@ -1259,8 +1237,6 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <Divider />
-
       <section id="achievements" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Achievements</SectionLabel>
@@ -1330,8 +1306,6 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-
-      <Divider />
 
       <section id="hackathons" style={sectionStyle}>
         <div className="fade-in">
@@ -1416,8 +1390,6 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <Divider />
-
       <section id="hobbies" style={sectionStyle}>
         <div className="fade-in">
           <SectionLabel>Hobbies</SectionLabel>
@@ -1445,8 +1417,6 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-
-      <Divider />
 
       <section id="contact" style={sectionStyle}>
         <div className="fade-in" style={{ maxWidth: "560px" }}>

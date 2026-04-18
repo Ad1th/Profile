@@ -2,7 +2,7 @@
 
 import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { Award, Github, Linkedin, Mail, MapPin, Menu, X } from "lucide-react";
+import { Award, Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ASCIIText from "@/components/ui/ascii-text";
@@ -259,45 +259,13 @@ export default function Portfolio() {
 
     .hero-ascii-stage {
       position: relative;
-      overflow: hidden;
-      height: clamp(130px, 22vw, 210px);
-      border: 1px solid rgba(255,122,31,0.24);
-      border-radius: 22px;
-      background: radial-gradient(circle at 30% 20%, rgba(255,122,31,0.13), rgba(26,26,26,0.9) 62%), #1A1A1A;
-      box-shadow: 0 20px 44px rgba(0,0,0,0.45);
-    }
-    .hero-ascii-stage::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(17,17,17,0) 0%, rgba(17,17,17,0.52) 100%);
+      overflow: visible;
+      height: clamp(360px, 56vh, 680px);
+      width: min(100%, 1340px);
+      margin: 0 auto;
+      background: transparent;
     }
 
-    .hero-stack {
-      perspective: 1400px;
-      position: relative;
-      min-height: 420px;
-      width: 100%;
-    }
-    .hero-stack-card {
-      position: absolute;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-      width: min(92%, 350px);
-      border-radius: 16px;
-      border: 1px solid #333333;
-      background: #1A1A1A;
-      box-shadow: 0 24px 48px rgba(0,0,0,0.42);
-      padding: 16px;
-      transition: transform 0.28s ease, border-color 0.28s ease;
-      transform-style: preserve-3d;
-    }
-    .hero-stack-card:hover {
-      border-color: rgba(255,122,31,0.48);
-      transform: translateY(-8px) translateZ(28px) rotateX(6deg) rotateY(-6deg) !important;
-    }
 
     .stack-surface {
       perspective: 1500px;
@@ -305,19 +273,21 @@ export default function Portfolio() {
     .floating-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 22px;
+      gap: 26px;
       transform-style: preserve-3d;
     }
     .floating-card {
       border-radius: 18px;
       background: linear-gradient(165deg, rgba(26,26,26,0.96), rgba(17,17,17,0.98));
       border: 1px solid rgba(51,51,51,0.95);
-      box-shadow: 0 16px 34px rgba(0,0,0,0.42);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.42);
       transform-style: preserve-3d;
-      transform: translateY(var(--card-y, 0px)) rotate(var(--card-rotate, 0deg)) translateZ(0px);
+      transform: translateY(var(--card-y, 0px)) rotate(var(--card-rotate, 0deg)) rotateX(var(--card-tiltX, 0deg)) rotateY(var(--card-tiltY, 0deg)) translateZ(var(--card-z, 0px));
       transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
       position: relative;
       overflow: hidden;
+      margin-top: var(--card-overlap, 0px);
+      z-index: var(--card-index, 1);
     }
     .floating-card::before {
       content: '';
@@ -329,8 +299,8 @@ export default function Portfolio() {
     }
     .floating-card:hover {
       border-color: rgba(255,122,31,0.48);
-      box-shadow: 0 24px 52px rgba(0,0,0,0.56);
-      transform: translateY(var(--card-hover-y, -10px)) rotate(var(--card-hover-rotate, 0deg)) translateZ(24px);
+      box-shadow: 0 28px 62px rgba(0,0,0,0.56);
+      transform: translateY(var(--card-hover-y, -10px)) rotate(var(--card-hover-rotate, 0deg)) rotateX(var(--card-hover-tiltX, 4deg)) rotateY(var(--card-hover-tiltY, -5deg)) translateZ(30px);
     }
 
     @media (max-width: 768px) {
@@ -338,20 +308,16 @@ export default function Portfolio() {
       .show-mobile { display: flex !important; }
       .btn-primary, .btn-ghost { width: 100%; }
       .nav-link { font-size: 0.92rem; }
-      .hero-stack {
-        min-height: 260px;
-      }
-      .hero-stack-card {
-        position: relative;
-        width: 100%;
-        margin: 0 0 12px;
+      .hero-ascii-stage {
+        height: clamp(250px, 56vw, 420px);
       }
       .floating-grid {
         grid-template-columns: 1fr;
-        gap: 14px;
+        gap: 16px;
       }
       .floating-card {
-        transform: none !important;
+        transform: translateY(0) !important;
+        margin-top: 0 !important;
       }
       .floating-card:hover {
         transform: translateY(-4px) !important;
@@ -786,95 +752,18 @@ export default function Portfolio() {
 
       <section
         id="hero"
-        className="mx-auto grid min-h-[calc(100vh-60px)] max-w-6xl items-center gap-12 px-6 py-24 text-center lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-16 lg:text-left"
+        className="mx-auto flex min-h-[calc(100vh-60px)] max-w-[92rem] items-center justify-center px-6 py-20 text-center"
       >
-        <div className="mx-auto max-w-3xl lg:mx-0">
-          <SectionLabel>Engineering Student · VIT Vellore</SectionLabel>
-          <div className="hero-ascii-stage">
-            <ASCIIText
-              text="Hi, I'm Adith Manikonda"
-              enableWaves
-              asciiFontSize={6}
-              textFontSize={170}
-              planeBaseHeight={8.2}
-              textColor="#ff7a1f"
-            />
-          </div>
-          <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(2.4rem,6vw,4.4rem)] leading-[1.03] tracking-[-0.03em] text-[#E5E5E5] lg:mx-0">
-            Hi, I&apos;m <span className="text-[#FF7A1F]">Adith Manikonda</span>
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-[clamp(1rem,2vw,1.08rem)] leading-8 text-[#A0A0A0] lg:mx-0">
-            Backend systems, practical AI, and edge deployments built to hold up
-            under real use.
-          </p>
-          <p className="mt-5 flex items-center justify-center gap-2 text-sm text-[#A0A0A0] lg:justify-start">
-            <MapPin size={14} className="text-[#FF7A1F]" />
-            VIT, Vellore, India
-          </p>
-          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap lg:justify-start">
-            <a href="#projects" className="btn-primary w-full sm:w-auto">
-              View Projects
-            </a>
-            <a href="#about" className="btn-ghost w-full sm:w-auto">
-              About Me
-            </a>
-          </div>
-          <div className="mt-8 flex items-center justify-center gap-5 lg:justify-start">
-            <a
-              href="https://github.com/Ad1th"
-              target="_blank"
-              rel="noreferrer"
-              className="social-icon"
-              aria-label="GitHub"
-            >
-              <Github size={22} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/adith-manikonda/"
-              target="_blank"
-              rel="noreferrer"
-              className="social-icon"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={22} />
-            </a>
-            <a
-              href="mailto:adith2505@outlook.com"
-              className="social-icon"
-              aria-label="Email"
-            >
-              <Mail size={22} />
-            </a>
-          </div>
-        </div>
-
-        <div className="hero-stack hidden lg:block" aria-hidden="true">
-          {projects.slice(0, 3).map((project, index) => {
-            const top = 18 + index * 92;
-            const rotation = [-7, 4, -3][index] ?? 0;
-            const z = (3 - index) * 14;
-
-            return (
-              <div
-                key={project.name}
-                className="hero-stack-card"
-                style={{
-                  top,
-                  transform: `translateZ(${z}px) rotate(${rotation}deg)`,
-                }}
-              >
-                <div className="mb-2 flex items-center gap-3">
-                  <span className="text-lg">{project.emoji}</span>
-                  <p className="text-sm font-semibold text-[#E5E5E5]">
-                    {project.name}
-                  </p>
-                </div>
-                <p className="line-clamp-2 text-xs leading-relaxed text-[#A0A0A0]">
-                  {project.description}
-                </p>
-              </div>
-            );
-          })}
+        <div className="hero-ascii-stage">
+          <ASCIIText
+            text="Hey, I'm Adith"
+            enableWaves
+            asciiFontSize={5}
+            textFontSize={300}
+            planeBaseHeight={16}
+            textColor="#ff7a1f"
+            asciiQuality={4}
+          />
         </div>
       </section>
 
@@ -1154,10 +1043,17 @@ export default function Portfolio() {
             {projects.map((project, index) => {
               const projectImage = projectImages[project.name];
               const cardStyle = {
-                "--card-y": `${(index % 4) * -6}px`,
-                "--card-rotate": `${((index % 5) - 2) * 1.25}deg`,
-                "--card-hover-y": `${-14 - (index % 3) * 2}px`,
-                "--card-hover-rotate": `${((index % 5) - 2) * 0.55}deg`,
+                "--card-y": `${(index % 4) * -10}px`,
+                "--card-overlap": `${index > 2 ? -14 : 0}px`,
+                "--card-index": `${40 - (index % 12)}`,
+                "--card-rotate": `${((index % 6) - 2.5) * 1.35}deg`,
+                "--card-tiltX": `${((index % 3) - 1) * 0.9}deg`,
+                "--card-tiltY": `${((index % 4) - 1.5) * 0.8}deg`,
+                "--card-z": `${(index % 5) * 2}px`,
+                "--card-hover-y": `${-18 - (index % 3) * 2}px`,
+                "--card-hover-rotate": `${((index % 6) - 2.5) * 0.45}deg`,
+                "--card-hover-tiltX": `${4 + (index % 2)}deg`,
+                "--card-hover-tiltY": `${-5 + (index % 3)}deg`,
               } as CSSProperties;
 
               return (
@@ -1448,10 +1344,17 @@ export default function Portfolio() {
                 className="floating-card fade-in"
                 style={
                   {
-                    "--card-y": `${(index % 3) * -5}px`,
-                    "--card-rotate": `${((index % 4) - 1.5) * 1.1}deg`,
-                    "--card-hover-y": `${-12 - (index % 2) * 2}px`,
-                    "--card-hover-rotate": `${((index % 4) - 1.5) * 0.45}deg`,
+                    "--card-y": `${(index % 3) * -8}px`,
+                    "--card-overlap": `${index > 1 ? -10 : 0}px`,
+                    "--card-index": `${30 - index}`,
+                    "--card-rotate": `${((index % 5) - 2) * 1.25}deg`,
+                    "--card-tiltX": `${((index % 3) - 1) * 0.8}deg`,
+                    "--card-tiltY": `${((index % 4) - 1.5) * 0.75}deg`,
+                    "--card-z": `${(index % 4) * 2}px`,
+                    "--card-hover-y": `${-15 - (index % 2) * 2}px`,
+                    "--card-hover-rotate": `${((index % 5) - 2) * 0.4}deg`,
+                    "--card-hover-tiltX": `${4 + (index % 2)}deg`,
+                    "--card-hover-tiltY": `${-4 + (index % 3)}deg`,
                   } as CSSProperties
                 }
               >

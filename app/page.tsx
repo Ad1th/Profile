@@ -1097,7 +1097,6 @@ export default function Portfolio() {
               ))}
             </div>
             <h1 className="heading">Hey, I&apos;m Adith</h1>
-            <span className="hero-scroll-indicator">scroll down ↓</span>
           </div>
           <Image
             src="/robot-avatar.svg"
@@ -1120,7 +1119,9 @@ export default function Portfolio() {
                 lineHeight: 1.08,
               }}
             >
-              <span className="about-headline-line">I like building things,</span>
+              <span className="about-headline-line">
+                I like building things,
+              </span>
               <br />
               <span className="about-headline-line about-headline-line--underlined">
                 breaking them, then fixing them again.
@@ -1393,7 +1394,9 @@ export default function Portfolio() {
                         gap: "8px",
                       }}
                     >
-                      <span style={{ fontSize: "1.1rem" }}>{project.emoji}</span>
+                      <span style={{ fontSize: "1.1rem" }}>
+                        {project.emoji}
+                      </span>
                       <h3
                         style={{
                           fontSize: "0.98rem",

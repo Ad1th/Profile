@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import {
   Award,
   Ellipsis,
@@ -11,14 +11,20 @@ import {
   Info,
   Linkedin,
   Mail,
-  Menu,
-  X,
+  ExternalLink,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  AnimatePresence,
+} from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import Dock from "@/components/ui/Dock";
+import Loader from "@/components/Loader";
 
 const FallingText = dynamic(() => import("@/components/ui/FallingText"), {
   ssr: false,
@@ -27,42 +33,204 @@ const BubbleMenu = dynamic(() => import("@/components/ui/BubbleMenu"), {
   ssr: false,
 });
 
-function Tag({ label }: { label: string }) {
+/* ─── Grain overlay ──────────────────────────────────────────────── */
+function Grain() {
+  return (
+    <div
+      aria-hidden
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 9999,
+        pointerEvents: "none",
+        opacity: 0.018,
+        backgroundImage:
+          "radial-gradient(rgba(17,17,17,0.16) 0.5px, transparent 0.5px)",
+        backgroundSize: "3px 3px",
+      }}
+    />
+  );
+}
+
+/* ─── Cursor ─────────────────────────────────────────────────────── */
+function CustomCursor() {
+  const dot = useRef<HTMLDivElement>(null);
+  const ring = useRef<HTMLDivElement>(null);
+  const raf = useRef<number | null>(null);
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const canUseFinePointer = window.matchMedia("(pointer: fine)").matches;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const active = canUseFinePointer && !reduceMotion;
+
+    setEnabled(active);
+    if (!active) return;
+
+    const move = (e: MouseEvent) => {
+      if (raf.current !== null) return;
+      const x = e.clientX;
+      const y = e.clientY;
+
+      raf.current = requestAnimationFrame(() => {
+        raf.current = null;
+
+        if (dot.current) {
+          dot.current.style.transform = `translate3d(${x - 4}px, ${y - 4}px, 0)`;
+        }
+        if (ring.current) {
+          ring.current.style.transform = `translate3d(${x - 18}px, ${y - 18}px, 0)`;
+        }
+      });
+    };
+
+    window.addEventListener("mousemove", move, { passive: true });
+
+    return () => {
+      window.removeEventListener("mousemove", move);
+      if (raf.current !== null) {
+        cancelAnimationFrame(raf.current);
+      }
+    };
+  }, []);
+
+  if (!enabled) return null;
+
+  return (
+    <>
+      <div
+        ref={dot}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 8,
+          height: 8,
+          borderRadius: "50%",
+          background: "var(--accent)",
+          zIndex: 99999,
+          pointerEvents: "none",
+          willChange: "transform",
+        }}
+      />
+      <div
+        ref={ring}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 36,
+          height: 36,
+          borderRadius: "50%",
+          border: "1px solid rgba(217,101,22,0.4)",
+          zIndex: 99998,
+          pointerEvents: "none",
+          willChange: "transform",
+          transition: "transform 120ms linear",
+        }}
+      />
+    </>
+  );
+}
+
+/* ─── Split text letter reveal ───────────────────────────────────── */
+function SplitReveal({
+  text,
+  className,
+  style,
+  delay = 0,
+  once = true,
+}: {
+  text: string;
+  className?: string;
+  style?: React.CSSProperties;
+  delay?: number;
+  once?: boolean;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          if (once) io.disconnect();
+        } else if (!once) {
+          setVisible(false);
+        }
+      },
+      { threshold: 0.1 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [once]);
+
   return (
     <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        padding: "4px 11px",
-        fontSize: "0.72rem",
-        fontWeight: 600,
-        letterSpacing: "0.03em",
-        borderRadius: "999px",
-        background: "var(--surface)",
-        border: "1px solid var(--border-color)",
-        color: "var(--text)",
-      }}
+      ref={ref}
+      className={className}
+      style={{ display: "inline-block", ...style }}
     >
-      {label}
+      {text.split("").map((char, i) => (
+        <span
+          key={i}
+          style={{
+            display: "inline-block",
+            transform: visible ? "translateY(0)" : "translateY(110%)",
+            opacity: visible ? 1 : 0,
+            transition: `transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay + i * 0.028}s, opacity 0.4s ease ${delay + i * 0.028}s`,
+            whiteSpace: char === " " ? "pre" : "normal",
+          }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </span>
+      ))}
     </span>
   );
 }
 
-function SectionLabel({ children }: { children: ReactNode }) {
+/* ─── Section heading ─────────────────────────────────────────────── */
+function SectionLabel({
+  children,
+  light = false,
+}: {
+  children: ReactNode;
+  light?: boolean;
+}) {
   return (
-    <span
+    <motion.span
+      initial={{ opacity: 0, x: -8 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
       style={{
-        display: "inline-block",
-        fontSize: "0.7rem",
-        fontWeight: 600,
-        letterSpacing: "0.16em",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "8px",
+        fontSize: "0.68rem",
+        fontWeight: 700,
+        letterSpacing: "0.18em",
         textTransform: "uppercase",
         color: "var(--accent)",
-        marginBottom: "14px",
+        marginBottom: "18px",
       }}
     >
+      <span
+        style={{
+          display: "inline-block",
+          width: 20,
+          height: 1.5,
+          background: "var(--accent)",
+          borderRadius: 1,
+        }}
+      />
       {children}
-    </span>
+    </motion.span>
   );
 }
 
@@ -80,10 +248,11 @@ function SectionTitle({
       className={className}
       style={{
         fontFamily: "'DM Serif Display', Georgia, serif",
-        fontSize: "clamp(2.2rem, 4vw, 3.1rem)",
+        fontSize: "clamp(2.4rem, 4.5vw, 3.6rem)",
         fontWeight: 400,
         color: "var(--text)",
-        lineHeight: 1.15,
+        lineHeight: 1.06,
+        letterSpacing: "-0.03em",
         marginBottom: 0,
         ...style,
       }}
@@ -93,634 +262,477 @@ function SectionTitle({
   );
 }
 
-export default function Portfolio() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
-  const [aboutFallActive, setAboutFallActive] = useState(false);
-  const aboutTriggerRef = useRef<HTMLElement | null>(null);
+/* ─── Project card ────────────────────────────────────────────────── */
+function ProjectCard({
+  project,
+  imageSrc,
+  dark = false,
+}: {
+  project: {
+    name: string;
+    emoji: string;
+    description: string;
+    stack: readonly string[];
+    github: string | null;
+    badge?: string;
+  };
+  imageSrc?: string;
+  dark?: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
 
-  useEffect(() => {
-    if (!aboutTriggerRef.current || aboutFallActive) return;
+  return (
+    <motion.div
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        background: dark ? "rgba(255,255,255,0.04)" : "rgba(17,17,17,0.05)",
+        border: `1px solid ${
+          hovered
+            ? "rgba(217,101,22,0.32)"
+            : dark
+              ? "rgba(255,255,255,0.09)"
+              : "rgba(17,17,17,0.14)"
+        }`,
+        borderRadius: 12,
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: 340,
+        position: "relative",
+        cursor: "default",
+        transition: "border-color 0.25s ease",
+      }}
+    >
+      {/* Hover accent line top */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 2,
+          background: "var(--accent)",
+          transform: hovered ? "scaleX(1)" : "scaleX(0)",
+          transformOrigin: "left",
+          transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
+          zIndex: 2,
+        }}
+      />
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.intersectionRatio >= 0.6) {
-          setAboutFallActive(true);
-          observer.disconnect();
+      {imageSrc && (
+        <div style={{ overflow: "hidden", height: 180, flexShrink: 0 }}>
+          <Image
+            src={imageSrc}
+            alt={project.name}
+            width={720}
+            height={420}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transform: hovered ? "scale(1.04)" : "scale(1)",
+              transition: "transform 0.5s cubic-bezier(0.16,1,0.3,1)",
+            }}
+          />
+        </div>
+      )}
+
+      <div
+        style={{
+          padding: "22px 24px 24px",
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          gap: 12,
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            gap: 10,
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+            <span style={{ fontSize: "1.05rem" }}>{project.emoji}</span>
+            <h3
+              style={{
+                fontSize: "0.95rem",
+                fontWeight: 600,
+                color: dark ? "#ebebeb" : "#111111",
+                lineHeight: 1.3,
+                letterSpacing: "0.01em",
+              }}
+            >
+              {project.name}
+            </h3>
+            {project.badge && (
+              <span
+                style={{
+                  fontSize: "0.6rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  padding: "2px 7px",
+                  borderRadius: 999,
+                  background: "rgba(217,101,22,0.18)",
+                  color: "var(--accent)",
+                  border: "1px solid rgba(217,101,22,0.22)",
+                }}
+              >
+                {project.badge}
+              </span>
+            )}
+          </div>
+          {project.github && (
+            <motion.a
+              href={project.github}
+              target="_blank"
+              rel="noreferrer"
+              whileHover={{ scale: 1.12 }}
+              style={{
+                color: dark ? "rgba(235,235,235,0.45)" : "rgba(17,17,17,0.4)",
+                flexShrink: 0,
+              }}
+              aria-label={`GitHub - ${project.name}`}
+            >
+              <Github size={15} />
+            </motion.a>
+          )}
+        </div>
+
+        <p
+          style={{
+            fontSize: "0.83rem",
+            color: dark ? "rgba(235,235,235,0.58)" : "rgba(17,17,17,0.62)",
+            lineHeight: 1.68,
+            flex: 1,
+          }}
+        >
+          {project.description}
+        </p>
+
+        <div
+          style={{ display: "flex", flexWrap: "wrap", gap: 5, marginTop: 4 }}
+        >
+          {project.stack.map((s) => (
+            <span
+              key={s}
+              style={{
+                fontSize: "0.65rem",
+                fontWeight: 600,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                padding: "3px 9px",
+                borderRadius: 4,
+                background: dark
+                  ? "rgba(255,255,255,0.07)"
+                  : "rgba(17,17,17,0.06)",
+                border: `1px solid ${dark ? "rgba(255,255,255,0.1)" : "rgba(17,17,17,0.12)"}`,
+                color: dark ? "rgba(235,235,235,0.7)" : "rgba(17,17,17,0.7)",
+              }}
+            >
+              {s}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ─── Marquee strip ────────────────────────────────────────────────── */
+function Marquee({ items, speed = 35 }: { items: string[]; speed?: number }) {
+  const doubled = [...items, ...items];
+  return (
+    <div style={{ overflow: "hidden", width: "100%", display: "flex" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "3rem",
+          whiteSpace: "nowrap",
+          animation: `marquee ${speed}s linear infinite`,
+          willChange: "transform",
+        }}
+      >
+        {doubled.map((item, i) => (
+          <span
+            key={i}
+            style={{
+              fontSize: "0.7rem",
+              fontWeight: 700,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: "rgba(17,17,17,0.35)",
+              display: "flex",
+              alignItems: "center",
+              gap: "3rem",
+            }}
+          >
+            {item}
+            <span style={{ color: "var(--accent)", fontSize: "0.5rem" }}>
+              ◆
+            </span>
+          </span>
+        ))}
+      </div>
+      <style>{`
+        @keyframes marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
+      `}</style>
+    </div>
+  );
+}
+
+/* ─── Experience timeline card ─────────────────────────────────────── */
+function ExperienceCard({
+  job,
+  index,
+}: {
+  job: {
+    title: string;
+    company: string;
+    period: string;
+    description: string;
+    skills: string[];
+  };
+  index: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: index % 2 === 0 ? -24 : 24 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1],
+        delay: index * 0.08,
+      }}
+      style={{
+        display: "flex",
+        gap: 28,
+        position: "relative",
+      }}
+    >
+      {/* Timeline spine */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          flexShrink: 0,
+        }}
+      >
+        <div
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            background: "var(--accent)",
+            border: "2px solid rgba(232,93,31,0.3)",
+            boxShadow: "0 0 0 4px rgba(232,93,31,0.08)",
+            flexShrink: 0,
+            marginTop: 6,
+          }}
+        />
+        <div
+          style={{
+            width: 1,
+            flex: 1,
+            marginTop: 8,
+            background:
+              "linear-gradient(to bottom, rgba(232,93,31,0.3), transparent)",
+            minHeight: 40,
+          }}
+        />
+      </div>
+
+      <div
+        style={{
+          flex: 1,
+          background: "rgba(237,235,230,0.82)",
+          border: "1px solid rgba(17,17,17,0.13)",
+          borderRadius: 12,
+          padding: "24px 28px",
+          marginBottom: 20,
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            gap: 10,
+            marginBottom: job.description ? 12 : 0,
+          }}
+        >
+          <div>
+            <h3
+              style={{
+                fontSize: "1.05rem",
+                fontWeight: 600,
+                color: "#111",
+                marginBottom: 3,
+                lineHeight: 1.3,
+              }}
+            >
+              {job.title}
+            </h3>
+            <p style={{ fontSize: "0.88rem", color: "#444", fontWeight: 500 }}>
+              {job.company}
+            </p>
+          </div>
+          <span
+            style={{
+              fontSize: "0.75rem",
+              color: "#111",
+              background: "rgba(232,93,31,0.15)",
+              border: "1px solid rgba(17,17,17,0.15)",
+              borderRadius: 999,
+              padding: "4px 12px",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {job.period}
+          </span>
+        </div>
+        {job.description && (
+          <p
+            style={{
+              fontSize: "0.86rem",
+              color: "#444",
+              lineHeight: 1.7,
+              marginBottom: 14,
+            }}
+          >
+            {job.description}
+          </p>
+        )}
+        {job.skills.length > 0 && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {job.skills.map((skill) => (
+              <span
+                key={skill}
+                style={{
+                  fontSize: "0.65rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.07em",
+                  textTransform: "uppercase",
+                  padding: "3px 10px",
+                  borderRadius: 4,
+                  background: "rgba(232,93,31,0.12)",
+                  border: "1px solid rgba(17,17,17,0.14)",
+                  color: "#333",
+                }}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+export default function Portfolio() {
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
+  const aboutSectionRef = useRef<HTMLElement | null>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const { scrollYProgress: aboutProgress } = useScroll({
+    target: aboutSectionRef,
+    offset: ["start end", "start start"],
+  });
+
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+  const cardShiftRaw = useTransform(aboutProgress, [0, 1], [0, -220]);
+  const cardRotateRaw = useTransform(aboutProgress, [0, 1], [0, -5]);
+  const cardScaleRaw = useTransform(aboutProgress, [0, 1], [1, 0.92]);
+  const cardFlipRaw = useTransform(aboutProgress, [0.45, 0.88], [0, 180]);
+  const heroBgTone = useTransform(
+    aboutProgress,
+    [0, 1],
+    ["#E8E6E1", "#EDEBE6"],
+  );
+  const aboutIntroOpacityRaw = useTransform(
+    aboutProgress,
+    [0.15, 0.75],
+    [0, 1],
+  );
+  const aboutIntroXRaw = useTransform(aboutProgress, [0.15, 0.75], [30, 0]);
+
+  const cardShiftX = useSpring(cardShiftRaw, {
+    stiffness: 120,
+    damping: 24,
+    mass: 0.3,
+  });
+  const cardRotate = useSpring(cardRotateRaw, {
+    stiffness: 120,
+    damping: 24,
+    mass: 0.3,
+  });
+  const cardScale = useSpring(cardScaleRaw, {
+    stiffness: 120,
+    damping: 24,
+    mass: 0.3,
+  });
+  const cardFlipY = useSpring(cardFlipRaw, {
+    stiffness: 110,
+    damping: 26,
+    mass: 0.32,
+  });
+  const aboutIntroOpacity = useSpring(aboutIntroOpacityRaw, {
+    stiffness: 120,
+    damping: 28,
+    mass: 0.35,
+  });
+  const aboutIntroX = useSpring(aboutIntroXRaw, {
+    stiffness: 120,
+    damping: 28,
+    mass: 0.35,
+  });
+
+  /* ── scroll-reveal ───────────────────────── */
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal-on-scroll");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("revealed");
+            io.unobserve(e.target);
+          }
+        });
       },
-      { threshold: [0, 0.6, 1] },
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
     );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
-    observer.observe(aboutTriggerRef.current);
-    return () => observer.disconnect();
-  }, [aboutFallActive]);
+  const scrollToSection = useCallback((id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMoreMenuOpen(false);
+  }, []);
 
-  const navLinks = [
-    "about",
-    "experience",
-    "skills",
-    "projects",
-    "patents",
-    "achievements",
-    "hackathons",
-    "hobbies",
-    "contact",
-  ];
-
-  const experienceColors = {
-    heading: "#111111",
-    secondary: "#111111",
-    tertiary: "#111111",
-    cardBg: "rgba(237, 235, 230, 0.82)",
-    cardBorder: "rgba(17, 17, 17, 0.22)",
-    tagBg: "rgba(232, 93, 31, 0.2)",
-    tagBorder: "rgba(17, 17, 17, 0.2)",
-    badgeBg: "rgba(232, 93, 31, 0.2)",
-    badgeBorder: "rgba(17, 17, 17, 0.22)",
-  } as const;
-
-  const css = `
-    :root {
-      --bg-primary: #E2E2E2;
-      --bg-dark: #0E0E0E;
-      --bg-white: #FFFFFF;
-      --accent: #E85D1F;
-      --text-dark: #111111;
-      --text-light: #F5F5F5;
-      --text: var(--text-dark);
-      --muted-text: rgba(17, 17, 17, 0.66);
-      --surface: rgba(17, 17, 17, 0.06);
-      --border-color: rgba(17, 17, 17, 0.18);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; color-scheme: dark; }
-    body { background: var(--bg-primary); color: var(--text-dark); padding-bottom: 96px; }
-    body, button, input, textarea, select { font-family: 'DM Sans', system-ui, sans-serif; }
-    body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    h1, h2, h3, h4, h5, h6 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; }
-    ::selection { background: rgba(232, 93, 31, 0.25); color: var(--text-light); }
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg-dark); }
-    ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 999px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
-    .fade-in {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-
-    .nav-link {
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: rgba(17, 17, 17, 0.66);
-      text-decoration: none;
-      text-transform: capitalize;
-      transition: color 0.2s ease;
-      padding: 4px 0;
-      position: relative;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--accent);
-      transition: width 0.25s ease;
-    }
-    .nav-link:hover { color: var(--text-dark); }
-    .nav-link:hover::after { width: 100%; }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      min-height: 50px;
-      padding: 0 30px;
-      background: var(--accent);
-      color: #111111;
-      font-weight: 600;
-      font-size: 0.86rem;
-      letter-spacing: 0.04em;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: transform 0.15s ease, background 0.2s ease;
-      border: 1px solid rgba(255,122,31,0.3);
-      cursor: pointer;
-    }
-    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      min-height: 50px;
-      padding: 0 30px;
-      background: var(--surface);
-      color: var(--text);
-      font-weight: 500;
-      font-size: 0.86rem;
-      letter-spacing: 0.03em;
-      border-radius: 999px;
-      text-decoration: none;
-      border: 1px solid var(--border-color);
-      transition: border-color 0.2s ease, color 0.2s ease;
-      cursor: pointer;
-    }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      transition: border-color 0.2s ease;
-    }
-    .card:hover { border-color: rgba(255,122,31,0.28); }
-
-    .social-icon {
-      color: var(--muted-text);
-      transition: color 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .social-icon:hover { color: var(--accent); }
-
-    .skills-grid {
-      margin-top: 58px;
-      display: grid;
-      grid-template-columns: 1.18fr 0.82fr 1fr;
-      gap: 18px;
-      align-items: start;
-    }
-
-    .skills-poster {
-      border: 1px solid rgba(17, 17, 17, 0.22);
-      border-radius: 8px;
-      padding: 20px 22px 18px;
-      box-shadow: none;
-      transition: border-color 0.2s ease;
-    }
-
-    .skills-poster--backend {
-      background: var(--bg-primary);
-      color: var(--text-dark);
-    }
-    .skills-poster--databases {
-      background: rgba(232, 93, 31, 0.14);
-      color: var(--text-dark);
-    }
-    .skills-poster--observability {
-      background: var(--accent);
-      color: var(--text-light);
-    }
-    .skills-poster--frontend {
-      background: rgba(237, 235, 230, 0.78);
-      color: var(--text-dark);
-      border-color: rgba(17, 17, 17, 0.28);
-      box-shadow: none;
-    }
-
-    .skills-poster--backend .skills-poster-title {
-      font-size: 0.96rem;
-      letter-spacing: 0.14em;
-    }
-
-    .skills-poster-title {
-      font-size: 0.88rem;
-      font-weight: 800;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      line-height: 1.1;
-    }
-
-    .skills-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .skills-item {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-size: 0.93rem;
-      line-height: 1.45;
-      font-weight: 500;
-    }
-
-    .skills-poster--frontend .skills-item {
-      font-size: 0.87rem;
-      line-height: 1.4;
-      font-weight: 500;
-    }
-
-    .skills-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 1px;
-      background: currentColor;
-      flex-shrink: 0;
-      margin-top: 7px;
-    }
-    .skills-poster--databases .skills-dot {
-      border-radius: 999px;
-    }
-    .skills-poster--observability .skills-dot {
-      width: 7px;
-      height: 2px;
-      border-radius: 0;
-      margin-top: 10px;
-      background: rgba(255, 243, 234, 0.9);
-    }
-    .skills-poster--frontend .skills-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 999px;
-      opacity: 0.78;
-    }
-
-    .languages-editorial {
-      margin-top: 70px;
-      max-width: 560px;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      padding-left: 2px;
-    }
-
-    .languages-heading {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
-
-    .language-line {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      padding: 1px 0;
-    }
-
-    .language-label {
-      font-size: 0.8rem;
-      color: var(--text);
-      line-height: 1.3;
-      letter-spacing: 0.01em;
-    }
-
-    .language-sep {
-      opacity: 0.7;
-      margin: 0 3px;
-    }
-
-    .language-proficiency {
-      font-size: 0.67rem;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: var(--muted-text);
-      font-weight: 600;
-    }
-
-    .language-bar-track {
-      display: block;
-      height: 3px;
-      width: 100%;
-      max-width: 500px;
-      margin-left: 2px;
-      background: rgba(245, 245, 245, 0.2);
-      overflow: hidden;
-    }
-
-    .language-bar-fill {
-      display: block;
-      height: 100%;
-      background: var(--accent);
-      box-shadow: none;
-    }
-
-    .hobby-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 14px;
-      border: 1px solid var(--border-color);
-      aspect-ratio: 1;
-      background: var(--surface);
-      transition: border-color 0.2s ease;
-    }
-    .hobby-card:hover { border-color: rgba(255,122,31,0.35); }
-    .hobby-card:hover img { transform: scale(1.02); }
-    .hobby-card img { transition: transform 0.25s ease; width: 100%; height: 100%; object-fit: cover; }
-    .hobby-label {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 34px 16px 14px;
-      background: rgba(14, 14, 14, 0.74);
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: var(--text-light);
-    }
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-primary);
-      color: var(--text-dark);
-    }
-
-    .hero-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 64px;
-    }
-
-    .hero-kicker {
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: rgba(17, 17, 17, 0.72);
-      line-height: 1.5;
-    }
-
-    .hero-kicker span + span::before {
-      content: ' • ';
-      opacity: 0.65;
-    }
-
-    .hero-heading-wrap {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      align-items: flex-start;
-    }
-
-    .heading {
-      font-family: 'DM Serif Display', Georgia, serif;
-      font-size: clamp(3rem, 7vw, 6rem);
-      font-weight: 400;
-      line-height: 1.02;
-      color: var(--accent);
-      letter-spacing: 0;
-      margin: 0;
-      white-space: nowrap;
-    }
-
-    .hero-avatar {
-      position: relative;
-      width: min(220px, 26vw);
-      max-width: 220px;
-      height: auto;
-      opacity: 0.95;
-      flex-shrink: 0;
-    }
-
-    .hero-scroll-indicator {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: rgba(17, 17, 17, 0.68);
-      align-self: flex-start;
-    }
-
-    .about {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      background: var(--bg-dark);
-      color: var(--text-light);
-    }
-
-    .about-content {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 80px 24px;
-      display: grid;
-      gap: 24px;
-      --text: var(--text-light);
-      --muted-text: rgba(245, 245, 245, 0.78);
-      --surface: rgba(245, 245, 245, 0.08);
-      --border-color: rgba(245, 245, 245, 0.18);
-    }
-
-    .about-content .fade-in {
-      max-width: 100% !important;
-    }
-
-    .about-content p {
-      color: var(--muted-text) !important;
-      line-height: 1.82;
-    }
-
-    .about-headline-line {
-      color: var(--text) !important;
-      font-family: 'DM Serif Display', Georgia, serif;
-    }
-
-    .about-falling-wrap {
-      position: relative;
-      width: 100%;
-      max-width: 860px;
-      padding-bottom: 18px;
-      isolation: isolate;
-    }
-
-    .about-falling-wrap::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 76%;
-      height: 3px;
-      background: rgba(232, 93, 31, 0.65);
-      opacity: 0.85;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .about-falling {
-      min-height: clamp(190px, 24vw, 260px);
-      z-index: 1;
-      color: var(--text);
-    }
-
-    .about-falling .falling-text-target,
-    .about-falling .word {
-      font-family: 'DM Serif Display', Georgia, serif;
-      color: var(--text);
-    }
-
-    .about-headline-line--underlined {
-      position: relative;
-      display: inline-block;
-      padding-bottom: 6px;
-    }
-
-    .about-headline-line--underlined::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 1px;
-      height: 3px;
-      background: rgba(232, 93, 31, 0.58);
-      opacity: 0.7;
-    }
-
-    .section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: clamp(72px, 10vw, 112px) 24px;
-      position: relative;
-      z-index: 0;
-      --text: var(--text-dark);
-      --muted-text: rgba(17, 17, 17, 0.66);
-      --surface: rgba(17, 17, 17, 0.06);
-      --border-color: rgba(17, 17, 17, 0.18);
-    }
-
-    .section-dark {
-      color: var(--text-light);
-      --text: var(--text-light);
-      --muted-text: rgba(245, 245, 245, 0.72);
-      --surface: rgba(245, 245, 245, 0.08);
-      --border-color: rgba(245, 245, 245, 0.16);
-    }
-
-    .section-silver {
-      color: var(--text-dark);
-    }
-
-    .section-white {
-      color: var(--text-dark);
-    }
-
-    .section-dark::before,
-    .section-silver::before,
-    .section-white::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: calc((100vw - 100%) / -2);
-      right: calc((100vw - 100%) / -2);
-      z-index: -1;
-    }
-
-    .section-dark::before { background: var(--bg-dark); }
-    .section-silver::before { background: var(--bg-primary); }
-    .section-white::before { background: var(--bg-white); }
-
-
-    .stack-surface {
-      perspective: none;
-    }
-    .floating-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-    .floating-card {
-      border-radius: 14px;
-      background: var(--surface);
-      border: 1px solid var(--border-color);
-      transition: border-color 0.2s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .floating-card::before {
-      content: none;
-    }
-    .floating-card:hover {
-      border-color: rgba(232, 93, 31, 0.38);
-    }
-
-    @media (max-width: 768px) {
-      .hide-mobile { display: none !important; }
-      .show-mobile { display: flex !important; }
-      .btn-primary, .btn-ghost { width: 100%; }
-      .nav-link { font-size: 0.92rem; }
-      .hero-content {
-        flex-direction: column;
-        justify-content: center;
-        gap: 24px;
-        padding: 72px 24px 56px;
-      }
-      .hero-heading-wrap {
-        align-items: center;
-        text-align: center;
-      }
-      .hero-avatar {
-        width: min(180px, 48vw);
-      }
-      .about {
-        min-height: auto;
-      }
-      .about-content {
-        padding: 64px 24px;
-      }
-      .about-falling-wrap::after {
-        top: 80%;
-      }
-      .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
-        margin-top: 42px;
-      }
-      .skills-poster {
-        transform: none !important;
-        box-shadow: none;
-      }
-      .languages-editorial {
-        margin-top: 46px;
-        max-width: 100%;
-        gap: 8px;
-      }
-      .language-line {
-        gap: 3px;
-        padding: 2px 0;
-      }
-      .language-bar-track {
-        max-width: 100%;
-      }
-      .floating-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-      .floating-card {
-        margin-top: 0 !important;
-      }
-    }
-    @media (min-width: 769px) {
-      .show-mobile { display: none !important; }
-    }
-  `;
-
+  /* ── Data ──────────────────────────────────────────────────────── */
   const experience = [
     {
       title: "Intern",
@@ -750,7 +762,6 @@ export default function Portfolio() {
     {
       key: "backend",
       title: "Systems & Backend",
-      emphasis: "strong",
       skills: [
         "Node.js",
         "Express.js",
@@ -763,13 +774,11 @@ export default function Portfolio() {
     {
       key: "databases",
       title: "Databases & Storage",
-      emphasis: "strong",
       skills: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Supabase"],
     },
     {
       key: "observability",
       title: "Observability & DevOps",
-      emphasis: "strong",
       skills: [
         "Docker",
         "Git",
@@ -785,7 +794,6 @@ export default function Portfolio() {
     {
       key: "frontend",
       title: "Frontend",
-      emphasis: "lite",
       skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
     },
   ] as const;
@@ -796,7 +804,6 @@ export default function Portfolio() {
     { name: "Telugu", level: "Intermediate", barWidth: "73%" },
     { name: "Kannada", level: "Intermediate", barWidth: "58%" },
     { name: "French", level: "Basic", barWidth: "32%" },
-    // { name: "Tamil", level: "Just Started", barWidth: "18%" },
   ] as const;
 
   const projects = [
@@ -805,7 +812,7 @@ export default function Portfolio() {
       emoji: "📚",
       description:
         "Research-grade pipeline for citation-grounded trust verification in academic text using NLP, reference extraction, and claim-to-source consistency checks.",
-      stack: ["NLP", "Reference Verification", "Python"],
+      stack: ["NLP", "Reference Verification", "Python"] as const,
       github: null,
     },
     {
@@ -813,7 +820,12 @@ export default function Portfolio() {
       emoji: "🛡️",
       description:
         "AI-driven reliability engineering platform with 6 FastAPI microservices, OpenTelemetry trace propagation, and chaos controls for failure injection.",
-      stack: ["FastAPI", "Prometheus/Grafana", "Kubernetes", "Next.js"],
+      stack: [
+        "FastAPI",
+        "Prometheus/Grafana",
+        "Kubernetes",
+        "Next.js",
+      ] as const,
       github: null,
     },
     {
@@ -821,7 +833,7 @@ export default function Portfolio() {
       emoji: "🎮",
       description:
         "Real-time multiplayer backend for a digital Scotland Yard board game. 200-node graph-based map, 6-team lobbies, turn-based asymmetric gameplay.",
-      stack: ["Node.js", "Express", "PostgreSQL", "Redis"],
+      stack: ["Node.js", "Express", "PostgreSQL", "Redis"] as const,
       github: "https://github.com/Ad1th/Gravitas-Backend-25-Complete",
       badge: "100+ Users",
     },
@@ -830,7 +842,7 @@ export default function Portfolio() {
       emoji: "👁️",
       description:
         "Edge integration and deployment of a spatio-temporal assistive device for the visually impaired. YOLOv8-seg and CNN-LSTM on Raspberry Pi 5 with LLM-powered audio narration.",
-      stack: ["Raspberry Pi", "YOLOv8", "CNN-LSTM", "Edge AI"],
+      stack: ["Raspberry Pi", "YOLOv8", "CNN-LSTM", "Edge AI"] as const,
       github: null,
     },
     {
@@ -838,7 +850,7 @@ export default function Portfolio() {
       emoji: "🧠",
       description:
         "SQL analytics workspace where users upload CSV files, run SQL commands, inspect detailed query plans, and explore operator-level execution graphs.",
-      stack: ["FastAPI", "React + TypeScript", "DuckDB", "ReactFlow"],
+      stack: ["FastAPI", "React + TypeScript", "DuckDB", "ReactFlow"] as const,
       github: null,
     },
     {
@@ -846,7 +858,7 @@ export default function Portfolio() {
       emoji: "🌊",
       description:
         "Adapted point-source oscillator circuitry for Oscillating Water Column energy harvesting with ACS712 current sensors and voltage dividers.",
-      stack: ["ACS712", "Power Electronics", "Signal Conditioning"],
+      stack: ["ACS712", "Power Electronics", "Signal Conditioning"] as const,
       github: null,
     },
     {
@@ -854,7 +866,7 @@ export default function Portfolio() {
       emoji: "⚡",
       description:
         "Power conditioning circuitry for buoy-based wave energy harvesting. Full-wave rectifier, DC-DC boost converter, MPPT algorithm, IoT telemetry via ESP8266.",
-      stack: ["Op-AMP 741", "Boost Converter", "Arduino", "ESP8266"],
+      stack: ["Op-AMP 741", "Boost Converter", "Arduino", "ESP8266"] as const,
       github: null,
     },
     {
@@ -862,7 +874,7 @@ export default function Portfolio() {
       emoji: "☁️",
       description:
         "Cloud storage platform inspired by Google Drive with secure uploads, structured folder organization, and AI-driven search and data insights.",
-      stack: ["PostgreSQL", "Express.js", "Vercel"],
+      stack: ["PostgreSQL", "Express.js", "Vercel"] as const,
       github: "https://github.com/Ad1th/file-mgmt",
     },
     {
@@ -870,7 +882,7 @@ export default function Portfolio() {
       emoji: "🌾",
       description:
         "Farm-to-labourer SMS application enabling direct communication between farmers and labourers, with crop data tailored to farm, soil type, and climate.",
-      stack: ["PostgreSQL/Supabase", "Gemini API", "Twilio SMS"],
+      stack: ["PostgreSQL/Supabase", "Gemini API", "Twilio SMS"] as const,
       github: null,
     },
     {
@@ -878,7 +890,7 @@ export default function Portfolio() {
       emoji: "🧩",
       description:
         "Productivity Chrome extension analyzing web usage and delivering personalized nudges. Saved users 36–48 minutes daily by reducing distractions.",
-      stack: ["React", "FastAPI", "Gemini API", "Chrome Extensions"],
+      stack: ["React", "FastAPI", "Gemini API", "Chrome Extensions"] as const,
       github: "https://github.com/Ad1th/3braincells_DevJams-24",
     },
     {
@@ -886,7 +898,7 @@ export default function Portfolio() {
       emoji: "💬",
       description:
         "Anonymous forum web app enabling users to post confessions, chat, and share thoughts freely, with Supabase real-time data handling.",
-      stack: ["HTML/CSS/JS", "PostgreSQL", "Supabase"],
+      stack: ["HTML/CSS/JS", "PostgreSQL", "Supabase"] as const,
       github: "https://github.com/Ad1th/EchoChamber",
     },
     {
@@ -894,7 +906,7 @@ export default function Portfolio() {
       emoji: "🤝",
       description:
         "Platform connecting NGOs, volunteers, and well-wishers to streamline child welfare initiatives with task management and dashboards.",
-      stack: ["Node.js", "Prisma + SQLite", "Tailwind CSS"],
+      stack: ["Node.js", "Prisma + SQLite", "Tailwind CSS"] as const,
       github: "https://github.com/Ad1th/SevaVerse",
     },
     {
@@ -902,7 +914,7 @@ export default function Portfolio() {
       emoji: "🌱",
       description:
         "Smart sustainability solutions for logistics and energy, built in a 2-day hackathon with Supabase backend and Python FastAPI.",
-      stack: ["Supabase", "FastAPI", "HTML/CSS/JS"],
+      stack: ["Supabase", "FastAPI", "HTML/CSS/JS"] as const,
       github: "https://github.com/Ad1th/OptiSync",
     },
     {
@@ -910,7 +922,7 @@ export default function Portfolio() {
       emoji: "🏥",
       description:
         "Lightweight clinic management system to digitize patient records, appointments, and doctor profiles with secure admin/doctor logins.",
-      stack: ["Python", "SQL/MySQL", "Tkinter"],
+      stack: ["Python", "SQL/MySQL", "Tkinter"] as const,
       github: "https://github.com/Ad1th/Hospitech--Hospital-Management-System",
     },
     {
@@ -918,7 +930,7 @@ export default function Portfolio() {
       emoji: "🐍",
       description:
         "Retro-style snake game with clean UI, menu screen, and dynamic difficulty. First project from grade 12.",
-      stack: ["Python", "Pygame"],
+      stack: ["Python", "Pygame"] as const,
       github: "https://github.com/Ad1th/Snek---Snake_Game",
     },
   ];
@@ -958,7 +970,7 @@ export default function Portfolio() {
       title: "Python Certification",
       year: "2025",
       description:
-        "Recieved a certification in Python programming from HackerRank.",
+        "Received a certification in Python programming from HackerRank.",
     },
     {
       title: "SQL Basic Skill Certification",
@@ -966,7 +978,7 @@ export default function Portfolio() {
       description: "Received a certification in SQL (Basic) from HackerRank.",
     },
     {
-      title: "SQL Intermeddiate Skill certification",
+      title: "SQL Intermediate Skill Certification",
       year: "2025",
       description:
         "Received a certification in SQL (Intermediate) from HackerRank.",
@@ -987,38 +999,38 @@ export default function Portfolio() {
 
   const hackathons = [
     {
-      name: "Women Techies'26 - Finalist - Top 10 Teams",
-      when: "March 2026 • VIT Vellore, India",
-      desc: "Reached finalist stage as a part of the top 10 teams at Women Techies'26 by building AetherQuery, a SQL analytics platform with CSV upload, SQL execution, and detailed query-plan visualization for interactive analysis.",
+      name: "Women Techies'26 — Finalist, Top 10 Teams",
+      when: "March 2026 · VIT Vellore",
+      desc: "Reached finalist stage as a part of the top 10 teams by building AetherQuery, a SQL analytics platform with CSV upload, SQL execution, and detailed query-plan visualization for interactive analysis.",
     },
     {
       name: "TechSolstice",
-      when: "March 2026 • MIT Bangalore, India",
+      when: "March 2026 · MIT Bangalore",
       desc: "Built archAIc, an AI-driven reliability engineering platform with microservices observability, chaos injection, and automated incident analysis workflows for resilient production-system testing.",
     },
     {
-      name: "Code 2 Create (C2C) - AI solutions Track Winner",
-      when: "September 2025 • VIT Vellore, India",
+      name: "Code 2 Create (C2C) — AI Track Winner",
+      when: "September 2025 · VIT Vellore",
       desc: "Built a blind assistance tool which uses image recognition to analyze surroundings and provide real-time feedback to visually impaired users via audio in their local dialect.",
     },
     {
       name: "Women Techies'25",
-      when: "April 2025 • VIT Vellore, India",
+      when: "April 2025 · VIT Vellore",
       desc: "Built SevaVerse at Women Techies'25 – a collaborative platform connecting NGOs, volunteers, and well-wishers to streamline child welfare initiatives.",
     },
     {
       name: "Yantra Central Hack",
-      when: "January 2025 • VIT Vellore, India",
+      when: "January 2025 · VIT Vellore",
       desc: "Built OptiSync at Yantra Central Hack – a sustainability platform tailored for the textile industry.",
     },
     {
       name: "DevJams",
-      when: "September 2024 • VIT Vellore, India",
-      desc: "Built Therddit at DevJams – a smart Chrome extension that uses the Gemini API to analyze browsing patterns and deliver AI-powered nudges.",
+      when: "September 2024 · VIT Vellore",
+      desc: "Built Threddit at DevJams – a smart Chrome extension that uses the Gemini API to analyze browsing patterns and deliver AI-powered nudges.",
     },
     {
-      name: "CodeWars",
-      when: "February 2024 • NPS KRM, Blr, India",
+      name: "CodeWars — 1st Place",
+      when: "February 2024 · NPS KRM, Bangalore",
       desc: "Won first place.",
     },
   ];
@@ -1056,9 +1068,7 @@ export default function Portfolio() {
     },
   ];
 
-  const projectImages: Partial<
-    Record<(typeof projects)[number]["name"], string>
-  > = {
+  const projectImages: Partial<Record<string, string>> = {
     "OWC Wave Energy Harvester": "/wave-energy-4.jpg",
     "Point Wave Energy Harvester": "/wave-energy-3.jpg",
     Cloudify: "/cloudify.png",
@@ -1070,104 +1080,328 @@ export default function Portfolio() {
     Snek: "/snek.png",
   };
 
-  const heroKickerItems = [
-    skillGroups[0].title,
-    experience[2].skills[0],
-    experience[2].skills[1],
-    experience[2].skills[2],
-  ];
-
-  const sectionReveal = {
-    initial: { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-100px" },
-    transition: { duration: 0.6, ease: "easeOut" },
-  } as const;
-
-  const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMoreMenuOpen(false);
-  };
-
   const dockItems = [
     {
-      icon: <Home size={18} />,
+      icon: <Home size={17} />,
       label: "Home",
       onClick: () => scrollToSection("hero"),
     },
     {
-      icon: <Info size={18} />,
+      icon: <Info size={17} />,
       label: "About",
       onClick: () => scrollToSection("about"),
     },
     {
-      icon: <FolderKanban size={18} />,
+      icon: <FolderKanban size={17} />,
       label: "Projects",
       onClick: () => scrollToSection("projects"),
     },
     {
-      icon: <Ellipsis size={18} />,
+      icon: <Ellipsis size={17} />,
       label: "More",
-      onClick: () => setMoreMenuOpen((current) => !current),
+      onClick: () => setMoreMenuOpen((v) => !v),
+      separator: true,
     },
   ];
 
   const moreItems = [
     {
-      label: "experience",
+      label: "Experience",
       href: "#experience",
-      ariaLabel: "Experience",
-      rotation: -6,
-      hoverStyles: { bgColor: "#E85D1F", textColor: "#F5F5F5" },
+      rotation: -5,
+      hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
     },
     {
-      label: "skills",
+      label: "Skills",
       href: "#skills",
-      ariaLabel: "Skills",
       rotation: 4,
-      hoverStyles: { bgColor: "#E85D1F", textColor: "#F5F5F5" },
+      hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
     },
     {
-      label: "patents",
+      label: "Patents",
       href: "#patents",
-      ariaLabel: "Patents",
-      rotation: 6,
-      hoverStyles: { bgColor: "#E85D1F", textColor: "#F5F5F5" },
-    },
-    {
-      label: "achievements",
-      href: "#achievements",
-      ariaLabel: "Achievements",
-      rotation: -4,
-      hoverStyles: { bgColor: "#E85D1F", textColor: "#F5F5F5" },
-    },
-    {
-      label: "contact",
-      href: "#contact",
-      ariaLabel: "Contact",
       rotation: 5,
-      hoverStyles: { bgColor: "#E85D1F", textColor: "#F5F5F5" },
+      hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
+    },
+    {
+      label: "Achievements",
+      href: "#achievements",
+      rotation: -4,
+      hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
+    },
+    {
+      label: "Contact",
+      href: "#contact",
+      rotation: 3,
+      hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
     },
   ];
 
+  const skillTicker = skillGroups.flatMap((g) => [g.title, ...g.skills]);
+
+  /* ══════════════════════════════════════════════════════════════════ */
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: css }} />
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+          background: #E8E6E1;
+          color: #111111;
+          font-family: 'DM Sans', system-ui, sans-serif;
+          -webkit-font-smoothing: antialiased;
+          padding-bottom: 96px;
+          cursor: auto;
+        }
+        h1,h2,h3,h4,h5,h6 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; }
+        a { color: inherit; text-decoration: none; }
+        ::selection { background: rgba(217,101,22,0.22); color: #111; }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(17,17,17,0.2); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+        :root {
+          --accent: #d96516;
+          --olive: #6f7b4b;
+          --olive-soft: #d8ddcf;
+          --bg-light: #E8E6E1;
+          --bg-dark: #0f0f0f;
+          --text-dark: #111111;
+          --text-light: #ebebeb;
+          --text-muted-dark: rgba(17,17,17,0.58);
+          --text-muted-light: rgba(235,235,235,0.55);
+          --border-dark: rgba(17,17,17,0.12);
+          --border-light: rgba(255,255,255,0.08);
+          --surface-dark: rgba(17,17,17,0.06);
+          --surface-light: rgba(255,255,255,0.05);
+        }
 
-      <nav
+        /* ─ Reveal ─ */
+        .reveal-on-scroll {
+          opacity: 0; transform: translateY(22px);
+          transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal-on-scroll.revealed { opacity: 1; transform: none; }
+        .delay-1 { transition-delay: 0.08s !important; }
+        .delay-2 { transition-delay: 0.16s !important; }
+        .delay-3 { transition-delay: 0.26s !important; }
+        .delay-4 { transition-delay: 0.38s !important; }
+
+        /* ─ Nav ─ */
+        .nav-pill {
+          font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+          text-transform: uppercase; color: rgba(17,17,17,0.52);
+          padding: 6px 14px; border-radius: 999px;
+          border: 1px solid transparent;
+          transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+        }
+        .nav-pill:hover {
+          color: #111; border-color: rgba(17,17,17,0.15);
+          background: rgba(111,123,75,0.14);
+        }
+
+        /* ─ Buttons ─ */
+        .btn-primary {
+          display: inline-flex; align-items: center; gap: 8px;
+          min-height: 48px; padding: 0 28px;
+          background: #111111; color: #ebebeb;
+          font-weight: 600; font-size: 0.84rem; letter-spacing: 0.04em;
+          border-radius: 999px; border: 1px solid rgba(17,17,17,0.2);
+          transition: background 0.2s ease, transform 0.15s ease;
+          cursor: pointer;
+        }
+        .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+        .btn-ghost {
+          display: inline-flex; align-items: center; gap: 8px;
+          min-height: 48px; padding: 0 28px;
+          background: transparent; color: #111111;
+          font-weight: 500; font-size: 0.84rem; letter-spacing: 0.03em;
+          border-radius: 999px; border: 1px solid rgba(17,17,17,0.2);
+          transition: border-color 0.2s ease, background 0.2s ease;
+          cursor: pointer;
+        }
+        .btn-ghost:hover { border-color: var(--accent); background: rgba(217,101,22,0.06); }
+
+        /* ─ Skills grid ─ */
+        .skills-bento {
+          display: grid;
+          grid-template-columns: 1.3fr 0.7fr 1fr;
+          grid-template-rows: auto auto;
+          gap: 14px;
+          margin-top: 56px;
+        }
+        .skill-tile {
+          border-radius: 10px; padding: 22px 24px;
+          border: 1px solid rgba(17,17,17,0.14);
+          transition: border-color 0.2s ease;
+        }
+        .skill-tile:hover { border-color: rgba(217,101,22,0.28); }
+        .skill-tile-title {
+          font-size: 0.65rem; font-weight: 800; letter-spacing: 0.16em;
+          text-transform: uppercase; margin-bottom: 16px; line-height: 1;
+        }
+        .skill-item {
+          display: flex; align-items: center; gap: 8px;
+          font-size: 0.88rem; line-height: 1.5; padding: 3px 0;
+          font-weight: 450;
+        }
+        .skill-dot { width: 5px; height: 5px; border-radius: 1px; flex-shrink: 0; }
+
+        /* ─ Hackathon row ─ */
+        .hack-row {
+          display: grid; grid-template-columns: 180px 1fr; gap: 0;
+          border-bottom: 1px solid rgba(17,17,17,0.1);
+          padding: 22px 0; align-items: start;
+          transition: background 0.2s ease;
+        }
+        .hack-row:hover { background: rgba(17,17,17,0.025); margin: 0 -24px; padding-left: 24px; padding-right: 24px; }
+        .hack-row:first-child { border-top: 1px solid rgba(17,17,17,0.1); }
+
+        /* ─ Contact ─ */
+        .social-link {
+          display: inline-flex; align-items: center; gap: 6px;
+          font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em;
+          color: rgba(235,235,235,0.55);
+          transition: color 0.18s ease;
+          cursor: pointer;
+        }
+        .social-link:hover { color: var(--accent); }
+
+        /* ─ Section divider ─ */
+        .section-wrap {
+          max-width: 1120px; margin: 0 auto;
+          padding: clamp(72px,10vw,120px) clamp(24px,5vw,56px);
+          position: relative; z-index: 0;
+        }
+        .bg-light::before {
+          content: ''; position: absolute;
+          inset: 0; left: calc(-50vw + 50%); right: calc(-50vw + 50%);
+          background: var(--bg-light); z-index: -1;
+        }
+        .bg-offwhite::before {
+          content: ''; position: absolute;
+          inset: 0; left: calc(-50vw + 50%); right: calc(-50vw + 50%);
+          background: #f0ede8; z-index: -1;
+        }
+        .bg-dark::before {
+          content: ''; position: absolute;
+          inset: 0; left: calc(-50vw + 50%); right: calc(-50vw + 50%);
+          background: var(--bg-dark); z-index: -1;
+        }
+        .bg-darker::before {
+          content: ''; position: absolute;
+          inset: 0; left: calc(-50vw + 50%); right: calc(-50vw + 50%);
+          background: #080808; z-index: -1;
+        }
+
+        /* ─ Language bars ─ */
+        .lang-bar { height: 2px; background: rgba(17,17,17,0.1); border-radius: 1px; overflow: hidden; margin-top: 4px; }
+        .lang-fill { height: 100%; background: var(--accent); border-radius: 1px; }
+
+        /* ─ About falling text ─ */
+        .about-falling-wrap { touch-action: pan-y; }
+
+        /* ─ Card-driven transition ─ */
+        .avatar-card-shell {
+          perspective: 1400px;
+          transform-style: preserve-3d;
+        }
+        .avatar-card-core {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 1 / 1;
+          transform-style: preserve-3d;
+          border-radius: 18px;
+          overflow: hidden;
+          border: 1px solid rgba(17,17,17,0.16);
+          box-shadow: 0 20px 36px rgba(17,17,17,0.12);
+          background: #f1eee9;
+        }
+        .avatar-card-face {
+          position: absolute;
+          inset: 0;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+        .avatar-card-face--back {
+          transform: rotateY(180deg);
+          display: flex;
+          align-items: flex-end;
+          justify-content: flex-start;
+          padding: clamp(18px, 3vw, 28px);
+          background: #111111;
+          color: #ece8df;
+          line-height: 1.22;
+          letter-spacing: -0.02em;
+          font-family: 'DM Serif Display', Georgia, serif;
+          font-size: clamp(1.2rem, 2.1vw, 1.9rem);
+        }
+
+        /* ─ Skills stacked sections ─ */
+        .skills-stack {
+          margin-top: 56px;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          gap: 42px;
+          padding-bottom: 12px;
+        }
+        .skills-stack-panel {
+          position: sticky;
+          top: 92px;
+          border-radius: 12px;
+          border: 1px solid rgba(17,17,17,0.14);
+          padding: 24px 26px;
+          box-shadow: 0 14px 30px rgba(17,17,17,0.08);
+          transition: transform 0.25s ease, opacity 0.25s ease;
+          min-height: 180px;
+        }
+        .skills-stack-panel:nth-child(1) { z-index: 4; }
+        .skills-stack-panel:nth-child(2) { z-index: 3; }
+        .skills-stack-panel:nth-child(3) { z-index: 2; }
+        .skills-stack-panel:nth-child(4) { z-index: 1; }
+
+        @media (max-width: 768px) {
+          .skills-bento { grid-template-columns: 1fr; }
+          .hack-row { grid-template-columns: 1fr; gap: 6px; }
+          .skills-stack { gap: 16px; }
+          .skills-stack-panel {
+            position: relative;
+            top: auto;
+            min-height: auto;
+          }
+        }
+      `,
+        }}
+      />
+
+      {showLoader && <Loader onDone={() => setShowLoader(false)} />}
+
+      {/* ════════ NAV ════════ */}
+      <motion.nav
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         style={{
-          position: "relative",
-          zIndex: 50,
-          background: "var(--bg-primary)",
-          borderBottom: "1px solid rgba(17, 17, 17, 0.12)",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 60,
+          background: "rgba(232,230,225,0.88)",
+          backdropFilter: "blur(14px) saturate(1.4)",
+          WebkitBackdropFilter: "blur(14px) saturate(1.4)",
+          borderBottom: "1px solid rgba(17,17,17,0.08)",
         }}
       >
         <div
           style={{
-            maxWidth: "1200px",
+            maxWidth: 1120,
             margin: "0 auto",
-            padding: "0 24px",
-            height: "60px",
+            padding: "0 clamp(24px,5vw,56px)",
+            height: 58,
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -1177,472 +1411,544 @@ export default function Portfolio() {
             href="#hero"
             style={{
               fontFamily: "'DM Serif Display', Georgia, serif",
-              fontSize: "1.2rem",
-              color: "var(--text)",
-              textDecoration: "none",
+              fontSize: "1.18rem",
+              color: "#111",
               letterSpacing: "0.01em",
             }}
           >
             Adith<span style={{ color: "var(--accent)" }}>.</span>
           </Link>
-
-          <div
-            className="hide-mobile"
-            style={{ display: "flex", gap: "28px", alignItems: "center" }}
-          >
-            {navLinks.map((item) => (
-              <a key={item} href={`#${item}`} className="nav-link">
+          <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+            {["about", "experience", "projects", "contact"].map((item) => (
+              <a key={item} href={`#${item}`} className="nav-pill">
                 {item}
               </a>
             ))}
           </div>
+        </div>
+      </motion.nav>
 
-          <button
-            className="show-mobile"
-            onClick={() => setMobileOpen((value) => !value)}
+      {/* ════════ HERO ════════ */}
+      <motion.section
+        id="hero"
+        ref={heroRef}
+        style={{
+          opacity: showLoader ? 0 : 1,
+          minHeight: "100svh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: heroBgTone,
+          backgroundImage:
+            "linear-gradient(rgba(17,17,17,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(17,17,17,0.04) 1px, transparent 1px)",
+          backgroundSize: "68px 68px",
+          paddingTop: 58,
+          position: "relative",
+          overflow: "hidden",
+        }}
+        animate={{ opacity: showLoader ? 0 : 1 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <motion.div
+          style={{ y: heroY, opacity: heroOpacity }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.1 }}
+        >
+          <div
             style={{
-              background: "none",
-              border: "none",
-              color: "var(--text)",
-              cursor: "pointer",
-              padding: "4px",
+              maxWidth: 1120,
+              width: "100%",
+              padding: "0 clamp(24px,5vw,56px)",
+              display: "flex",
+              alignItems: "center",
+              gap: "clamp(40px,8vw,100px)",
+              position: "relative",
+              zIndex: 1,
             }}
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+            {/* Text */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  fontSize: "0.67rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "rgba(111,123,75,0.82)",
+                  marginBottom: 28,
+                }}
+              >
+                <span
+                  style={{
+                    width: 24,
+                    height: 1.5,
+                    background: "var(--olive)",
+                    display: "inline-block",
+                    borderRadius: 1,
+                  }}
+                />
+                VIT Vellore · CSE (Information Security)
+              </motion.div>
+
+              <h1
+                style={{
+                  fontFamily: "'DM Serif Display', Georgia, serif",
+                  fontSize: "clamp(3.6rem, 8.5vw, 7.2rem)",
+                  fontWeight: 400,
+                  lineHeight: 1.0,
+                  letterSpacing: "-0.04em",
+                  color: "#111",
+                  overflow: "hidden",
+                }}
+              >
+                <SplitReveal
+                  text="Hey, I'm"
+                  delay={0.2}
+                  style={{ display: "block", color: "rgba(17,17,17,0.78)" }}
+                />
+                <SplitReveal
+                  text="Adith."
+                  delay={0.28}
+                  style={{ display: "block", color: "var(--accent)" }}
+                />
+              </h1>
+            </div>
+
+            {/* Avatar */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.88, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{
+                duration: 1.1,
+                delay: 0.35,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              style={{
+                flexShrink: 0,
+                width: "min(260px,30vw)",
+                position: "relative",
+                x: cardShiftX,
+                rotate: cardRotate,
+                scale: cardScale,
+              }}
+            >
+              <motion.div className="avatar-card-shell">
+                <motion.div
+                  className="avatar-card-core"
+                  style={{ rotateY: cardFlipY }}
+                >
+                  <div className="avatar-card-face avatar-card-face--front">
+                    <Image
+                      src="/profile.png"
+                      alt="Adith avatar"
+                      width={420}
+                      height={420}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        filter: "saturate(0.9) contrast(1.02)",
+                      }}
+                      priority
+                    />
+                  </div>
+                  <div className="avatar-card-face avatar-card-face--back">
+                    I like building things, breaking them, then fixing them
+                    again.
+                  </div>
+                </motion.div>
+              </motion.div>
+
+              <div
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  inset: "-18%",
+                  zIndex: -1,
+                  background:
+                    "radial-gradient(ellipse at center, rgba(111,123,75,0.22) 0%, rgba(111,123,75,0) 72%)",
+                }}
+              />
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Scroll nudge */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.6 }}
+          style={{
+            position: "absolute",
+            bottom: 36,
+            left: "50%",
+            transform: "translateX(-50%)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 8,
+            zIndex: 1,
+          }}
+        >
+          <span
+            style={{
+              fontSize: "0.62rem",
+              fontWeight: 700,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: "rgba(17,17,17,0.36)",
+            }}
+          >
+            scroll
+          </span>
+          <motion.div
+            animate={{ y: [0, 7, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            style={{
+              width: 1,
+              height: 40,
+              background: "rgba(217,101,22,0.58)",
+            }}
+          />
+        </motion.div>
+      </motion.section>
+
+      {/* ─ Marquee ─ */}
+      <div
+        style={{ background: "#111", padding: "14px 0", overflow: "hidden" }}
+      >
+        <Marquee items={skillTicker} speed={28} />
+      </div>
+
+      {/* ════════ ABOUT ════════ */}
+      <section
+        id="about"
+        className="section-wrap bg-dark"
+        ref={aboutSectionRef as React.RefObject<HTMLElement>}
+        style={{ color: "var(--text-light)" }}
+      >
+        <SectionLabel>About</SectionLabel>
+
+        <div
+          className="about-falling-wrap reveal-on-scroll"
+          style={{ marginBottom: 0 }}
+        >
+          <FallingText
+            className="about-falling"
+            text="I like building things, breaking them, then fixing them again."
+            trigger="scroll"
+            gravity={0.46}
+            mouseConstraintStiffness={0.2}
+            fontSize="clamp(1.9rem, 3.8vw, 2.9rem)"
+            floorRatio={0.78}
+            maxDropDistance={110}
+            showFloorLine={false}
+            style={{
+              fontFamily: "'DM Serif Display', Georgia, serif",
+              color: "var(--text-light)",
+              minHeight: "clamp(190px,22vw,260px)",
+            }}
+          />
+          {/* Single orange rule — only one */}
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: "78%",
+              height: 2,
+              background: "rgba(217,101,22,0.6)",
+              pointerEvents: "none",
+              zIndex: 2,
+            }}
+          />
         </div>
 
-        {mobileOpen && (
-          <div
-            style={{
-              background: "var(--surface)",
-              borderTop: "1px solid var(--border-color)",
-              padding: "20px 24px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "16px",
-            }}
-          >
-            {navLinks.map((item) => (
-              <a
-                key={item}
-                href={`#${item}`}
-                className="nav-link"
-                onClick={() => setMobileOpen(false)}
-                style={{ fontSize: "0.95rem" }}
-              >
-                {item}
-              </a>
-            ))}
-          </div>
-        )}
-      </nav>
+        <motion.div
+          style={{
+            marginTop: 64,
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px,1fr))",
+            gap: 32,
+            maxWidth: 880,
+            opacity: aboutIntroOpacity,
+            x: aboutIntroX,
+          }}
+        >
+          {[
+            {
+              text: "I'm a CSE student who enjoys backend-heavy projects that feel real: multiplayer games with actual users, AI tools that do something useful, anonymous forums, productivity extensions, and apps that bridge gaps outside the screen.",
+              italic: false,
+            },
+            {
+              text: "Sometimes I dip into hardware — running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. When physics fights back, your software design improves fast.",
+              italic: false,
+            },
+            {
+              text: "Mostly, I care about shipping systems that run, scale, and survive real usage. Buzzwords don't interest me much, but behaviour does.",
+              italic: true,
+            },
+          ].map((para, i) => (
+            <p
+              key={i}
+              className="reveal-on-scroll"
+              style={{
+                fontSize: "0.96rem",
+                lineHeight: 1.8,
+                fontStyle: para.italic ? "italic" : "normal",
+                color:
+                  i === 2 ? "rgba(235,235,235,0.45)" : "rgba(235,235,235,0.72)",
+                transitionDelay: `${i * 0.1}s`,
+              }}
+            >
+              {para.text}
+            </p>
+          ))}
+        </motion.div>
+      </section>
 
-      <section id="hero" className="hero">
-        <div className="hero-content">
-          <motion.div
-            className="hero-heading-wrap"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <div className="hero-kicker">
-              {heroKickerItems.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </div>
-            <motion.h1 className="heading">Hey, I&apos;m Adith</motion.h1>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
-          >
-            <Image
-              src="/robot-avatar.svg"
-              alt="Robot avatar"
-              width={320}
-              height={320}
-              className="hero-avatar"
-              priority
-            />
-          </motion.div>
+      {/* ════════ EXPERIENCE ════════ */}
+      <section id="experience" className="section-wrap bg-offwhite">
+        <SectionLabel>Experience</SectionLabel>
+        <SectionTitle>Where I've worked</SectionTitle>
+
+        <div style={{ marginTop: 56, maxWidth: 700 }}>
+          {experience.map((job, i) => (
+            <ExperienceCard key={i} job={job} index={i} />
+          ))}
         </div>
       </section>
 
-      <motion.section
-        id="about"
-        className="about"
-        ref={aboutTriggerRef}
-        {...sectionReveal}
-      >
-        <div className="about-content">
-          <div className="fade-in" style={{ maxWidth: "680px" }}>
-            <SectionLabel>About</SectionLabel>
-            <div className="about-falling-wrap">
-              <FallingText
-                className="about-falling"
-                text="I like building things, breaking them, then fixing them again."
-                trigger="auto"
-                activated={aboutFallActive}
-                gravity={0.4}
-                mouseConstraintStiffness={0.2}
-                fontSize="clamp(2rem, 4vw, 3rem)"
-                floorRatio={0.76}
-                maxDropDistance={120}
-              />
-            </div>
-          </div>
-          <div
-            className="fade-in"
+      {/* ════════ SKILLS ════════ */}
+      <section id="skills" className="section-wrap bg-light">
+        <SectionLabel>Skills</SectionLabel>
+        <SectionTitle>What I work with</SectionTitle>
+
+        <div className="skills-stack">
+          {[
+            {
+              key: "backend",
+              index: 0,
+              bg: "#E8E6E1",
+              titleColor: "#333",
+              bodyColor: "#222",
+            },
+            {
+              key: "databases",
+              index: 1,
+              bg: "rgba(217,101,22,0.12)",
+              titleColor: "#222",
+              bodyColor: "#222",
+            },
+            {
+              key: "frontend",
+              index: 3,
+              bg: "#f0ede8",
+              titleColor: "#555",
+              bodyColor: "#444",
+            },
+            {
+              key: "observability",
+              index: 2,
+              bg: "var(--accent)",
+              titleColor: "rgba(255,243,234,0.85)",
+              bodyColor: "#fff3ea",
+            },
+          ].map((group, idx) => (
+            <motion.div
+              key={group.key}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.52, delay: idx * 0.08 }}
+              className="skills-stack-panel"
+              style={{
+                background: group.bg,
+                transform: `translateY(${idx * -2}px)`,
+                opacity: 1 - idx * 0.04,
+              }}
+            >
+              <p
+                className="skill-tile-title"
+                style={{ color: group.titleColor }}
+              >
+                {skillGroups[group.index].title}
+              </p>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))",
+                  gap: "4px 20px",
+                }}
+              >
+                {skillGroups[group.index].skills.map((s) => (
+                  <div
+                    key={s}
+                    className="skill-item"
+                    style={{
+                      color: group.bodyColor,
+                      fontSize:
+                        group.key === "frontend" ? "0.82rem" : "0.88rem",
+                    }}
+                  >
+                    <span
+                      className="skill-dot"
+                      style={{
+                        background:
+                          group.key === "observability"
+                            ? "rgba(255,243,234,0.78)"
+                            : "var(--accent)",
+                        borderRadius: group.key === "backend" ? 1 : "50%",
+                        width: group.key === "observability" ? 10 : 5,
+                        height: group.key === "observability" ? 2 : 5,
+                      }}
+                    />
+                    {s}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Languages */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          style={{ marginTop: 72, maxWidth: 520 }}
+        >
+          <p
             style={{
-              marginTop: "40px",
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "32px",
-              maxWidth: "900px",
+              fontSize: "0.65rem",
+              fontWeight: 800,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "var(--accent)",
+              marginBottom: 20,
             }}
           >
-            {[
-              "I'm a CSE student who enjoys backend-heavy projects that feel real: multiplayer games with actual users, AI tools that do something useful, anonymous forums, productivity extensions, and apps that bridge gaps outside the screen (like farmers texting labourers directly).",
-              "Sometimes I dip into hardware to keep myself honest, running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. Turns out when latency, power limits, and physics fight back, your software design improves fast.",
-              "Mostly, I care about shipping systems that run, scale, and survive real usage. Buzzwords don't interest me much, but behaviour does.",
-            ].map((para, index) => (
-              <p
-                key={index}
-                style={{
-                  fontSize: "0.98rem",
-                  color: index === 2 ? "var(--muted-text)" : "var(--text)",
-                  lineHeight: 1.82,
-                  fontStyle: index === 2 ? "italic" : "normal",
-                }}
-              >
-                {para}
-              </p>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      <motion.section
-        id="experience"
-        className="section section-silver"
-        {...sectionReveal}
-      >
-        <div className="fade-in">
-          <SectionLabel>Experience</SectionLabel>
-          <SectionTitle>Where I've worked</SectionTitle>
-        </div>
-        <div
-          style={{
-            marginTop: "48px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "16px",
-          }}
-        >
-          {experience.map((job, index) => (
+            Languages spoken
+          </p>
+          {languages.map((lang, i) => (
             <div
-              key={index}
-              className="card fade-in"
+              key={lang.name}
               style={{
-                padding: "28px 32px",
-                background: experienceColors.cardBg,
-                border: `1px solid ${experienceColors.cardBorder}`,
+                display: "flex",
+                flexDirection: "column",
+                gap: 4,
+                padding: "8px 0",
+                borderBottom:
+                  i < languages.length - 1
+                    ? "1px solid rgba(17,17,17,0.08)"
+                    : "none",
               }}
             >
               <div
                 style={{
                   display: "flex",
-                  flexWrap: "wrap",
                   justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: "12px",
-                  marginBottom: job.description ? "12px" : "0",
+                  alignItems: "baseline",
                 }}
               >
-                <div>
-                  <h3
-                    style={{
-                      fontSize: "1.1rem",
-                      fontWeight: 600,
-                      color: experienceColors.heading,
-                      marginBottom: "4px",
-                    }}
-                  >
-                    {job.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: "0.9rem",
-                      color: experienceColors.secondary,
-                      fontWeight: 500,
-                    }}
-                  >
-                    {job.company}
-                  </p>
-                </div>
                 <span
-                  style={{
-                    fontSize: "0.78rem",
-                    color: experienceColors.tertiary,
-                    background: experienceColors.badgeBg,
-                    border: `1px solid ${experienceColors.badgeBorder}`,
-                    borderRadius: "999px",
-                    padding: "4px 12px",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {job.period}
-                </span>
-              </div>
-              {job.description && (
-                <p
                   style={{
                     fontSize: "0.88rem",
-                    color: experienceColors.secondary,
-                    lineHeight: 1.65,
-                    marginBottom: "12px",
+                    fontWeight: 500,
+                    color: "#111",
                   }}
                 >
-                  {job.description}
-                </p>
-              )}
-              {job.skills.length > 0 && (
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                  {job.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        padding: "4px 11px",
-                        fontSize: "0.72rem",
-                        fontWeight: 600,
-                        letterSpacing: "0.03em",
-                        borderRadius: "999px",
-                        background: experienceColors.tagBg,
-                        border: `1px solid ${experienceColors.tagBorder}`,
-                        color: experienceColors.tertiary,
-                      }}
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.section
-        id="skills"
-        className="section section-white"
-        {...sectionReveal}
-      >
-        <div className="fade-in">
-          <SectionLabel>Skills</SectionLabel>
-          <SectionTitle>What I work with</SectionTitle>
-        </div>
-        <div className="skills-grid">
-          {skillGroups.map((group, index) => (
-            <div
-              key={index}
-              className={`skills-poster skills-poster--${group.key} fade-in`}
-              style={{
-                gridColumn:
-                  index === 0
-                    ? "1 / span 2"
-                    : index === 1
-                      ? "3 / span 1"
-                      : index === 2
-                        ? "2 / span 2"
-                        : "1 / span 1",
-                marginTop:
-                  index === 1
-                    ? "14px"
-                    : index === 2
-                      ? "8px"
-                      : index === 3
-                        ? "-18px"
-                        : "0px",
-              }}
-            >
-              <h3 className="skills-poster-title">{group.title}</h3>
-              <ul className="skills-list">
-                {group.skills.map((skill) => (
-                  <li key={skill} className="skills-item">
-                    <span className="skills-dot" />
-                    <span>{skill}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className="languages-editorial fade-in">
-          <h3 className="languages-heading">Languages</h3>
-          {languages.map((lang) => (
-            <div key={lang.name} className="language-line">
-              <p className="language-label">
-                <span>{lang.name}</span>
-                <span className="language-sep">-</span>
-                <span className="language-proficiency">{lang.level}</span>
-              </p>
-              <span className="language-bar-track" aria-hidden="true">
+                  {lang.name}
+                </span>
                 <span
-                  className="language-bar-fill"
-                  style={{ width: lang.barWidth }}
-                />
-              </span>
-            </div>
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.section
-        id="projects"
-        className="section section-silver"
-        {...sectionReveal}
-      >
-        <div className="fade-in">
-          <SectionLabel>Projects</SectionLabel>
-          <SectionTitle>Built and shipped</SectionTitle>
-        </div>
-        <div
-          style={{
-            marginTop: "48px",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(290px, 1fr))",
-            gap: "16px",
-          }}
-        >
-          {projects.map((project) => {
-            const imageSrc = projectImages[project.name];
-            return (
-              <div
-                key={project.name}
-                className="card fade-in"
-                style={{
-                  padding: "0",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  minHeight: "360px",
-                }}
-              >
-                {imageSrc && (
-                  <Image
-                    src={imageSrc}
-                    alt={project.name}
-                    width={720}
-                    height={420}
-                    style={{
-                      width: "100%",
-                      height: "180px",
-                      objectFit: "cover",
-                      borderBottom: "1px solid var(--border-color)",
-                    }}
-                  />
-                )}
-                <div
                   style={{
-                    padding: "20px 22px 22px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "12px",
-                    flex: 1,
+                    fontSize: "0.62rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "rgba(17,17,17,0.4)",
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "flex-start",
-                      gap: "10px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                      }}
-                    >
-                      <span style={{ fontSize: "1.1rem" }}>
-                        {project.emoji}
-                      </span>
-                      <h3
-                        style={{
-                          fontSize: "0.98rem",
-                          fontWeight: 600,
-                          color: "var(--text)",
-                        }}
-                      >
-                        {project.name}
-                      </h3>
-                    </div>
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="social-icon"
-                        aria-label={`GitHub - ${project.name}`}
-                      >
-                        <Github size={16} />
-                      </a>
-                    )}
-                  </div>
-
-                  <p
-                    style={{
-                      fontSize: "0.85rem",
-                      color: "var(--muted-text)",
-                      lineHeight: 1.65,
-                      flex: 1,
-                    }}
-                  >
-                    {project.description}
-                  </p>
-
-                  <div
-                    style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}
-                  >
-                    {project.stack.map((item) => (
-                      <Tag key={item} label={item} />
-                    ))}
-                  </div>
-                </div>
+                  {lang.level}
+                </span>
               </div>
-            );
-          })}
-        </div>
-      </motion.section>
+              <div className="lang-bar">
+                <motion.div
+                  className="lang-fill"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: lang.barWidth }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.8,
+                    delay: i * 0.06,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </section>
 
-      <motion.section
-        id="patents"
-        className="section section-white"
-        {...sectionReveal}
+      {/* ════════ PROJECTS ════════ */}
+      <section
+        id="projects"
+        className="section-wrap bg-darker"
+        style={{ color: "var(--text-light)" }}
       >
-        <div className="fade-in">
-          <SectionLabel>Patents</SectionLabel>
-          <SectionTitle>Intellectual property</SectionTitle>
-        </div>
+        <SectionLabel>Projects</SectionLabel>
+        <SectionTitle style={{ color: "var(--text-light)" }}>
+          Built and shipped
+        </SectionTitle>
+
         <div
           style={{
-            marginTop: "48px",
+            marginTop: 56,
             display: "grid",
-            gap: "16px",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px,1fr))",
+            gap: 14,
           }}
         >
-          {patents.map((patent) => (
-            <div
-              key={`${patent.title}-${patent.status}`}
-              className="card fade-in"
-              style={{ padding: "26px 28px" }}
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.name}
+              project={project}
+              imageSrc={projectImages[project.name]}
+              dark
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* ════════ PATENTS ════════ */}
+      <section id="patents" className="section-wrap bg-offwhite">
+        <SectionLabel>Patents</SectionLabel>
+        <SectionTitle>Intellectual property</SectionTitle>
+
+        <div style={{ marginTop: 52, display: "grid", gap: 14 }}>
+          {patents.map((patent, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: i * 0.1 }}
+              style={{
+                background: "#f8f5f0",
+                border: "1px solid rgba(17,17,17,0.1)",
+                borderRadius: 12,
+                padding: "28px 32px",
+                transition: "border-color 0.2s ease",
+              }}
             >
               <div
                 style={{
@@ -1650,16 +1956,16 @@ export default function Portfolio() {
                   flexWrap: "wrap",
                   justifyContent: "space-between",
                   alignItems: "flex-start",
-                  gap: "12px",
-                  marginBottom: "14px",
+                  gap: 12,
+                  marginBottom: 16,
                 }}
               >
                 <h3
                   style={{
-                    fontSize: "1.05rem",
+                    fontSize: "1rem",
                     fontWeight: 600,
-                    color: "var(--text)",
-                    lineHeight: 1.4,
+                    color: "#111",
+                    lineHeight: 1.45,
                     maxWidth: "52rem",
                   }}
                 >
@@ -1667,258 +1973,251 @@ export default function Portfolio() {
                 </h3>
                 <span
                   style={{
-                    fontSize: "0.78rem",
-                    color: "var(--text-dark)",
-                    background: "rgba(232, 93, 31, 0.18)",
-                    border: "1px solid rgba(17, 17, 17, 0.2)",
-                    borderRadius: "999px",
+                    fontSize: "0.7rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
                     padding: "4px 12px",
+                    borderRadius: 999,
+                    background: "rgba(217,101,22,0.15)",
+                    color: "var(--accent)",
+                    border: "1px solid rgba(217,101,22,0.22)",
                     whiteSpace: "nowrap",
                   }}
                 >
                   {patent.status}
                 </span>
               </div>
-              {(patent.appNo || patent.filed || patent.published) && (
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "8px",
-                    marginBottom: "14px",
-                  }}
-                >
-                  {patent.appNo && (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 8,
+                  marginBottom: 14,
+                }}
+              >
+                {[
+                  patent.appNo && `App: ${patent.appNo}`,
+                  patent.filed && `Filed: ${patent.filed}`,
+                  (patent as any).published &&
+                    `Published: ${(patent as any).published}`,
+                ]
+                  .filter(Boolean)
+                  .map((item) => (
                     <span
+                      key={item as string}
                       style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        border: "1px solid rgba(17, 17, 17, 0.2)",
-                        background: "rgba(232, 93, 31, 0.12)",
-                        borderRadius: "999px",
-                        padding: "4px 12px",
-                        fontSize: "0.88rem",
-                        color: "var(--text-dark)",
+                        fontSize: "0.75rem",
+                        padding: "3px 10px",
+                        borderRadius: 4,
+                        background: "rgba(17,17,17,0.05)",
+                        border: "1px solid rgba(17,17,17,0.1)",
+                        color: "#444",
                       }}
                     >
-                      App No: {patent.appNo}
+                      {item}
                     </span>
-                  )}
-                  {patent.filed && (
-                    <span
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        border: "1px solid rgba(17, 17, 17, 0.2)",
-                        background: "rgba(232, 93, 31, 0.12)",
-                        borderRadius: "999px",
-                        padding: "4px 12px",
-                        fontSize: "0.88rem",
-                        color: "var(--text-dark)",
-                      }}
-                    >
-                      Filed: {patent.filed}
-                    </span>
-                  )}
-                  {patent.published && (
-                    <span
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        border: "1px solid rgba(17, 17, 17, 0.2)",
-                        background: "rgba(232, 93, 31, 0.12)",
-                        borderRadius: "999px",
-                        padding: "4px 12px",
-                        fontSize: "0.88rem",
-                        color: "var(--text-dark)",
-                      }}
-                    >
-                      Published: {patent.published}
-                    </span>
-                  )}
-                </div>
-              )}
+                  ))}
+              </div>
               <p
                 style={{
-                  fontSize: "0.9rem",
-                  color: "var(--muted-text)",
-                  lineHeight: 1.7,
+                  fontSize: "0.88rem",
+                  color: "rgba(17,17,17,0.58)",
+                  lineHeight: 1.72,
                 }}
               >
                 {patent.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section
+      {/* ════════ ACHIEVEMENTS ════════ */}
+      <section
         id="achievements"
-        className="section section-dark"
-        {...sectionReveal}
+        className="section-wrap bg-dark"
+        style={{ color: "var(--text-light)" }}
       >
-        <div className="fade-in">
-          <SectionLabel>Achievements</SectionLabel>
-          <SectionTitle>Certifications &amp; awards</SectionTitle>
-        </div>
+        <SectionLabel>Achievements</SectionLabel>
+        <SectionTitle style={{ color: "var(--text-light)" }}>
+          Certifications & awards
+        </SectionTitle>
+
         <div
           style={{
-            marginTop: "48px",
+            marginTop: 52,
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: "16px",
+            gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))",
+            gap: 12,
           }}
         >
-          {achievements.map((achievement, index) => (
-            <div
-              key={index}
-              className="card fade-in"
-              style={{ padding: "24px 26px", display: "flex", gap: "16px" }}
+          {achievements.map((a, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: (i % 3) * 0.07 }}
+              style={{
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.07)",
+                borderRadius: 10,
+                padding: "22px 24px",
+                display: "flex",
+                gap: 16,
+                alignItems: "flex-start",
+                transition: "border-color 0.2s ease",
+              }}
+              whileHover={{ borderColor: "rgba(217,101,22,0.28)" }}
             >
               <div
                 style={{
                   flexShrink: 0,
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "8px",
-                  background: "rgba(255,122,31,0.1)",
-                  border: "1px solid rgba(255,122,31,0.2)",
+                  width: 34,
+                  height: 34,
+                  borderRadius: 8,
+                  background: "rgba(217,101,22,0.12)",
+                  border: "1px solid rgba(217,101,22,0.2)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
               >
-                <Award size={18} style={{ color: "var(--accent)" }} />
+                <Award size={16} style={{ color: "var(--accent)" }} />
+              </div>
+              <div>
+                <p
+                  style={{
+                    fontSize: "0.7rem",
+                    color: "var(--accent)",
+                    fontWeight: 700,
+                    letterSpacing: "0.08em",
+                    marginBottom: 5,
+                  }}
+                >
+                  {a.year}
+                </p>
+                <h3
+                  style={{
+                    fontSize: "0.88rem",
+                    fontWeight: 600,
+                    color: "var(--text-light)",
+                    lineHeight: 1.4,
+                    marginBottom: 8,
+                  }}
+                >
+                  {a.title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: "0.78rem",
+                    color: "rgba(235,235,235,0.45)",
+                    lineHeight: 1.65,
+                  }}
+                >
+                  {a.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ════════ HACKATHONS ════════ */}
+      <section id="hackathons" className="section-wrap bg-light">
+        <SectionLabel>Hackathons</SectionLabel>
+        <SectionTitle>Live sprint record</SectionTitle>
+
+        <div style={{ marginTop: 52, maxWidth: 860 }}>
+          {hackathons.map((h, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}
+              className="hack-row"
+            >
+              <div>
+                <span
+                  style={{
+                    fontSize: "0.65rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "rgba(17,17,17,0.38)",
+                  }}
+                >
+                  {h.when.split("·")[0].trim()}
+                </span>
+                <p
+                  style={{
+                    fontSize: "0.7rem",
+                    color: "rgba(17,17,17,0.4)",
+                    marginTop: 2,
+                  }}
+                >
+                  {h.when.split("·")[1]?.trim()}
+                </p>
               </div>
               <div>
                 <h3
                   style={{
-                    fontSize: "0.9rem",
+                    fontSize: "0.96rem",
                     fontWeight: 600,
-                    color: "var(--text)",
-                    marginBottom: "4px",
-                    lineHeight: 1.4,
+                    color: "#111",
+                    marginBottom: 6,
+                    lineHeight: 1.35,
                   }}
                 >
-                  {achievement.title}
+                  {h.name}
                 </h3>
                 <p
                   style={{
-                    fontSize: "0.75rem",
-                    color: "var(--accent)",
-                    marginBottom: "8px",
+                    fontSize: "0.84rem",
+                    color: "rgba(17,17,17,0.56)",
+                    lineHeight: 1.68,
                   }}
                 >
-                  {achievement.year}
-                </p>
-                <p
-                  style={{
-                    fontSize: "0.82rem",
-                    color: "var(--muted-text)",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {achievement.description}
+                  {h.desc}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section
-        id="hackathons"
-        className="section section-silver"
-        {...sectionReveal}
-      >
-        <div className="fade-in">
-          <SectionLabel>Hackathons</SectionLabel>
-          <SectionTitle>Live sprint stack</SectionTitle>
-        </div>
-        <div className="stack-surface" style={{ marginTop: "48px" }}>
-          <div className="floating-grid">
-            {hackathons.map((hackathon, index) => (
-              <div key={index} className="floating-card fade-in">
-                <div
-                  style={{
-                    position: "relative",
-                    zIndex: 1,
-                    padding: "24px 28px",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      justifyContent: "space-between",
-                      alignItems: "flex-start",
-                      gap: "8px",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <h3
-                      style={{
-                        fontSize: "1rem",
-                        fontWeight: 600,
-                        color: "var(--text)",
-                      }}
-                    >
-                      <span style={{ marginRight: "8px" }}>🏁</span>
-                      {hackathon.name}
-                    </h3>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "8px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Tag label="Hackathon" />
-                      <span
-                        style={{
-                          fontSize: "0.78rem",
-                          color: "var(--muted-text)",
-                        }}
-                      >
-                        {hackathon.when}
-                      </span>
-                    </div>
-                  </div>
-                  <p
-                    style={{
-                      fontSize: "0.88rem",
-                      color: "var(--muted-text)",
-                      lineHeight: 1.65,
-                    }}
-                  >
-                    {hackathon.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
+      {/* ════════ HOBBIES ════════ */}
+      <section id="hobbies" className="section-wrap bg-offwhite">
+        <SectionLabel>Hobbies</SectionLabel>
+        <SectionTitle>Beyond the screen</SectionTitle>
 
-      <motion.section
-        id="hobbies"
-        className="section section-white"
-        {...sectionReveal}
-      >
-        <div className="fade-in">
-          <SectionLabel>Hobbies</SectionLabel>
-          <SectionTitle>Beyond the screen</SectionTitle>
-        </div>
         <div
           style={{
-            marginTop: "48px",
+            marginTop: 48,
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-            gap: "12px",
+            gridTemplateColumns: "repeat(auto-fill,minmax(160px,1fr))",
+            gap: 10,
           }}
         >
-          {hobbies.map((hobby) => (
-            <div key={hobby} className="hobby-card fade-in">
+          {hobbies.map((hobby, i) => (
+            <motion.div
+              key={hobby}
+              initial={{ opacity: 0, scale: 0.93 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: i * 0.04 }}
+              whileHover={{ y: -3 }}
+              style={{
+                borderRadius: 10,
+                overflow: "hidden",
+                border: "1px solid rgba(17,17,17,0.12)",
+                aspectRatio: "1",
+                position: "relative",
+                background: "rgba(17,17,17,0.04)",
+              }}
+            >
               <Image
                 src={`/${hobby.toLowerCase()}.png`}
                 alt={hobby}
@@ -1926,90 +2225,156 @@ export default function Portfolio() {
                 height={300}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
-              <div className="hobby-label">{hobby}</div>
-            </div>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: "28px 14px 12px",
+                  background:
+                    "linear-gradient(to top, rgba(10,10,10,0.72), transparent)",
+                  fontSize: "0.82rem",
+                  fontWeight: 500,
+                  color: "#fff",
+                }}
+              >
+                {hobby}
+              </div>
+            </motion.div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section
+      {/* ════════ CONTACT ════════ */}
+      <section
         id="contact"
-        className="section section-dark"
-        {...sectionReveal}
+        className="section-wrap bg-darker"
+        style={{ color: "var(--text-light)" }}
       >
-        <div className="fade-in" style={{ maxWidth: "560px" }}>
+        <div style={{ maxWidth: 580 }}>
           <SectionLabel>Contact</SectionLabel>
-          <SectionTitle>Let's connect</SectionTitle>
-          <p
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65 }}
             style={{
-              marginTop: "20px",
-              marginBottom: "40px",
-              color: "var(--muted-text)",
-              fontSize: "0.98rem",
-              lineHeight: 1.75,
+              fontFamily: "'DM Serif Display', Georgia, serif",
+              fontSize: "clamp(2.8rem,6vw,5rem)",
+              fontWeight: 400,
+              lineHeight: 1.05,
+              letterSpacing: "-0.04em",
+              color: "var(--text-light)",
+              marginBottom: 0,
             }}
           >
-            Always open to new opportunities and conversations, whether it's an
+            Let&apos;s build
+            <br />
+            <span style={{ color: "var(--accent)" }}>something real.</span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            style={{
+              marginTop: 28,
+              marginBottom: 44,
+              fontSize: "0.96rem",
+              color: "rgba(235,235,235,0.5)",
+              lineHeight: 1.78,
+            }}
+          >
+            Always open to new opportunities and conversations — whether it's an
             interesting problem to solve, a collaboration, or just a chat about
             systems that break in interesting ways.
-          </p>
-          <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-            <a href="mailto:hello@adith.xyz" className="btn-primary">
-              <Mail size={16} /> hello@adith.xyz
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            style={{
+              display: "flex",
+              gap: 14,
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}
+          >
+            <a
+              href="mailto:hello@adith.xyz"
+              className="btn-primary"
+              style={{
+                background: "var(--accent)",
+                color: "#fff",
+                border: "none",
+              }}
+            >
+              <Mail size={15} /> hello@adith.xyz
             </a>
             <a
               href="https://github.com/Ad1th"
               target="_blank"
               rel="noreferrer"
-              className="btn-ghost"
+              className="social-link"
             >
-              <Github size={16} /> GitHub
+              <Github size={15} /> GitHub{" "}
+              <ExternalLink size={11} style={{ opacity: 0.5 }} />
             </a>
             <a
               href="https://www.linkedin.com/in/adith-manikonda/"
               target="_blank"
               rel="noreferrer"
-              className="btn-ghost"
+              className="social-link"
             >
-              <Linkedin size={16} /> LinkedIn
+              <Linkedin size={15} /> LinkedIn{" "}
+              <ExternalLink size={11} style={{ opacity: 0.5 }} />
             </a>
-          </div>
+          </motion.div>
         </div>
-      </motion.section>
+      </section>
 
+      {/* ════════ BUBBLE MENU ════════ */}
       <BubbleMenu
         open={moreMenuOpen}
         onRequestClose={() => setMoreMenuOpen(false)}
         items={moreItems}
-        menuBg="#E2E2E2"
-        menuContentColor="#111111"
+        menuBg="#1a1a1a"
+        menuContentColor="#ebebeb"
         useFixedPosition
       />
 
-      <Dock items={dockItems} />
+      {/* ════════ DOCK ════════ */}
+      <Dock items={dockItems} baseItemSize={42} magnification={60} />
 
+      {/* ════════ FOOTER ════════ */}
       <footer
         style={{
-          borderTop: "1px solid var(--border-color)",
-          padding: "32px 24px 112px",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          padding: "28px clamp(24px,5vw,56px) 108px",
+          background: "#080808",
         }}
       >
         <div
           style={{
-            maxWidth: "1200px",
+            maxWidth: 1120,
             margin: "0 auto",
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-between",
             alignItems: "center",
-            gap: "12px",
+            gap: 10,
           }}
         >
-          <p style={{ fontSize: "0.82rem", color: "var(--muted-text)" }}>
-            Designed &amp; built by{" "}
+          <p style={{ fontSize: "0.78rem", color: "rgba(235,235,235,0.3)" }}>
+            Designed & built by{" "}
             <span style={{ color: "var(--accent)" }}>Adith Manikonda</span>
           </p>
-          <p style={{ fontSize: "0.78rem", color: "var(--muted-text)" }}>
+          <p style={{ fontSize: "0.72rem", color: "rgba(235,235,235,0.2)" }}>
             © {new Date().getFullYear()} · All rights reserved
           </p>
         </div>

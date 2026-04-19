@@ -2,11 +2,12 @@
 
 import Matter from "matter-js";
 import { useEffect, useRef, useState } from "react";
-
+import type { CSSProperties } from "react";
 import "./FallingText.css";
 
 type FallingTextProps = {
   className?: string;
+  style?: CSSProperties;
   text: string;
   highlightWords?: string[];
   highlightClass?: string;
@@ -20,42 +21,41 @@ type FallingTextProps = {
   activated?: boolean;
   floorRatio?: number;
   maxDropDistance?: number;
+  showFloorLine?: boolean;
 };
 
 export default function FallingText({
   className = "",
+  style,
   text,
   highlightWords = [],
   highlightClass = "highlighted",
   trigger = "click",
   backgroundColor = "transparent",
   wireframes = false,
-  gravity = 1,
+  gravity = 0.9,
   mouseConstraintStiffness = 0.2,
   fontSize = "1rem",
   wordSpacing = "2px",
   activated,
   floorRatio = 0.72,
   maxDropDistance = 120,
+  showFloorLine = false,
 }: FallingTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
-
   const [effectStarted, setEffectStarted] = useState(false);
 
   useEffect(() => {
     if (!textRef.current) return;
-
-    const words = text.split(" ");
-    const newHTML = words
+    textRef.current.innerHTML = text
+      .split(" ")
       .map((word) => {
-        const isHighlighted = highlightWords.some((hw) => word.startsWith(hw));
-        return `<span class="word ${isHighlighted ? highlightClass : ""}">${word}</span>`;
+        const hl = highlightWords.some((hw) => word.startsWith(hw));
+        return `<span class="falling-word${hl ? ` ${highlightClass}` : ""}">${word}</span>`;
       })
       .join(" ");
-
-    textRef.current.innerHTML = newHTML;
   }, [text, highlightWords, highlightClass]);
 
   useEffect(() => {
@@ -63,21 +63,11 @@ export default function FallingText({
       if (activated) setEffectStarted(true);
       return;
     }
-
-    if (trigger === "auto") {
-      setEffectStarted(true);
-      return;
-    }
-
+    if (trigger === "auto") { setEffectStarted(true); return; }
     if (trigger === "scroll" && containerRef.current) {
       const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setEffectStarted(true);
-            observer.disconnect();
-          }
-        },
-        { threshold: 0.1 },
+        ([entry]) => { if (entry.isIntersecting) { setEffectStarted(true); observer.disconnect(); } },
+        { threshold: 0.15 }
       );
       observer.observe(containerRef.current);
       return () => observer.disconnect();
@@ -85,64 +75,56 @@ export default function FallingText({
   }, [trigger, activated]);
 
   useEffect(() => {
-    if (!effectStarted || !containerRef.current || !textRef.current || !canvasContainerRef.current) {
-      return;
-    }
+    if (!effectStarted || !containerRef.current || !textRef.current || !canvasContainerRef.current) return;
 
     const { Engine, Render, World, Bodies, Runner, Mouse, MouseConstraint, Body } = Matter;
+    const cr = containerRef.current.getBoundingClientRect();
+    const W = cr.width, H = cr.height;
+    if (W <= 0 || H <= 0) return;
 
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const width = containerRect.width;
-    const height = containerRect.height;
-
-    if (width <= 0 || height <= 0) return;
-
-    const floorY = Math.max(30, Math.min(height - 24, height * floorRatio));
-
+    const floorY = Math.max(30, Math.min(H - 24, H * floorRatio));
     const engine = Engine.create();
     engine.world.gravity.y = gravity;
 
     const render = Render.create({
       element: canvasContainerRef.current,
       engine,
-      options: {
-        width,
-        height,
-        background: backgroundColor,
-        wireframes,
-        pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
-      },
+      options: { width: W, height: H, background: backgroundColor, wireframes, pixelRatio: Math.min(window.devicePixelRatio || 1, 2) },
     });
 
-    const boundaryOptions = {
-      isStatic: true,
-      render: { fillStyle: "transparent" },
-    };
+    const s = { isStatic: true, render: { fillStyle: "transparent" } };
+    const walls = [
+      Bodies.rectangle(W / 2, floorY + 20, W, 40, s),
+      Bodies.rectangle(-20, H / 2, 40, H, s),
+      Bodies.rectangle(W + 20, H / 2, 40, H, s),
+      Bodies.rectangle(W / 2, -20, W, 40, s),
+    ];
 
-    // Invisible floor aligned to the underline zone.
-    const floor = Bodies.rectangle(width / 2, floorY + 20, width, 40, boundaryOptions);
-    const leftWall = Bodies.rectangle(-20, height / 2, 40, height, boundaryOptions);
-    const rightWall = Bodies.rectangle(width + 20, height / 2, 40, height, boundaryOptions);
-    const ceiling = Bodies.rectangle(width / 2, -20, width, 40, boundaryOptions);
+    const spans = textRef.current.querySelectorAll<HTMLSpanElement>(".falling-word");
 
-    const wordSpans = textRef.current.querySelectorAll<HTMLSpanElement>(".word");
+    // Reset to normal inline flow before measurement so words do not stack.
+    spans.forEach((elem) => {
+      elem.style.position = "static";
+      elem.style.left = "";
+      elem.style.top = "";
+      elem.style.transform = "";
+    });
 
-    const wordBodies = Array.from(wordSpans).map((elem) => {
-      const rect = elem.getBoundingClientRect();
+    // Preserve layout height after words switch to absolute positioning.
+    const measuredTextRect = textRef.current.getBoundingClientRect();
+    textRef.current.style.height = `${Math.max(1, measuredTextRect.height)}px`;
 
-      const x = rect.left - containerRect.left + rect.width / 2;
-      const originalY = rect.top - containerRect.top + rect.height / 2;
-      const y = Math.max(originalY, floorY - maxDropDistance);
+    const wordBodies = Array.from(spans).map((elem) => {
+      const x = elem.offsetLeft + elem.offsetWidth / 2;
+      const naturalY = elem.offsetTop + elem.offsetHeight / 2;
+      const y = Math.max(naturalY, floorY - maxDropDistance);
 
-      const body = Bodies.rectangle(x, y, rect.width, rect.height, {
+      const body = Bodies.rectangle(x, y, elem.offsetWidth, elem.offsetHeight, {
         render: { fillStyle: "transparent" },
-        restitution: 0.3,
-        frictionAir: 0.03,
-        friction: 0.45,
+        restitution: 0.18, frictionAir: 0.045, friction: 0.58, density: 0.002,
       });
-
-      Body.setVelocity(body, { x: (Math.random() - 0.5) * 0.4, y: 0 });
-      Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.008);
+      Body.setVelocity(body, { x: (Math.random() - 0.5) * 0.3, y: 0 });
+      Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.006);
 
       elem.style.position = "absolute";
       elem.style.left = `${x}px`;
@@ -152,44 +134,38 @@ export default function FallingText({
       return { elem, body };
     });
 
-    const mouse = Mouse.create(containerRef.current);
-    const mouseConstraint = MouseConstraint.create(engine, {
-      mouse,
-      constraint: {
-        stiffness: mouseConstraintStiffness,
-        render: { visible: false },
-      },
-    });
+    const worldItems: Matter.Body[] = [...walls, ...wordBodies.map((wb) => wb.body)];
 
-    render.mouse = mouse;
+    // Only add mouse constraint when stiffness > 0, otherwise it steals pointer events and breaks scroll
+    if (mouseConstraintStiffness > 0) {
+      const mouse = Mouse.create(containerRef.current);
+      const mc = MouseConstraint.create(engine, {
+        mouse,
+        constraint: { stiffness: mouseConstraintStiffness, render: { visible: false } },
+      });
+      render.mouse = mouse;
+      World.add(engine.world, mc as unknown as Matter.Body);
+    }
 
-    World.add(engine.world, [
-      floor,
-      leftWall,
-      rightWall,
-      ceiling,
-      mouseConstraint,
-      ...wordBodies.map((wb) => wb.body),
-    ]);
+    World.add(engine.world, worldItems);
 
     const runner = Runner.create();
     Runner.run(runner, engine);
     Render.run(render);
 
     let raf = 0;
-    const updateLoop = () => {
+    const loop = () => {
       wordBodies.forEach(({ body, elem }) => {
-        const { x, y } = body.position;
-        elem.style.left = `${x}px`;
-        elem.style.top = `${y}px`;
+        elem.style.left = `${body.position.x}px`;
+        elem.style.top = `${body.position.y}px`;
         elem.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`;
       });
-      raf = window.requestAnimationFrame(updateLoop);
+      raf = requestAnimationFrame(loop);
     };
-    raf = window.requestAnimationFrame(updateLoop);
+    raf = requestAnimationFrame(loop);
 
     return () => {
-      window.cancelAnimationFrame(raf);
+      cancelAnimationFrame(raf);
       Render.stop(render);
       Runner.stop(runner);
       if (render.canvas && canvasContainerRef.current?.contains(render.canvas)) {
@@ -197,44 +173,53 @@ export default function FallingText({
       }
       World.clear(engine.world, false);
       Engine.clear(engine);
+      if (textRef.current) textRef.current.style.height = "";
     };
-  }, [
-    effectStarted,
-    gravity,
-    wireframes,
-    backgroundColor,
-    mouseConstraintStiffness,
-    floorRatio,
-    maxDropDistance,
-  ]);
-
-  const handleTrigger = () => {
-    if (!effectStarted && (trigger === "click" || trigger === "hover")) {
-      setEffectStarted(true);
-    }
-  };
+  }, [effectStarted, gravity, wireframes, backgroundColor, mouseConstraintStiffness, floorRatio, maxDropDistance]);
 
   return (
     <div
       ref={containerRef}
       className={`falling-text-container ${className}`}
-      onClick={trigger === "click" ? handleTrigger : undefined}
-      onMouseEnter={trigger === "hover" ? handleTrigger : undefined}
       style={{
         position: "relative",
         overflow: "hidden",
+        pointerEvents: "auto",
+        ...style,
       }}
     >
       <div
         ref={textRef}
-        className="falling-text-target"
         style={{
+          position: "relative",
+          display: "block",
+          width: "100%",
           fontSize,
-          lineHeight: 1.2,
+          lineHeight: 1.3,
           wordSpacing,
+          userSelect: "none",
         }}
       />
-      <div ref={canvasContainerRef} className="falling-text-canvas" />
+
+      {showFloorLine && (
+        <div
+          aria-hidden
+          style={{
+            position: "absolute", left: 0, right: 0,
+            top: `${floorRatio * 100}%`,
+            height: 2, background: "rgba(217,101,22,0.58)",
+            pointerEvents: "none", zIndex: 2,
+          }}
+        />
+      )}
+
+      <div
+        ref={canvasContainerRef}
+        style={{
+          position: "absolute", inset: 0,
+          zIndex: 0, pointerEvents: "none",
+        }}
+      />
     </div>
   );
 }

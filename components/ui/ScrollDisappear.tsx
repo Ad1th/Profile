@@ -26,211 +26,119 @@ const ScrollDisappear = ({
   containerClassName = "",
   textClassName = "",
   splitText,
-  animationDuration = 1.2,
+  animationDuration = 1.0,
   ease = "power2.inOut",
-  scrollStart = "top top+=30%", // Start disappearing earlier
-  scrollEnd = "bottom top-=20%", // Finish disappearing when section is mostly gone
-  stagger = 0.04,
+  scrollStart = "top top+=25%",
+  scrollEnd = "bottom top-=15%",
+  stagger = 0.032,
 }: ScrollDisappearProps) => {
   const containerRef = useRef<HTMLHeadingElement | null>(null);
+
   const sourceText =
-    typeof children === "string"
-      ? children
-      : typeof splitText === "string"
-        ? splitText
+    typeof children === "string" ? children
+      : typeof splitText === "string" ? splitText
         : "";
   const hasCharOverlay = sourceText.length > 0;
   const isText = typeof children === "string";
 
-  const splitChars = useMemo(() => {
-    return sourceText.split("").map((char, index) => (
-      <span className="char" key={index}>
+  const splitChars = useMemo(() =>
+    sourceText.split("").map((char, i) => (
+      <span key={i} style={{ display: "inline-block", transformOrigin: "50% 100%", willChange: "transform, opacity" }}>
         {char === " " ? "\u00A0" : char}
       </span>
-    ));
-  }, [sourceText]);
+    )),
+    [sourceText]
+  );
 
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
     const scroller = scrollContainerRef?.current || window;
-    const charElements = el.querySelectorAll<HTMLElement>(
-      ".scroll-disappear-overlay .char",
-    );
-    const textCharElements = el.querySelectorAll<HTMLElement>(
-      ".scroll-disappear-text .char",
-    );
-    const contentElement = el.querySelector<HTMLElement>(
-      ".scroll-disappear-content",
-    );
+    const textCharEls = el.querySelectorAll<HTMLElement>(".sd-text-chars .sd-char");
+    const overlayCharEls = el.querySelectorAll<HTMLElement>(".sd-overlay .sd-char");
+    const contentEl = el.querySelector<HTMLElement>(".sd-content");
     const animations: gsap.core.Tween[] = [];
 
-    if (isText && textCharElements.length > 0) {
-      const textTween = gsap.fromTo(
-        textCharElements,
-        {
-          willChange: "opacity, transform",
-          opacity: 1,
-          yPercent: 0,
-          scaleY: 1,
-          scaleX: 1,
-          transformOrigin: "50% 100%",
-        },
-        {
-          duration: animationDuration,
-          ease: ease,
-          opacity: 0,
-          yPercent: -110,
-          scaleY: 0.58,
-          scaleX: 0.82,
-          stagger: stagger,
-          scrollTrigger: {
-            trigger: el,
-            scroller,
-            start: scrollStart,
-            end: scrollEnd,
-            scrub: true,
-          },
-        },
-      );
-      animations.push(textTween);
+    const triggerCfg = {
+      trigger: el, scroller,
+      start: scrollStart, end: scrollEnd,
+      scrub: 1.1,
+    };
+
+    if (isText && textCharEls.length > 0) {
+      animations.push(gsap.fromTo(textCharEls,
+        { opacity: 1, yPercent: 0, scaleY: 1, scaleX: 1, transformOrigin: "50% 100%" },
+        { duration: animationDuration, ease, opacity: 0, yPercent: -100, scaleY: 0.5, scaleX: 0.78, stagger, scrollTrigger: triggerCfg }
+      ));
     }
 
-    if (!isText && hasCharOverlay && charElements.length > 0) {
-      const overlayTween = gsap.fromTo(
-        charElements,
-        {
-          willChange: "opacity, transform",
-          opacity: 0,
-          yPercent: 0,
-          scaleY: 1,
-          scaleX: 1,
-          transformOrigin: "50% 100%",
-        },
-        {
-          duration: animationDuration,
-          ease,
-          opacity: 1,
-          yPercent: -86,
-          scaleY: 0.55,
-          scaleX: 0.8,
-          stagger,
-          scrollTrigger: {
-            trigger: el,
-            scroller,
-            start: scrollStart,
-            end: scrollEnd,
-            scrub: true,
-          },
-        },
-      );
-      animations.push(overlayTween);
+    if (!isText && hasCharOverlay && overlayCharEls.length > 0) {
+      animations.push(gsap.fromTo(overlayCharEls,
+        { opacity: 0, yPercent: 0, scaleY: 1, scaleX: 1, transformOrigin: "50% 100%" },
+        { duration: animationDuration, ease, opacity: 1, yPercent: -86, scaleY: 0.55, scaleX: 0.8, stagger, scrollTrigger: triggerCfg }
+      ));
     }
 
-    if (isText && contentElement) {
-      const contentTween = gsap.fromTo(
-        contentElement,
-        {
-          willChange: "opacity, transform",
-          opacity: 1,
-          yPercent: 0,
-          scale: 1,
-          transformOrigin: "50% 50%",
-        },
-        {
-          duration: animationDuration,
-          ease: ease,
-          opacity: 0,
-          yPercent: -68,
-          scale: 0.95,
-          scrollTrigger: {
-            trigger: el,
-            scroller,
-            start: scrollStart,
-            end: scrollEnd,
-            scrub: true,
-          },
-        },
-      );
-      animations.push(contentTween);
+    if (isText && contentEl) {
+      animations.push(gsap.fromTo(contentEl,
+        { opacity: 1, yPercent: 0, scale: 1, transformOrigin: "50% 50%" },
+        { duration: animationDuration, ease, opacity: 0, yPercent: -58, scale: 0.96, scrollTrigger: triggerCfg }
+      ));
     }
 
     return () => {
-      animations.forEach((anim) => {
-        anim.scrollTrigger?.kill();
-        anim.kill();
-      });
+      animations.forEach((a) => { a.scrollTrigger?.kill(); a.kill(); });
     };
-  }, [
-    isText,
-    hasCharOverlay,
-    scrollContainerRef,
-    animationDuration,
-    ease,
-    scrollStart,
-    scrollEnd,
-    stagger,
-  ]);
+  }, [isText, hasCharOverlay, scrollContainerRef, animationDuration, ease, scrollStart, scrollEnd, stagger]);
 
   return (
-    <h2 ref={containerRef} className={`scroll-disappear ${containerClassName}`}>
-      <style>{`
-        .scroll-disappear {
-          overflow: hidden;
-          display: inline-block;
-          width: 100%;
-          height: 100%;
-        }
-
-        .scroll-disappear-text {
-          display: inline-block;
-          font-size: clamp(2.5rem, 8vw, 7rem);
-          font-weight: 900;
-          text-align: center;
-          line-height: 1.05;
-          letter-spacing: -0.02em;
-        }
-
-        .char {
-          display: inline-block;
-          transform-origin: 50% 100%;
-        }
-
-        .scroll-disappear-content {
-          display: block;
-          position: relative;
-          width: 100%;
-          height: 100%;
-        }
-
-        .scroll-disappear-overlay {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          pointer-events: none;
-          z-index: 20;
-          color: #111111;
-          font-family: 'IBM Plex Mono', 'Courier New', monospace;
-          font-size: clamp(2.5rem, 8vw, 7rem);
-          font-weight: 700;
-          letter-spacing: -0.02em;
-          line-height: 1.05;
-          text-shadow: none;
-          mix-blend-mode: normal;
-        }
-      `}</style>
+    <h2
+      ref={containerRef}
+      className={containerClassName}
+      style={{
+        overflow: "hidden", display: "inline-block", width: "100%",
+      }}
+    >
       {isText ? (
-        <span className={`scroll-disappear-text ${textClassName}`}>
-          {splitChars}
+        <span className={`sd-text-chars ${textClassName}`} style={{
+          display: "inline-block",
+          fontFamily: "'DM Serif Display', Georgia, serif",
+          fontWeight: 400,
+          fontSize: "clamp(2.8rem, 9vw, 7.5rem)",
+          textAlign: "left",
+          lineHeight: 1.02,
+          letterSpacing: "-0.035em",
+        }}>
+          {splitChars.map((c, i) =>
+            <span key={i} className="sd-char" style={{ display: "inline-block", transformOrigin: "50% 100%" }}>
+              {c.props.children}
+            </span>
+          )}
         </span>
       ) : (
-        <span className={`scroll-disappear-content ${textClassName}`}>
+        <span className={`sd-content ${textClassName}`} style={{ display: "block", position: "relative", width: "100%", height: "100%" }}>
           {children}
           {hasCharOverlay && (
-            <span className="scroll-disappear-overlay">{splitChars}</span>
+            <span
+              className="sd-overlay"
+              aria-hidden
+              style={{
+                position: "absolute", inset: 0,
+                display: "flex", alignItems: "center", justifyContent: "flex-start",
+                pointerEvents: "none", zIndex: 20,
+                color: "var(--text-secondary, rgba(17,17,17,0.45))",
+                fontFamily: "'DM Serif Display', Georgia, serif",
+                fontSize: "clamp(2.8rem, 9vw, 7.5rem)",
+                fontWeight: 400, letterSpacing: "-0.035em", lineHeight: 1.02,
+              }}
+            >
+              {splitChars.map((c, i) =>
+                <span key={i} className="sd-char" style={{ display: "inline-block", transformOrigin: "50% 100%" }}>
+                  {c.props.children}
+                </span>
+              )}
+            </span>
           )}
         </span>
       )}

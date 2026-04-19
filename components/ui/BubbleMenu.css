@@ -1,0 +1,107 @@
+.bubble-menu-items {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  z-index: 65;
+  background: rgba(14, 14, 14, 0.32);
+  backdrop-filter: blur(4px);
+}
+
+.bubble-menu-items.absolute {
+  position: absolute;
+}
+
+.bubble-menu-items.fixed {
+  position: fixed;
+}
+
+.bubble-menu-items .pill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  row-gap: 14px;
+  width: 100%;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+}
+
+.bubble-menu-items .pill-col {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex: 0 0 calc(100% / 3 - 14px);
+}
+
+.bubble-menu-items .pill-link {
+  --pill-bg: #e2e2e2;
+  --pill-color: #111111;
+  --item-rot: 0deg;
+  --hover-bg: #e85d1f;
+  --hover-color: #f5f5f5;
+  width: 100%;
+  min-height: 108px;
+  padding: 24px 0;
+  font-size: clamp(1.2rem, 2.8vw, 2.2rem);
+  font-weight: 500;
+  line-height: 1;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  color: var(--pill-color);
+  text-decoration: none;
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  will-change: transform;
+  white-space: nowrap;
+}
+
+@media (min-width: 900px) {
+  .bubble-menu-items .pill-link {
+    transform: rotate(var(--item-rot));
+  }
+
+  .bubble-menu-items .pill-link:hover {
+    transform: rotate(var(--item-rot)) scale(1.03);
+    background: var(--hover-bg);
+    color: var(--hover-color);
+  }
+}
+
+.bubble-menu-items .pill-link .pill-label {
+  display: inline-block;
+  will-change: transform, opacity;
+  line-height: 1.2;
+}
+
+@media (max-width: 899px) {
+  .bubble-menu-items {
+    align-items: flex-start;
+    padding-top: 96px;
+  }
+
+  .bubble-menu-items .pill-list {
+    row-gap: 10px;
+    gap: 10px;
+  }
+
+  .bubble-menu-items .pill-col {
+    flex: 0 0 100%;
+  }
+
+  .bubble-menu-items .pill-link {
+    min-height: 72px;
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    padding: 16px 0;
+  }
+}

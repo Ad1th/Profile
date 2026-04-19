@@ -1,0 +1,33 @@
+.falling-text-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 220px;
+  text-align: left;
+  padding-top: 0;
+}
+
+.falling-text-target {
+  display: inline-block;
+  font-family: "DM Serif Display", Georgia, serif;
+  color: var(--text);
+}
+
+.word {
+  display: inline-block;
+  margin: 0 2px;
+  user-select: none;
+  will-change: transform;
+}
+
+.highlighted {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.falling-text-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}

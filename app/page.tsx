@@ -1,10 +1,31 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useState } from "react";
-import { Award, Github, Linkedin, Mail, Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import {
+  Award,
+  Ellipsis,
+  FolderKanban,
+  Github,
+  Home,
+  Info,
+  Linkedin,
+  Mail,
+  Menu,
+  X,
+} from "lucide-react";
+import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import Dock from "@/components/ui/Dock";
+
+const FallingText = dynamic(() => import("@/components/ui/FallingText"), {
+  ssr: false,
+});
+const BubbleMenu = dynamic(() => import("@/components/ui/BubbleMenu"), {
+  ssr: false,
+});
 
 function Tag({ label }: { label: string }) {
   return (
@@ -74,6 +95,26 @@ function SectionTitle({
 
 export default function Portfolio() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
+  const [aboutFallActive, setAboutFallActive] = useState(false);
+  const aboutTriggerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!aboutTriggerRef.current || aboutFallActive) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.intersectionRatio >= 0.6) {
+          setAboutFallActive(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: [0, 0.6, 1] },
+    );
+
+    observer.observe(aboutTriggerRef.current);
+    return () => observer.disconnect();
+  }, [aboutFallActive]);
 
   const navLinks = [
     "about",
@@ -115,7 +156,7 @@ export default function Portfolio() {
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; color-scheme: dark; }
-    body { background: var(--bg-primary); color: var(--text-dark); }
+    body { background: var(--bg-primary); color: var(--text-dark); padding-bottom: 96px; }
     body, button, input, textarea, select { font-family: 'DM Sans', system-ui, sans-serif; }
     body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     h1, h2, h3, h4, h5, h6 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; }
@@ -501,6 +542,39 @@ export default function Portfolio() {
       font-family: 'DM Serif Display', Georgia, serif;
     }
 
+    .about-falling-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 860px;
+      padding-bottom: 18px;
+      isolation: isolate;
+    }
+
+    .about-falling-wrap::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 76%;
+      height: 3px;
+      background: rgba(232, 93, 31, 0.65);
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .about-falling {
+      min-height: clamp(190px, 24vw, 260px);
+      z-index: 1;
+      color: var(--text);
+    }
+
+    .about-falling .falling-text-target,
+    .about-falling .word {
+      font-family: 'DM Serif Display', Georgia, serif;
+      color: var(--text);
+    }
+
     .about-headline-line--underlined {
       position: relative;
       display: inline-block;
@@ -609,6 +683,9 @@ export default function Portfolio() {
       }
       .about-content {
         padding: 64px 24px;
+      }
+      .about-falling-wrap::after {
+        top: 80%;
       }
       .skills-grid {
         grid-template-columns: 1fr;
@@ -1000,6 +1077,79 @@ export default function Portfolio() {
     experience[2].skills[2],
   ];
 
+  const sectionReveal = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-100px" },
+    transition: { duration: 0.6, ease: "easeOut" },
+  } as const;
+
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMoreMenuOpen(false);
+  };
+
+  const dockItems = [
+    {
+      icon: <Home size={18} />,
+      label: "Home",
+      onClick: () => scrollToSection("hero"),
+    },
+    {
+      icon: <Info size={18} />,
+      label: "About",
+      onClick: () => scrollToSection("about"),
+    },
+    {
+      icon: <FolderKanban size={18} />,
+      label: "Projects",
+      onClick: () => scrollToSection("projects"),
+    },
+    {
+      icon: <Ellipsis size={18} />,
+      label: "More",
+      onClick: () => setMoreMenuOpen((current) => !current),
+    },
+  ];
+
+  const moreItems = [
+    {
+      label: "experience",
+      href: "#experience",
+      ariaLabel: "Experience",
+      rotation: -6,
+      hoverStyles: { bgColor: "#E85D1F", textColor: "#F5F5F5" },
+    },
+    {
+      label: "skills",
+      href: "#skills",
+      ariaLabel: "Skills",
+      rotation: 4,
+      hoverStyles: { bgColor: "#E85D1F", textColor: "#F5F5F5" },
+    },
+    {
+      label: "patents",
+      href: "#patents",
+      ariaLabel: "Patents",
+      rotation: 6,
+      hoverStyles: { bgColor: "#E85D1F", textColor: "#F5F5F5" },
+    },
+    {
+      label: "achievements",
+      href: "#achievements",
+      ariaLabel: "Achievements",
+      rotation: -4,
+      hoverStyles: { bgColor: "#E85D1F", textColor: "#F5F5F5" },
+    },
+    {
+      label: "contact",
+      href: "#contact",
+      ariaLabel: "Contact",
+      rotation: 5,
+      hoverStyles: { bgColor: "#E85D1F", textColor: "#F5F5F5" },
+    },
+  ];
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
@@ -1090,43 +1240,58 @@ export default function Portfolio() {
 
       <section id="hero" className="hero">
         <div className="hero-content">
-          <div className="hero-heading-wrap">
+          <motion.div
+            className="hero-heading-wrap"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <div className="hero-kicker">
               {heroKickerItems.map((item) => (
                 <span key={item}>{item}</span>
               ))}
             </div>
-            <h1 className="heading">Hey, I&apos;m Adith</h1>
-          </div>
-          <Image
-            src="/robot-avatar.svg"
-            alt="Robot avatar"
-            width={320}
-            height={320}
-            className="hero-avatar"
-            priority
-          />
+            <motion.h1 className="heading">Hey, I&apos;m Adith</motion.h1>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
+          >
+            <Image
+              src="/robot-avatar.svg"
+              alt="Robot avatar"
+              width={320}
+              height={320}
+              className="hero-avatar"
+              priority
+            />
+          </motion.div>
         </div>
       </section>
 
-      <section id="about" className="about">
+      <motion.section
+        id="about"
+        className="about"
+        ref={aboutTriggerRef}
+        {...sectionReveal}
+      >
         <div className="about-content">
           <div className="fade-in" style={{ maxWidth: "680px" }}>
             <SectionLabel>About</SectionLabel>
-            <SectionTitle
-              style={{
-                fontSize: "clamp(2.65rem, 5vw, 4rem)",
-                lineHeight: 1.08,
-              }}
-            >
-              <span className="about-headline-line">
-                I like building things,
-              </span>
-              <br />
-              <span className="about-headline-line about-headline-line--underlined">
-                breaking them, then fixing them again.
-              </span>
-            </SectionTitle>
+            <div className="about-falling-wrap">
+              <FallingText
+                className="about-falling"
+                text="I like building things, breaking them, then fixing them again."
+                trigger="auto"
+                activated={aboutFallActive}
+                gravity={0.4}
+                mouseConstraintStiffness={0.2}
+                fontSize="clamp(2rem, 4vw, 3rem)"
+                floorRatio={0.76}
+                maxDropDistance={120}
+              />
+            </div>
           </div>
           <div
             className="fade-in"
@@ -1140,7 +1305,7 @@ export default function Portfolio() {
           >
             {[
               "I'm a CSE student who enjoys backend-heavy projects that feel real: multiplayer games with actual users, AI tools that do something useful, anonymous forums, productivity extensions, and apps that bridge gaps outside the screen (like farmers texting labourers directly).",
-              "Sometimes I dip into hardware to keep myself honest — running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. Turns out when latency, power limits, and physics fight back, your software design improves fast.",
+              "Sometimes I dip into hardware to keep myself honest, running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. Turns out when latency, power limits, and physics fight back, your software design improves fast.",
               "Mostly, I care about shipping systems that run, scale, and survive real usage. Buzzwords don't interest me much, but behaviour does.",
             ].map((para, index) => (
               <p
@@ -1157,9 +1322,9 @@ export default function Portfolio() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section id="experience" className="section section-silver">
+      <motion.section id="experience" className="section section-silver" {...sectionReveal}>
         <div className="fade-in">
           <SectionLabel>Experience</SectionLabel>
           <SectionTitle>Where I've worked</SectionTitle>
@@ -1265,9 +1430,9 @@ export default function Portfolio() {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section id="skills" className="section section-white">
+      <motion.section id="skills" className="section section-white" {...sectionReveal}>
         <div className="fade-in">
           <SectionLabel>Skills</SectionLabel>
           <SectionTitle>What I work with</SectionTitle>
@@ -1327,9 +1492,9 @@ export default function Portfolio() {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section id="projects" className="section section-silver">
+      <motion.section id="projects" className="section section-silver" {...sectionReveal}>
         <div className="fade-in">
           <SectionLabel>Projects</SectionLabel>
           <SectionTitle>Built and shipped</SectionTitle>
@@ -1443,9 +1608,9 @@ export default function Portfolio() {
             );
           })}
         </div>
-      </section>
+      </motion.section>
 
-      <section id="patents" className="section section-white">
+      <motion.section id="patents" className="section section-white" {...sectionReveal}>
         <div className="fade-in">
           <SectionLabel>Patents</SectionLabel>
           <SectionTitle>Intellectual property</SectionTitle>
@@ -1569,9 +1734,9 @@ export default function Portfolio() {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section id="achievements" className="section section-dark">
+      <motion.section id="achievements" className="section section-dark" {...sectionReveal}>
         <div className="fade-in">
           <SectionLabel>Achievements</SectionLabel>
           <SectionTitle>Certifications &amp; awards</SectionTitle>
@@ -1639,9 +1804,9 @@ export default function Portfolio() {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section id="hackathons" className="section section-silver">
+      <motion.section id="hackathons" className="section section-silver" {...sectionReveal}>
         <div className="fade-in">
           <SectionLabel>Hackathons</SectionLabel>
           <SectionTitle>Live sprint stack</SectionTitle>
@@ -1709,9 +1874,9 @@ export default function Portfolio() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section id="hobbies" className="section section-white">
+      <motion.section id="hobbies" className="section section-white" {...sectionReveal}>
         <div className="fade-in">
           <SectionLabel>Hobbies</SectionLabel>
           <SectionTitle>Beyond the screen</SectionTitle>
@@ -1737,9 +1902,9 @@ export default function Portfolio() {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section id="contact" className="section section-dark">
+      <motion.section id="contact" className="section section-dark" {...sectionReveal}>
         <div className="fade-in" style={{ maxWidth: "560px" }}>
           <SectionLabel>Contact</SectionLabel>
           <SectionTitle>Let's connect</SectionTitle>
@@ -1752,7 +1917,7 @@ export default function Portfolio() {
               lineHeight: 1.75,
             }}
           >
-            Always open to new opportunities and conversations — whether it's an
+            Always open to new opportunities and conversations, whether it's an
             interesting problem to solve, a collaboration, or just a chat about
             systems that break in interesting ways.
           </p>
@@ -1778,12 +1943,23 @@ export default function Portfolio() {
             </a>
           </div>
         </div>
-      </section>
+      </motion.section>
+
+      <BubbleMenu
+        open={moreMenuOpen}
+        onRequestClose={() => setMoreMenuOpen(false)}
+        items={moreItems}
+        menuBg="#E2E2E2"
+        menuContentColor="#111111"
+        useFixedPosition
+      />
+
+      <Dock items={dockItems} />
 
       <footer
         style={{
           borderTop: "1px solid var(--border-color)",
-          padding: "32px 24px",
+          padding: "32px 24px 112px",
         }}
       >
         <div

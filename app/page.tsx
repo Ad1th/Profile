@@ -16,7 +16,6 @@ import {
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Link from "next/link";
 import Dock from "@/components/ui/Dock";
 import Loader from "@/components/Loader";
 
@@ -1089,15 +1088,33 @@ export default function Portfolio() {
 
   const moreItems = [
     {
-      label: "Experience",
-      href: "#experience",
-      rotation: -5,
+      label: "Home",
+      href: "#hero",
+      rotation: -2,
+      hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
+    },
+    {
+      label: "About",
+      href: "#about",
+      rotation: 3,
       hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
     },
     {
       label: "Skills",
       href: "#skills",
       rotation: 4,
+      hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
+    },
+    {
+      label: "Experience",
+      href: "#experience",
+      rotation: -5,
+      hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
+    },
+    {
+      label: "Projects",
+      href: "#projects",
+      rotation: 2,
       hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
     },
     {
@@ -1110,6 +1127,18 @@ export default function Portfolio() {
       label: "Achievements",
       href: "#achievements",
       rotation: -4,
+      hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
+    },
+    {
+      label: "Hackathons",
+      href: "#hackathons",
+      rotation: -1,
+      hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
+    },
+    {
+      label: "Hobbies",
+      href: "#hobbies",
+      rotation: 1,
       hoverStyles: { bgColor: "#d96516", textColor: "#f5f5f5" },
     },
     {
@@ -1149,16 +1178,16 @@ export default function Portfolio() {
           --accent: #d96516;
           --olive: #6f7b4b;
           --olive-soft: #d8ddcf;
-          --bg-light: #E8E6E1;
-          --bg-dark: #0f0f0f;
+          --bg-light: #eef1f3;
+          --bg-dark: #eef1f3;
           --text-dark: #111111;
-          --text-light: #ebebeb;
+          --text-light: #1a1a1a;
           --text-muted-dark: rgba(17,17,17,0.58);
-          --text-muted-light: rgba(235,235,235,0.55);
+          --text-muted-light: rgba(17,17,17,0.55);
           --border-dark: rgba(17,17,17,0.12);
-          --border-light: rgba(255,255,255,0.08);
+          --border-light: rgba(17,17,17,0.1);
           --surface-dark: rgba(17,17,17,0.06);
-          --surface-light: rgba(255,255,255,0.05);
+          --surface-light: rgba(17,17,17,0.04);
         }
 
         /* ─ Reveal ─ */
@@ -1246,7 +1275,7 @@ export default function Portfolio() {
         .social-link {
           display: inline-flex; align-items: center; gap: 6px;
           font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em;
-          color: rgba(235,235,235,0.55);
+          color: rgba(17,17,17,0.6);
           transition: color 0.18s ease;
           cursor: pointer;
         }
@@ -1266,17 +1295,17 @@ export default function Portfolio() {
         .bg-offwhite::before {
           content: ''; position: absolute;
           inset: 0; left: calc(-50vw + 50%); right: calc(-50vw + 50%);
-          background: #f0ede8; z-index: -1;
+          background: var(--bg-light); z-index: -1;
         }
         .bg-dark::before {
           content: ''; position: absolute;
           inset: 0; left: calc(-50vw + 50%); right: calc(-50vw + 50%);
-          background: var(--bg-dark); z-index: -1;
+          background: var(--bg-light); z-index: -1;
         }
         .bg-darker::before {
           content: ''; position: absolute;
           inset: 0; left: calc(-50vw + 50%); right: calc(-50vw + 50%);
-          background: #080808; z-index: -1;
+          background: var(--bg-light); z-index: -1;
         }
 
         /* ─ Language bars ─ */
@@ -1373,7 +1402,7 @@ export default function Portfolio() {
           z-index: 1;
         }
         .hero-copy--left {
-          left: clamp(38px, 6vw, 88px);
+          left: clamp(50px, 7vw, 106px);
           text-align: left;
         }
         .hero-copy--right {
@@ -1478,55 +1507,6 @@ export default function Portfolio() {
         </div>
       </motion.div>
 
-      {/* ════════ NAV ════════ */}
-      <motion.nav
-        initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 60,
-          background: "rgba(232,230,225,0.88)",
-          backdropFilter: "blur(14px) saturate(1.4)",
-          WebkitBackdropFilter: "blur(14px) saturate(1.4)",
-          borderBottom: "1px solid rgba(17,17,17,0.08)",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1120,
-            margin: "0 auto",
-            padding: "0 clamp(24px,5vw,56px)",
-            height: 58,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Link
-            href="#hero"
-            style={{
-              fontFamily: "'DM Serif Display', Georgia, serif",
-              fontSize: "1.18rem",
-              color: "#111",
-              letterSpacing: "0.01em",
-            }}
-          >
-            Adith<span style={{ color: "var(--accent)" }}>.</span>
-          </Link>
-          <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-            {["about", "experience", "projects", "contact"].map((item) => (
-              <a key={item} href={`#${item}`} className="nav-pill">
-                {item}
-              </a>
-            ))}
-          </div>
-        </div>
-      </motion.nav>
-
       {/* ════════ HERO ════════ */}
       <section
         id="hero"
@@ -1534,7 +1514,7 @@ export default function Portfolio() {
         style={{
           opacity: showLoader ? 0 : 1,
           minHeight: "100svh",
-          paddingTop: 58,
+          paddingTop: 0,
           position: "relative",
           overflow: "hidden",
           background: "var(--bg-light)",
@@ -1678,7 +1658,11 @@ export default function Portfolio() {
 
       {/* ─ Marquee ─ */}
       <div
-        style={{ background: "#111", padding: "14px 0", overflow: "hidden" }}
+        style={{
+          background: "transparent",
+          padding: "12px 0",
+          overflow: "hidden",
+        }}
       >
         <Marquee items={skillTicker} speed={28} />
       </div>
@@ -1911,8 +1895,7 @@ export default function Portfolio() {
                 fontSize: "0.96rem",
                 lineHeight: 1.8,
                 fontStyle: para.italic ? "italic" : "normal",
-                color:
-                  i === 2 ? "rgba(235,235,235,0.45)" : "rgba(235,235,235,0.72)",
+                color: i === 2 ? "rgba(17,17,17,0.48)" : "rgba(17,17,17,0.72)",
                 transitionDelay: `${i * 0.1}s`,
               }}
             >
@@ -1958,7 +1941,7 @@ export default function Portfolio() {
               key={project.name}
               project={project}
               imageSrc={projectImages[project.name]}
-              dark
+              dark={false}
             />
           ))}
         </div>
@@ -2095,8 +2078,8 @@ export default function Portfolio() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: (i % 3) * 0.07 }}
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: "rgba(17,17,17,0.03)",
+                border: "1px solid rgba(17,17,17,0.1)",
                 borderRadius: 10,
                 padding: "22px 24px",
                 display: "flex",
@@ -2147,7 +2130,7 @@ export default function Portfolio() {
                 <p
                   style={{
                     fontSize: "0.78rem",
-                    color: "rgba(235,235,235,0.45)",
+                    color: "rgba(17,17,17,0.5)",
                     lineHeight: 1.65,
                   }}
                 >
@@ -2319,7 +2302,7 @@ export default function Portfolio() {
               marginTop: 28,
               marginBottom: 44,
               fontSize: "0.96rem",
-              color: "rgba(235,235,235,0.5)",
+              color: "rgba(17,17,17,0.56)",
               lineHeight: 1.78,
             }}
           >
@@ -2378,20 +2361,28 @@ export default function Portfolio() {
         open={moreMenuOpen}
         onRequestClose={() => setMoreMenuOpen(false)}
         items={moreItems}
-        menuBg="#1a1a1a"
-        menuContentColor="#ebebeb"
+        menuBg="#eef1f3"
+        menuContentColor="#111111"
         useFixedPosition
       />
 
       {/* ════════ DOCK ════════ */}
-      <Dock items={dockItems} baseItemSize={42} magnification={60} />
+      <Dock
+        items={dockItems}
+        baseItemSize={40}
+        magnification={48}
+        distance={120}
+        panelHeight={54}
+        dockHeight={72}
+        spring={{ mass: 0.14, stiffness: 170, damping: 24 }}
+      />
 
       {/* ════════ FOOTER ════════ */}
       <footer
         style={{
-          borderTop: "1px solid rgba(255,255,255,0.06)",
+          borderTop: "none",
           padding: "28px clamp(24px,5vw,56px) 108px",
-          background: "#080808",
+          background: "var(--bg-light)",
         }}
       >
         <div
@@ -2405,11 +2396,11 @@ export default function Portfolio() {
             gap: 10,
           }}
         >
-          <p style={{ fontSize: "0.78rem", color: "rgba(235,235,235,0.3)" }}>
+          <p style={{ fontSize: "0.78rem", color: "rgba(17,17,17,0.5)" }}>
             Designed & built by{" "}
             <span style={{ color: "var(--accent)" }}>Adith Manikonda</span>
           </p>
-          <p style={{ fontSize: "0.72rem", color: "rgba(235,235,235,0.2)" }}>
+          <p style={{ fontSize: "0.72rem", color: "rgba(17,17,17,0.42)" }}>
             © {new Date().getFullYear()} · All rights reserved
           </p>
         </div>

@@ -13,13 +13,7 @@ import {
   Mail,
   ExternalLink,
 } from "lucide-react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  AnimatePresence,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -649,36 +643,17 @@ export default function Portfolio() {
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
   const aboutSectionRef = useRef<HTMLElement | null>(null);
-  const heroRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
+  const { scrollY } = useScroll();
   const { scrollYProgress: aboutProgress } = useScroll({
     target: aboutSectionRef,
     offset: ["start end", "start start"],
   });
-
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
-  const cardShiftRaw = useTransform(aboutProgress, [0, 1], [0, -220]);
-  const cardRotateRaw = useTransform(aboutProgress, [0, 1], [0, -5]);
-  const cardScaleRaw = useTransform(aboutProgress, [0, 1], [1, 0.92]);
-  const cardFlipRaw = useTransform(aboutProgress, [0.45, 0.88], [0, 180]);
-  const heroBgTone = useTransform(
-    aboutProgress,
-    [0, 1],
-    ["#E8E6E1", "#EDEBE6"],
-  );
-  const aboutIntroOpacityRaw = useTransform(
-    aboutProgress,
-    [0.15, 0.75],
-    [0, 1],
-  );
-  const aboutIntroXRaw = useTransform(aboutProgress, [0.15, 0.75], [30, 0]);
-
-  const cardShiftX = useSpring(cardShiftRaw, {
+  const cardX = useTransform(scrollY, [0, 900], ["-50%", "10%"]);
+  const cardScaleRaw = useTransform(scrollY, [0, 900], [1, 0.9]);
+  const cardRotateRaw = useTransform(scrollY, [0, 900], [0, 8]);
+  const cardFlipRaw = useTransform(aboutProgress, [0.05, 0.72], [0, 180]);
+  const cardScale = useSpring(cardScaleRaw, {
     stiffness: 120,
     damping: 24,
     mass: 0.3,
@@ -688,25 +663,10 @@ export default function Portfolio() {
     damping: 24,
     mass: 0.3,
   });
-  const cardScale = useSpring(cardScaleRaw, {
-    stiffness: 120,
-    damping: 24,
-    mass: 0.3,
-  });
   const cardFlipY = useSpring(cardFlipRaw, {
     stiffness: 110,
     damping: 26,
     mass: 0.32,
-  });
-  const aboutIntroOpacity = useSpring(aboutIntroOpacityRaw, {
-    stiffness: 120,
-    damping: 28,
-    mass: 0.35,
-  });
-  const aboutIntroX = useSpring(aboutIntroXRaw, {
-    stiffness: 120,
-    damping: 28,
-    mass: 0.35,
   });
 
   /* ── scroll-reveal ───────────────────────── */
@@ -1363,6 +1323,48 @@ export default function Portfolio() {
         .skills-stack-panel:nth-child(3) { z-index: 2; }
         .skills-stack-panel:nth-child(4) { z-index: 1; }
 
+        .section-wrap {
+          max-width: 1120px;
+          margin: 0 auto;
+          min-height: 100svh;
+          width: 100%;
+          padding: clamp(72px,10vw,120px) clamp(24px,5vw,56px);
+          position: relative;
+          z-index: 0;
+        }
+
+        .hero-scene {
+          max-width: 100%;
+          width: 100%;
+        }
+
+        .hero-copy {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: min(40vw, 560px);
+          z-index: 1;
+        }
+        .hero-copy--left {
+          left: clamp(24px, 5vw, 72px);
+          text-align: left;
+        }
+        .hero-copy--right {
+          right: clamp(24px, 5vw, 72px);
+          text-align: right;
+        }
+
+        .global-card {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          z-index: 50;
+          width: min(260px, 30vw);
+          transform-style: preserve-3d;
+          pointer-events: none;
+          will-change: transform;
+        }
+
         @media (max-width: 768px) {
           .skills-bento { grid-template-columns: 1fr; }
           .hack-row { grid-template-columns: 1fr; gap: 6px; }
@@ -1372,12 +1374,59 @@ export default function Portfolio() {
             top: auto;
             min-height: auto;
           }
+          .hero-copy {
+            position: relative;
+            top: auto;
+            transform: none;
+            width: 100%;
+            max-width: none;
+          }
+          .hero-copy--left,
+          .hero-copy--right {
+            left: auto;
+            right: auto;
+            text-align: left;
+          }
+          .global-card {
+            width: min(220px, 52vw);
+          }
         }
       `,
         }}
       />
 
       {showLoader && <Loader onDone={() => setShowLoader(false)} />}
+
+      <motion.div
+        className="global-card"
+        style={{ x: cardX, y: "-50%", scale: cardScale, rotate: cardRotate }}
+      >
+        <div className="avatar-card-shell">
+          <motion.div
+            className="avatar-card-core"
+            style={{ rotateY: cardFlipY }}
+          >
+            <div className="avatar-card-face avatar-card-face--front">
+              <Image
+                src="/profile.png"
+                alt="Adith avatar"
+                width={420}
+                height={420}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  filter: "saturate(0.92) contrast(1.02)",
+                }}
+                priority
+              />
+            </div>
+            <div className="avatar-card-face avatar-card-face--back">
+              I like building things, breaking them, then fixing them again.
+            </div>
+          </motion.div>
+        </div>
+      </motion.div>
 
       {/* ════════ NAV ════════ */}
       <motion.nav
@@ -1429,157 +1478,113 @@ export default function Portfolio() {
       </motion.nav>
 
       {/* ════════ HERO ════════ */}
-      <motion.section
+      <section
         id="hero"
-        ref={heroRef}
+        className="hero-scene"
         style={{
           opacity: showLoader ? 0 : 1,
           minHeight: "100svh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: heroBgTone,
-          backgroundImage:
-            "linear-gradient(rgba(17,17,17,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(17,17,17,0.04) 1px, transparent 1px)",
-          backgroundSize: "68px 68px",
           paddingTop: 58,
           position: "relative",
           overflow: "hidden",
+          background: "var(--bg-light)",
         }}
-        animate={{ opacity: showLoader ? 0 : 1 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       >
-        <motion.div
-          style={{ y: heroY, opacity: heroOpacity }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.1 }}
-        >
-          <div
+        <div className="hero-copy hero-copy--left">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
             style={{
-              maxWidth: 1120,
-              width: "100%",
-              padding: "0 clamp(24px,5vw,56px)",
-              display: "flex",
+              display: "inline-flex",
               alignItems: "center",
-              gap: "clamp(40px,8vw,100px)",
-              position: "relative",
-              zIndex: 1,
+              gap: 8,
+              fontSize: "0.67rem",
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "rgba(111,123,75,0.82)",
+              marginBottom: 28,
             }}
           >
-            {/* Text */}
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.15 }}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  fontSize: "0.67rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "rgba(111,123,75,0.82)",
-                  marginBottom: 28,
-                }}
-              >
-                <span
-                  style={{
-                    width: 24,
-                    height: 1.5,
-                    background: "var(--olive)",
-                    display: "inline-block",
-                    borderRadius: 1,
-                  }}
-                />
-                VIT Vellore · CSE (Information Security)
-              </motion.div>
-
-              <h1
-                style={{
-                  fontFamily: "'DM Serif Display', Georgia, serif",
-                  fontSize: "clamp(3.6rem, 8.5vw, 7.2rem)",
-                  fontWeight: 400,
-                  lineHeight: 1.0,
-                  letterSpacing: "-0.04em",
-                  color: "#111",
-                  overflow: "hidden",
-                }}
-              >
-                <SplitReveal
-                  text="Hey, I'm"
-                  delay={0.2}
-                  style={{ display: "block", color: "rgba(17,17,17,0.78)" }}
-                />
-                <SplitReveal
-                  text="Adith."
-                  delay={0.28}
-                  style={{ display: "block", color: "var(--accent)" }}
-                />
-              </h1>
-            </div>
-
-            {/* Avatar */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.88, y: 24 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{
-                duration: 1.1,
-                delay: 0.35,
-                ease: [0.16, 1, 0.3, 1],
-              }}
+            <span
               style={{
-                flexShrink: 0,
-                width: "min(260px,30vw)",
-                position: "relative",
-                x: cardShiftX,
-                rotate: cardRotate,
-                scale: cardScale,
+                width: 24,
+                height: 1.5,
+                background: "var(--olive)",
+                display: "inline-block",
+                borderRadius: 1,
+              }}
+            />
+            Backend • Databases
+          </motion.div>
+          <h1
+            style={{
+              fontFamily: "'DM Serif Display', Georgia, serif",
+              fontSize: "clamp(3.6rem, 8.5vw, 7.2rem)",
+              fontWeight: 400,
+              lineHeight: 1.0,
+              letterSpacing: "-0.04em",
+              color: "#111",
+              overflow: "hidden",
+            }}
+          >
+            <SplitReveal
+              text="Adith"
+              delay={0.2}
+              style={{ display: "block", color: "rgba(17,17,17,0.78)" }}
+            />
+          </h1>
+        </div>
+
+        <div className="hero-copy hero-copy--right">
+          <h1
+            style={{
+              fontFamily: "'DM Serif Display', Georgia, serif",
+              fontSize: "clamp(3.6rem, 8.5vw, 7.2rem)",
+              fontWeight: 400,
+              lineHeight: 1.0,
+              letterSpacing: "-0.04em",
+              color: "#111",
+              overflow: "hidden",
+              textAlign: "right",
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                justifyContent: "flex-end",
+                fontSize: "0.67rem",
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "rgba(111,123,75,0.82)",
+                marginBottom: 28,
               }}
             >
-              <motion.div className="avatar-card-shell">
-                <motion.div
-                  className="avatar-card-core"
-                  style={{ rotateY: cardFlipY }}
-                >
-                  <div className="avatar-card-face avatar-card-face--front">
-                    <Image
-                      src="/profile.png"
-                      alt="Adith avatar"
-                      width={420}
-                      height={420}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        filter: "saturate(0.9) contrast(1.02)",
-                      }}
-                      priority
-                    />
-                  </div>
-                  <div className="avatar-card-face avatar-card-face--back">
-                    I like building things, breaking them, then fixing them
-                    again.
-                  </div>
-                </motion.div>
-              </motion.div>
-
-              <div
-                aria-hidden
+              Engineering Student
+              <span
                 style={{
-                  position: "absolute",
-                  inset: "-18%",
-                  zIndex: -1,
-                  background:
-                    "radial-gradient(ellipse at center, rgba(111,123,75,0.22) 0%, rgba(111,123,75,0) 72%)",
+                  width: 24,
+                  height: 1.5,
+                  background: "var(--olive)",
+                  display: "inline-block",
+                  borderRadius: 1,
                 }}
               />
             </motion.div>
-          </div>
-        </motion.div>
+            <SplitReveal
+              text="Manikonda"
+              delay={0.28}
+              style={{ display: "block", color: "var(--accent)" }}
+            />
+          </h1>
+        </div>
 
         {/* Scroll nudge */}
         <motion.div
@@ -1619,7 +1624,7 @@ export default function Portfolio() {
             }}
           />
         </motion.div>
-      </motion.section>
+      </section>
 
       {/* ─ Marquee ─ */}
       <div
@@ -1627,105 +1632,6 @@ export default function Portfolio() {
       >
         <Marquee items={skillTicker} speed={28} />
       </div>
-
-      {/* ════════ ABOUT ════════ */}
-      <section
-        id="about"
-        className="section-wrap bg-dark"
-        ref={aboutSectionRef as React.RefObject<HTMLElement>}
-        style={{ color: "var(--text-light)" }}
-      >
-        <SectionLabel>About</SectionLabel>
-
-        <div
-          className="about-falling-wrap reveal-on-scroll"
-          style={{ marginBottom: 0 }}
-        >
-          <FallingText
-            className="about-falling"
-            text="I like building things, breaking them, then fixing them again."
-            trigger="scroll"
-            gravity={0.46}
-            mouseConstraintStiffness={0.2}
-            fontSize="clamp(1.9rem, 3.8vw, 2.9rem)"
-            floorRatio={0.78}
-            maxDropDistance={110}
-            showFloorLine={false}
-            style={{
-              fontFamily: "'DM Serif Display', Georgia, serif",
-              color: "var(--text-light)",
-              minHeight: "clamp(190px,22vw,260px)",
-            }}
-          />
-          {/* Single orange rule — only one */}
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              right: 0,
-              top: "78%",
-              height: 2,
-              background: "rgba(217,101,22,0.6)",
-              pointerEvents: "none",
-              zIndex: 2,
-            }}
-          />
-        </div>
-
-        <motion.div
-          style={{
-            marginTop: 64,
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px,1fr))",
-            gap: 32,
-            maxWidth: 880,
-            opacity: aboutIntroOpacity,
-            x: aboutIntroX,
-          }}
-        >
-          {[
-            {
-              text: "I'm a CSE student who enjoys backend-heavy projects that feel real: multiplayer games with actual users, AI tools that do something useful, anonymous forums, productivity extensions, and apps that bridge gaps outside the screen.",
-              italic: false,
-            },
-            {
-              text: "Sometimes I dip into hardware — running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. When physics fights back, your software design improves fast.",
-              italic: false,
-            },
-            {
-              text: "Mostly, I care about shipping systems that run, scale, and survive real usage. Buzzwords don't interest me much, but behaviour does.",
-              italic: true,
-            },
-          ].map((para, i) => (
-            <p
-              key={i}
-              className="reveal-on-scroll"
-              style={{
-                fontSize: "0.96rem",
-                lineHeight: 1.8,
-                fontStyle: para.italic ? "italic" : "normal",
-                color:
-                  i === 2 ? "rgba(235,235,235,0.45)" : "rgba(235,235,235,0.72)",
-                transitionDelay: `${i * 0.1}s`,
-              }}
-            >
-              {para.text}
-            </p>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* ════════ EXPERIENCE ════════ */}
-      <section id="experience" className="section-wrap bg-offwhite">
-        <SectionLabel>Experience</SectionLabel>
-        <SectionTitle>Where I've worked</SectionTitle>
-
-        <div style={{ marginTop: 56, maxWidth: 700 }}>
-          {experience.map((job, i) => (
-            <ExperienceCard key={i} job={job} index={i} />
-          ))}
-        </div>
-      </section>
 
       {/* ════════ SKILLS ════════ */}
       <section id="skills" className="section-wrap bg-light">
@@ -1897,6 +1803,103 @@ export default function Portfolio() {
             </div>
           ))}
         </motion.div>
+      </section>
+
+      {/* ════════ ABOUT ════════ */}
+      <section
+        id="about"
+        className="section-wrap bg-dark"
+        ref={aboutSectionRef}
+        style={{ color: "var(--text-light)" }}
+      >
+        <SectionLabel>About</SectionLabel>
+
+        <div
+          className="about-falling-wrap reveal-on-scroll"
+          style={{ marginBottom: 0 }}
+        >
+          <FallingText
+            className="about-falling"
+            text="I like building things, breaking them, then fixing them again."
+            trigger="scroll"
+            gravity={0.46}
+            mouseConstraintStiffness={0.2}
+            fontSize="clamp(1.9rem, 3.8vw, 2.9rem)"
+            floorRatio={0.78}
+            maxDropDistance={110}
+            showFloorLine={false}
+            style={{
+              fontFamily: "'DM Serif Display', Georgia, serif",
+              color: "var(--text-light)",
+              minHeight: "clamp(190px,22vw,260px)",
+            }}
+          />
+          {/* Single orange rule — only one */}
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: "78%",
+              height: 2,
+              background: "rgba(217,101,22,0.6)",
+              pointerEvents: "none",
+              zIndex: 2,
+            }}
+          />
+        </div>
+
+        <motion.div
+          style={{
+            marginTop: 64,
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px,1fr))",
+            gap: 32,
+            maxWidth: 880,
+          }}
+        >
+          {[
+            {
+              text: "I'm a CSE student who enjoys backend-heavy projects that feel real: multiplayer games with actual users, AI tools that do something useful, anonymous forums, productivity extensions, and apps that bridge gaps outside the screen.",
+              italic: false,
+            },
+            {
+              text: "Sometimes I dip into hardware — running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. When physics fights back, your software design improves fast.",
+              italic: false,
+            },
+            {
+              text: "Mostly, I care about shipping systems that run, scale, and survive real usage. Buzzwords don't interest me much, but behaviour does.",
+              italic: true,
+            },
+          ].map((para, i) => (
+            <p
+              key={i}
+              className="reveal-on-scroll"
+              style={{
+                fontSize: "0.96rem",
+                lineHeight: 1.8,
+                fontStyle: para.italic ? "italic" : "normal",
+                color:
+                  i === 2 ? "rgba(235,235,235,0.45)" : "rgba(235,235,235,0.72)",
+                transitionDelay: `${i * 0.1}s`,
+              }}
+            >
+              {para.text}
+            </p>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ════════ EXPERIENCE ════════ */}
+      <section id="experience" className="section-wrap bg-offwhite">
+        <SectionLabel>Experience</SectionLabel>
+        <SectionTitle>Where I've worked</SectionTitle>
+
+        <div style={{ marginTop: 56, maxWidth: 700 }}>
+          {experience.map((job, i) => (
+            <ExperienceCard key={i} job={job} index={i} />
+          ))}
+        </div>
       </section>
 
       {/* ════════ PROJECTS ════════ */}

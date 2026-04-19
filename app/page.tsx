@@ -640,16 +640,35 @@ export default function Portfolio() {
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
   const skillsSectionRef = useRef<HTMLElement | null>(null);
+  const aboutSectionRef = useRef<HTMLElement | null>(null);
 
   const { scrollY } = useScroll();
   const { scrollYProgress: skillsProgress } = useScroll({
     target: skillsSectionRef,
     offset: ["start end", "start start"],
   });
-  const cardX = useTransform(scrollY, [0, 900], ["0vw", "32vw"]);
+  const { scrollYProgress: aboutProgress } = useScroll({
+    target: aboutSectionRef,
+    offset: ["start end", "start start"],
+  });
+  const cardX = useTransform(scrollY, [0, 140, 900], ["-3.5vw", "0vw", "32vw"]);
   const cardScaleRaw = useTransform(scrollY, [0, 900], [1, 0.9]);
   const cardRotateRaw = useTransform(scrollY, [0, 900], [0, 8]);
-  const cardFlipRaw = useTransform(skillsProgress, [0.25, 0.78], [0, 180]);
+  const cardFlipRaw = useTransform(
+    [skillsProgress, aboutProgress],
+    (latest) => {
+      const skills = Number(latest[0] ?? 0);
+      const about = Number(latest[1] ?? 0);
+      const skillsT = Math.min(Math.max((skills - 0.25) / 0.53, 0), 1);
+      const aboutT = Math.min(Math.max((about - 0.2) / 0.55, 0), 1);
+
+      if (aboutT > 0) {
+        return 180 * (1 - aboutT);
+      }
+
+      return 180 * skillsT;
+    },
+  );
   const cardScale = useSpring(cardScaleRaw, {
     stiffness: 120,
     damping: 24,
@@ -665,6 +684,13 @@ export default function Portfolio() {
     damping: 26,
     mass: 0.32,
   });
+  const aboutImageBlend = useTransform(aboutProgress, [0.15, 0.45], [0, 1]);
+  const aboutImageBlendSpring = useSpring(aboutImageBlend, {
+    stiffness: 120,
+    damping: 24,
+    mass: 0.32,
+  });
+  const heroImageOpacity = useTransform(aboutImageBlendSpring, [0, 1], [1, 0]);
 
   /* ── scroll-reveal ───────────────────────── */
   useEffect(() => {
@@ -1282,6 +1308,10 @@ export default function Portfolio() {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
         }
+        .avatar-front-layer {
+          position: absolute;
+          inset: 0;
+        }
         .avatar-card-face--back {
           transform: rotateY(180deg);
           display: flex;
@@ -1343,7 +1373,7 @@ export default function Portfolio() {
           z-index: 1;
         }
         .hero-copy--left {
-          left: clamp(24px, 5vw, 72px);
+          left: clamp(38px, 6vw, 88px);
           text-align: left;
         }
         .hero-copy--right {
@@ -1404,22 +1434,45 @@ export default function Portfolio() {
             style={{ rotateY: cardFlipY }}
           >
             <div className="avatar-card-face avatar-card-face--front">
-              <Image
-                src="/profile.png"
-                alt="Adith avatar"
-                width={420}
-                height={420}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  filter: "saturate(0.92) contrast(1.02)",
-                }}
-                priority
-              />
+              <motion.div
+                className="avatar-front-layer"
+                style={{ opacity: heroImageOpacity }}
+              >
+                <Image
+                  src="/me.png"
+                  alt="Adith avatar"
+                  width={420}
+                  height={420}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    filter: "saturate(0.92) contrast(1.02)",
+                  }}
+                  priority
+                />
+              </motion.div>
+              <motion.div
+                className="avatar-front-layer"
+                style={{ opacity: aboutImageBlendSpring }}
+              >
+                <Image
+                  src="/me2.jpeg"
+                  alt="Adith avatar alternate"
+                  width={420}
+                  height={420}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    filter: "saturate(0.95) contrast(1.02)",
+                  }}
+                  priority
+                />
+              </motion.div>
             </div>
             <div className="avatar-card-face avatar-card-face--back">
-              I like building things, breaking them, then fixing them again.
+              Adith, Dackend Developer
             </div>
           </motion.div>
         </div>
@@ -1810,6 +1863,7 @@ export default function Portfolio() {
       <section
         id="about"
         className="section-wrap bg-dark"
+        ref={aboutSectionRef}
         style={{ color: "var(--text-light)" }}
       >
         <SectionLabel>About</SectionLabel>

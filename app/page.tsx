@@ -640,6 +640,7 @@ export default function Portfolio() {
   const [showLoader, setShowLoader] = useState(true);
   const skillsSectionRef = useRef<HTMLElement | null>(null);
   const aboutSectionRef = useRef<HTMLElement | null>(null);
+  const experienceSectionRef = useRef<HTMLElement | null>(null);
 
   const { scrollY } = useScroll();
   const { scrollYProgress: skillsProgress } = useScroll({
@@ -650,9 +651,25 @@ export default function Portfolio() {
     target: aboutSectionRef,
     offset: ["start end", "start start"],
   });
+  const { scrollYProgress: experienceProgress } = useScroll({
+    target: experienceSectionRef,
+    offset: ["start end", "start start"],
+  });
   const cardX = useTransform(scrollY, [0, 140, 900], ["-3.5vw", "0vw", "32vw"]);
   const cardScaleRaw = useTransform(scrollY, [0, 900], [1, 0.9]);
   const cardRotateRaw = useTransform(scrollY, [0, 900], [0, 8]);
+  const cardYRaw = useTransform(
+    [aboutProgress, experienceProgress],
+    (latest) => {
+      const about = Number(latest[0] ?? 0);
+      const exp = Number(latest[1] ?? 0);
+      const aboutT = Math.min(Math.max((about - 0.04) / 0.96, 0), 1);
+      const expT = Math.min(Math.max((exp - 0.01) / 0.12, 0), 1);
+      const lift = aboutT * 52 + expT * 86;
+      return `${-50 - lift}%`;
+    },
+  );
+  const cardOpacityRaw = useTransform(experienceProgress, [0, 0.1], [1, 0]);
   const cardFlipRaw = useTransform(
     [skillsProgress, aboutProgress],
     (latest) => {
@@ -682,6 +699,16 @@ export default function Portfolio() {
     stiffness: 110,
     damping: 26,
     mass: 0.32,
+  });
+  const cardY = useSpring(cardYRaw, {
+    stiffness: 110,
+    damping: 24,
+    mass: 0.34,
+  });
+  const cardOpacity = useSpring(cardOpacityRaw, {
+    stiffness: 150,
+    damping: 28,
+    mass: 0.28,
   });
   const aboutImageBlend = useTransform(aboutProgress, [0.15, 0.45], [0, 1]);
   const aboutImageBlendSpring = useSpring(aboutImageBlend, {
@@ -1455,7 +1482,13 @@ export default function Portfolio() {
 
       <motion.div
         className="global-card"
-        style={{ x: cardX, y: "-50%", scale: cardScale, rotate: cardRotate }}
+        style={{
+          x: cardX,
+          y: cardY,
+          scale: cardScale,
+          rotate: cardRotate,
+          opacity: cardOpacity,
+        }}
       >
         <div className="avatar-card-shell">
           <motion.div
@@ -1906,7 +1939,11 @@ export default function Portfolio() {
       </section>
 
       {/* ════════ EXPERIENCE ════════ */}
-      <section id="experience" className="section-wrap bg-offwhite">
+      <section
+        id="experience"
+        className="section-wrap bg-offwhite"
+        ref={experienceSectionRef}
+      >
         <SectionLabel>Experience</SectionLabel>
         <SectionTitle>Where I've worked</SectionTitle>
 

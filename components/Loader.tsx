@@ -13,6 +13,7 @@ export default function Loader({ onDone }: LoaderProps) {
   const [index, setIndex] = useState(0);
   const [finalPhase, setFinalPhase] = useState(false);
   const onDoneRef = useRef(onDone);
+  const wordDurations = [760, 760, 380, 380, 380, 380];
 
   useEffect(() => {
     onDoneRef.current = onDone;
@@ -30,7 +31,7 @@ export default function Loader({ onDone }: LoaderProps) {
       for (let i = 0; i < WORDS.length; i += 1) {
         if (cancelled) return;
         setIndex(i);
-        await sleep(760);
+        await sleep(wordDurations[i] ?? 655);
       }
 
       if (cancelled) return;

@@ -20,9 +20,6 @@ import Link from "next/link";
 import Dock from "@/components/ui/Dock";
 import Loader from "@/components/Loader";
 
-const FallingText = dynamic(() => import("@/components/ui/FallingText"), {
-  ssr: false,
-});
 const BubbleMenu = dynamic(() => import("@/components/ui/BubbleMenu"), {
   ssr: false,
 });
@@ -642,17 +639,17 @@ function ExperienceCard({
 export default function Portfolio() {
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
-  const aboutSectionRef = useRef<HTMLElement | null>(null);
+  const skillsSectionRef = useRef<HTMLElement | null>(null);
 
   const { scrollY } = useScroll();
-  const { scrollYProgress: aboutProgress } = useScroll({
-    target: aboutSectionRef,
+  const { scrollYProgress: skillsProgress } = useScroll({
+    target: skillsSectionRef,
     offset: ["start end", "start start"],
   });
-  const cardX = useTransform(scrollY, [0, 900], ["-50%", "10%"]);
+  const cardX = useTransform(scrollY, [0, 900], ["0vw", "32vw"]);
   const cardScaleRaw = useTransform(scrollY, [0, 900], [1, 0.9]);
   const cardRotateRaw = useTransform(scrollY, [0, 900], [0, 8]);
-  const cardFlipRaw = useTransform(aboutProgress, [0.05, 0.72], [0, 180]);
+  const cardFlipRaw = useTransform(skillsProgress, [0.25, 0.78], [0, 180]);
   const cardScale = useSpring(cardScaleRaw, {
     stiffness: 120,
     damping: 24,
@@ -1318,10 +1315,10 @@ export default function Portfolio() {
           transition: transform 0.25s ease, opacity 0.25s ease;
           min-height: 180px;
         }
-        .skills-stack-panel:nth-child(1) { z-index: 4; }
-        .skills-stack-panel:nth-child(2) { z-index: 3; }
-        .skills-stack-panel:nth-child(3) { z-index: 2; }
-        .skills-stack-panel:nth-child(4) { z-index: 1; }
+        .skills-stack-panel:nth-child(1) { z-index: 1; }
+        .skills-stack-panel:nth-child(2) { z-index: 2; margin-top: -32px; }
+        .skills-stack-panel:nth-child(3) { z-index: 3; margin-top: -32px; }
+        .skills-stack-panel:nth-child(4) { z-index: 4; margin-top: -32px; }
 
         .section-wrap {
           max-width: 1120px;
@@ -1634,7 +1631,11 @@ export default function Portfolio() {
       </div>
 
       {/* ════════ SKILLS ════════ */}
-      <section id="skills" className="section-wrap bg-light">
+      <section
+        id="skills"
+        className="section-wrap bg-light"
+        ref={skillsSectionRef}
+      >
         <SectionLabel>Skills</SectionLabel>
         <SectionTitle>What I work with</SectionTitle>
 
@@ -1809,45 +1810,22 @@ export default function Portfolio() {
       <section
         id="about"
         className="section-wrap bg-dark"
-        ref={aboutSectionRef}
         style={{ color: "var(--text-light)" }}
       >
         <SectionLabel>About</SectionLabel>
 
-        <div
-          className="about-falling-wrap reveal-on-scroll"
-          style={{ marginBottom: 0 }}
+        <h2
+          className="reveal-on-scroll"
+          style={{
+            fontFamily: "'DM Serif Display', Georgia, serif",
+            color: "var(--text-light)",
+            fontSize: "clamp(1.9rem, 3.8vw, 2.9rem)",
+            lineHeight: 1.14,
+            maxWidth: 860,
+          }}
         >
-          <FallingText
-            className="about-falling"
-            text="I like building things, breaking them, then fixing them again."
-            trigger="scroll"
-            gravity={0.46}
-            mouseConstraintStiffness={0.2}
-            fontSize="clamp(1.9rem, 3.8vw, 2.9rem)"
-            floorRatio={0.78}
-            maxDropDistance={110}
-            showFloorLine={false}
-            style={{
-              fontFamily: "'DM Serif Display', Georgia, serif",
-              color: "var(--text-light)",
-              minHeight: "clamp(190px,22vw,260px)",
-            }}
-          />
-          {/* Single orange rule — only one */}
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              right: 0,
-              top: "78%",
-              height: 2,
-              background: "rgba(217,101,22,0.6)",
-              pointerEvents: "none",
-              zIndex: 2,
-            }}
-          />
-        </div>
+          I like building things, breaking them, then fixing them again.
+        </h2>
 
         <motion.div
           style={{

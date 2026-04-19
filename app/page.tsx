@@ -1324,7 +1324,11 @@ export default function Portfolio() {
         </div>
       </motion.section>
 
-      <motion.section id="experience" className="section section-silver" {...sectionReveal}>
+      <motion.section
+        id="experience"
+        className="section section-silver"
+        {...sectionReveal}
+      >
         <div className="fade-in">
           <SectionLabel>Experience</SectionLabel>
           <SectionTitle>Where I've worked</SectionTitle>
@@ -1432,7 +1436,11 @@ export default function Portfolio() {
         </div>
       </motion.section>
 
-      <motion.section id="skills" className="section section-white" {...sectionReveal}>
+      <motion.section
+        id="skills"
+        className="section section-white"
+        {...sectionReveal}
+      >
         <div className="fade-in">
           <SectionLabel>Skills</SectionLabel>
           <SectionTitle>What I work with</SectionTitle>
@@ -1494,7 +1502,11 @@ export default function Portfolio() {
         </div>
       </motion.section>
 
-      <motion.section id="projects" className="section section-silver" {...sectionReveal}>
+      <motion.section
+        id="projects"
+        className="section section-silver"
+        {...sectionReveal}
+      >
         <div className="fade-in">
           <SectionLabel>Projects</SectionLabel>
           <SectionTitle>Built and shipped</SectionTitle>
@@ -1610,7 +1622,11 @@ export default function Portfolio() {
         </div>
       </motion.section>
 
-      <motion.section id="patents" className="section section-white" {...sectionReveal}>
+      <motion.section
+        id="patents"
+        className="section section-white"
+        {...sectionReveal}
+      >
         <div className="fade-in">
           <SectionLabel>Patents</SectionLabel>
           <SectionTitle>Intellectual property</SectionTitle>
@@ -1736,7 +1752,11 @@ export default function Portfolio() {
         </div>
       </motion.section>
 
-      <motion.section id="achievements" className="section section-dark" {...sectionReveal}>
+      <motion.section
+        id="achievements"
+        className="section section-dark"
+        {...sectionReveal}
+      >
         <div className="fade-in">
           <SectionLabel>Achievements</SectionLabel>
           <SectionTitle>Certifications &amp; awards</SectionTitle>
@@ -1806,7 +1826,11 @@ export default function Portfolio() {
         </div>
       </motion.section>
 
-      <motion.section id="hackathons" className="section section-silver" {...sectionReveal}>
+      <motion.section
+        id="hackathons"
+        className="section section-silver"
+        {...sectionReveal}
+      >
         <div className="fade-in">
           <SectionLabel>Hackathons</SectionLabel>
           <SectionTitle>Live sprint stack</SectionTitle>
@@ -1876,7 +1900,11 @@ export default function Portfolio() {
         </div>
       </motion.section>
 
-      <motion.section id="hobbies" className="section section-white" {...sectionReveal}>
+      <motion.section
+        id="hobbies"
+        className="section section-white"
+        {...sectionReveal}
+      >
         <div className="fade-in">
           <SectionLabel>Hobbies</SectionLabel>
           <SectionTitle>Beyond the screen</SectionTitle>
@@ -1904,7 +1932,11 @@ export default function Portfolio() {
         </div>
       </motion.section>
 
-      <motion.section id="contact" className="section section-dark" {...sectionReveal}>
+      <motion.section
+        id="contact"
+        className="section section-dark"
+        {...sectionReveal}
+      >
         <div className="fade-in" style={{ maxWidth: "560px" }}>
           <SectionLabel>Contact</SectionLabel>
           <SectionTitle>Let's connect</SectionTitle>
@@ -1922,8 +1954,8 @@ export default function Portfolio() {
             systems that break in interesting ways.
           </p>
           <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-            <a href="mailto:adith2505@outlook.com" className="btn-primary">
-              <Mail size={16} /> adith2505@outlook.com
+            <a href="mailto:hello@adith.xyz" className="btn-primary">
+              <Mail size={16} /> hello@adith.xyz
             </a>
             <a
               href="https://github.com/Ad1th"

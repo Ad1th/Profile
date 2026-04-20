@@ -1357,7 +1357,7 @@ export default function Portfolio() {
           display: flex;
           flex-direction: column;
           gap: 42px;
-          padding-bottom: 12px;
+          padding-bottom: 96px;
         }
         .skills-stack-panel {
           position: sticky;
@@ -1366,7 +1366,7 @@ export default function Portfolio() {
           border: 1px solid rgba(17,17,17,0.14);
           padding: 24px 26px;
           box-shadow: 0 14px 30px rgba(17,17,17,0.08);
-          transition: transform 0.25s ease, opacity 0.25s ease;
+          transition: transform 0.25s ease;
           min-height: 180px;
         }
         .skills-stack-panel:nth-child(1) { z-index: 1; }
@@ -1649,6 +1649,7 @@ export default function Portfolio() {
         id="skills"
         className="section-wrap bg-light"
         ref={skillsSectionRef}
+        style={{ paddingBottom: "clamp(120px, 14vw, 180px)" }}
       >
         <SectionLabel>Skills</SectionLabel>
         <SectionTitle>What I work with</SectionTitle>
@@ -1665,7 +1666,7 @@ export default function Portfolio() {
             {
               key: "databases",
               index: 1,
-              bg: "rgba(217,101,22,0.12)",
+              bg: "#ecd9cc",
               titleColor: "#222",
               bodyColor: "#222",
             },
@@ -1694,7 +1695,6 @@ export default function Portfolio() {
               style={{
                 background: group.bg,
                 transform: `translateY(${idx * -2}px)`,
-                opacity: 1 - idx * 0.04,
               }}
             >
               <p

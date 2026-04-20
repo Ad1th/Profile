@@ -1260,12 +1260,11 @@ export default function Portfolio() {
         /* ─ Hackathon row ─ */
         .hack-row {
           display: grid; grid-template-columns: 180px 1fr; gap: 0;
-          border-bottom: 1px solid rgba(17,17,17,0.1);
           padding: 22px 0; align-items: start;
           transition: background 0.2s ease;
         }
         .hack-row:hover { background: rgba(17,17,17,0.025); margin: 0 -24px; padding-left: 24px; padding-right: 24px; }
-        .hack-row:first-child { border-top: 1px solid rgba(17,17,17,0.1); }
+        .hack-row:first-child { border-top: none; }
 
         /* ─ Contact ─ */
         .social-link {
@@ -1284,24 +1283,24 @@ export default function Portfolio() {
           position: relative; z-index: 0;
         }
         .bg-light::before {
-          content: ''; position: absolute;
+          content: none; position: absolute;
           inset: 0; left: calc(-50vw + 50%); right: calc(-50vw + 50%);
-          background: var(--bg-light); z-index: -1;
+          background: transparent; z-index: -1;
         }
         .bg-offwhite::before {
-          content: ''; position: absolute;
+          content: none; position: absolute;
           inset: 0; left: calc(-50vw + 50%); right: calc(-50vw + 50%);
-          background: var(--bg-light); z-index: -1;
+          background: transparent; z-index: -1;
         }
         .bg-dark::before {
-          content: ''; position: absolute;
+          content: none; position: absolute;
           inset: 0; left: calc(-50vw + 50%); right: calc(-50vw + 50%);
-          background: var(--bg-light); z-index: -1;
+          background: transparent; z-index: -1;
         }
         .bg-darker::before {
-          content: ''; position: absolute;
+          content: none; position: absolute;
           inset: 0; left: calc(-50vw + 50%); right: calc(-50vw + 50%);
-          background: var(--bg-light); z-index: -1;
+          background: transparent; z-index: -1;
         }
 
         /* ─ Language bars ─ */

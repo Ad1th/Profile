@@ -4,6 +4,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const WORDS = ["Hello", "Hola", "Bonjour", "नमस्ते", "Ciao", "こんにちは"];
+const NORMAL_WORD_DURATION_MS = 760;
+const FAST_WORD_DURATION_MS = 560;
+const WORDS_AT_NORMAL_SPEED = 2;
+const FINAL_DIM_HOLD_MS = 560;
 
 type LoaderProps = {
   onDone: () => void;
@@ -13,7 +17,6 @@ export default function Loader({ onDone }: LoaderProps) {
   const [index, setIndex] = useState(0);
   const [finalPhase, setFinalPhase] = useState(false);
   const onDoneRef = useRef(onDone);
-  const wordDurations = [760, 760, 380, 380, 380, 380];
 
   useEffect(() => {
     onDoneRef.current = onDone;
@@ -31,12 +34,15 @@ export default function Loader({ onDone }: LoaderProps) {
       for (let i = 0; i < WORDS.length; i += 1) {
         if (cancelled) return;
         setIndex(i);
-        await sleep(wordDurations[i] ?? 655);
+        const isNormalSpeed = i < WORDS_AT_NORMAL_SPEED;
+        await sleep(
+          isNormalSpeed ? NORMAL_WORD_DURATION_MS : FAST_WORD_DURATION_MS,
+        );
       }
 
       if (cancelled) return;
       setFinalPhase(true);
-      await sleep(520);
+      await sleep(FINAL_DIM_HOLD_MS);
       if (!cancelled) onDoneRef.current();
     };
 

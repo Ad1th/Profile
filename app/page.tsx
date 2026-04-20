@@ -18,6 +18,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Dock from "@/components/ui/Dock";
 import Loader from "@/components/Loader";
+import HeroTessellatedCanvas from "@/components/backgrounds/hero-tessellated-canvas";
 
 const BubbleMenu = dynamic(() => import("@/components/ui/BubbleMenu"), {
   ssr: false,
@@ -1553,6 +1554,18 @@ export default function Portfolio() {
           background: "var(--bg-light)",
         }}
       >
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            overflow: "hidden",
+          }}
+        >
+          <HeroTessellatedCanvas />
+        </div>
+
         <div className="hero-copy hero-copy--left">
           <motion.div
             initial={{ opacity: 0 }}

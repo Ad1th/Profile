@@ -453,51 +453,6 @@ function ProjectCard({
   );
 }
 
-/* ─── Marquee strip ────────────────────────────────────────────────── */
-function Marquee({ items, speed = 35 }: { items: string[]; speed?: number }) {
-  const doubled = [...items, ...items];
-  return (
-    <div style={{ overflow: "hidden", width: "100%", display: "flex" }}>
-      <div
-        style={{
-          display: "flex",
-          gap: "3rem",
-          whiteSpace: "nowrap",
-          animation: `marquee ${speed}s linear infinite`,
-          willChange: "transform",
-        }}
-      >
-        {doubled.map((item, i) => (
-          <span
-            key={i}
-            style={{
-              fontSize: "0.7rem",
-              fontWeight: 700,
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: "rgba(17,17,17,0.35)",
-              display: "flex",
-              alignItems: "center",
-              gap: "3rem",
-            }}
-          >
-            {item}
-            <span style={{ color: "var(--accent)", fontSize: "0.5rem" }}>
-              ◆
-            </span>
-          </span>
-        ))}
-      </div>
-      <style>{`
-        @keyframes marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-      `}</style>
-    </div>
-  );
-}
-
 /* ─── Experience timeline card ─────────────────────────────────────── */
 function ExperienceCard({
   job,
@@ -1192,8 +1147,6 @@ export default function Portfolio() {
     },
   ];
 
-  const skillTicker = skillGroups.flatMap((g) => [g.title, ...g.skills]);
-
   /* ══════════════════════════════════════════════════════════════════ */
   return (
     <>
@@ -1690,57 +1643,7 @@ export default function Portfolio() {
             />
           </h1>
         </div>
-
-        {/* Scroll nudge */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.6 }}
-          style={{
-            position: "absolute",
-            bottom: 36,
-            left: "50%",
-            transform: "translateX(-50%)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 8,
-            zIndex: 1,
-          }}
-        >
-          <span
-            style={{
-              fontSize: "0.62rem",
-              fontWeight: 700,
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: "rgba(17,17,17,0.36)",
-            }}
-          >
-            scroll
-          </span>
-          <motion.div
-            animate={{ y: [0, 7, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            style={{
-              width: 1,
-              height: 40,
-              background: "rgba(217,101,22,0.58)",
-            }}
-          />
-        </motion.div>
       </section>
-
-      {/* ─ Marquee ─ */}
-      <div
-        style={{
-          background: "transparent",
-          padding: "12px 0",
-          overflow: "hidden",
-        }}
-      >
-        <Marquee items={skillTicker} speed={28} />
-      </div>
 
       {/* ════════ SKILLS ════════ */}
       <section

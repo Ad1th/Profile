@@ -736,13 +736,10 @@ export default function Portfolio() {
       mass: 0.32,
     },
   );
-  const otherStackCardsOpacity = useSpring(
-    useTransform(lastCardFoldProgress, [0, 0.48, 0.78, 1], [1, 1, 0.15, 0]),
-    {
-      stiffness: 132,
-      damping: 24,
-      mass: 0.32,
-    },
+  const otherStackCardsOpacity = useTransform(
+    lastCardFoldProgress,
+    [0, 0.008, 1],
+    [1, 0, 0],
   );
 
   /* ── scroll-reveal ───────────────────────── */

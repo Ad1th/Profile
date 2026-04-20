@@ -656,7 +656,7 @@ export default function Portfolio() {
     target: experienceSectionRef,
     offset: ["start end", "start start"],
   });
-  const cardX = useTransform(scrollY, [0, 140, 900], ["-3.5vw", "0vw", "32vw"]);
+  const cardX = useTransform(scrollY, [0, 140, 900], ["-9.5vw", "0vw", "32vw"]);
   const cardScaleRaw = useTransform(scrollY, [0, 900], [1, 0.9]);
   const cardRotateRaw = useTransform(scrollY, [0, 900], [0, 8]);
   const cardYRaw = useTransform(
@@ -1430,11 +1430,11 @@ export default function Portfolio() {
           z-index: 1;
         }
         .hero-copy--left {
-          left: clamp(50px, 7vw, 106px);
+          left: clamp(36px, 6vw, 88px);
           text-align: left;
         }
         .hero-copy--right {
-          right: clamp(24px, 5vw, 72px);
+          right: clamp(36px, 6vw, 88px);
           text-align: right;
         }
 

@@ -1547,18 +1547,18 @@ export default function Portfolio() {
               fontFamily: inter.style.fontFamily,
               fontSize: "12px",
               fontWeight: 600,
-              letterSpacing: "0.2em",
+              letterSpacing: "0.13em",
               textTransform: "uppercase",
               color: "#6b6b6b",
-              opacity: 0.6,
-              marginBottom: 28,
+              opacity: 0.72,
+              marginBottom: 20,
             }}
           >
             <span
               style={{
                 width: 24,
                 height: 1.5,
-                background: "rgba(107,107,107,0.6)",
+                background: "rgba(88,88,88,0.74)",
                 display: "inline-block",
                 borderRadius: 1,
               }}
@@ -1613,11 +1613,11 @@ export default function Portfolio() {
                 fontFamily: inter.style.fontFamily,
                 fontSize: "12px",
                 fontWeight: 600,
-                letterSpacing: "0.2em",
+                letterSpacing: "0.13em",
                 textTransform: "uppercase",
                 color: "#6b6b6b",
-                opacity: 0.6,
-                marginBottom: 28,
+                opacity: 0.72,
+                marginBottom: 20,
               }}
             >
               Engineering Student
@@ -1625,7 +1625,7 @@ export default function Portfolio() {
                 style={{
                   width: 24,
                   height: 1.5,
-                  background: "rgba(107,107,107,0.6)",
+                  background: "rgba(88,88,88,0.74)",
                   display: "inline-block",
                   borderRadius: 1,
                 }}

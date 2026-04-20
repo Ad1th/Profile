@@ -16,12 +16,27 @@ import {
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { Inter, Playfair_Display } from "next/font/google";
 import Dock from "@/components/ui/Dock";
 import Loader from "@/components/Loader";
 import HeroTessellatedCanvas from "@/components/backgrounds/hero-tessellated-canvas";
 
 const BubbleMenu = dynamic(() => import("@/components/ui/BubbleMenu"), {
   ssr: false,
+});
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+  fallback: ["Georgia", "serif"],
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+  fallback: ["system-ui", "sans-serif"],
 });
 
 /* ─── Grain overlay ──────────────────────────────────────────────── */
@@ -1435,6 +1450,8 @@ export default function Portfolio() {
         }
         .hero-copy--right {
           right: clamp(36px, 6vw, 88px);
+          width: min(52vw, 760px);
+          transform: translateY(-50%) translateX(clamp(-24px, -4vw, -72px));
           text-align: right;
         }
 
@@ -1575,11 +1592,13 @@ export default function Portfolio() {
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              fontSize: "0.67rem",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
+              fontFamily: inter.style.fontFamily,
+              fontSize: "12px",
+              fontWeight: 600,
+              letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "rgba(111,123,75,0.82)",
+              color: "#6b6b6b",
+              opacity: 0.6,
               marginBottom: 28,
             }}
           >
@@ -1587,7 +1606,7 @@ export default function Portfolio() {
               style={{
                 width: 24,
                 height: 1.5,
-                background: "var(--olive)",
+                background: "rgba(107,107,107,0.6)",
                 display: "inline-block",
                 borderRadius: 1,
               }}
@@ -1596,19 +1615,19 @@ export default function Portfolio() {
           </motion.div>
           <h1
             style={{
-              fontFamily: "'DM Serif Display', Georgia, serif",
+              fontFamily: playfairDisplay.style.fontFamily,
               fontSize: "clamp(3.8rem, 8.8vw, 7.5rem)",
-              fontWeight: 400,
-              lineHeight: 1.0,
-              letterSpacing: "-0.04em",
-              color: "#111",
+              fontWeight: 500,
+              lineHeight: 1.05,
+              letterSpacing: "-0.02em",
+              color: "#2b2b2b",
               overflow: "hidden",
             }}
           >
             <SplitReveal
               text="Adith"
               delay={0.2}
-              style={{ display: "block", color: "rgba(17,17,17,0.78)" }}
+              style={{ display: "block", color: "#2b2b2b" }}
             />
           </h1>
         </div>
@@ -1616,13 +1635,17 @@ export default function Portfolio() {
         <div className="hero-copy hero-copy--right">
           <h1
             style={{
-              fontFamily: "'DM Serif Display', Georgia, serif",
+              fontFamily: playfairDisplay.style.fontFamily,
               fontSize: "clamp(3.6rem, 8.5vw, 7.2rem)",
-              fontWeight: 400,
-              lineHeight: 1.0,
-              letterSpacing: "-0.04em",
-              color: "#111",
+              fontWeight: 500,
+              lineHeight: 1.05,
+              letterSpacing: "-0.01em",
+              color: "#d65a2e",
               overflow: "hidden",
+              whiteSpace: "nowrap",
+              textRendering: "optimizeLegibility",
+              WebkitFontSmoothing: "antialiased",
+              MozOsxFontSmoothing: "grayscale",
               textAlign: "right",
             }}
           >
@@ -1635,11 +1658,13 @@ export default function Portfolio() {
                 alignItems: "center",
                 gap: 8,
                 justifyContent: "flex-end",
-                fontSize: "0.67rem",
-                fontWeight: 700,
-                letterSpacing: "0.18em",
+                fontFamily: inter.style.fontFamily,
+                fontSize: "12px",
+                fontWeight: 600,
+                letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "rgba(111,123,75,0.82)",
+                color: "#6b6b6b",
+                opacity: 0.6,
                 marginBottom: 28,
               }}
             >
@@ -1648,7 +1673,7 @@ export default function Portfolio() {
                 style={{
                   width: 24,
                   height: 1.5,
-                  background: "var(--olive)",
+                  background: "rgba(107,107,107,0.6)",
                   display: "inline-block",
                   borderRadius: 1,
                 }}
@@ -1657,7 +1682,11 @@ export default function Portfolio() {
             <SplitReveal
               text="Manikonda"
               delay={0.28}
-              style={{ display: "block", color: "var(--accent)" }}
+              style={{
+                display: "block",
+                color: "#d65a2e",
+                whiteSpace: "nowrap",
+              }}
             />
           </h1>
         </div>

@@ -610,6 +610,7 @@ export default function Portfolio() {
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
   const skillsSectionRef = useRef<HTMLElement | null>(null);
+  const skillsLanguagesRef = useRef<HTMLDivElement | null>(null);
   const aboutSectionRef = useRef<HTMLElement | null>(null);
   const experienceSectionRef = useRef<HTMLElement | null>(null);
 
@@ -625,6 +626,10 @@ export default function Portfolio() {
   const { scrollYProgress: experienceProgress } = useScroll({
     target: experienceSectionRef,
     offset: ["start end", "start start"],
+  });
+  const { scrollYProgress: skillsLanguagesProgress } = useScroll({
+    target: skillsLanguagesRef,
+    offset: ["start end", "start center"],
   });
   const cardX = useTransform(scrollY, [0, 140, 900], ["-9.5vw", "0vw", "32vw"]);
   const cardScaleRaw = useTransform(scrollY, [0, 900], [1, 0.9]);
@@ -688,6 +693,57 @@ export default function Portfolio() {
     mass: 0.32,
   });
   const heroImageOpacity = useTransform(aboutImageBlendSpring, [0, 1], [1, 0]);
+  const lastCardFoldProgress = useTransform(skillsLanguagesProgress, (v) =>
+    Math.min(Math.max((v - 0.98) / 0.035, 0), 1),
+  );
+  const lastCardFoldRotateY = useSpring(
+    useTransform(lastCardFoldProgress, [0, 1], [0, -178]),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldShiftX = useSpring(
+    useTransform(lastCardFoldProgress, [0, 1], [0, -1]),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldY = useSpring(
+    useTransform(lastCardFoldProgress, [0, 1], [-2, 10]),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldOpacity = useSpring(
+    useTransform(lastCardFoldProgress, [0, 0.85, 1], [1, 1, 0.76]),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldShadow = useSpring(
+    useTransform(lastCardFoldProgress, [0, 1], [0, 0.14]),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const otherStackCardsOpacity = useSpring(
+    useTransform(lastCardFoldProgress, [0, 0.48, 0.78, 1], [1, 1, 0.15, 0]),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
 
   /* ── scroll-reveal ───────────────────────── */
   useEffect(() => {
@@ -1352,7 +1408,7 @@ export default function Portfolio() {
 
         /* ─ Skills stacked sections ─ */
         .skills-stack {
-          margin-top: 12px;
+          margin-top: 16px;
           position: relative;
           display: flex;
           flex-direction: column;
@@ -1363,13 +1419,13 @@ export default function Portfolio() {
           position: relative;
           padding-bottom: 0;
           --skills-sticky-top: 56px;
-          --skills-heading-height: 132px;
+          --skills-heading-height: 152px;
         }
         .skills-section-heading {
           position: sticky;
           top: var(--skills-sticky-top);
           z-index: 8;
-          padding-bottom: 10px;
+          padding-bottom: 16px;
           background: transparent;
         }
         .skills-stack-panel {
@@ -1386,6 +1442,46 @@ export default function Portfolio() {
         .skills-stack-panel:nth-child(2) { z-index: 2; margin-top: -32px; }
         .skills-stack-panel:nth-child(3) { z-index: 3; margin-top: -32px; }
         .skills-stack-panel:nth-child(4) { z-index: 4; margin-top: -32px; }
+        .skills-fold-card {
+          position: relative;
+          min-height: inherit;
+          perspective: 2200px;
+          transform-style: preserve-3d;
+        }
+        .skills-fold-measure {
+          visibility: hidden;
+        }
+        .skills-fold-half {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+        .skills-fold-half--left {
+          clip-path: inset(0 50% 0 0);
+          z-index: 1;
+        }
+        .skills-fold-half--right {
+          clip-path: inset(0 0 0 50%);
+          transform-origin: left center;
+          z-index: 2;
+          will-change: transform;
+        }
+        .skills-fold-shadow {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: linear-gradient(to left, rgba(17,17,17,0.28), rgba(17,17,17,0));
+        }
+        .skills-fold-surface {
+          height: 100%;
+          min-height: 180px;
+          border-radius: 12px;
+          border: 1px solid rgba(17,17,17,0.14);
+          padding: 24px 26px;
+          box-shadow: 0 14px 30px rgba(17,17,17,0.08);
+        }
 
         .section-wrap {
           max-width: 1120px;
@@ -1716,49 +1812,112 @@ export default function Portfolio() {
                 transition={{ duration: 0.52, delay: idx * 0.08 }}
                 className="skills-stack-panel"
                 style={{
-                  background: group.bg,
-                  transform: `translateY(${idx * -2}px)`,
+                  background: idx === 3 ? "transparent" : group.bg,
+                  border: idx === 3 ? "none" : undefined,
+                  boxShadow: idx === 3 ? "none" : undefined,
+                  padding: idx === 3 ? 0 : undefined,
+                  overflow: idx === 3 ? "visible" : undefined,
+                  y: idx === 3 ? lastCardFoldY : idx * -2,
+                  ...(idx === 3
+                    ? {
+                        opacity: lastCardFoldOpacity,
+                        zIndex: 20,
+                      }
+                    : {
+                        opacity: otherStackCardsOpacity,
+                      }),
                 }}
               >
-                <p
-                  className="skill-tile-title"
-                  style={{ color: group.titleColor }}
-                >
-                  {skillGroups[group.index].title}
-                </p>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))",
-                    gap: "4px 20px",
-                  }}
-                >
-                  {skillGroups[group.index].skills.map((s) => (
-                    <div
-                      key={s}
-                      className="skill-item"
-                      style={{
-                        color: group.bodyColor,
-                        fontSize:
-                          group.key === "frontend" ? "0.82rem" : "0.88rem",
-                      }}
-                    >
-                      <span
-                        className="skill-dot"
+                {(() => {
+                  const panelContent = (
+                    <>
+                      <p
+                        className="skill-tile-title"
+                        style={{ color: group.titleColor }}
+                      >
+                        {skillGroups[group.index].title}
+                      </p>
+                      <div
                         style={{
-                          background:
-                            group.key === "observability"
-                              ? "rgba(255,243,234,0.78)"
-                              : "var(--accent)",
-                          borderRadius: group.key === "backend" ? 1 : "50%",
-                          width: group.key === "observability" ? 10 : 5,
-                          height: group.key === "observability" ? 2 : 5,
+                          display: "grid",
+                          gridTemplateColumns:
+                            "repeat(auto-fit, minmax(190px, 1fr))",
+                          gap: "4px 20px",
                         }}
-                      />
-                      {s}
+                      >
+                        {skillGroups[group.index].skills.map((s) => (
+                          <div
+                            key={s}
+                            className="skill-item"
+                            style={{
+                              color: group.bodyColor,
+                              fontSize:
+                                group.key === "frontend"
+                                  ? "0.82rem"
+                                  : "0.88rem",
+                            }}
+                          >
+                            <span
+                              className="skill-dot"
+                              style={{
+                                background:
+                                  group.key === "observability"
+                                    ? "rgba(255,243,234,0.78)"
+                                    : "var(--accent)",
+                                borderRadius:
+                                  group.key === "backend" ? 1 : "50%",
+                                width: group.key === "observability" ? 10 : 5,
+                                height: group.key === "observability" ? 2 : 5,
+                              }}
+                            />
+                            {s}
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  );
+
+                  if (idx !== 3) return panelContent;
+
+                  return (
+                    <div className="skills-fold-card">
+                      <div className="skills-fold-measure" aria-hidden>
+                        <div
+                          className="skills-fold-surface"
+                          style={{ background: group.bg }}
+                        >
+                          {panelContent}
+                        </div>
+                      </div>
+                      <div className="skills-fold-half skills-fold-half--left">
+                        <div
+                          className="skills-fold-surface"
+                          style={{ background: group.bg }}
+                        >
+                          {panelContent}
+                        </div>
+                      </div>
+                      <motion.div
+                        className="skills-fold-half skills-fold-half--right"
+                        style={{
+                          rotateY: lastCardFoldRotateY,
+                          x: lastCardFoldShiftX,
+                        }}
+                      >
+                        <div
+                          className="skills-fold-surface"
+                          style={{ background: group.bg }}
+                        >
+                          {panelContent}
+                        </div>
+                        <motion.div
+                          className="skills-fold-shadow"
+                          style={{ opacity: lastCardFoldShadow }}
+                        />
+                      </motion.div>
                     </div>
-                  ))}
-                </div>
+                  );
+                })()}
               </motion.div>
             ))}
           </div>
@@ -1770,7 +1929,13 @@ export default function Portfolio() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          style={{ marginTop: 72, maxWidth: 520 }}
+          style={{
+            marginTop: 72,
+            maxWidth: 520,
+            position: "relative",
+            zIndex: 9,
+          }}
+          ref={skillsLanguagesRef}
         >
           <p
             style={{

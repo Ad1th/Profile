@@ -1352,16 +1352,29 @@ export default function Portfolio() {
 
         /* ─ Skills stacked sections ─ */
         .skills-stack {
-          margin-top: 56px;
+          margin-top: 12px;
           position: relative;
           display: flex;
           flex-direction: column;
           gap: 42px;
-          padding-bottom: 96px;
+          padding-bottom: 0;
+        }
+        .skills-stack-scene {
+          position: relative;
+          padding-bottom: 0;
+          --skills-sticky-top: 56px;
+          --skills-heading-height: 132px;
+        }
+        .skills-section-heading {
+          position: sticky;
+          top: var(--skills-sticky-top);
+          z-index: 8;
+          padding-bottom: 10px;
+          background: transparent;
         }
         .skills-stack-panel {
           position: sticky;
-          top: 92px;
+          top: calc(var(--skills-sticky-top) + var(--skills-heading-height));
           border-radius: 12px;
           border: 1px solid rgba(17,17,17,0.14);
           padding: 24px 26px;
@@ -1422,6 +1435,13 @@ export default function Portfolio() {
           .skills-bento { grid-template-columns: 1fr; }
           .hack-row { grid-template-columns: 1fr; gap: 6px; }
           .skills-stack { gap: 16px; }
+          .skills-stack-scene { padding-bottom: 0; }
+          .skills-section-heading {
+            position: relative;
+            top: auto;
+            padding-bottom: 0;
+            background: transparent;
+          }
           .skills-stack-panel {
             position: relative;
             top: auto;
@@ -1651,93 +1671,97 @@ export default function Portfolio() {
         ref={skillsSectionRef}
         style={{ paddingBottom: "clamp(120px, 14vw, 180px)" }}
       >
-        <SectionLabel>Skills</SectionLabel>
-        <SectionTitle>What I work with</SectionTitle>
+        <div className="skills-stack-scene">
+          <div className="skills-section-heading">
+            <SectionLabel>Skills</SectionLabel>
+            <SectionTitle>What I work with</SectionTitle>
+          </div>
 
-        <div className="skills-stack">
-          {[
-            {
-              key: "backend",
-              index: 0,
-              bg: "#E8E6E1",
-              titleColor: "#333",
-              bodyColor: "#222",
-            },
-            {
-              key: "databases",
-              index: 1,
-              bg: "#ecd9cc",
-              titleColor: "#222",
-              bodyColor: "#222",
-            },
-            {
-              key: "frontend",
-              index: 3,
-              bg: "#f0ede8",
-              titleColor: "#555",
-              bodyColor: "#444",
-            },
-            {
-              key: "observability",
-              index: 2,
-              bg: "var(--accent)",
-              titleColor: "rgba(255,243,234,0.85)",
-              bodyColor: "#fff3ea",
-            },
-          ].map((group, idx) => (
-            <motion.div
-              key={group.key}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.52, delay: idx * 0.08 }}
-              className="skills-stack-panel"
-              style={{
-                background: group.bg,
-                transform: `translateY(${idx * -2}px)`,
-              }}
-            >
-              <p
-                className="skill-tile-title"
-                style={{ color: group.titleColor }}
-              >
-                {skillGroups[group.index].title}
-              </p>
-              <div
+          <div className="skills-stack">
+            {[
+              {
+                key: "backend",
+                index: 0,
+                bg: "#E8E6E1",
+                titleColor: "#333",
+                bodyColor: "#222",
+              },
+              {
+                key: "databases",
+                index: 1,
+                bg: "#ecd9cc",
+                titleColor: "#222",
+                bodyColor: "#222",
+              },
+              {
+                key: "frontend",
+                index: 3,
+                bg: "#f0ede8",
+                titleColor: "#555",
+                bodyColor: "#444",
+              },
+              {
+                key: "observability",
+                index: 2,
+                bg: "var(--accent)",
+                titleColor: "rgba(255,243,234,0.85)",
+                bodyColor: "#fff3ea",
+              },
+            ].map((group, idx) => (
+              <motion.div
+                key={group.key}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.52, delay: idx * 0.08 }}
+                className="skills-stack-panel"
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))",
-                  gap: "4px 20px",
+                  background: group.bg,
+                  transform: `translateY(${idx * -2}px)`,
                 }}
               >
-                {skillGroups[group.index].skills.map((s) => (
-                  <div
-                    key={s}
-                    className="skill-item"
-                    style={{
-                      color: group.bodyColor,
-                      fontSize:
-                        group.key === "frontend" ? "0.82rem" : "0.88rem",
-                    }}
-                  >
-                    <span
-                      className="skill-dot"
+                <p
+                  className="skill-tile-title"
+                  style={{ color: group.titleColor }}
+                >
+                  {skillGroups[group.index].title}
+                </p>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))",
+                    gap: "4px 20px",
+                  }}
+                >
+                  {skillGroups[group.index].skills.map((s) => (
+                    <div
+                      key={s}
+                      className="skill-item"
                       style={{
-                        background:
-                          group.key === "observability"
-                            ? "rgba(255,243,234,0.78)"
-                            : "var(--accent)",
-                        borderRadius: group.key === "backend" ? 1 : "50%",
-                        width: group.key === "observability" ? 10 : 5,
-                        height: group.key === "observability" ? 2 : 5,
+                        color: group.bodyColor,
+                        fontSize:
+                          group.key === "frontend" ? "0.82rem" : "0.88rem",
                       }}
-                    />
-                    {s}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                    >
+                      <span
+                        className="skill-dot"
+                        style={{
+                          background:
+                            group.key === "observability"
+                              ? "rgba(255,243,234,0.78)"
+                              : "var(--accent)",
+                          borderRadius: group.key === "backend" ? 1 : "50%",
+                          width: group.key === "observability" ? 10 : 5,
+                          height: group.key === "observability" ? 2 : 5,
+                        }}
+                      />
+                      {s}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Languages */}

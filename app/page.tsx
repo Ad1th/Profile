@@ -1430,7 +1430,7 @@ export default function Portfolio() {
           z-index: 1;
         }
         .hero-copy--left {
-          left: clamp(36px, 6vw, 88px);
+          left: clamp(58px, 8vw, 122px);
           text-align: left;
         }
         .hero-copy--right {
@@ -1597,7 +1597,7 @@ export default function Portfolio() {
           <h1
             style={{
               fontFamily: "'DM Serif Display', Georgia, serif",
-              fontSize: "clamp(3.6rem, 8.5vw, 7.2rem)",
+              fontSize: "clamp(3.8rem, 8.8vw, 7.5rem)",
               fontWeight: 400,
               lineHeight: 1.0,
               letterSpacing: "-0.04em",

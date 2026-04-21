@@ -14,6 +14,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { gsap } from "gsap";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Inter, Playfair_Display } from "next/font/google";
@@ -609,8 +610,11 @@ function ExperienceCard({
 export default function Portfolio() {
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
+  const [foldedCardBehind, setFoldedCardBehind] = useState(false);
   const skillsSectionRef = useRef<HTMLElement | null>(null);
   const skillsLanguagesRef = useRef<HTMLDivElement | null>(null);
+  const lastFoldedCardRef = useRef<HTMLDivElement | null>(null);
+  const foldedCardDroppedRef = useRef(false);
   const aboutSectionRef = useRef<HTMLElement | null>(null);
   const experienceSectionRef = useRef<HTMLElement | null>(null);
 
@@ -749,6 +753,72 @@ export default function Portfolio() {
     [0, 0.008, 1],
     [1, 0, 0],
   );
+
+  useEffect(() => {
+    const el = lastFoldedCardRef.current;
+    if (!el) return;
+
+    gsap.set(el, {
+      transformOrigin: "top center",
+      transformPerspective: 2000,
+      y: 0,
+      x: 0,
+      rotateX: 0,
+      rotateZ: 0,
+      scale: 1,
+      opacity: 1,
+    });
+
+    const unsubscribe = lastCardFoldProgress.on("change", (value) => {
+      const node = lastFoldedCardRef.current;
+      if (!node) return;
+
+      if (value >= 0.9 && !foldedCardDroppedRef.current) {
+        foldedCardDroppedRef.current = true;
+        setFoldedCardBehind(true);
+        gsap.killTweensOf(node);
+        gsap.to(node, {
+          y: 84,
+          x: -8,
+          rotateX: 74,
+          rotateZ: -2.5,
+          scale: 0.9,
+          opacity: 0.9,
+          duration: 0.34,
+          ease: "power2.in",
+          overwrite: true,
+        });
+        return;
+      }
+
+      if (value <= 0.8 && foldedCardDroppedRef.current) {
+        foldedCardDroppedRef.current = false;
+        setFoldedCardBehind(false);
+        gsap.killTweensOf(node);
+        gsap.to(node, {
+          y: 0,
+          x: 0,
+          rotateX: 0,
+          rotateZ: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 0.32,
+          ease: "power2.out",
+          overwrite: true,
+        });
+      }
+    });
+
+    return () => {
+      unsubscribe();
+      const node = lastFoldedCardRef.current;
+      if (!node) return;
+      gsap.killTweensOf(node);
+      gsap.set(node, {
+        clearProps: "transform,opacity,transformOrigin,transformPerspective",
+      });
+    };
+  }, [lastCardFoldProgress]);
 
   /* ── scroll-reveal ───────────────────────── */
   useEffect(() => {
@@ -1869,7 +1939,7 @@ export default function Portfolio() {
                   ...(idx === 3
                     ? {
                         opacity: lastCardFoldOpacity,
-                        zIndex: 20,
+                        zIndex: foldedCardBehind ? 6 : 20,
                       }
                     : {
                         opacity: otherStackCardsOpacity,
@@ -1928,7 +1998,7 @@ export default function Portfolio() {
                   if (idx !== 3) return panelContent;
 
                   return (
-                    <div className="skills-fold-card">
+                    <div className="skills-fold-card" ref={lastFoldedCardRef}>
                       <div className="skills-fold-measure" aria-hidden>
                         <div
                           className="skills-fold-surface"

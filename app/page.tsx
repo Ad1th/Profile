@@ -736,6 +736,14 @@ export default function Portfolio() {
       mass: 0.32,
     },
   );
+  const lastCardFoldOrangeOpacity = useSpring(
+    useTransform(lastCardFoldProgress, [0.14, 0.34, 0.62, 1], [0, 0.15, 0.9, 1]),
+    {
+      stiffness: 150,
+      damping: 22,
+      mass: 0.28,
+    },
+  );
   const otherStackCardsOpacity = useTransform(
     lastCardFoldProgress,
     [0, 0.008, 1],
@@ -1032,7 +1040,7 @@ export default function Portfolio() {
 
   const hackathons = [
     {
-      name: "Women Techies'26 — Finalist, Top 10 Teams",
+      name: "Women Techies'26 - Finalist, Top 10 Teams",
       when: "March 2026 · VIT Vellore",
       desc: "Reached finalist stage as a part of the top 10 teams by building AetherQuery, a SQL analytics platform with CSV upload, SQL execution, and detailed query-plan visualization for interactive analysis.",
     },
@@ -1042,7 +1050,7 @@ export default function Portfolio() {
       desc: "Built archAIc, an AI-driven reliability engineering platform with microservices observability, chaos injection, and automated incident analysis workflows for resilient production-system testing.",
     },
     {
-      name: "Code 2 Create (C2C) — AI Track Winner",
+      name: "Code 2 Create (C2C) - AI Track Winner",
       when: "September 2025 · VIT Vellore",
       desc: "Built a blind assistance tool which uses image recognition to analyze surroundings and provide real-time feedback to visually impaired users via audio in their local dialect.",
     },
@@ -1062,7 +1070,7 @@ export default function Portfolio() {
       desc: "Built Threddit at DevJams – a smart Chrome extension that uses the Gemini API to analyze browsing patterns and deliver AI-powered nudges.",
     },
     {
-      name: "CodeWars — 1st Place",
+      name: "CodeWars - 1st Place",
       when: "February 2024 · NPS KRM, Bangalore",
       desc: "Won first place.",
     },
@@ -1508,6 +1516,20 @@ export default function Portfolio() {
           padding: 24px 26px;
           box-shadow: 0 14px 30px rgba(17,17,17,0.08);
         }
+        .skills-fold-orange-fill {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 50%;
+          height: 100%;
+          border-radius: 12px 0 0 12px;
+          background: var(--accent);
+          border: 1px solid rgba(17,17,17,0.14);
+          border-right: none;
+          box-shadow: 0 14px 30px rgba(17,17,17,0.08);
+          pointer-events: none;
+          z-index: 4;
+        }
 
         .section-wrap {
           max-width: 1120px;
@@ -1941,6 +1963,11 @@ export default function Portfolio() {
                           style={{ opacity: lastCardFoldShadow }}
                         />
                       </motion.div>
+                      <motion.div
+                        className="skills-fold-orange-fill"
+                        style={{ opacity: lastCardFoldOrangeOpacity }}
+                        aria-hidden
+                      />
                     </div>
                   );
                 })()}
@@ -2072,7 +2099,7 @@ export default function Portfolio() {
               italic: false,
             },
             {
-              text: "Sometimes I dip into hardware — running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. When physics fights back, your software design improves fast.",
+              text: "Sometimes I dip into hardware - running edge ML on Raspberry Pi for assistive tech, or wiring up wave energy experiments with sensors and telemetry. When physics fights back, your software design improves fast.",
               italic: false,
             },
             {
@@ -2502,7 +2529,7 @@ export default function Portfolio() {
               lineHeight: 1.78,
             }}
           >
-            Always open to new opportunities and conversations — whether it's an
+            Always open to new opportunities and conversations - whether it's an
             interesting problem to solve, a collaboration, or just a chat about
             systems that break in interesting ways.
           </motion.p>

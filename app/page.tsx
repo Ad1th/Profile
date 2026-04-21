@@ -737,10 +737,10 @@ export default function Portfolio() {
     },
   );
   const lastCardFoldOrangeOpacity = useSpring(
-    useTransform(lastCardFoldProgress, [0.14, 0.34, 0.62, 1], [0, 0.15, 0.9, 1]),
+    useTransform(lastCardFoldProgress, [0.1, 0.22, 0.42, 1], [0, 0.55, 1, 1]),
     {
-      stiffness: 150,
-      damping: 22,
+      stiffness: 160,
+      damping: 20,
       mass: 0.28,
     },
   );

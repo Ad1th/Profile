@@ -697,7 +697,7 @@ export default function Portfolio() {
     Math.min(Math.max((v - 0.98) / 0.035, 0), 1),
   );
   const lastCardFoldRotateY = useSpring(
-    useTransform(lastCardFoldProgress, [0, 1], [0, -178]),
+    useTransform(lastCardFoldProgress, [0, 1], [0, -176]),
     {
       stiffness: 132,
       damping: 24,
@@ -705,7 +705,7 @@ export default function Portfolio() {
     },
   );
   const lastCardFoldShiftX = useSpring(
-    useTransform(lastCardFoldProgress, [0, 1], [0, -1]),
+    useTransform(lastCardFoldProgress, [0, 1], [0, 0]),
     {
       stiffness: 132,
       damping: 24,
@@ -713,7 +713,7 @@ export default function Portfolio() {
     },
   );
   const lastCardFoldY = useSpring(
-    useTransform(lastCardFoldProgress, [0, 1], [-2, 10]),
+    useTransform(lastCardFoldProgress, [0, 1], [0, 0]),
     {
       stiffness: 132,
       damping: 24,
@@ -721,7 +721,7 @@ export default function Portfolio() {
     },
   );
   const lastCardFoldOpacity = useSpring(
-    useTransform(lastCardFoldProgress, [0, 0.85, 1], [1, 1, 0.76]),
+    useTransform(lastCardFoldProgress, [0, 0.9, 1], [1, 1, 0.96]),
     {
       stiffness: 132,
       damping: 24,
@@ -729,7 +729,7 @@ export default function Portfolio() {
     },
   );
   const lastCardFoldShadow = useSpring(
-    useTransform(lastCardFoldProgress, [0, 1], [0, 0.14]),
+    useTransform(lastCardFoldProgress, [0, 1], [0, 0.01]),
     {
       stiffness: 132,
       damping: 24,
@@ -1442,7 +1442,7 @@ export default function Portfolio() {
         .skills-fold-card {
           position: relative;
           min-height: inherit;
-          perspective: 2200px;
+          perspective: 10000px;
           transform-style: preserve-3d;
         }
         .skills-fold-measure {
@@ -1455,16 +1455,45 @@ export default function Portfolio() {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
         }
-        .skills-fold-half--left {
-          clip-path: inset(0 50% 0 0);
-          z-index: 1;
-        }
-        .skills-fold-half--right {
-          clip-path: inset(0 0 0 50%);
-          transform-origin: left center;
-          z-index: 2;
-          will-change: transform;
-        }
+          .skills-fold-half--left {
+  position: absolute;
+  top: 0; left: 0;
+  width: 50%; height: 100%;
+  overflow: hidden;              /* natural geometric clip */
+  z-index: 1;
+}
+.skills-fold-half--right {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 50%; height: 100%;
+  overflow: hidden;
+  transform-origin: left center;
+  z-index: 2;
+  will-change: transform;
+}
+  /* Left half: surface sits normally, right half is clipped by overflow */
+.skills-fold-half--left .skills-fold-surface {
+  position: absolute;
+  top: 0; left: 0;
+  width: 200%;          /* full card width, left half naturally clips it */
+}
+
+/* Right half: surface is pulled left by 100% so the right half of content shows */
+.skills-fold-half--right .skills-fold-surface {
+  position: absolute;
+  top: 0; left: -100%;  /* shift left so only the right half of content is visible */
+  width: 200%;
+}
+        // .skills-fold-half--left {
+        //   clip-path: inset(0 50% 0 0);
+        //   z-index: 1;
+        // }
+        // .skills-fold-half--right {
+        //   clip-path: inset(0 0 0 50%);
+        //   transform-origin: left center;
+        //   z-index: 2;
+        //   will-change: transform;
+        // }
         .skills-fold-shadow {
           position: absolute;
           inset: 0;

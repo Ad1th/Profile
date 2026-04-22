@@ -609,6 +609,9 @@ function ExperienceCard({
 export default function Portfolio() {
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
+  const [isMobileViewport, setIsMobileViewport] = useState<boolean | null>(
+    null,
+  );
   const skillsSectionRef = useRef<HTMLElement | null>(null);
   const skillsLanguagesRef = useRef<HTMLDivElement | null>(null);
   const aboutSectionRef = useRef<HTMLElement | null>(null);
@@ -758,6 +761,14 @@ export default function Portfolio() {
     [0, 0.008, 1],
     [1, 0, 0],
   );
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 768px)");
+    const onChange = () => setIsMobileViewport(media.matches);
+    onChange();
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
 
   /* ── scroll-reveal ───────────────────────── */
   useEffect(() => {
@@ -1612,65 +1623,67 @@ export default function Portfolio() {
 
       {showLoader && <Loader onDone={() => setShowLoader(false)} />}
 
-      <motion.div
-        className="global-card"
-        style={{
-          x: cardX,
-          y: cardY,
-          scale: cardScale,
-          rotate: cardRotate,
-          opacity: cardOpacity,
-        }}
-      >
-        <div className="avatar-card-shell">
-          <motion.div
-            className="avatar-card-core"
-            style={{ rotateY: cardFlipY }}
-          >
-            <div className="avatar-card-face avatar-card-face--front">
-              <motion.div
-                className="avatar-front-layer"
-                style={{ opacity: heroImageOpacity }}
-              >
-                <Image
-                  src="/me.png"
-                  alt="Adith avatar"
-                  width={420}
-                  height={420}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    filter: "saturate(0.92) contrast(1.02)",
-                  }}
-                  priority
-                />
-              </motion.div>
-              <motion.div
-                className="avatar-front-layer"
-                style={{ opacity: aboutImageBlendSpring }}
-              >
-                <Image
-                  src="/me2.jpeg"
-                  alt="Adith avatar alternate"
-                  width={420}
-                  height={420}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    filter: "saturate(0.95) contrast(1.02)",
-                  }}
-                  priority
-                />
-              </motion.div>
-            </div>
-            <div className="avatar-card-face avatar-card-face--back">
-              Adith, Dackend Developer
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
+      {isMobileViewport === false && (
+        <motion.div
+          className="global-card"
+          style={{
+            x: cardX,
+            y: cardY,
+            scale: cardScale,
+            rotate: cardRotate,
+            opacity: cardOpacity,
+          }}
+        >
+          <div className="avatar-card-shell">
+            <motion.div
+              className="avatar-card-core"
+              style={{ rotateY: cardFlipY }}
+            >
+              <div className="avatar-card-face avatar-card-face--front">
+                <motion.div
+                  className="avatar-front-layer"
+                  style={{ opacity: heroImageOpacity }}
+                >
+                  <Image
+                    src="/me.png"
+                    alt="Adith avatar"
+                    width={420}
+                    height={420}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      filter: "saturate(0.92) contrast(1.02)",
+                    }}
+                    priority
+                  />
+                </motion.div>
+                <motion.div
+                  className="avatar-front-layer"
+                  style={{ opacity: aboutImageBlendSpring }}
+                >
+                  <Image
+                    src="/me2.jpeg"
+                    alt="Adith avatar alternate"
+                    width={420}
+                    height={420}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      filter: "saturate(0.95) contrast(1.02)",
+                    }}
+                    priority
+                  />
+                </motion.div>
+              </div>
+              <div className="avatar-card-face avatar-card-face--back">
+                Adith, Dackend Developer
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      )}
 
       {/* ════════ HERO ════════ */}
       <section

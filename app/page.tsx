@@ -1828,7 +1828,7 @@ export default function Portfolio() {
         id="skills"
         className="section-wrap bg-light"
         ref={skillsSectionRef}
-        style={{ paddingBottom: "clamp(72px, 9vw, 120px)" }}
+        style={{ paddingBottom: "clamp(40px, 6vw, 80px)" }}
       >
         <div className="skills-stack-scene">
           <div className="skills-section-heading">

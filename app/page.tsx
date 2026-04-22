@@ -612,6 +612,7 @@ export default function Portfolio() {
   const [isMobileViewport, setIsMobileViewport] = useState<boolean | null>(
     null,
   );
+  const [isTabletOrBelow, setIsTabletOrBelow] = useState<boolean | null>(null);
   const skillsSectionRef = useRef<HTMLElement | null>(null);
   const skillsLanguagesRef = useRef<HTMLDivElement | null>(null);
   const aboutSectionRef = useRef<HTMLElement | null>(null);
@@ -769,6 +770,14 @@ export default function Portfolio() {
   useEffect(() => {
     const media = window.matchMedia("(max-width: 768px)");
     const onChange = () => setIsMobileViewport(media.matches);
+    onChange();
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 1024px)");
+    const onChange = () => setIsTabletOrBelow(media.matches);
     onChange();
     media.addEventListener("change", onChange);
     return () => media.removeEventListener("change", onChange);
@@ -1588,6 +1597,18 @@ export default function Portfolio() {
           will-change: transform;
         }
 
+        @media (max-width: 1024px) and (min-width: 769px) {
+          .hero-copy {
+            top: 43%;
+            transform: translateY(-43%);
+            width: min(44vw, 560px);
+          }
+          .hero-copy--right {
+            width: min(50vw, 680px);
+            transform: translateY(-43%) translateX(clamp(-12px, -2vw, -32px));
+          }
+        }
+
         @media (max-width: 768px) {
           .skills-bento { grid-template-columns: 1fr; }
           .hack-row { grid-template-columns: 1fr; gap: 6px; }
@@ -1627,7 +1648,7 @@ export default function Portfolio() {
 
       {showLoader && <Loader onDone={() => setShowLoader(false)} />}
 
-      {isMobileViewport === false && (
+      {isTabletOrBelow === false && (
         <motion.div
           className="global-card"
           style={{

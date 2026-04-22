@@ -13,8 +13,13 @@ import {
   Mail,
   ExternalLink,
 } from "lucide-react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { gsap } from "gsap";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionValueEvent,
+} from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Inter, Playfair_Display } from "next/font/google";
@@ -610,11 +615,9 @@ function ExperienceCard({
 export default function Portfolio() {
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
-  const [foldedCardBehind, setFoldedCardBehind] = useState(false);
+  const [hideFoldText, setHideFoldText] = useState(false);
   const skillsSectionRef = useRef<HTMLElement | null>(null);
   const skillsLanguagesRef = useRef<HTMLDivElement | null>(null);
-  const lastFoldedCardRef = useRef<HTMLDivElement | null>(null);
-  const foldedCardDroppedRef = useRef(false);
   const aboutSectionRef = useRef<HTMLElement | null>(null);
   const experienceSectionRef = useRef<HTMLElement | null>(null);
 
@@ -724,13 +727,86 @@ export default function Portfolio() {
       mass: 0.32,
     },
   );
-  const lastCardFoldOpacity = useSpring(
-    useTransform(lastCardFoldProgress, [0, 0.9, 1], [1, 1, 0.96]),
+  const lastCardFoldContentOpacity = useSpring(
+    useTransform(lastCardFoldProgress, [0, 0.84, 0.92, 1], [1, 1, 0, 0]),
     {
       stiffness: 132,
       damping: 24,
       mass: 0.32,
     },
+  );
+  const lastCardFoldDropX = useSpring(
+    useTransform(
+      lastCardFoldProgress,
+      [0, 0.72, 0.8, 0.9, 1],
+      [0, 0, 108, 12, -8],
+    ),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldDropY = useSpring(
+    useTransform(
+      lastCardFoldProgress,
+      [0, 0.72, 0.8, 0.9, 1],
+      [0, 0, 44, 88, 130],
+    ),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldDropRotateX = useSpring(
+    useTransform(
+      lastCardFoldProgress,
+      [0, 0.72, 0.8, 0.9, 1],
+      [0, 0, 24, 52, 72],
+    ),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldDropRotateZ = useSpring(
+    useTransform(
+      lastCardFoldProgress,
+      [0, 0.72, 0.8, 0.9, 1],
+      [0, 0, 20, 4, -2],
+    ),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldDropScale = useSpring(
+    useTransform(
+      lastCardFoldProgress,
+      [0, 0.72, 0.8, 0.9, 1],
+      [1, 1, 0.97, 0.91, 0.86],
+    ),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldDropOpacity = useSpring(
+    useTransform(lastCardFoldProgress, [0, 0.72, 0.9, 1], [1, 1, 0.95, 0.25]),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldPanelZ = useTransform(
+    lastCardFoldProgress,
+    [0, 0.74, 0.75, 1],
+    [20, 20, 2, 2],
   );
   const lastCardFoldShadow = useSpring(
     useTransform(lastCardFoldProgress, [0, 1], [0, 0.01]),
@@ -741,11 +817,35 @@ export default function Portfolio() {
     },
   );
   const lastCardFoldOrangeOpacity = useSpring(
-    useTransform(lastCardFoldProgress, [0.17, 0.43, 0.63, 1], [0, 0.72, 1, 1]),
+    useTransform(lastCardFoldProgress, [0, 0.9, 0.94, 1], [0, 0, 1, 1]),
     {
       stiffness: 170,
       damping: 19,
       mass: 0.28,
+    },
+  );
+  const lastCardFoldOrangeY = useSpring(
+    useTransform(lastCardFoldProgress, [0, 0.9, 1], [0, 0, 250]),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldOrangeX = useSpring(
+    useTransform(lastCardFoldProgress, [0, 0.9, 1], [0, 0, -12]),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
+    },
+  );
+  const lastCardFoldOrangeRotate = useSpring(
+    useTransform(lastCardFoldProgress, [0, 0.9, 1], [0, 0, -4]),
+    {
+      stiffness: 132,
+      damping: 24,
+      mass: 0.32,
     },
   );
   const otherStackCardsOpacity = useTransform(
@@ -754,71 +854,9 @@ export default function Portfolio() {
     [1, 0, 0],
   );
 
-  useEffect(() => {
-    const el = lastFoldedCardRef.current;
-    if (!el) return;
-
-    gsap.set(el, {
-      transformOrigin: "top center",
-      transformPerspective: 2000,
-      y: 0,
-      x: 0,
-      rotateX: 0,
-      rotateZ: 0,
-      scale: 1,
-      opacity: 1,
-    });
-
-    const unsubscribe = lastCardFoldProgress.on("change", (value) => {
-      const node = lastFoldedCardRef.current;
-      if (!node) return;
-
-      if (value >= 0.9 && !foldedCardDroppedRef.current) {
-        foldedCardDroppedRef.current = true;
-        setFoldedCardBehind(true);
-        gsap.killTweensOf(node);
-        gsap.to(node, {
-          y: 84,
-          x: -8,
-          rotateX: 74,
-          rotateZ: -2.5,
-          scale: 0.9,
-          opacity: 0.9,
-          duration: 0.34,
-          ease: "power2.in",
-          overwrite: true,
-        });
-        return;
-      }
-
-      if (value <= 0.8 && foldedCardDroppedRef.current) {
-        foldedCardDroppedRef.current = false;
-        setFoldedCardBehind(false);
-        gsap.killTweensOf(node);
-        gsap.to(node, {
-          y: 0,
-          x: 0,
-          rotateX: 0,
-          rotateZ: 0,
-          scale: 1,
-          opacity: 1,
-          duration: 0.32,
-          ease: "power2.out",
-          overwrite: true,
-        });
-      }
-    });
-
-    return () => {
-      unsubscribe();
-      const node = lastFoldedCardRef.current;
-      if (!node) return;
-      gsap.killTweensOf(node);
-      gsap.set(node, {
-        clearProps: "transform,opacity,transformOrigin,transformPerspective",
-      });
-    };
-  }, [lastCardFoldProgress]);
+  useMotionValueEvent(lastCardFoldProgress, "change", (value) => {
+    setHideFoldText(value >= 0.72);
+  });
 
   /* ── scroll-reveal ───────────────────────── */
   useEffect(() => {
@@ -1517,6 +1555,9 @@ export default function Portfolio() {
         .skills-stack-panel:nth-child(2) { z-index: 2; margin-top: -32px; }
         .skills-stack-panel:nth-child(3) { z-index: 3; margin-top: -32px; }
         .skills-stack-panel:nth-child(4) { z-index: 4; margin-top: -32px; }
+        .skills-fold-stage {
+          position: relative;
+        }
         .skills-fold-card {
           position: relative;
           min-height: inherit;
@@ -1938,8 +1979,8 @@ export default function Portfolio() {
                   y: idx === 3 ? lastCardFoldY : idx * -2,
                   ...(idx === 3
                     ? {
-                        opacity: lastCardFoldOpacity,
-                        zIndex: foldedCardBehind ? 6 : 20,
+                        opacity: 1,
+                        zIndex: lastCardFoldPanelZ,
                       }
                     : {
                         opacity: otherStackCardsOpacity,
@@ -1996,46 +2037,71 @@ export default function Portfolio() {
                   );
 
                   if (idx !== 3) return panelContent;
+                  const foldPanelContent = hideFoldText ? null : panelContent;
 
                   return (
-                    <div className="skills-fold-card" ref={lastFoldedCardRef}>
-                      <div className="skills-fold-measure" aria-hidden>
-                        <div
-                          className="skills-fold-surface"
-                          style={{ background: group.bg }}
-                        >
-                          {panelContent}
-                        </div>
-                      </div>
-                      <div className="skills-fold-half skills-fold-half--left">
-                        <div
-                          className="skills-fold-surface"
-                          style={{ background: group.bg }}
-                        >
-                          {panelContent}
-                        </div>
-                      </div>
+                    <div className="skills-fold-stage">
                       <motion.div
-                        className="skills-fold-half skills-fold-half--right"
+                        className="skills-fold-card"
                         style={{
-                          rotateY: lastCardFoldRotateY,
-                          x: lastCardFoldShiftX,
+                          x: lastCardFoldDropX,
+                          y: lastCardFoldDropY,
+                          rotateX: lastCardFoldDropRotateX,
+                          rotateZ: lastCardFoldDropRotateZ,
+                          scale: lastCardFoldDropScale,
+                          opacity: lastCardFoldDropOpacity,
                         }}
                       >
-                        <div
-                          className="skills-fold-surface"
-                          style={{ background: group.bg }}
-                        >
-                          {panelContent}
+                        <div className="skills-fold-measure" aria-hidden>
+                          <div
+                            className="skills-fold-surface"
+                            style={{ background: group.bg }}
+                          >
+                            {foldPanelContent}
+                          </div>
+                        </div>
+                        <div className="skills-fold-half skills-fold-half--left">
+                          <motion.div
+                            className="skills-fold-surface"
+                            style={{
+                              background: group.bg,
+                              opacity: lastCardFoldContentOpacity,
+                            }}
+                          >
+                            {foldPanelContent}
+                          </motion.div>
                         </div>
                         <motion.div
-                          className="skills-fold-shadow"
-                          style={{ opacity: lastCardFoldShadow }}
-                        />
+                          className="skills-fold-half skills-fold-half--right"
+                          style={{
+                            rotateY: lastCardFoldRotateY,
+                            x: lastCardFoldShiftX,
+                          }}
+                        >
+                          <motion.div
+                            className="skills-fold-surface"
+                            style={{
+                              background: group.bg,
+                              opacity: lastCardFoldContentOpacity,
+                            }}
+                          >
+                            {foldPanelContent}
+                          </motion.div>
+                          <motion.div
+                            className="skills-fold-shadow"
+                            style={{ opacity: lastCardFoldShadow }}
+                          />
+                        </motion.div>
                       </motion.div>
                       <motion.div
                         className="skills-fold-orange-fill"
-                        style={{ opacity: lastCardFoldOrangeOpacity }}
+                        style={{
+                          opacity: lastCardFoldOrangeOpacity,
+                          x: lastCardFoldOrangeX,
+                          y: lastCardFoldOrangeY,
+                          rotate: lastCardFoldOrangeRotate,
+                          zIndex: 8,
+                        }}
                         aria-hidden
                       />
                     </div>

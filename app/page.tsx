@@ -720,6 +720,39 @@ export default function Portfolio() {
       mass: 0.32,
     },
   );
+  const observabilityCardX = useSpring(
+    useTransform(
+      lastCardFoldProgress,
+      [0, 0.2, 0.36, 0.52, 0.68],
+      [0, 120, -92, 40, 0],
+    ),
+    {
+      stiffness: 126,
+      damping: 22,
+      mass: 0.34,
+    },
+  );
+  const observabilityCardY = useSpring(
+    useTransform(lastCardFoldProgress, [0, 0.35, 0.75, 1], [0, 0, 980, 1480]),
+    {
+      stiffness: 126,
+      damping: 22,
+      mass: 0.34,
+    },
+  );
+  const observabilityCardRotate = useSpring(
+    useTransform(lastCardFoldProgress, [0, 0.3, 0.55, 0.72], [0, 7, -5, -10]),
+    {
+      stiffness: 126,
+      damping: 22,
+      mass: 0.34,
+    },
+  );
+  const observabilityCardZ = useTransform(
+    lastCardFoldProgress,
+    [0, 0.45, 0.46, 1],
+    [20, 20, 6, 6],
+  );
   const otherStackCardsOpacity = useTransform(
     lastCardFoldProgress,
     [0, 0.008, 1],
@@ -1830,11 +1863,13 @@ export default function Portfolio() {
                   boxShadow: idx === 3 ? "none" : undefined,
                   padding: idx === 3 ? 0 : undefined,
                   overflow: idx === 3 ? "visible" : undefined,
-                  y: idx * -2,
+                  y: idx === 3 ? observabilityCardY : idx * -2,
+                  x: idx === 3 ? observabilityCardX : 0,
+                  rotate: idx === 3 ? observabilityCardRotate : 0,
                   ...(idx === 3
                     ? {
                         opacity: 1,
-                        zIndex: 20,
+                        zIndex: observabilityCardZ,
                       }
                     : {
                         opacity: otherStackCardsOpacity,
@@ -1948,7 +1983,10 @@ export default function Portfolio() {
             marginTop: 72,
             maxWidth: 520,
             position: "relative",
-            zIndex: 9,
+            zIndex: 30,
+            background: "#E8E6E1",
+            borderRadius: 12,
+            padding: "18px 20px",
           }}
           ref={skillsLanguagesRef}
         >

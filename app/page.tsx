@@ -733,7 +733,7 @@ export default function Portfolio() {
     },
   );
   const observabilityCardY = useSpring(
-    useTransform(lastCardFoldProgress, [0, 0.35, 0.78, 1], [0, 0, 820, 900]),
+    useTransform(lastCardFoldProgress, [0, 0.35, 0.78, 1], [0, 0, 700, 750]),
     {
       stiffness: 126,
       damping: 22,

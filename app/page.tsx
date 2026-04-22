@@ -2003,8 +2003,8 @@ export default function Portfolio() {
             zIndex: 60,
             background: "#E8E6E1",
             borderRadius: 12,
-            padding: isMobileViewport ? "26px 30px 42px" : "26px 30px 34px",
-            minHeight: isMobileViewport ? 408 : 340,
+            padding: isMobileViewport ? "26px 30px 46px" : "26px 30px 34px",
+            minHeight: isMobileViewport ? 450 : 340,
           }}
           ref={skillsLanguagesRef}
         >

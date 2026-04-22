@@ -750,8 +750,8 @@ export default function Portfolio() {
   );
   const observabilityCardZ = useTransform(
     lastCardFoldProgress,
-    [0, 0.45, 0.46, 1],
-    [20, 20, 6, 6],
+    [0, 0.34, 0.35, 1],
+    [20, 20, 0, 0],
   );
   const otherStackCardsOpacity = useTransform(
     lastCardFoldProgress,
@@ -1981,12 +1981,13 @@ export default function Portfolio() {
           transition={{ duration: 0.6, delay: 0.1 }}
           style={{
             marginTop: 72,
-            maxWidth: 520,
+            maxWidth: 620,
             position: "relative",
-            zIndex: 30,
+            zIndex: 60,
             background: "#E8E6E1",
             borderRadius: 12,
-            padding: "18px 20px",
+            padding: "26px 30px 34px",
+            minHeight: 340,
           }}
           ref={skillsLanguagesRef}
         >

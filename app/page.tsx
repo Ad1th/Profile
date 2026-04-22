@@ -736,7 +736,11 @@ export default function Portfolio() {
     },
   );
   const observabilityCardY = useSpring(
-    useTransform(lastCardFoldProgress, [0, 0.35, 0.78, 1], [0, 0, 700, 750]),
+    useTransform(
+      lastCardFoldProgress,
+      [0, 0.35, 0.78, 1],
+      isMobileViewport ? [0, 0, 980, 1060] : [0, 0, 700, 750],
+    ),
     {
       stiffness: 126,
       damping: 22,
@@ -1999,8 +2003,8 @@ export default function Portfolio() {
             zIndex: 60,
             background: "#E8E6E1",
             borderRadius: 12,
-            padding: "26px 30px 34px",
-            minHeight: 340,
+            padding: isMobileViewport ? "26px 30px 42px" : "26px 30px 34px",
+            minHeight: isMobileViewport ? 408 : 340,
           }}
           ref={skillsLanguagesRef}
         >

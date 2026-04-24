@@ -20,6 +20,9 @@ import { Inter, Playfair_Display } from "next/font/google";
 import Dock from "@/components/ui/Dock";
 import Loader from "@/components/Loader";
 import HeroTessellatedCanvas from "@/components/backgrounds/hero-tessellated-canvas";
+import ExperienceSection, {
+  NightModeToggle,
+} from "@/components/ExperienceSection";
 
 const BubbleMenu = dynamic(() => import("@/components/ui/BubbleMenu"), {
   ssr: false,
@@ -616,7 +619,7 @@ export default function Portfolio() {
   const skillsSectionRef = useRef<HTMLElement | null>(null);
   const skillsLanguagesRef = useRef<HTMLDivElement | null>(null);
   const aboutSectionRef = useRef<HTMLElement | null>(null);
-  const experienceSectionRef = useRef<HTMLElement | null>(null);
+  // const experienceSectionRef = useRef<HTMLElement | null>(null);
 
   const { scrollY } = useScroll();
   const { scrollYProgress: skillsProgress } = useScroll({
@@ -627,10 +630,10 @@ export default function Portfolio() {
     target: aboutSectionRef,
     offset: ["start end", "start start"],
   });
-  const { scrollYProgress: experienceProgress } = useScroll({
-    target: experienceSectionRef,
-    offset: ["start end", "start start"],
-  });
+  // const { scrollYProgress: experienceProgress } = useScroll({
+  //   target: experienceSectionRef,
+  //   offset: ["start end", "start start"],
+  // });
   const { scrollYProgress: skillsLanguagesProgress } = useScroll({
     target: skillsLanguagesRef,
     offset: ["start end", "start center"],
@@ -638,18 +641,11 @@ export default function Portfolio() {
   const cardX = useTransform(scrollY, [0, 140, 900], ["-9.5vw", "0vw", "32vw"]);
   const cardScaleRaw = useTransform(scrollY, [0, 900], [1, 0.9]);
   const cardRotateRaw = useTransform(scrollY, [0, 900], [0, 8]);
-  const cardYRaw = useTransform(
-    [aboutProgress, experienceProgress],
-    (latest) => {
-      const about = Number(latest[0] ?? 0);
-      const exp = Number(latest[1] ?? 0);
-      const aboutT = Math.min(Math.max((about - 0.04) / 0.96, 0), 1);
-      const expT = Math.min(Math.max((exp - 0.01) / 0.12, 0), 1);
-      const lift = aboutT * 52 + expT * 86;
-      return `${-50 - lift}%`;
-    },
-  );
-  const cardOpacityRaw = useTransform(experienceProgress, [0, 0.1], [1, 0]);
+  const cardYRaw = useTransform(aboutProgress, (about) => {
+    const aboutT = Math.min(Math.max((about - 0.04) / 0.96, 0), 1);
+    return `${-50 - aboutT * 52}%`;
+  });
+  const cardOpacityRaw = useTransform(aboutProgress, [0.85, 1], [1, 0]);
   const cardFlipRaw = useTransform(
     [skillsProgress, aboutProgress],
     (latest) => {
@@ -1169,6 +1165,12 @@ export default function Portfolio() {
       icon: <FolderKanban size={17} />,
       label: "Projects",
       onClick: () => scrollToSection("projects"),
+    },
+    {
+      // ← ADD THIS ITEM
+      icon: <NightModeToggle />,
+      label: "Night",
+      onClick: () => {}, // toggle is self-contained, onClick is a no-op
     },
     {
       icon: <Ellipsis size={17} />,
@@ -2168,7 +2170,7 @@ export default function Portfolio() {
       </section>
 
       {/* ════════ EXPERIENCE ════════ */}
-      <section
+      {/* <section
         id="experience"
         className="section-wrap bg-offwhite"
         ref={experienceSectionRef}
@@ -2181,7 +2183,9 @@ export default function Portfolio() {
             <ExperienceCard key={i} job={job} index={i} />
           ))}
         </div>
-      </section>
+      </section> */}
+
+      <ExperienceSection experience={experience} />
 
       {/* ════════ PROJECTS ════════ */}
       <section

@@ -1,15 +1,15 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useScroll,
-  useTransform,
   useSpring,
+  useTransform,
   type MotionValue,
 } from "framer-motion";
 
-/* ─── Types ─────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────── */
 export interface Job {
   title: string;
   company: string;
@@ -18,132 +18,55 @@ export interface Job {
   skills: string[];
 }
 
-/* ═══════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    NIGHT MODE TOGGLE
-═══════════════════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 export function NightModeToggle({ className }: { className?: string }) {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
     if (document.getElementById("__nm-vars")) return;
+
     const s = document.createElement("style");
     s.id = "__nm-vars";
     s.textContent = `
-      :root {
-        --nm-bg:          #E8E6E1;
-        --nm-bg-card:     rgba(237,235,230,0.94);
-        --nm-text:        #111111;
-        --nm-text-mute:   rgba(17,17,17,0.52);
-        --nm-accent:      #d96516;
-        --nm-border:      rgba(17,17,17,0.13);
-        --nm-surface:     rgba(17,17,17,0.04);
-        --nm-heading:     #2b2b2b;
-        --nm-spine:       rgba(232,93,31,0.26);
-        --nm-tag-bg:      rgba(232,93,31,0.10);
-        --nm-period-bg:   rgba(232,93,31,0.13);
-        --nm-dot-ring:    rgba(232,93,31,0.08);
-        --nm-bg-section:  #E8E6E1;
-        --nm-bg-card-alt: rgba(237,235,230,0.82);
-        --nm-scroll-thumb: rgba(17,17,17,0.2);
+      :root{
+        --nm-bg:#E8E6E1;
+        --nm-text:#111111;
+        --nm-muted:rgba(17,17,17,.54);
+        --nm-accent:#d96516;
+        --nm-card:#f4f1ec;
+        --nm-dark:#121212;
+        --nm-border:rgba(17,17,17,.11);
       }
-      [data-theme="dark"] {
-        --nm-bg:          #0d0c0a;
-        --nm-bg-card:     rgba(22,20,16,0.98);
-        --nm-text:        #ece8df;
-        --nm-text-mute:   rgba(236,232,223,0.44);
-        --nm-accent:      #e8722a;
-        --nm-border:      rgba(236,232,223,0.10);
-        --nm-surface:     rgba(236,232,223,0.05);
-        --nm-heading:     #ece8df;
-        --nm-spine:       rgba(232,114,42,0.22);
-        --nm-tag-bg:      rgba(232,114,42,0.13);
-        --nm-period-bg:   rgba(232,114,42,0.16);
-        --nm-dot-ring:    rgba(232,114,42,0.10);
-        --nm-bg-section:  #0d0c0a;
-        --nm-bg-card-alt: rgba(28,24,18,0.92);
-        --nm-scroll-thumb: rgba(236,232,223,0.18);
-        --accent: #e8722a;
-      }
-      [data-theme="dark"] body,
-      [data-theme="dark"] body * {
-        transition:
-          background-color 0.32s ease,
-          border-color     0.32s ease,
-          color            0.32s ease,
-          opacity          0.18s ease !important;
-      }
-      [data-theme="dark"] body {
-        background: var(--nm-bg) !important;
-        color: var(--nm-text) !important;
-      }
-      [data-theme="dark"] ::-webkit-scrollbar-thumb {
-        background: var(--nm-scroll-thumb) !important;
-      }
-      [data-theme="dark"] .bg-light,
-      [data-theme="dark"] .bg-dark,
-      [data-theme="dark"] .bg-offwhite,
-      [data-theme="dark"] .bg-darker,
-      [data-theme="dark"] #hero,
-      [data-theme="dark"] footer {
-        background: var(--nm-bg) !important;
-      }
-      [data-theme="dark"] h1,
-      [data-theme="dark"] h2,
-      [data-theme="dark"] h3,
-      [data-theme="dark"] h4,
-      [data-theme="dark"] h5,
-      [data-theme="dark"] h6 { color: var(--nm-heading) !important; }
-      [data-theme="dark"] p,
-      [data-theme="dark"] span:not(.skill-dot):not([style*="color: var(--accent)"]) {
-        color: var(--nm-text-mute);
-      }
-      [data-theme="dark"] [style*="color: var(--accent)"],
-      [data-theme="dark"] [style*="color: #d65a2e"],
-      [data-theme="dark"] .social-link:hover { color: var(--nm-accent) !important; }
-      [data-theme="dark"] .skill-tile,
-      [data-theme="dark"] .skills-stack-panel,
-      [data-theme="dark"] .skills-fold-surface {
-        background: var(--nm-bg-card) !important;
-        border-color: var(--nm-border) !important;
-      }
-      [data-theme="dark"] .hack-row:hover { background: rgba(236,232,223,0.04) !important; }
-      [data-theme="dark"] .nav-pill { color: rgba(236,232,223,0.52) !important; }
-      [data-theme="dark"] .nav-pill:hover {
-        color: var(--nm-text) !important;
-        border-color: var(--nm-border) !important;
-        background: rgba(232,114,42,0.1) !important;
-      }
-      [data-theme="dark"] .btn-ghost {
-        color: var(--nm-text) !important;
-        border-color: var(--nm-border) !important;
-      }
-      [data-theme="dark"] .btn-ghost:hover {
-        border-color: var(--nm-accent) !important;
-        background: rgba(232,114,42,0.08) !important;
-      }
-      [data-theme="dark"] .social-link { color: rgba(236,232,223,0.52) !important; }
-      [data-theme="dark"] .lang-bar { background: rgba(236,232,223,0.12) !important; }
-      [data-theme="dark"] .avatar-card-core {
-        background: #1a1814 !important;
-        border-color: rgba(236,232,223,0.12) !important;
-      }
-      [data-theme="dark"] .reveal-on-scroll { color: var(--nm-text) !important; }
-      [data-theme="dark"] #hero h1,
-      [data-theme="dark"] #hero .hero-copy h1 { color: var(--nm-heading) !important; }
-      [data-theme="dark"] [style*="background: #f8f5f0"],
-      [data-theme="dark"] [style*='background: "#f8f5f0"'] { background: var(--nm-bg-card) !important; }
-      [data-theme="dark"] ::selection { background: rgba(232,114,42,0.28); color: var(--nm-text); }
 
-      /* ── Experience section dark overrides ── */
-      [data-theme="dark"] #experience { background: var(--nm-bg) !important; }
-      [data-theme="dark"] .exp-cinematic-bg { background: var(--nm-bg) !important; }
+      [data-theme="dark"]{
+        --nm-bg:#0d0c0a;
+        --nm-text:#ece8df;
+        --nm-muted:rgba(236,232,223,.58);
+        --nm-accent:#e8722a;
+        --nm-card:#181612;
+        --nm-dark:#111111;
+        --nm-border:rgba(236,232,223,.10);
+        --accent:#e8722a;
+      }
+
+      [data-theme="dark"] body{
+        background:var(--nm-bg)!important;
+        color:var(--nm-text)!important;
+      }
+
+      [data-theme="dark"] #experience,
+      [data-theme="dark"] .exp-bg{
+        background:var(--nm-bg)!important;
+      }
     `;
     document.head.appendChild(s);
   }, []);
 
   const toggle = () => {
-    setDark((d) => {
-      const next = !d;
+    setDark((v) => {
+      const next = !v;
       document.documentElement.setAttribute(
         "data-theme",
         next ? "dark" : "light",
@@ -155,47 +78,36 @@ export function NightModeToggle({ className }: { className?: string }) {
   return (
     <motion.button
       onClick={toggle}
-      whileHover={{ scale: 1.08 }}
-      whileTap={{ scale: 0.9 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.94 }}
       className={className}
-      aria-label={dark ? "Switch to day mode" : "Switch to night mode"}
       style={{
+        height: 36,
+        padding: "0 14px",
+        borderRadius: 999,
+        border: "1px solid var(--nm-border)",
+        background: "rgba(255,255,255,.04)",
+        color: "var(--nm-text)",
         display: "inline-flex",
         alignItems: "center",
-        gap: 7,
-        padding: "0 14px",
-        height: 36,
-        borderRadius: 999,
-        border: "1px solid var(--nm-border, rgba(17,17,17,0.13))",
-        background: "var(--nm-surface, rgba(17,17,17,0.04))",
-        color: "var(--nm-text, #111)",
+        gap: 8,
+        cursor: "pointer",
         fontSize: "0.66rem",
         fontWeight: 700,
-        letterSpacing: "0.12em",
+        letterSpacing: ".12em",
         textTransform: "uppercase",
-        cursor: "pointer",
-        fontFamily: "'DM Sans', system-ui, sans-serif",
-        flexShrink: 0,
       }}
     >
-      <motion.span
-        key={String(dark)}
-        initial={{ y: 5, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.18 }}
-        style={{ lineHeight: 1, fontSize: 12 }}
-      >
-        {dark ? "○" : "◑"}
-      </motion.span>
+      <span>{dark ? "○" : "◑"}</span>
       {dark ? "Day" : "Night"}
     </motion.button>
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   EXPERIENCE CARD
-═══════════════════════════════════════════════════════════════════ */
-function ExperienceCard({
+/* ═══════════════════════════════════════════════
+   PANEL
+═══════════════════════════════════════════════ */
+function FloatingPanel({
   job,
   index,
   progress,
@@ -206,354 +118,470 @@ function ExperienceCard({
 }) {
   const [hovered, setHovered] = useState(false);
 
-  // Each card rises in sequence after the heading settles (progress ~0.55)
-  const startAt = 0.52 + index * 0.1;
-  const endAt = startAt + 0.16;
+  const configs = [
+    {
+      start: 0.54,
+      end: 0.68,
+      w: "min(430px, 42vw)",
+      h: 250,
+      top: "16vh",
+      right: "6vw",
+      bg: "#111111",
+      text: "#f1ece3",
+      mute: "rgba(241,236,227,.58)",
+      accent: "#e8722a",
+      radius: 28,
+      z: 6,
+      rotate: 0,
+    },
+    {
+      start: 0.62,
+      end: 0.76,
+      w: "min(340px, 34vw)",
+      h: 210,
+      top: "42vh",
+      right: "18vw",
+      bg: "rgba(255,255,255,.58)",
+      text: "#111111",
+      mute: "rgba(17,17,17,.56)",
+      accent: "#d96516",
+      radius: 24,
+      z: 8,
+      rotate: -4,
+    },
+    {
+      start: 0.7,
+      end: 0.84,
+      w: "min(280px, 28vw)",
+      h: 160,
+      top: "68vh",
+      right: "2vw",
+      bg: "linear-gradient(135deg,#d96516,#f08932)",
+      text: "#fff8f1",
+      mute: "rgba(255,248,241,.72)",
+      accent: "#fff8f1",
+      radius: 22,
+      z: 3,
+      rotate: 6,
+    },
+  ][index];
 
-  const rawY = useTransform(progress, [startAt, endAt], ["60px", "0px"]);
-  const rawOpacity = useTransform(progress, [startAt, endAt], [0, 1]);
+  const x = useSpring(
+    useTransform(progress, [configs.start, configs.end], [220, 0]),
+    { stiffness: 80, damping: 20 },
+  );
 
-  const y = useSpring(rawY, { stiffness: 100, damping: 22, mass: 0.3 });
-  const opacity = useSpring(rawOpacity, { stiffness: 130, damping: 26 });
+  const y = useSpring(
+    useTransform(progress, [configs.start, configs.end], [60, 0]),
+    { stiffness: 80, damping: 20 },
+  );
+
+  const opacity = useSpring(
+    useTransform(progress, [configs.start, configs.end], [0, 1]),
+    { stiffness: 100, damping: 24 },
+  );
+
+  const rotate = useSpring(
+    useTransform(progress, [configs.start, configs.end], [18, configs.rotate]),
+    { stiffness: 80, damping: 18 },
+  );
 
   return (
     <motion.div
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      style={{ y, opacity }}
+      style={{
+        position: "absolute",
+        top: configs.top,
+        right: configs.right,
+        width: configs.w,
+        height: configs.h,
+        zIndex: configs.z,
+        x,
+        y,
+        opacity,
+        rotate,
+        scale: hovered ? 1.02 : 1,
+      }}
     >
       <div
         style={{
-          background: "var(--nm-bg-card, rgba(237,235,230,0.92))",
-          border: `1px solid ${hovered ? "rgba(217,101,22,0.3)" : "var(--nm-border, rgba(17,17,17,0.13))"}`,
-          borderRadius: 12,
-          padding: "24px 28px",
-          position: "relative",
-          overflow: "hidden",
-          cursor: "default",
-          transition: "border-color 0.22s ease, background 0.32s ease",
+          width: "100%",
+          height: "100%",
+          borderRadius: configs.radius,
+          background: configs.bg,
+          padding: "26px 28px",
+          border: "1px solid rgba(255,255,255,.06)",
+          boxShadow: hovered
+            ? "0 34px 90px rgba(0,0,0,.24)"
+            : "0 24px 70px rgba(0,0,0,.16)",
+          backdropFilter: "blur(18px)",
+          transition: "all .25s cubic-bezier(0.16,1,0.3,1)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
       >
-        {/* Accent bar */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 2,
-            background: "var(--nm-accent, #d96516)",
-            transform: hovered ? "scaleX(1)" : "scaleX(0)",
-            transformOrigin: "left",
-            transition: "transform 0.36s cubic-bezier(0.16,1,0.3,1)",
-          }}
-        />
+        <div>
+          <p
+            style={{
+              fontSize: "0.62rem",
+              fontWeight: 800,
+              letterSpacing: ".22em",
+              textTransform: "uppercase",
+              color: configs.accent,
+              marginBottom: 8,
+            }}
+          >
+            {job.company}
+          </p>
 
-        {/* Header */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            gap: 10,
-            marginBottom: job.description || job.skills.length ? 12 : 0,
-          }}
-        >
-          <div>
-            <h3
-              style={{
-                fontSize: "1rem",
-                fontWeight: 600,
-                color: "var(--nm-text, #111)",
-                lineHeight: 1.3,
-                marginBottom: 3,
-                fontFamily: "'DM Sans', system-ui, sans-serif",
-              }}
-            >
-              {job.title}
-            </h3>
+          <h3
+            style={{
+              fontSize: index === 0 ? "1.5rem" : "1.2rem",
+              lineHeight: 1.15,
+              color: configs.text,
+              fontFamily: "'DM Serif Display', Georgia, serif",
+              fontStyle: "italic",
+              fontWeight: 400,
+              marginBottom: 10,
+            }}
+          >
+            {job.title}
+          </h3>
+
+          {job.description && (
             <p
               style={{
-                fontSize: "0.84rem",
-                color: "var(--nm-text-mute, rgba(17,17,17,0.52))",
-                fontWeight: 500,
-                fontFamily: "'DM Sans', system-ui, sans-serif",
+                fontSize: ".8rem",
+                lineHeight: 1.6,
+                color: configs.mute,
+                maxWidth: "90%",
               }}
             >
-              {job.company}
+              {job.description}
             </p>
-          </div>
-          <span
+          )}
+        </div>
+
+        <div>
+          {job.skills.length > 0 && (
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 6,
+                marginBottom: 12,
+              }}
+            >
+              {job.skills.slice(0, 3).map((s) => (
+                <span
+                  key={s}
+                  style={{
+                    fontSize: ".56rem",
+                    fontWeight: 800,
+                    letterSpacing: ".12em",
+                    textTransform: "uppercase",
+                    padding: "4px 8px",
+                    borderRadius: 999,
+                    background: "rgba(255,255,255,.09)",
+                    color: configs.accent,
+                  }}
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <p
             style={{
-              fontSize: "0.7rem",
-              fontWeight: 600,
-              color: "var(--nm-text, #111)",
-              background: "var(--nm-period-bg, rgba(232,93,31,0.13))",
-              border: "1px solid var(--nm-border, rgba(17,17,17,0.13))",
-              borderRadius: 999,
-              padding: "4px 12px",
-              whiteSpace: "nowrap",
-              fontFamily: "'DM Sans', system-ui, sans-serif",
-              transition:
-                "background 0.32s ease, border-color 0.32s ease, color 0.32s ease",
+              fontSize: ".68rem",
+              letterSpacing: ".04em",
+              color: configs.mute,
             }}
           >
             {job.period}
-          </span>
-        </div>
-
-        {job.description && (
-          <p
-            style={{
-              fontSize: "0.84rem",
-              color: "var(--nm-text-mute, rgba(17,17,17,0.52))",
-              lineHeight: 1.74,
-              marginBottom: job.skills.length ? 14 : 0,
-              fontFamily: "'DM Sans', system-ui, sans-serif",
-              transition: "color 0.32s ease",
-            }}
-          >
-            {job.description}
           </p>
-        )}
-
-        {job.skills.length > 0 && (
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-            {job.skills.map((skill) => (
-              <span
-                key={skill}
-                style={{
-                  fontSize: "0.6rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  padding: "3px 10px",
-                  borderRadius: 4,
-                  background: "var(--nm-tag-bg, rgba(232,93,31,0.10))",
-                  border: "1px solid var(--nm-border, rgba(17,17,17,0.13))",
-                  color: "var(--nm-text, #333)",
-                  fontFamily: "'DM Sans', system-ui, sans-serif",
-                  transition:
-                    "background 0.32s ease, border-color 0.32s ease, color 0.32s ease",
-                }}
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        )}
+        </div>
       </div>
     </motion.div>
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   CINEMATIC HEADING
-   
-   Phase 1 (progress 0 → 0.18): "WHERE I'VE WORKED" rises into view,
-     massive and centered, with a slight zoom-toward-viewer effect.
-   Phase 2 (progress 0.18 → 0.22): Brief hold at peak.
-   Phase 3 (progress 0.22 → 0.52): Compresses + slides to left column,
-     becomes the section anchor label.
-   Phase 4 (progress 0.52+): Cards rise on the right.
-═══════════════════════════════════════════════════════════════════ */
-function CinematicHeading({ progress }: { progress: MotionValue<number> }) {
-  // Phase 1: rise up from below + scale from 0.6 → 1.15 (zoom toward viewer)
-  const rawScale = useTransform(
-    progress,
-    [0, 0.18, 0.22, 0.52],
-    [0.55, 1.15, 1.08, 0.38],
-  );
-  const rawY = useTransform(
-    progress,
-    [0, 0.14, 0.22, 0.52],
-    ["18vh", "0vh", "0vh", "-2vh"],
-  );
-  // Phase 3: slide from center to left
-  const rawX = useTransform(progress, [0.22, 0.52], ["0%", "-38%"]);
-  const rawOpacity = useTransform(progress, [0, 0.06], [0, 1]);
-
-  // Label "Experience" fades in as heading shrinks to left
-  const labelOpacity = useTransform(progress, [0.38, 0.56], [0, 1]);
-  const labelY = useTransform(progress, [0.38, 0.56], [12, 0]);
-
-  const scale = useSpring(rawScale, { stiffness: 72, damping: 20, mass: 0.5 });
-  const y = useSpring(rawY, { stiffness: 80, damping: 22, mass: 0.44 });
-  const x = useSpring(rawX, { stiffness: 72, damping: 20, mass: 0.5 });
-  const opacity = useSpring(rawOpacity, { stiffness: 140, damping: 28 });
-
-  const labelOpacitySpring = useSpring(labelOpacity, {
-    stiffness: 120,
-    damping: 26,
+/* ═══════════════════════════════════════════════
+   TITLE
+═══════════════════════════════════════════════ */
+function CinematicTitle({ progress }: { progress: MotionValue<number> }) {
+  const line1Y = useSpring(useTransform(progress, [0, 0.14], [130, 0]), {
+    stiffness: 80,
+    damping: 18,
   });
-  const labelYSpring = useSpring(labelY, { stiffness: 120, damping: 26 });
+
+  const line2Y = useSpring(useTransform(progress, [0.04, 0.18], [130, 0]), {
+    stiffness: 80,
+    damping: 18,
+  });
+
+  const line1Opacity = useTransform(progress, [0, 0.08], [0, 1]);
+  const line2Opacity = useTransform(progress, [0.04, 0.12], [0, 1]);
+
+  const scale = useSpring(
+    useTransform(progress, [0, 0.26, 0.52], [0.88, 1.16, 0.42]),
+    { stiffness: 70, damping: 20 },
+  );
+
+  const x = useSpring(useTransform(progress, [0.32, 0.52], ["0vw", "-30vw"]), {
+    stiffness: 70,
+    damping: 20,
+  });
+
+  const y = useSpring(useTransform(progress, [0.24, 0.52], ["0vh", "-8vh"]), {
+    stiffness: 70,
+    damping: 20,
+  });
+
+  const labelOpacity = useTransform(progress, [0.42, 0.54], [0, 1]);
 
   return (
     <div
       style={{
-        position: "sticky",
-        top: "50%",
-        transform: "translateY(-50%)",
-        zIndex: 10,
-        pointerEvents: "none",
+        position: "absolute",
+        inset: 0,
         display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
+        alignItems: "center",
+        pointerEvents: "none",
       }}
     >
-      {/* "Experience" label appears as heading shrinks */}
-      <motion.span
+      <motion.div
         style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 8,
-          fontSize: "0.62rem",
-          fontWeight: 800,
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          color: "var(--nm-accent, #d96516)",
-          marginBottom: 12,
-          opacity: labelOpacitySpring,
-          y: labelYSpring,
-        }}
-      >
-        <span
-          style={{
-            display: "inline-block",
-            width: 18,
-            height: 1.5,
-            background: "var(--nm-accent, #d96516)",
-            borderRadius: 1,
-          }}
-        />
-        Experience
-      </motion.span>
-
-      <motion.h2
-        style={{
-          fontFamily: "'DM Serif Display', Georgia, serif",
-          fontWeight: 400,
-          lineHeight: 1.0,
-          letterSpacing: "-0.03em",
-          color: "var(--nm-heading, #2b2b2b)",
-          // Base size — scale handles the zoom
-          fontSize: "clamp(2.8rem, 6vw, 5.2rem)",
-          margin: 0,
-          transformOrigin: "left center",
-          scale,
-          y,
+          marginLeft: "6vw",
           x,
-          opacity,
-          whiteSpace: "nowrap",
+          y,
+          scale,
+          transformOrigin: "left center",
         }}
       >
-        Where I&apos;ve
-        <br />
-        worked
-      </motion.h2>
+        <motion.div
+          style={{
+            opacity: labelOpacity,
+            marginBottom: 14,
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            fontSize: ".66rem",
+            fontWeight: 800,
+            letterSpacing: ".26em",
+            textTransform: "uppercase",
+            color: "var(--nm-accent)",
+          }}
+        >
+          <span
+            style={{
+              width: 18,
+              height: 1.5,
+              background: "var(--nm-accent)",
+            }}
+          />
+          Experience
+        </motion.div>
+
+        <div style={{ overflow: "hidden" }}>
+          <motion.h2
+            style={{
+              y: line1Y,
+              opacity: line1Opacity,
+              margin: 0,
+              fontSize: "clamp(88px,11vw,180px)",
+              lineHeight: 0.9,
+              letterSpacing: "-0.05em",
+              color: "var(--nm-text)",
+              fontFamily: "'DM Serif Display', Georgia, serif",
+              fontWeight: 400,
+              whiteSpace: "nowrap",
+            }}
+          >
+            Where I&apos;ve
+          </motion.h2>
+        </div>
+
+        <div style={{ overflow: "hidden" }}>
+          <motion.h2
+            style={{
+              y: line2Y,
+              opacity: line2Opacity,
+              margin: 0,
+              fontSize: "clamp(88px,11vw,180px)",
+              lineHeight: 0.9,
+              letterSpacing: "-0.05em",
+              color: "var(--nm-accent)",
+              fontFamily: "'DM Serif Display', Georgia, serif",
+              fontWeight: 400,
+              whiteSpace: "nowrap",
+            }}
+          >
+            worked.
+          </motion.h2>
+        </div>
+      </motion.div>
     </div>
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   MAIN SECTION
-═══════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   MAIN
+═══════════════════════════════════════════════ */
 export default function ExperienceSection({
   experience,
 }: {
   experience: Job[];
 }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const [mobile, setMobile] = useState(false);
 
-  // The scroll range covers the whole cinematic section.
-  // We use a tall section (300vh) so the sticky heading has room to animate.
+  useEffect(() => {
+    const check = () => setMobile(window.innerWidth < 900);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  // When progress > 0.52, show the two-column layout
-  const cardsOpacity = useTransform(scrollYProgress, [0.48, 0.56], [0, 1]);
-  const cardsOpacitySpring = useSpring(cardsOpacity, {
-    stiffness: 100,
-    damping: 24,
-  });
+  if (mobile) {
+    return (
+      <section
+        id="experience"
+        ref={sectionRef}
+        className="exp-bg"
+        style={{
+          padding: "110px 24px",
+          background: "var(--nm-bg)",
+        }}
+      >
+        <p
+          style={{
+            fontSize: ".66rem",
+            fontWeight: 800,
+            letterSpacing: ".24em",
+            textTransform: "uppercase",
+            color: "var(--nm-accent)",
+            marginBottom: 18,
+          }}
+        >
+          Experience
+        </p>
+
+        <h2
+          style={{
+            fontSize: "clamp(54px,18vw,92px)",
+            lineHeight: 0.92,
+            letterSpacing: "-0.05em",
+            marginBottom: 42,
+            fontFamily: "'DM Serif Display', Georgia, serif",
+            fontWeight: 400,
+          }}
+        >
+          Where I&apos;ve
+          <br />
+          <span style={{ color: "var(--nm-accent)" }}>worked.</span>
+        </h2>
+
+        <div style={{ display: "grid", gap: 16 }}>
+          {experience.map((job, i) => (
+            <div
+              key={i}
+              style={{
+                padding: 24,
+                borderRadius: 22,
+                background: i === 0 ? "#111" : "var(--nm-card)",
+                color: i === 0 ? "#fff" : "var(--nm-text)",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: ".62rem",
+                  fontWeight: 800,
+                  letterSpacing: ".2em",
+                  textTransform: "uppercase",
+                  color: "var(--nm-accent)",
+                  marginBottom: 8,
+                }}
+              >
+                {job.company}
+              </p>
+
+              <h3
+                style={{
+                  fontFamily: "'DM Serif Display', Georgia, serif",
+                  fontSize: "1.35rem",
+                  marginBottom: 8,
+                }}
+              >
+                {job.title}
+              </h3>
+
+              <p style={{ opacity: 0.7, fontSize: ".8rem" }}>{job.period}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
       id="experience"
       ref={sectionRef}
-      className="exp-cinematic-bg"
+      className="exp-bg"
       style={{
-        // Tall section = scroll budget for animation
-        minHeight: "340vh",
+        minHeight: "320vh",
         position: "relative",
-        background: "var(--nm-bg, #E8E6E1)",
+        background: "var(--nm-bg)",
       }}
     >
-      {/* ── Sticky viewport container ── */}
       <div
         style={{
           position: "sticky",
           top: 0,
           height: "100vh",
           overflow: "hidden",
-          display: "flex",
-          alignItems: "center",
         }}
       >
+        {/* subtle glow */}
         <div
           style={{
-            maxWidth: 1120,
-            width: "100%",
-            margin: "0 auto",
-            padding: "0 clamp(24px,5vw,56px)",
-            position: "relative",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
+            position: "absolute",
+            right: "8%",
+            top: "18%",
+            width: 500,
+            height: 500,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(217,101,22,.12), transparent 70%)",
+            filter: "blur(40px)",
+          }}
+        />
+
+        <CinematicTitle progress={scrollYProgress} />
+
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
           }}
         >
-          {/* Heading — absolutely positioned, fills center then shifts left */}
-          <div
-            style={{
-              position: "absolute",
-              left: "clamp(24px,5vw,56px)",
-              right: "clamp(24px,5vw,56px)",
-              top: 0,
-              bottom: 0,
-              display: "flex",
-              alignItems: "center",
-              pointerEvents: "none",
-            }}
-          >
-            <CinematicHeading progress={scrollYProgress} />
-          </div>
-
-          {/* Cards column — appears on the right */}
-          <motion.div
-            style={{
-              marginLeft: "auto",
-              width: "min(54%, 560px)",
-              display: "flex",
-              flexDirection: "column",
-              gap: 14,
-              opacity: cardsOpacitySpring,
-              // Prevent cards from overlapping heading during entry
-              position: "relative",
-              zIndex: 5,
-            }}
-          >
-            {experience.map((job, i) => (
-              <ExperienceCard
-                key={`${job.company}-${i}`}
-                job={job}
-                index={i}
-                progress={scrollYProgress}
-              />
-            ))}
-          </motion.div>
+          {experience.slice(0, 3).map((job, i) => (
+            <FloatingPanel
+              key={`${job.company}-${i}`}
+              job={job}
+              index={i}
+              progress={scrollYProgress}
+            />
+          ))}
         </div>
       </div>
     </section>

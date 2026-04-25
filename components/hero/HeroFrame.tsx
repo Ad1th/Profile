@@ -7,69 +7,53 @@ import React from "react";
 
 export default function HeroFrame({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div 
-      className="relative w-full md:w-[720px] h-[620px] mt-[32px] md:-rotate-[1.2deg]"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-    >
-      {/* Shadow Box */}
-      <div className="hidden md:block absolute inset-0 bg-transparent shadow-[10px_10px_0_#111] pointer-events-none -z-10" />
+    <div className="relative" style={{ width: 720, height: 620, transform: "rotate(-1.2deg)" }}>
+      {/* Hard shadow */}
+      <div className="absolute inset-0 pointer-events-none bg-[#EEE7DC]" style={{ boxShadow: "10px 10px 0 #111" }} />
 
-      {/* Borders drawing in - Custom open editorial frame */}
-      <motion.div 
-        className="hidden md:block absolute top-0 left-0 h-[3px] bg-[#111] origin-left"
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 0.8, delay: 0.2, ease: easings.primary }}
-        style={{ width: "100%" }}
-      />
-      <motion.div 
-        className="hidden md:block absolute top-0 left-0 w-[3px] bg-[#111] origin-top"
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 1 }}
-        transition={{ duration: 0.8, delay: 0.25, ease: easings.primary }}
-        style={{ height: "100%" }}
-      />
-      <motion.div 
-        className="hidden md:block absolute bottom-0 left-0 h-[3px] bg-[#111] origin-left"
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 0.8, delay: 0.3, ease: easings.primary }}
-        style={{ width: "78%" }}
-      />
+      {/* TOP — full width */}
+      <motion.div className="absolute top-0 left-0 h-[3px] bg-[#111] origin-left z-10" style={{ width: "100%" }}
+        initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.7, delay: 0.20, ease: easings.primary }} />
+
+      {/* LEFT — full height */}
+      <motion.div className="absolute top-0 left-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "100%" }}
+        initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.7, delay: 0.24, ease: easings.primary }} />
+
+      {/* BOTTOM — 85% */}
+      <motion.div className="absolute bottom-0 left-0 h-[3px] bg-[#111] origin-left z-10" style={{ width: "85%" }}
+        initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.7, delay: 0.28, ease: easings.primary }} />
+
+      {/* RIGHT top segment (above notch) */}
+      <motion.div className="absolute top-0 right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "120px" }}
+        initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.4, delay: 0.32, ease: easings.primary }} />
+
+      {/* Notch: horizontal INWARD */}
+      <motion.div className="absolute right-0 top-[120px] h-[3px] bg-[#111] origin-right z-10" style={{ width: "24px" }}
+        initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.3, delay: 0.36, ease: easings.primary }} />
       
-      {/* Right broken near portrait: top 30% and bottom 40% */}
-      <motion.div 
-        className="hidden md:block absolute top-0 right-0 w-[3px] bg-[#111] origin-top"
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 1 }}
-        transition={{ duration: 0.4, delay: 0.35, ease: easings.primary }}
-        style={{ height: "30%" }}
-      />
-      <motion.div 
-        className="hidden md:block absolute bottom-0 right-0 w-[3px] bg-[#111] origin-bottom"
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 1 }}
-        transition={{ duration: 0.4, delay: 0.4, ease: easings.primary }}
-        style={{ height: "40%" }}
-      />
+      {/* Notch: vertical DOWN */}
+      <motion.div className="absolute right-[21px] top-[120px] w-[3px] bg-[#111] origin-top z-10" style={{ height: "80px" }}
+        initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.3, delay: 0.40, ease: easings.primary }} />
+      
+      {/* Notch: horizontal OUTWARD */}
+      <motion.div className="absolute right-[0px] top-[200px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "24px" }}
+        initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.3, delay: 0.44, ease: easings.primary }} />
 
-      {/* Right Notch Custom Box - Visual connection between broken border */}
-      <motion.div 
-        className="hidden md:block absolute top-[30%] right-[-14px] w-[14px] h-[30%] border-l-[3px] border-t-[3px] border-[#111]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, delay: 0.5, ease: easings.primary }}
-      />
+      {/* RIGHT bottom segment (below notch) */}
+      <motion.div className="absolute top-[200px] right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "calc(100% - 200px)" }}
+        initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.4, delay: 0.48, ease: easings.primary }} />
+
+      {/* Floating horizontal line at bottom right */}
+      <motion.div className="absolute right-[10%] bottom-[-20px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "80px" }}
+        initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.5, delay: 0.5, ease: easings.primary }} />
 
       <PixelCluster />
       <SmallSquare />
 
-      {/* Children Container x: 58px, y: 94px */}
-      <div className="relative h-full md:absolute md:top-[94px] md:left-[58px] z-20 md:rotate-[1.2deg]">
+      {/* Content — counter-rotate */}
+      <div className="absolute z-20" style={{ top: 94, left: 58, transform: "rotate(1.2deg)" }}>
         {children}
       </div>
-    </motion.div>
+    </div>
   );
 }

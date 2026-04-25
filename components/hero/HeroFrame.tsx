@@ -7,7 +7,7 @@ import React from "react";
 
 export default function HeroFrame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative" style={{ width: 820, height: 720, transform: "rotate(-1.2deg)" }}>
+    <div className="relative" style={{ width: 940, height: 780, transform: "rotate(-1.2deg)" }}>
       {/* Hard shadow */}
       <div className="absolute inset-0 pointer-events-none bg-[#EEE7DC]" style={{ boxShadow: "10px 10px 0 #111" }} />
 
@@ -24,34 +24,34 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.7, delay: 0.28, ease: easings.primary }} />
 
       {/* RIGHT top segment (above notch) */}
-      <motion.div className="absolute top-0 right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "100px" }}
+      <motion.div className="absolute top-0 right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "150px" }}
         initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.4, delay: 0.32, ease: easings.primary }} />
 
       {/* Notch: horizontal INWARD */}
-      <motion.div className="absolute right-0 top-[100px] h-[3px] bg-[#111] origin-right z-10" style={{ width: "24px" }}
+      <motion.div className="absolute right-0 top-[150px] h-[3px] bg-[#111] origin-right z-10" style={{ width: "32px" }}
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.3, delay: 0.36, ease: easings.primary }} />
       
       {/* Notch: vertical DOWN */}
-      <motion.div className="absolute right-[21px] top-[100px] w-[3px] bg-[#111] origin-top z-10" style={{ height: "80px" }}
+      <motion.div className="absolute right-[29px] top-[150px] w-[3px] bg-[#111] origin-top z-10" style={{ height: "120px" }}
         initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.3, delay: 0.40, ease: easings.primary }} />
       
       {/* Notch: horizontal OUTWARD */}
-      <motion.div className="absolute right-[0px] top-[180px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "24px" }}
+      <motion.div className="absolute right-[0px] top-[270px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "32px" }}
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.3, delay: 0.44, ease: easings.primary }} />
 
       {/* RIGHT bottom segment (below notch) */}
-      <motion.div className="absolute top-[180px] right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "calc(100% - 180px)" }}
+      <motion.div className="absolute top-[270px] right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "calc(100% - 270px)" }}
         initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.4, delay: 0.48, ease: easings.primary }} />
 
       {/* Floating horizontal line at bottom right */}
-      <motion.div className="absolute right-[10%] bottom-[-20px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "80px" }}
+      <motion.div className="absolute right-[8%] bottom-[-24px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "100px" }}
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.5, delay: 0.5, ease: easings.primary }} />
 
       <PixelCluster />
       <SmallSquare />
 
       {/* Content — counter-rotate */}
-      <div className="absolute z-20" style={{ top: 94, left: 58, transform: "rotate(1.2deg)" }}>
+      <div className="absolute z-20" style={{ top: 100, left: 60, transform: "rotate(1.2deg)" }}>
         {children}
       </div>
     </div>

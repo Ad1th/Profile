@@ -10,8 +10,8 @@ export default function HeroBadge() {
       style={{
         width: 340,
         height: 92,
-        bottom: 60,
-        right: 10,
+        bottom: 80,
+        right: 30,
         rotate: -2.8,
         boxShadow: "7px 7px 0 #111",
         willChange: "transform",

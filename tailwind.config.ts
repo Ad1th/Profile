@@ -80,6 +80,9 @@ const config = {
           950: "#1e1b4b",
         },
       },
+      fontFamily: {
+        archivo: ['var(--font-archivo)'],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

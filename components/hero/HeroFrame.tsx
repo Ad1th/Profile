@@ -24,23 +24,23 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.7, delay: 0.28, ease: easings.primary }} />
 
       {/* RIGHT top segment (above notch) */}
-      <motion.div className="absolute top-0 right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "200px" }}
+      <motion.div className="absolute top-0 right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "100px" }}
         initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.4, delay: 0.32, ease: easings.primary }} />
 
       {/* Notch: horizontal INWARD */}
-      <motion.div className="absolute right-0 top-[200px] h-[3px] bg-[#111] origin-right z-10" style={{ width: "24px" }}
+      <motion.div className="absolute right-0 top-[100px] h-[3px] bg-[#111] origin-right z-10" style={{ width: "24px" }}
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.3, delay: 0.36, ease: easings.primary }} />
       
       {/* Notch: vertical DOWN */}
-      <motion.div className="absolute right-[21px] top-[200px] w-[3px] bg-[#111] origin-top z-10" style={{ height: "100px" }}
+      <motion.div className="absolute right-[21px] top-[100px] w-[3px] bg-[#111] origin-top z-10" style={{ height: "80px" }}
         initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.3, delay: 0.40, ease: easings.primary }} />
       
       {/* Notch: horizontal OUTWARD */}
-      <motion.div className="absolute right-[0px] top-[300px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "24px" }}
+      <motion.div className="absolute right-[0px] top-[180px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "24px" }}
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.3, delay: 0.44, ease: easings.primary }} />
 
       {/* RIGHT bottom segment (below notch) */}
-      <motion.div className="absolute top-[300px] right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "calc(100% - 300px)" }}
+      <motion.div className="absolute top-[180px] right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "calc(100% - 180px)" }}
         initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.4, delay: 0.48, ease: easings.primary }} />
 
       {/* Floating horizontal line at bottom right */}

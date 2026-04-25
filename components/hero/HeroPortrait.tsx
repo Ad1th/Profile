@@ -8,9 +8,9 @@ import HeroBadge from "./HeroBadge";
 import { VerticalDots } from "./HeroDecor";
 import Image from "next/image";
 
-const SHIELD = "M 40 0 L 390 0 Q 430 0 430 40 L 430 360 Q 430 560 215 560 Q 0 560 0 360 L 0 40 Q 0 0 40 0 Z";
-const IMAGE = "M 16 0 L 366 0 Q 382 0 382 16 L 382 336 Q 382 512 191 512 Q 0 512 0 336 L 0 16 Q 0 0 16 0 Z";
-const SLAB = "M 560 0 L 100 0 L 100 40 L 20 40 L 20 200 L 0 200 L 0 260 L 20 260 L 20 700 L 560 700 Z";
+const SHIELD = "M 48 0 L 452 0 Q 500 0 500 48 L 500 420 Q 500 640 250 640 Q 0 640 0 420 L 0 48 Q 0 0 48 0 Z";
+const IMAGE = "M 24 0 L 428 0 Q 452 0 452 24 L 452 396 Q 452 592 226 592 Q 0 592 0 396 L 0 24 Q 0 0 24 0 Z";
+const SLAB = "M 640 0 L 120 0 L 120 50 L 24 50 L 24 120 L 0 120 L 0 180 L 24 180 L 24 800 L 640 800 Z";
 
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,7 +35,7 @@ export default function HeroPortrait() {
   }, [mx, my]);
 
   return (
-    <div ref={ref} className="relative" style={{ width: 560, height: 700, perspective: 1000 }}>
+    <div ref={ref} className="relative" style={{ width: 640, height: 800, perspective: 1000 }}>
 
       {/* Rear offset slab */}
       <motion.div
@@ -45,7 +45,7 @@ export default function HeroPortrait() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.42 }}
       >
-        <svg viewBox="0 0 560 700" className="w-full h-full">
+        <svg viewBox="0 0 640 800" className="w-full h-full">
           <path d={SLAB} fill="#C7B6E8" stroke="#111" strokeWidth="3" />
         </svg>
       </motion.div>
@@ -58,7 +58,7 @@ export default function HeroPortrait() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.42, ease: easings.primary }}
       >
-        <svg viewBox="0 0 560 700" className="w-full h-full">
+        <svg viewBox="0 0 640 800" className="w-full h-full">
           <path d={SLAB} fill="#C9B0FF" stroke="#111" strokeWidth="3" />
         </svg>
       </motion.div>
@@ -67,12 +67,12 @@ export default function HeroPortrait() {
       <div
         className="absolute"
         style={{
-          width: 430, height: 560,
+          width: 500, height: 640,
           top: "calc(50% + 10px)", left: "calc(50% + 10px)",
           transform: "translate(-50%, -50%)",
         }}
       >
-        <svg viewBox="0 0 430 560" width="430" height="560">
+        <svg viewBox="0 0 500 640" width="500" height="640">
           <path d={SHIELD} fill="#111" />
         </svg>
       </div>
@@ -81,7 +81,7 @@ export default function HeroPortrait() {
       <motion.div
         className="absolute z-10"
         style={{
-          width: 430, height: 560,
+          width: 500, height: 640,
           top: "50%", left: "50%",
           transform: "translate(-50%, -50%)",
           rotateX: mobile ? 0 : rx,
@@ -92,7 +92,7 @@ export default function HeroPortrait() {
         transition={{ duration: 0.7, delay: 0.48, ease: easings.primary }}
       >
         {/* SVG border + fill */}
-        <svg viewBox="0 0 430 560" className="absolute inset-0 w-full h-full" style={{ filter: "drop-shadow(0 0 0 transparent)" }}>
+        <svg viewBox="0 0 500 640" className="absolute inset-0 w-full h-full" style={{ filter: "drop-shadow(0 0 0 transparent)" }}>
           <path d={SHIELD} fill="#F6F0E8" stroke="#111" strokeWidth="5" />
         </svg>
 
@@ -100,7 +100,7 @@ export default function HeroPortrait() {
         <div
           className="absolute overflow-hidden"
           style={{
-            top: 24, left: 24, width: 430 - 48, height: 560 - 48,
+            top: 24, left: 24, width: 500 - 48, height: 640 - 48,
             clipPath: `path('${IMAGE}')`,
           }}
         >
@@ -108,7 +108,7 @@ export default function HeroPortrait() {
             src="/images/me2.jpeg"
             alt="Adith Manikonda"
             fill
-            sizes="430px"
+            sizes="500px"
             className="object-cover object-[center_20%] grayscale contrast-[1.3]"
             priority
           />

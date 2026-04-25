@@ -45,11 +45,10 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Pointed/Rotated Bottom Bar */}
+      {/* Flat Bottom Olive Bar */}
       <motion.div 
-        className="absolute bottom-[-60px] left-[-5%] right-[-5%] h-[120px] bg-[#6E6A2D] border-t-[3px] border-[#111] z-40 origin-bottom-left"
-        style={{ rotate: "-1.5deg" }}
-        initial={{ y: 100 }}
+        className="absolute bottom-0 left-0 right-0 h-[48px] bg-[#6E6A2D] border-t-[3px] border-[#111] z-40"
+        initial={{ y: 50 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.7, delay: 0.8, ease: easings.primary }}
       />

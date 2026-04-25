@@ -5,7 +5,7 @@ import { easings } from "@/lib/motion";
 
 export default function HeroHeadline() {
   return (
-    <div className="flex flex-col select-none uppercase" style={{ fontFamily: "var(--font-archivo), Impact, sans-serif", letterSpacing: "-0.04em", lineHeight: 0.88 }}>
+    <div className="flex flex-col select-none uppercase" style={{ fontFamily: "'Anton', 'Impact', sans-serif", letterSpacing: "-0.04em", lineHeight: 0.88 }}>
       <div className="overflow-hidden">
         <motion.span className="block text-[148px] text-[#111111] origin-left"
           initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1, scaleX: 0.98 }}

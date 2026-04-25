@@ -30,7 +30,7 @@ export function PixelCluster() {
 
 export function VerticalDots() {
   return (
-    <div className="absolute flex flex-col gap-[10px]" style={{ right: -36, top: "50%", transform: "translateY(-50%)" }}>
+    <div className="absolute flex flex-col gap-[10px]" style={{ right: -22, top: "calc(50% + 10px)", transform: "translateY(-50%)" }}>
       {[...Array(4)].map((_, i) => (
         <div key={i} className="w-[6px] h-[6px] rounded-full bg-[#111]" />
       ))}
@@ -42,7 +42,7 @@ export function SmallSquare() {
   return (
     <div
       className="absolute border-[2px] border-[#111]"
-      style={{ width: 18, height: 18, bottom: 20, left: 20 }}
+      style={{ width: 18, height: 18, bottom: 28, left: 20 }}
     />
   );
 }

@@ -44,14 +44,14 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
         initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.4, delay: 0.48, ease: easings.primary }} />
 
       {/* Floating horizontal line at bottom right */}
-      <motion.div className="absolute right-[8%] bottom-[-24px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "100px" }}
+      <motion.div className="absolute right-[calc(8%+30px)] bottom-[-24px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "100px" }}
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.5, delay: 0.5, ease: easings.primary }} />
 
       <PixelCluster />
       <SmallSquare />
 
       {/* Content — counter-rotate */}
-      <div className="absolute z-20" style={{ top: 100, left: 60, transform: "rotate(1.2deg)" }}>
+      <div className="absolute z-20" style={{ top: 82, left: 60, transform: "rotate(1.2deg)" }}>
         {children}
       </div>
     </div>

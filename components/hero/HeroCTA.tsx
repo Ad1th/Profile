@@ -7,7 +7,7 @@ import { ArrowUpRight } from "lucide-react";
 export default function HeroCTA() {
   return (
     <motion.button
-      className="group relative flex items-center justify-center gap-[12px] bg-[#111] text-white w-[320px] h-[78px] mt-[48px] cursor-pointer outline-none"
+      className="group relative flex items-center justify-center gap-[12px] bg-[#111] text-white w-[320px] h-[78px] mt-[34px] ml-[10px] cursor-pointer outline-none"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.82, ease: easings.primary }}

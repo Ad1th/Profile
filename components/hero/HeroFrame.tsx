@@ -7,7 +7,7 @@ import React from "react";
 
 export default function HeroFrame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative" style={{ width: 720, height: 620, transform: "rotate(-1.2deg)" }}>
+    <div className="relative" style={{ width: 820, height: 720, transform: "rotate(-1.2deg)" }}>
       {/* Hard shadow */}
       <div className="absolute inset-0 pointer-events-none bg-[#EEE7DC]" style={{ boxShadow: "10px 10px 0 #111" }} />
 
@@ -24,23 +24,23 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.7, delay: 0.28, ease: easings.primary }} />
 
       {/* RIGHT top segment (above notch) */}
-      <motion.div className="absolute top-0 right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "120px" }}
+      <motion.div className="absolute top-0 right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "200px" }}
         initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.4, delay: 0.32, ease: easings.primary }} />
 
       {/* Notch: horizontal INWARD */}
-      <motion.div className="absolute right-0 top-[120px] h-[3px] bg-[#111] origin-right z-10" style={{ width: "24px" }}
+      <motion.div className="absolute right-0 top-[200px] h-[3px] bg-[#111] origin-right z-10" style={{ width: "24px" }}
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.3, delay: 0.36, ease: easings.primary }} />
       
       {/* Notch: vertical DOWN */}
-      <motion.div className="absolute right-[21px] top-[120px] w-[3px] bg-[#111] origin-top z-10" style={{ height: "80px" }}
+      <motion.div className="absolute right-[21px] top-[200px] w-[3px] bg-[#111] origin-top z-10" style={{ height: "100px" }}
         initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.3, delay: 0.40, ease: easings.primary }} />
       
       {/* Notch: horizontal OUTWARD */}
-      <motion.div className="absolute right-[0px] top-[200px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "24px" }}
+      <motion.div className="absolute right-[0px] top-[300px] h-[3px] bg-[#111] origin-left z-10" style={{ width: "24px" }}
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.3, delay: 0.44, ease: easings.primary }} />
 
       {/* RIGHT bottom segment (below notch) */}
-      <motion.div className="absolute top-[200px] right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "calc(100% - 200px)" }}
+      <motion.div className="absolute top-[300px] right-0 w-[3px] bg-[#111] origin-top z-10" style={{ height: "calc(100% - 300px)" }}
         initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.4, delay: 0.48, ease: easings.primary }} />
 
       {/* Floating horizontal line at bottom right */}

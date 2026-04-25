@@ -15,9 +15,9 @@ export default function Hero() {
 
       {/* Far-left Orange Decorative Box */}
       <motion.div 
-        className="absolute left-[-3px] top-[30%] w-[48px] h-[220px] bg-[#F05A24] border-[3px] border-[#111] z-30"
+        className="absolute left-[-4px] top-[25%] w-[80px] h-[340px] bg-[#F05A24] border-[3px] border-[#111] z-30"
         style={{ boxShadow: "8px 8px 0 #111" }}
-        initial={{ x: -60 }}
+        initial={{ x: -100 }}
         animate={{ x: 0 }}
         transition={{ duration: 0.7, delay: 0.6, ease: easings.primary }}
       />
@@ -44,8 +44,14 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-[48px] bg-[#6E6A2D] border-t-[3px] border-[#111] z-40" />
+      {/* Pointed/Rotated Bottom Bar */}
+      <motion.div 
+        className="absolute bottom-[-60px] left-[-5%] right-[-5%] h-[120px] bg-[#6E6A2D] border-t-[3px] border-[#111] z-40 origin-bottom-left"
+        style={{ rotate: "-1.5deg" }}
+        initial={{ y: 100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.7, delay: 0.8, ease: easings.primary }}
+      />
     </section>
   );
 }

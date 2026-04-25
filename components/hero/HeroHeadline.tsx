@@ -5,23 +5,23 @@ import { easings } from "@/lib/motion";
 
 export default function HeroHeadline() {
   return (
-    <div className="flex flex-col select-none uppercase font-archivo" style={{ letterSpacing: "-0.04em", lineHeight: 0.88 }}>
+    <div className="flex flex-col select-none uppercase" style={{ fontFamily: "var(--font-archivo), Impact, sans-serif", letterSpacing: "-0.04em", lineHeight: 0.88 }}>
       <div className="overflow-hidden">
-        <motion.span className="block text-[116px] text-[#111111]"
+        <motion.span className="block text-[148px] text-[#111111]"
           initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.0, ease: easings.primary }}
           style={{ willChange: "transform" }}
         >BACKEND</motion.span>
       </div>
       <div className="overflow-hidden">
-        <motion.span className="block text-[106px] text-[#6E6A2D]"
+        <motion.span className="block text-[138px] text-[#6E6A2D]"
           initial={{ x: -40, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.18, ease: easings.primary }}
           style={{ willChange: "transform" }}
         >WITH</motion.span>
       </div>
       <div className="overflow-visible">
-        <motion.span className="block text-[114px] text-[#F05A24]"
+        <motion.span className="block text-[146px] text-[#F05A24]"
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: [100, -8, 0], opacity: [0, 1, 1] }}
           transition={{ duration: 0.7, delay: 0.34, ease: easings.primary }}

@@ -30,14 +30,22 @@ export default function HeroHeadline() {
       </div>
 
       {/* Subtext */}
-      <motion.p
-        className="mt-[48px] text-[18px] font-mono font-normal max-w-[340px] text-[#111] normal-case tracking-normal"
-        style={{ lineHeight: 1.45, opacity: 0.92 }}
-        initial={{ opacity: 0 }} animate={{ opacity: 0.92 }}
-        transition={{ duration: 0.8, delay: 0.58 }}
-      >
-        Pressure-tested builds<br />with clean internals.
-      </motion.p>
+      <div className="mt-[48px]">
+        {/* Decorative line above subtext */}
+        <motion.div 
+          className="w-[48px] h-[2px] bg-[#111] mb-[16px]"
+          initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} originX={0}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        />
+        <motion.p
+          className="text-[18px] font-mono font-normal max-w-[340px] text-[#111] normal-case tracking-normal"
+          style={{ lineHeight: 1.45, opacity: 0.92 }}
+          initial={{ opacity: 0 }} animate={{ opacity: 0.92 }}
+          transition={{ duration: 0.8, delay: 0.58 }}
+        >
+          Pressure-tested builds<br />with clean internals.
+        </motion.p>
+      </div>
     </div>
   );
 }

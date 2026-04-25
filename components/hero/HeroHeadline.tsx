@@ -7,30 +7,30 @@ export default function HeroHeadline() {
   return (
     <div className="flex flex-col select-none uppercase" style={{ fontFamily: "var(--font-archivo), Impact, sans-serif", letterSpacing: "-0.04em", lineHeight: 0.88 }}>
       <div className="overflow-hidden">
-        <motion.span className="block text-[148px] text-[#111111]"
-          initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+        <motion.span className="block text-[148px] text-[#111111] origin-left"
+          initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1, scaleX: 0.98 }}
           transition={{ duration: 0.7, delay: 0.0, ease: easings.primary }}
           style={{ willChange: "transform" }}
         >BACKEND</motion.span>
       </div>
       <div className="overflow-hidden">
-        <motion.span className="block text-[138px] text-[#6E6A2D]"
-          initial={{ x: -40, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
+        <motion.span className="block text-[138px] text-[#6E6A2D] origin-left"
+          initial={{ x: -40, opacity: 0 }} animate={{ x: -4, opacity: 1, scale: 1.03 }}
           transition={{ duration: 0.7, delay: 0.18, ease: easings.primary }}
           style={{ willChange: "transform" }}
         >WITH</motion.span>
       </div>
       <div className="overflow-visible">
-        <motion.span className="block text-[146px] text-[#F05A24]"
+        <motion.span className="block text-[146px] text-[#F05A24] origin-left"
           initial={{ y: 100, opacity: 0 }}
-          animate={{ y: [100, -8, 0], opacity: [0, 1, 1] }}
+          animate={{ y: [100, -18, -10], opacity: [0, 1, 1] }}
           transition={{ duration: 0.7, delay: 0.34, ease: easings.primary }}
           style={{ willChange: "transform" }}
         >TASTE.</motion.span>
       </div>
 
       {/* Subtext */}
-      <div className="mt-[48px]">
+      <div className="mt-[28px]">
         {/* Decorative line above subtext */}
         <motion.div 
           className="w-[48px] h-[2px] bg-[#111] mb-[16px]"

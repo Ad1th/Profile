@@ -52,8 +52,8 @@ export default function HeroPortrait() {
 
       {/* Main purple slab */}
       <motion.div
-        className="absolute inset-0"
-        style={{ transform: "rotate(0.8deg)" }}
+        className="absolute inset-0 origin-left"
+        style={{ transform: "rotate(0.8deg) scaleX(1.03) translateX(-8px)" }}
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.42, ease: easings.primary }}
@@ -68,7 +68,7 @@ export default function HeroPortrait() {
         className="absolute"
         style={{
           width: 580, height: 700,
-          top: "calc(50% + 10px)", left: "calc(50% + 10px)",
+          top: "calc(50% + 0px)", left: "calc(50% + 10px)",
           transform: "translate(-50%, -50%)",
         }}
       >
@@ -82,7 +82,7 @@ export default function HeroPortrait() {
         className="absolute z-10"
         style={{
           width: 580, height: 700,
-          top: "50%", left: "50%",
+          top: "calc(50% - 10px)", left: "50%",
           transform: "translate(-50%, -50%)",
           rotateX: mobile ? 0 : rx,
           rotateY: mobile ? 0 : ry,
@@ -109,7 +109,7 @@ export default function HeroPortrait() {
             alt="Adith Manikonda"
             fill
             sizes="580px"
-            className="object-cover object-[center_20%] grayscale contrast-[1.3]"
+            className="object-cover object-[center_10%] grayscale contrast-[1.3] scale-[1.1]"
             priority
           />
         </div>

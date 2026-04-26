@@ -12,7 +12,7 @@ const SHIELD = "M 56 0 L 524 0 Q 580 0 580 56 L 580 460 Q 580 700 290 700 Q 0 70
 const IMAGE = "M 28 0 L 496 0 Q 524 0 524 28 L 524 432 Q 524 644 262 644 Q 0 644 0 432 L 0 28 Q 0 0 28 0 Z";
 const PLATE_W = 1010;
 const PLATE_H = 928;
-const SLAB = "M 1010 0 L 116 28 L 116 82 L 58 82 L 58 928 L 1010 928 Z";
+const SLAB = "M 1010 0 L 126 24 L 126 72 L 82 72 L 82 118 L 58 118 L 58 928 L 1010 928 L 1010 72 L 984 72 L 984 34 L 1010 34 Z";
 
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);
@@ -42,7 +42,7 @@ export default function HeroPortrait() {
       {/* Rear offset slab */}
       <motion.div
         className="absolute inset-0"
-        style={{ transform: "translate(15px, 15px) rotate(0.7deg)" }}
+        style={{ transform: "translate(17px, 16px) rotate(0.65deg)" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.42 }}
@@ -55,7 +55,7 @@ export default function HeroPortrait() {
       {/* Main purple slab */}
       <motion.div
         className="absolute inset-0 origin-left"
-        style={{ transform: "rotate(-0.65deg) skewY(-0.2deg) translateX(-6px)" }}
+        style={{ transform: "rotate(-0.72deg) skewY(-0.18deg) translateX(-2px)" }}
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.42, ease: easings.primary }}
@@ -70,7 +70,7 @@ export default function HeroPortrait() {
         className="absolute"
         style={{
           width: 580, height: 700,
-          top: 476, left: 522,
+          top: 442, left: 582,
           transform: "translate(-50%, -50%)",
         }}
       >
@@ -84,13 +84,13 @@ export default function HeroPortrait() {
         className="absolute z-10"
         style={{
           width: 580, height: 700,
-          top: 456, left: 508,
+          top: 424, left: 566,
           transform: "translate(-50%, -50%)",
           rotateX: mobile ? 0 : rx,
           rotateY: mobile ? 0 : ry,
         }}
-        initial={{ x: "calc(-50% + 80px)", y: "-50%", scale: 0.98, opacity: 0 }}
-        animate={{ x: "-50%", y: "-50%", scale: 1.045, opacity: 1 }}
+        initial={{ x: "calc(-50% + 80px)", y: "-50%", scale: 0.94, opacity: 0 }}
+        animate={{ x: "-50%", y: "-50%", scale: 0.99, opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.48, ease: easings.primary }}
       >
         {/* SVG border + fill */}

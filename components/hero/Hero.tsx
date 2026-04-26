@@ -28,7 +28,7 @@ export default function Hero() {
         {/* Left: Frame + Text - Extreme Left */}
         <div
           className="absolute z-20"
-          style={{ left: 52, top: 110 }}
+          style={{ left: 50, top: 104 }}
         >
           <HeroFrame>
             <HeroHeadline />
@@ -39,7 +39,7 @@ export default function Hero() {
         {/* Right: Portrait - Extreme Right */}
         <div
           className="absolute z-10"
-          style={{ right: -18, top: 82 }}
+          style={{ right: -24, top: 76 }}
         >
           <HeroPortrait />
         </div>

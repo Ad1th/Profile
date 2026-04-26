@@ -5,41 +5,53 @@ import { easings } from "@/lib/motion";
 
 export default function HeroHeadline() {
   return (
-    <div className="flex flex-col select-none uppercase" style={{ fontFamily: "'Anton', 'Impact', sans-serif", letterSpacing: "-0.04em", lineHeight: 0.88 }}>
+    <div
+      className="flex flex-col select-none uppercase"
+      style={{
+        fontFamily: "var(--font-anton), 'Arial Black', Impact, sans-serif",
+        fontWeight: 900,
+        letterSpacing: "-0.05em",
+        lineHeight: 0.79,
+        textRendering: "geometricPrecision",
+        WebkitFontSmoothing: "antialiased",
+        MozOsxFontSmoothing: "grayscale",
+        fontSynthesisWeight: "none",
+      }}
+    >
       <div className="overflow-hidden">
-        <motion.span className="block text-[148px] text-[#111111] origin-left"
-          initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1, scaleX: 0.98 }}
+        <motion.span className="block text-[145px] text-[#111111] origin-left"
+          initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1, scaleX: 1.03 }}
           transition={{ duration: 0.7, delay: 0.0, ease: easings.primary }}
           style={{ willChange: "transform" }}
         >BACKEND</motion.span>
       </div>
       <div className="overflow-hidden">
-        <motion.span className="block text-[138px] text-[#6E6A2D] origin-left"
-          initial={{ x: -40, opacity: 0 }} animate={{ x: -4, opacity: 1, scale: 1.03 }}
+        <motion.span className="block text-[141px] text-[#6E6A2D] origin-left"
+          initial={{ x: -40, opacity: 0 }} animate={{ x: -4, opacity: 1, scaleX: 1.02 }}
           transition={{ duration: 0.7, delay: 0.18, ease: easings.primary }}
           style={{ willChange: "transform" }}
         >WITH</motion.span>
       </div>
       <div className="overflow-visible">
-        <motion.span className="block text-[146px] text-[#F05A24] origin-left"
+        <motion.span className="block text-[143px] text-[#F45113] origin-left"
           initial={{ y: 100, opacity: 0 }}
-          animate={{ y: [100, -18, -10], opacity: [0, 1, 1] }}
+          animate={{ y: [100, -12, -7], opacity: [0, 1, 1], scaleX: 1.02 }}
           transition={{ duration: 0.7, delay: 0.34, ease: easings.primary }}
           style={{ willChange: "transform" }}
         >TASTE.</motion.span>
       </div>
 
       {/* Subtext */}
-      <div className="mt-[28px]">
+      <div className="mt-[24px]">
         {/* Decorative line above subtext */}
         <motion.div 
-          className="w-[48px] h-[2px] bg-[#111] mb-[16px]"
+          className="mb-[15px] h-[2px] w-[62px] bg-[#111]"
           initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} originX={0}
           transition={{ duration: 0.5, delay: 0.5 }}
         />
         <motion.p
-          className="text-[18px] font-mono font-normal max-w-[340px] text-[#111] normal-case tracking-normal"
-          style={{ lineHeight: 1.45, opacity: 0.92 }}
+          className="max-w-[360px] font-mono text-[23px] font-normal normal-case tracking-[-0.04em] text-[#111]"
+          style={{ lineHeight: 1.28, opacity: 0.92 }}
           initial={{ opacity: 0 }} animate={{ opacity: 0.92 }}
           transition={{ duration: 0.8, delay: 0.58 }}
         >

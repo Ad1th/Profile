@@ -7,7 +7,7 @@ import { ArrowUpRight } from "lucide-react";
 export default function HeroCTA() {
   return (
     <motion.button
-      className="group relative flex items-center justify-center gap-[12px] bg-[#111] text-white w-[320px] h-[78px] mt-[34px] ml-[10px] cursor-pointer outline-none"
+      className="group relative mt-[30px] ml-[0px] flex h-[78px] w-[322px] cursor-pointer items-center justify-center gap-[28px] bg-[#111] text-white outline-none"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.82, ease: easings.primary }}
@@ -20,12 +20,12 @@ export default function HeroCTA() {
       {/* The main button body */}
       <div className="absolute inset-0 bg-[#111] border-[3px] border-[#111]" />
       
-      <span className="relative z-10 text-[24px] font-[800] uppercase tracking-wide" style={{ fontFamily: "var(--font-archivo), Impact, sans-serif" }}>
+      <span className="relative z-10 text-[27px] font-[900] uppercase tracking-[-0.03em]" style={{ fontFamily: "var(--font-archivo), Impact, sans-serif" }}>
         View Work
       </span>
       <ArrowUpRight
         className="relative z-10 text-[#F05A24] transition-transform group-hover:translate-x-[6px]"
-        size={28}
+        size={30}
         strokeWidth={3}
       />
     </motion.button>

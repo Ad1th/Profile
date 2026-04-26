@@ -10,7 +10,7 @@ import Image from "next/image";
 
 const SHIELD = "M 56 0 L 524 0 Q 580 0 580 56 L 580 460 Q 580 700 290 700 Q 0 700 0 460 L 0 56 Q 0 0 56 0 Z";
 const IMAGE = "M 28 0 L 496 0 Q 524 0 524 28 L 524 432 Q 524 644 262 644 Q 0 644 0 432 L 0 28 Q 0 0 28 0 Z";
-const SLAB = "M 760 0 L 140 0 L 140 60 L 30 60 L 30 140 L 0 140 L 0 200 L 30 200 L 30 860 L 760 860 Z";
+const SLAB = "M 760 0 L 100 24 L 100 70 L 54 70 L 54 820 L 760 860 Z";
 
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);
@@ -40,26 +40,26 @@ export default function HeroPortrait() {
       {/* Rear offset slab */}
       <motion.div
         className="absolute inset-0"
-        style={{ transform: "translate(14px, 14px) rotate(0.8deg)" }}
+        style={{ transform: "translate(11px, 12px) rotate(0.8deg)" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.42 }}
       >
         <svg viewBox="0 0 760 860" className="w-full h-full">
-          <path d={SLAB} fill="#C7B6E8" stroke="#111" strokeWidth="3" />
+          <path d={SLAB} fill="#111" stroke="#111" strokeWidth="3" />
         </svg>
       </motion.div>
 
       {/* Main purple slab */}
       <motion.div
         className="absolute inset-0 origin-left"
-        style={{ transform: "rotate(0.8deg) scaleX(1.03) translateX(-8px)" }}
+        style={{ transform: "rotate(-0.8deg) scaleX(1.07) translateX(-18px)" }}
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.42, ease: easings.primary }}
       >
         <svg viewBox="0 0 760 860" className="w-full h-full">
-          <path d={SLAB} fill="#C9B0FF" stroke="#111" strokeWidth="3" />
+          <path d={SLAB} fill="#C7A9FF" stroke="#111" strokeWidth="3" />
         </svg>
       </motion.div>
 
@@ -68,7 +68,7 @@ export default function HeroPortrait() {
         className="absolute"
         style={{
           width: 580, height: 700,
-          top: "calc(50% + 0px)", left: "calc(50% + 10px)",
+          top: 438, left: 404,
           transform: "translate(-50%, -50%)",
         }}
       >
@@ -82,7 +82,7 @@ export default function HeroPortrait() {
         className="absolute z-10"
         style={{
           width: 580, height: 700,
-          top: "calc(50% - 10px)", left: "50%",
+          top: 420, left: 392,
           transform: "translate(-50%, -50%)",
           rotateX: mobile ? 0 : rx,
           rotateY: mobile ? 0 : ry,

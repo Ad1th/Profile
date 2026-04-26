@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 
 export function PixelCluster() {
   const positions = [
-    { x: 54, y: 70 },
-    { x: 66, y: 70 },
-    { x: 60, y: 82 },
-    { x: 72, y: 82 },
-    { x: 66, y: 94 },
+    { x: 62, y: 63 },
+    { x: 70, y: 70 },
+    { x: 62, y: 78 },
+    { x: 78, y: 78 },
+    { x: 54, y: 87 },
   ];
 
   return (
@@ -29,7 +29,10 @@ export function PixelCluster() {
 
 export function VerticalDots() {
   return (
-    <div className="absolute flex flex-col gap-[18px]" style={{ right: 48, top: 104 }}>
+    <div
+      className="absolute flex flex-col gap-[18px]"
+      style={{ right: 48, top: 104 }}
+    >
       {[...Array(5)].map((_, i) => (
         <div key={i} className="h-[13px] w-[13px] rounded-full bg-[#111]" />
       ))}
@@ -41,7 +44,7 @@ export function SmallSquare() {
   return (
     <div
       className="absolute border-[2px] border-[#111]"
-      style={{ width: 20, height: 20, bottom: 34, left: 24 }}
+      style={{ width: 20, height: 20, bottom: 64, left: 24 }}
     />
   );
 }

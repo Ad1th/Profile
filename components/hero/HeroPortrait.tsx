@@ -20,10 +20,10 @@ const IMAGE =
 const PLATE_W = 810;
 const PLATE_H = 760;
 
-// Reference-like slab: a controlled two-step top-left notch and a locked
-// lower-left edge so the purple panel visually joins the left frame at the seam.
+// Reference-like slab: a controlled two-step top-left notch and a slanted
+// left edge so the purple panel visually joins the tilted left frame.
 const SLAB =
-  "M 810 0 L 104 16 L 104 52 L 64 52 L 64 90 L 0 90 L 0 760 L 810 760 L 810 72 L 784 72 L 784 34 L 810 34 Z";
+  "M 810 0 L 104 16 L 104 52 L 64 52 L 64 90 L 0 90 L 30 760 L 810 760 L 810 72 L 784 72 L 784 34 L 810 34 Z";
 
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);

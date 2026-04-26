@@ -23,9 +23,7 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
       className="relative"
       style={{ width: W, height: H, transform: "rotate(-0.8deg)" }}
     >
-      <div
-        className="absolute inset-0 z-0 pointer-events-none bg-[#EEE7DC]"
-      />
+      <div className="absolute inset-0 z-0 pointer-events-none bg-[#EEE7DC]" />
 
       {/* TOP border line */}
       <motion.div
@@ -58,7 +56,7 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
           top-left (x=0) → bottom-right (x=TILT_OFFSET): leans toward left border. */}
       <motion.svg
         className="absolute top-0 z-10 overflow-visible pointer-events-none"
-        style={{ right: 0, width: TILT_OFFSET + 10, height: H }}
+        style={{ right: 0, width: TILT_OFFSET + 20, height: H }}
         viewBox={`0 0 ${TILT_OFFSET + 10} ${H}`}
         initial={{ opacity: 0, scaleY: 0 }}
         animate={{ opacity: 1, scaleY: 1 }}

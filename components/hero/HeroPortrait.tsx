@@ -17,13 +17,13 @@ const SHIELD =
 const IMAGE =
   "M 22 0 L 394 0 Q 416 0 416 22 L 416 343 Q 416 512 208 512 Q 0 512 0 343 L 0 22 Q 0 0 22 0 Z";
 
-const PLATE_W = 810;
+const PLATE_W = 880;
 const PLATE_H = 760;
 
 // Reference-like slab: a controlled two-step top-left notch and a slanted
 // left edge so the purple panel visually joins the tilted left frame.
 const SLAB =
-  "M 810 0 L 104 16 L 104 52 L 64 52 L 64 90 L 0 90 L 30 760 L 810 760 L 810 72 L 784 72 L 784 34 L 810 34 Z";
+  "M 880 0 L 104 16 L 104 52 L 64 52 L 30 90 L 40 200 L 90 760 L 880 760 L 880 72 L 854 72 L 854 34 L 880 34 Z";
 
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);

@@ -8,18 +8,35 @@ import HeroBadge from "./HeroBadge";
 import { VerticalDots } from "./HeroDecor";
 import Image from "next/image";
 
-const SHIELD = "M 56 0 L 524 0 Q 580 0 580 56 L 580 460 Q 580 700 290 700 Q 0 700 0 460 L 0 56 Q 0 0 56 0 Z";
-const IMAGE = "M 28 0 L 496 0 Q 524 0 524 28 L 524 432 Q 524 644 262 644 Q 0 644 0 432 L 0 28 Q 0 0 28 0 Z";
-const PLATE_W = 1010;
-const PLATE_H = 928;
-const SLAB = "M 1010 0 L 92 18 L 92 48 L 60 48 L 60 78 L 28 78 L 28 110 L 0 110 L 0 928 L 1010 928 L 1010 72 L 984 72 L 984 34 L 1010 34 Z";
+// Shield scaled down from 580x700 to ~460x556 (about 79% size)
+const SHIELD_W = 460;
+const SHIELD_H = 556;
+// Scale factor: 460/580 = ~0.793
+const SHIELD =
+  "M 44 0 L 416 0 Q 460 0 460 44 L 460 365 Q 460 556 230 556 Q 0 556 0 365 L 0 44 Q 0 0 44 0 Z";
+const IMAGE =
+  "M 22 0 L 394 0 Q 416 0 416 22 L 416 343 Q 416 512 208 512 Q 0 512 0 343 L 0 22 Q 0 0 22 0 Z";
+
+const PLATE_W = 810;
+const PLATE_H = 760;
+
+// Reference-like slab: a controlled two-step top-left notch and a locked
+// lower-left edge so the purple panel visually joins the left frame at the seam.
+const SLAB =
+  "M 810 0 L 104 16 L 104 52 L 64 52 L 64 90 L 0 90 L 0 760 L 810 760 L 810 72 L 784 72 L 784 34 L 810 34 Z";
 
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const rx = useSpring(useTransform(my, [-0.5, 0.5], [1.5, -1.5]), { stiffness: 150, damping: 20 });
-  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-2, 2]), { stiffness: 150, damping: 20 });
+  const rx = useSpring(useTransform(my, [-0.5, 0.5], [1.5, -1.5]), {
+    stiffness: 150,
+    damping: 20,
+  });
+  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-2, 2]), {
+    stiffness: 150,
+    damping: 20,
+  });
   const [mobile, setMobile] = useState(false);
 
   useEffect(() => {
@@ -33,16 +50,22 @@ export default function HeroPortrait() {
     };
     window.addEventListener("resize", onResize);
     window.addEventListener("mousemove", onMove);
-    return () => { window.removeEventListener("resize", onResize); window.removeEventListener("mousemove", onMove); };
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("mousemove", onMove);
+    };
   }, [mx, my]);
 
   return (
-    <div ref={ref} className="relative" style={{ width: PLATE_W, height: PLATE_H, perspective: 1200 }}>
-
+    <div
+      ref={ref}
+      className="relative"
+      style={{ width: PLATE_W, height: PLATE_H, perspective: 1200 }}
+    >
       {/* Rear offset slab */}
       <motion.div
         className="absolute inset-0"
-        style={{ transform: "translate(17px, 16px) rotate(0.65deg)" }}
+        style={{ transform: "translate(14px, 14px)" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.42 }}
@@ -55,7 +78,7 @@ export default function HeroPortrait() {
       {/* Main purple slab */}
       <motion.div
         className="absolute inset-0 origin-left"
-        style={{ transform: "rotate(-0.72deg) skewY(-0.18deg) translateX(-2px)" }}
+        style={{ transform: "translateX(-1px)" }}
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.42, ease: easings.primary }}
@@ -69,12 +92,18 @@ export default function HeroPortrait() {
       <div
         className="absolute"
         style={{
-          width: 580, height: 700,
-          top: 442, left: 582,
+          width: SHIELD_W,
+          height: SHIELD_H,
+          top: 390,
+          left: 478,
           transform: "translate(-50%, -50%)",
         }}
       >
-        <svg viewBox="0 0 580 700" width="580" height="700">
+        <svg
+          viewBox={`0 0 ${SHIELD_W} ${SHIELD_H}`}
+          width={SHIELD_W}
+          height={SHIELD_H}
+        >
           <path d={SHIELD} fill="#111" />
         </svg>
       </div>
@@ -83,8 +112,10 @@ export default function HeroPortrait() {
       <motion.div
         className="absolute z-10"
         style={{
-          width: 580, height: 700,
-          top: 424, left: 566,
+          width: SHIELD_W,
+          height: SHIELD_H,
+          top: 374,
+          left: 462,
           transform: "translate(-50%, -50%)",
           rotateX: mobile ? 0 : rx,
           rotateY: mobile ? 0 : ry,
@@ -94,7 +125,10 @@ export default function HeroPortrait() {
         transition={{ duration: 0.7, delay: 0.48, ease: easings.primary }}
       >
         {/* SVG border + fill */}
-        <svg viewBox="0 0 580 700" className="absolute inset-0 w-full h-full" style={{ filter: "drop-shadow(0 0 0 transparent)" }}>
+        <svg
+          viewBox={`0 0 ${SHIELD_W} ${SHIELD_H}`}
+          className="absolute inset-0 w-full h-full"
+        >
           <path d={SHIELD} fill="#F6F0E8" stroke="#111" strokeWidth="5" />
         </svg>
 
@@ -102,7 +136,10 @@ export default function HeroPortrait() {
         <div
           className="absolute overflow-hidden"
           style={{
-            top: 28, left: 28, width: 580 - 56, height: 700 - 56,
+            top: 22,
+            left: 22,
+            width: SHIELD_W - 44,
+            height: SHIELD_H - 44,
             clipPath: `path('${IMAGE}')`,
           }}
         >
@@ -110,7 +147,7 @@ export default function HeroPortrait() {
             src="/images/me2.jpeg"
             alt="Adith Manikonda"
             fill
-            sizes="580px"
+            sizes={`${SHIELD_W}px`}
             className="object-cover object-[center_4%] grayscale contrast-[1.3] scale-[1.12]"
             priority
           />

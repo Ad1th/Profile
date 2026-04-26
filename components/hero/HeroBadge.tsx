@@ -5,14 +5,14 @@ import { motion } from "framer-motion";
 export default function HeroBadge() {
   return (
     <motion.div
-      className="absolute z-30 flex items-center justify-center gap-[18px] bg-[#77742D] border-[5px] border-[#111] px-[32px]"
+      className="absolute z-30 flex items-center justify-center gap-[20px] bg-[#77742D] border-[6px] border-[#111] px-[34px]"
       style={{
-        width: 340,
-        height: 78,
-        bottom: 136,
-        right: 24,
+        width: 360,
+        height: 82,
+        bottom: 162,
+        right: 132,
         rotate: -4.8,
-        boxShadow: "13px 12px 0 #111",
+        boxShadow: "16px 14px 0 #111",
         willChange: "transform",
         borderRadius: "8px",
         transformStyle: "preserve-3d",
@@ -22,10 +22,10 @@ export default function HeroBadge() {
       transition={{ type: "spring", stiffness: 280, damping: 24, delay: 0.9 }}
       whileHover={{ scale: 1.04, rotate: -4.8, rotateX: 2, rotateY: -4, y: -2 }}
     >
-      <span className="flex-1 text-center text-[27px] font-black leading-none tracking-[-0.04em] text-[#111] uppercase" style={{ fontFamily: "var(--font-archivo), sans-serif" }}>
+      <span className="flex-1 text-center text-[28px] font-black leading-none tracking-[-0.04em] text-[#111] uppercase" style={{ fontFamily: "var(--font-archivo), sans-serif" }}>
         OPEN TO INTERN
       </span>
-      <div className="mr-[2px] h-[14px] w-[14px] shrink-0 rounded-full bg-[#111]" />
+      <div className="mr-[1px] h-[15px] w-[15px] shrink-0 rounded-full bg-[#111]" />
     </motion.div>
   );
 }

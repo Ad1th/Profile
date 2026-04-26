@@ -29,7 +29,7 @@ export function PixelCluster() {
 
 export function VerticalDots() {
   return (
-    <div className="absolute flex flex-col gap-[17px]" style={{ right: 36, top: 86 }}>
+    <div className="absolute flex flex-col gap-[18px]" style={{ right: 48, top: 104 }}>
       {[...Array(5)].map((_, i) => (
         <div key={i} className="h-[13px] w-[13px] rounded-full bg-[#111]" />
       ))}

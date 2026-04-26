@@ -10,7 +10,9 @@ import Image from "next/image";
 
 const SHIELD = "M 56 0 L 524 0 Q 580 0 580 56 L 580 460 Q 580 700 290 700 Q 0 700 0 460 L 0 56 Q 0 0 56 0 Z";
 const IMAGE = "M 28 0 L 496 0 Q 524 0 524 28 L 524 432 Q 524 644 262 644 Q 0 644 0 432 L 0 28 Q 0 0 28 0 Z";
-const SLAB = "M 760 0 L 100 24 L 100 70 L 54 70 L 54 820 L 760 860 Z";
+const PLATE_W = 1010;
+const PLATE_H = 928;
+const SLAB = "M 1010 0 L 116 28 L 116 82 L 58 82 L 58 928 L 1010 928 Z";
 
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,17 +37,17 @@ export default function HeroPortrait() {
   }, [mx, my]);
 
   return (
-    <div ref={ref} className="relative" style={{ width: 760, height: 860, perspective: 1000 }}>
+    <div ref={ref} className="relative" style={{ width: PLATE_W, height: PLATE_H, perspective: 1200 }}>
 
       {/* Rear offset slab */}
       <motion.div
         className="absolute inset-0"
-        style={{ transform: "translate(11px, 12px) rotate(0.8deg)" }}
+        style={{ transform: "translate(15px, 15px) rotate(0.7deg)" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.42 }}
       >
-        <svg viewBox="0 0 760 860" className="w-full h-full">
+        <svg viewBox={`0 0 ${PLATE_W} ${PLATE_H}`} className="w-full h-full">
           <path d={SLAB} fill="#111" stroke="#111" strokeWidth="3" />
         </svg>
       </motion.div>
@@ -53,13 +55,13 @@ export default function HeroPortrait() {
       {/* Main purple slab */}
       <motion.div
         className="absolute inset-0 origin-left"
-        style={{ transform: "rotate(-0.8deg) scaleX(1.07) translateX(-18px)" }}
+        style={{ transform: "rotate(-0.65deg) skewY(-0.2deg) translateX(-6px)" }}
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.42, ease: easings.primary }}
       >
-        <svg viewBox="0 0 760 860" className="w-full h-full">
-          <path d={SLAB} fill="#C7A9FF" stroke="#111" strokeWidth="3" />
+        <svg viewBox={`0 0 ${PLATE_W} ${PLATE_H}`} className="w-full h-full">
+          <path d={SLAB} fill="#C8A9F4" stroke="#111" strokeWidth="3" />
         </svg>
       </motion.div>
 
@@ -68,7 +70,7 @@ export default function HeroPortrait() {
         className="absolute"
         style={{
           width: 580, height: 700,
-          top: 438, left: 404,
+          top: 476, left: 522,
           transform: "translate(-50%, -50%)",
         }}
       >
@@ -82,13 +84,13 @@ export default function HeroPortrait() {
         className="absolute z-10"
         style={{
           width: 580, height: 700,
-          top: 420, left: 392,
+          top: 456, left: 508,
           transform: "translate(-50%, -50%)",
           rotateX: mobile ? 0 : rx,
           rotateY: mobile ? 0 : ry,
         }}
-        initial={{ x: "calc(-50% + 80px)", y: "-50%", scale: 0.94, opacity: 0 }}
-        animate={{ x: "-50%", y: "-50%", scale: 1, opacity: 1 }}
+        initial={{ x: "calc(-50% + 80px)", y: "-50%", scale: 0.98, opacity: 0 }}
+        animate={{ x: "-50%", y: "-50%", scale: 1.045, opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.48, ease: easings.primary }}
       >
         {/* SVG border + fill */}
@@ -109,7 +111,7 @@ export default function HeroPortrait() {
             alt="Adith Manikonda"
             fill
             sizes="580px"
-            className="object-cover object-[center_10%] grayscale contrast-[1.3] scale-[1.1]"
+            className="object-cover object-[center_4%] grayscale contrast-[1.3] scale-[1.12]"
             priority
           />
         </div>

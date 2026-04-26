@@ -11,7 +11,7 @@ export default function HeroHeadline() {
         fontFamily: "var(--font-anton), 'Arial Black', Impact, sans-serif",
         fontWeight: 900,
         letterSpacing: "-0.05em",
-        lineHeight: 0.79,
+        lineHeight: 0.755,
         textRendering: "geometricPrecision",
         WebkitFontSmoothing: "antialiased",
         MozOsxFontSmoothing: "grayscale",
@@ -19,30 +19,30 @@ export default function HeroHeadline() {
       }}
     >
       <div className="overflow-hidden">
-        <motion.span className="block text-[145px] text-[#111111] origin-left"
-          initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1, scaleX: 1.03 }}
+        <motion.span className="block text-[151px] text-[#111111] origin-left"
+          initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1, scaleX: 1.05 }}
           transition={{ duration: 0.7, delay: 0.0, ease: easings.primary }}
           style={{ willChange: "transform" }}
         >BACKEND</motion.span>
       </div>
       <div className="overflow-hidden">
-        <motion.span className="block text-[141px] text-[#6E6A2D] origin-left"
-          initial={{ x: -40, opacity: 0 }} animate={{ x: -4, opacity: 1, scaleX: 1.02 }}
+        <motion.span className="block text-[147px] text-[#6E6A2D] origin-left"
+          initial={{ x: -40, opacity: 0 }} animate={{ x: -4, opacity: 1, scaleX: 1.04 }}
           transition={{ duration: 0.7, delay: 0.18, ease: easings.primary }}
           style={{ willChange: "transform" }}
         >WITH</motion.span>
       </div>
       <div className="overflow-visible">
-        <motion.span className="block text-[143px] text-[#F45113] origin-left"
+        <motion.span className="block text-[150px] text-[#F45113] origin-left"
           initial={{ y: 100, opacity: 0 }}
-          animate={{ y: [100, -12, -7], opacity: [0, 1, 1], scaleX: 1.02 }}
+          animate={{ y: [100, -12, -7], opacity: [0, 1, 1], scaleX: 1.035 }}
           transition={{ duration: 0.7, delay: 0.34, ease: easings.primary }}
           style={{ willChange: "transform" }}
         >TASTE.</motion.span>
       </div>
 
       {/* Subtext */}
-      <div className="mt-[24px]">
+      <div className="mt-[14px]">
         {/* Decorative line above subtext */}
         <motion.div 
           className="mb-[15px] h-[2px] w-[62px] bg-[#111]"

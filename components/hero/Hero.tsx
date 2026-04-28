@@ -1,6 +1,5 @@
 "use client";
 
-import HeroFrame from "./HeroFrame";
 import HeroHeadline from "./HeroHeadline";
 import HeroCTA from "./HeroCTA";
 import HeroPortrait from "./HeroPortrait";
@@ -13,25 +12,6 @@ export default function Hero() {
       {/* Grain overlay */}
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
-      {/* Hard left orange accent bar */}
-      <motion.div
-        className="absolute left-0 z-30 bg-[#E8420A]"
-        style={{
-          top: "28%",
-          height: "44%",
-          width: 10,
-          borderRight: "3px solid #111",
-        }}
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 1 }}
-        transition={{
-          duration: 0.5,
-          delay: 0.6,
-          ease: easings.primary,
-          originY: 0,
-        }}
-      />
-
       {/* Outer border frame — full page */}
       <motion.div
         className="absolute inset-0 z-50 pointer-events-none"
@@ -41,14 +21,60 @@ export default function Hero() {
         transition={{ duration: 0.3, delay: 0.1 }}
       />
 
-      <div className="relative w-full h-full flex">
-        {/* ── LEFT PANEL: 62% ── */}
+      {/* Top bar */}
+      <div
+        className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between bg-[#F0EBE0]"
+        style={{
+          height: 64,
+          borderBottom: "5px solid #111",
+          padding: "0 24px",
+        }}
+      >
+        <div
+          className="flex items-center justify-center bg-[#E8420A]"
+          style={{ width: 56, height: 46, border: "3px solid #111" }}
+        >
+          <span
+            className="text-white text-[32px] font-black tracking-[-0.08em] uppercase"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            A.
+          </span>
+        </div>
+
+        <div className="flex items-center gap-8">
+          {["WORK", "ABOUT", "CONTACT"].map((item) => (
+            <span
+              key={item}
+              className="text-[#111] text-[32px] font-black tracking-[0.13em] cursor-pointer"
+              style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+            >
+              {item}
+            </span>
+          ))}
+          <div style={{ width: 2, height: 24, background: "#111" }} />
+          <div className="grid grid-cols-3 gap-[4px] bg-[#111] p-[8px]">
+            {[...Array(9)].map((_, i) => (
+              <div
+                key={i}
+                style={{ width: 4, height: 4, background: "#F0EBE0" }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="relative w-full h-full flex"
+        style={{ paddingTop: 64, paddingBottom: 104 }}
+      >
+        {/* ── LEFT PANEL ── */}
         <motion.div
           className="relative flex flex-col justify-center bg-[#111]"
           style={{
-            width: "62%",
+            width: "50%",
             borderRight: "5px solid #111",
-            paddingLeft: 72,
+            paddingLeft: 48,
             paddingRight: 48,
             zIndex: 20,
           }}
@@ -56,124 +82,85 @@ export default function Hero() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.1, ease: easings.primary }}
         >
-          {/* Top-left logo stamp */}
-          <div
-            className="absolute top-0 left-0 flex items-center justify-center bg-[#E8420A]"
-            style={{
-              width: 64,
-              height: 64,
-              borderRight: "5px solid #111",
-              borderBottom: "5px solid #111",
-            }}
-          >
-            <span
-              className="text-white text-[28px] font-black tracking-[-0.06em] uppercase"
-              style={{ fontFamily: "var(--font-archivo), sans-serif" }}
-            >
-              A.
-            </span>
-          </div>
-
-          {/* Nav — top right of left panel */}
-          <div
-            className="absolute top-0 right-0 flex items-center"
-            style={{
-              height: 64,
-              borderBottom: "5px solid #111",
-              paddingLeft: 32,
-              paddingRight: 32,
-              gap: 32,
-            }}
-          >
-            {["WORK", "ABOUT", "CONTACT"].map((item) => (
-              <span
-                key={item}
-                className="text-[#F0EBE0] text-[13px] font-black tracking-[0.18em] cursor-pointer hover:text-[#CFDE00] transition-colors"
-                style={{ fontFamily: "var(--font-archivo), sans-serif" }}
-              >
-                {item}
-              </span>
-            ))}
-            <div
-              className="ml-4 flex flex-col gap-[3px] cursor-pointer"
-              style={{ borderLeft: "2px solid #333", paddingLeft: 20 }}
-            >
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="flex gap-[3px]">
-                  {[...Array(3)].map((__, j) => (
-                    <div
-                      key={j}
-                      style={{ width: 5, height: 5, background: "#F0EBE0" }}
-                    />
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Headline + CTA */}
-          <div style={{ paddingTop: 40 }}>
+          <div style={{ marginTop: 30 }}>
             <HeroHeadline />
             <HeroCTA />
           </div>
-
-          {/* Bottom-left decor: small hollow square + dash */}
-          <div
-            className="absolute bottom-0 left-0 flex items-center gap-4"
-            style={{
-              height: 52,
-              paddingLeft: 72,
-              borderTop: "5px solid #333",
-              width: "100%",
-            }}
-          >
-            <div
-              style={{
-                width: 18,
-                height: 18,
-                border: "3px solid #555",
-              }}
-            />
-            <div style={{ width: 52, height: 3, background: "#CFDE00" }} />
-          </div>
         </motion.div>
 
-        {/* ── RIGHT PANEL: 38% ── */}
+        {/* ── RIGHT PANEL ── */}
         <motion.div
-          className="relative flex items-center justify-center bg-[#4A8DB7]"
+          className="relative flex items-center justify-center bg-[#6C8EAD]"
           style={{
-            width: "38%",
+            width: "50%",
             zIndex: 10,
           }}
           initial={{ x: 60, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2, ease: easings.primary }}
         >
-          <HeroPortrait />
-
-          {/* Bottom olive bar — right panel only */}
-          <motion.div
-            className="absolute bottom-0 left-0 right-0"
+          {/* Subtle left accent bar */}
+          <div
+            className="absolute left-0 top-0 bottom-0"
             style={{
-              height: 52,
-              background: "#6E6A2D",
-              borderTop: "5px solid #111",
-            }}
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{
-              duration: 0.5,
-              delay: 0.9,
-              ease: easings.primary,
-              originX: 0,
+              width: 3,
+              background: "rgba(207, 222, 0, 0.15)",
             }}
           />
+          <HeroPortrait />
         </motion.div>
+      </div>
+
+      {/* Stats row above ticker */}
+      <div
+        className="absolute left-0 right-0 z-30 flex items-center"
+        style={{
+          bottom: 52,
+          height: 100,
+          background: "#F0EBE0",
+          borderTop: "5px solid #111",
+        }}
+      >
+        <div
+          className="flex-1 flex flex-col justify-center"
+          style={{ borderRight: "5px solid #111", padding: "14px 26px" }}
+        >
+          <div
+            className="text-[#111] text-[48px] font-black leading-none"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            3+
+          </div>
+          <div
+            className="text-[#444] text-[25px] font-bold tracking-[0.12em] uppercase"
+            style={{ fontFamily: "var(--font-archivo), monospace" }}
+          >
+            Years Building
+          </div>
+        </div>
+        <div
+          className="flex-1 flex flex-col justify-center"
+          style={{ padding: "14px 26px" }}
+        >
+          <div
+            className="text-[#111] text-[48px] font-black leading-none"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            12
+          </div>
+          <div
+            className="text-[#444] text-[25px] font-bold tracking-[0.12em] uppercase"
+            style={{ fontFamily: "var(--font-archivo), monospace" }}
+          >
+            Projects Shipped
+          </div>
+        </div>
       </div>
 
       {/* Full-width scrolling ticker at the very bottom */}
       <motion.div
-        className="absolute bottom-0 left-0 right-0 z-40 overflow-hidden"
+        className="absolute bottom-0 left-0 right-0 z-40 overflow-hidden flex items-center"
         style={{
           height: 52,
           background: "#E8420A",
@@ -185,7 +172,7 @@ export default function Hero() {
       >
         <div
           className="flex items-center h-full whitespace-nowrap"
-          style={{ animation: "ticker 22s linear infinite" }}
+          style={{ animation: "ticker 22s linear infinite", paddingLeft: 16 }}
         >
           {[...Array(6)].map((_, i) => (
             <span
@@ -193,7 +180,7 @@ export default function Hero() {
               className="text-white text-[13px] font-black tracking-[0.2em] uppercase"
               style={{
                 fontFamily: "var(--font-archivo), monospace",
-                paddingRight: 48,
+                paddingRight: 56,
               }}
             >
               OPEN TO INTERN ■ BACKEND ENGINEER ■ CLEAN CODE ■ PRESSURE TESTED

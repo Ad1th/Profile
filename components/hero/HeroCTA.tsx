@@ -7,18 +7,18 @@ import { ArrowUpRight } from "lucide-react";
 export default function HeroCTA() {
   return (
     <motion.div
-      className="relative mt-[36px]"
-      style={{ width: 300, height: 68 }}
+      className="relative"
+      style={{ width: 300, height: 68, marginTop: 12 }}
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.72, ease: easings.primary }}
+      transition={{ duration: 0.6, delay: 0.56, ease: easings.primary }}
     >
       {/* Hard offset shadow block */}
       <div
         className="absolute inset-0"
         style={{
           transform: "translate(6px, 6px)",
-          background: "#CFDE00",
+          background: "#E8420A",
           border: "4px solid #111",
           zIndex: 0,
         }}
@@ -26,7 +26,7 @@ export default function HeroCTA() {
 
       {/* Main button */}
       <motion.button
-        className="absolute inset-0 flex items-center justify-center gap-5 bg-[#F0EBE0] cursor-pointer outline-none"
+        className="absolute inset-0 flex items-center justify-center gap-5 bg-[#CFDE00] cursor-pointer outline-none"
         style={{
           border: "4px solid #111",
           zIndex: 1,
@@ -41,7 +41,7 @@ export default function HeroCTA() {
         >
           VIEW WORK
         </span>
-        <ArrowUpRight className="text-[#E8420A]" size={28} strokeWidth={3.5} />
+        <ArrowUpRight className="text-[#111]" size={28} strokeWidth={3.5} />
       </motion.button>
     </motion.div>
   );

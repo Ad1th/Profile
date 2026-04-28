@@ -35,7 +35,7 @@ const SLAB =
   "L 80 140 " + // Vertical drop
   "L 110 140 " + // Slant inward to create the perspective "fold"
   "L 120 270 " + // Move down to the second notch start
-  "L 80 270 " + // Move left for the second notch
+  "L 85 270 " + // Move left for the second notch
   "L 125 780 " + // Down to the bottom left corner
   "L 900 780 " + // Move to bottom right with a slight upward tilt
   "L 900 80 " + // Up the right side

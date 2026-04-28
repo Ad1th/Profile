@@ -15,6 +15,31 @@ const H = 785;
 // RIGHT EDGE TILT: top leans left, bottom leans right (toward left border).
 // Increase TILT_OFFSET for a more dramatic lean.
 const TILT_OFFSET = 60; // px difference between top-x and bottom-x of the right edge line
+
+// RIGHT EDGE PATH: Simple clean boundary line between frame and purple slab
+// const RIGHT_EDGE =
+//   "M 0 0 " + // Start top left (slightly above top border) -10 for that, i changed it back to 0 for now
+//   "L 25 140 " + // Straight down for notch
+//   "L 55 140 " + // Step right for notch
+//   "L 42 305" +
+//   TILT_OFFSET +
+//   " " +
+//   H; // Diagonal line to bottom right
+
+// ─── TUNING KNOBS ──────────────────────────────────────────────────────────
+const W2 = W - 825;
+const H2 = 785;
+const TILT_OFFSET2 = 60;
+
+// This path creates the "tab" and the long diagonal lean
+const RIGHT_EDGE =
+  `M ${W2 - TILT_OFFSET2} 0 ` + // Start at the top right (accounting for tilt)
+  `L ${W2 - TILT_OFFSET2} 140 ` + // Go straight down to the start of the notch
+  `L ${W2 - TILT_OFFSET2 + 30} 140 ` + // Jut OUT to the right (the 'tab')
+  `L ${W2 - TILT_OFFSET2 + 30} 280 ` + // Go down while inside the tab
+  `L ${W2 - TILT_OFFSET2} 280 ` + // Move back LEFT to the main line
+  `L ${W2} ${H2}`; // Long diagonal lean to the bottom right corner
+// ─────────────────────────────────────────────────────────────────────────────
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function HeroFrame({ children }: { children: React.ReactNode }) {
@@ -57,8 +82,7 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
         transition={{ duration: 0.7, delay: 0.28, ease: easings.primary }}
       />
 
-      {/* RIGHT edge — tilted SVG line.
-          top-left (x=0) → bottom-right (x=TILT_OFFSET): leans toward left border. */}
+      {/* RIGHT edge — complex SVG path line */}
       <motion.svg
         className="absolute top-0 z-10 overflow-visible pointer-events-none"
         style={{ right: 0, width: TILT_OFFSET + 20, height: H }}
@@ -67,26 +91,8 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
         animate={{ opacity: 1, scaleY: 1 }}
         transition={{ duration: 0.7, delay: 0.3, ease: easings.primary }}
       >
-        {/* Top cap — connects to TOP border (which ends at 90% of W) */}
-        <line x1="0" y1="0" x2="0" y2="0" stroke="#111" strokeWidth="3" />
-        {/* Tilted right edge */}
-        <line
-          x1="0"
-          y1="0" //increase height of right line of left slab by changing this to -20 or smthng like dat
-          x2={TILT_OFFSET}
-          y2={H}
-          stroke="#111"
-          strokeWidth="3"
-        />
-        {/* Bottom cap — connects to BOTTOM border */}
-        <line
-          x1="0"
-          y1={H}
-          x2={TILT_OFFSET}
-          y2={H}
-          stroke="#111"
-          strokeWidth="3"
-        />
+        {/* Complex tilted right edge path */}
+        <path d={RIGHT_EDGE} stroke="#111" strokeWidth="3" fill="none" />
       </motion.svg>
 
       {/* Filled right-edge notch, matching the small box in the reference.

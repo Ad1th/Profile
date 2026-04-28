@@ -89,7 +89,7 @@ export default function HeroHeadline() {
           animate={{ opacity: 0.75 }}
           transition={{ duration: 0.6, delay: 0.56 }}
         >
-          Pressure-tested builds
+          Pressure tested builds
           <br />
           with clean internals.
         </motion.p>

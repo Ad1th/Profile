@@ -196,7 +196,7 @@ export default function Hero() {
                 paddingRight: 48,
               }}
             >
-              OPEN TO INTERN ■ BACKEND ENGINEER ■ CLEAN CODE ■ PRESSURE-TESTED
+              OPEN TO INTERN ■ BACKEND ENGINEER ■ CLEAN CODE ■ PRESSURE TESTED
               BUILDS ■
             </span>
           ))}

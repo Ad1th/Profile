@@ -11,17 +11,17 @@ import React from "react";
 // Increase W → right border moves right (more overlap).
 // At left:50 in Hero.tsx, the right border sits at (50 + W)px from the viewport left.
 const W = 890; // <── tweak this first if the join is off
-const H = 780;
+const H = 785;
 // RIGHT EDGE TILT: top leans left, bottom leans right (toward left border).
 // Increase TILT_OFFSET for a more dramatic lean.
-const TILT_OFFSET = 50; // px difference between top-x and bottom-x of the right edge line
+const TILT_OFFSET = 60; // px difference between top-x and bottom-x of the right edge line
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function HeroFrame({ children }: { children: React.ReactNode }) {
   return (
     <div
       className="relative"
-      style={{ width: W, height: H, transform: "rotate(-0.8deg)" }}
+      style={{ width: W, height: H, transform: "rotate(-1.2deg)" }}
     >
       <div
         className="absolute inset-0 z-0 pointer-events-none bg-[#EEE7DC]"

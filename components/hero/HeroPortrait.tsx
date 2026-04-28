@@ -17,13 +17,32 @@ const SHIELD =
 const IMAGE =
   "M 22 0 L 394 0 Q 416 0 416 22 L 416 343 Q 416 512 208 512 Q 0 512 0 343 L 0 22 Q 0 0 22 0 Z";
 
-const PLATE_W = 880;
-const PLATE_H = 760;
+const PLATE_W = 890;
+const PLATE_H = 780;
 
 // Reference-like slab: a controlled two-step top-left notch and a slanted
 // left edge so the purple panel visually joins the tilted left frame.
+// const SLAB =
+//   "M 890 0 L 130 18 L 130 54 L 89 54 L 82 146 L 52 210 L 90 780 L 890 760 L 890 72 L 864 72 L 864 34 L 890 34 Z";
+
+// This path creates the sharp notched left edge and the angled perspective
+// seen in your screenshot.
 const SLAB =
-  "M 890 0 L 104 16 L 104 52 L 64 52 L 30 90 L 40 200 L 90 980 L 890 760 L 890 72 L 864 72 L 864 34 L 890 34 Z";
+  "M 890 0 " + // Start top right
+  "L 120 0 " + // Move left to the start of the first notch
+  "L 120 50 " + // Drop down (first step)
+  "L 80 50 " + // Move left again (the 'bite')
+  "L 80 140 " + // Vertical drop
+  "L 110 140 " + // Slant inward to create the perspective "fold"
+  "L 120 270 " +
+  "L 80 270 " +
+  "L 125 780 " + // Down to the bottom left corner
+  "L 890 750 " + // Move to bottom right with a slight upward tilt
+  "L 890 80 " + // Up the right side
+  "L 860 80 " + // Small notch on the right
+  "L 860 30 " + // Up
+  "L 890 30 " + // Back out to the edge
+  "Z"; // Close the path
 
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);
@@ -65,7 +84,7 @@ export default function HeroPortrait() {
       {/* Rear offset slab */}
       <motion.div
         className="absolute inset-0"
-        style={{ transform: "translate(14px, 14px)" }}
+        style={{ transform: "translate(20px, 20px)" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.42 }}
@@ -78,7 +97,7 @@ export default function HeroPortrait() {
       {/* Main purple slab */}
       <motion.div
         className="absolute inset-0 origin-left"
-        style={{ transform: "translateX(-1px)" }}
+        style={{ transform: "translateX(-6px)" }}
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.42, ease: easings.primary }}

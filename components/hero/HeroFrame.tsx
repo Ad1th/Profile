@@ -74,7 +74,7 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
           x1="0"
           y1="0" //increase height of right line of left slab by changing this to -20 or smthng like dat
           x2={TILT_OFFSET}
-          y2={790}
+          y2={H}
           stroke="#111"
           strokeWidth="3"
         />

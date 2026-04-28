@@ -5,32 +5,27 @@ import { easings } from "@/lib/motion";
 import { useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import HeroBadge from "./HeroBadge";
-import { VerticalDots } from "./HeroDecor";
 import Image from "next/image";
 
-// Shield scaled down from 580x700 to ~460x556 (about 79% size)
-const SHIELD_W = 460;
-const SHIELD_H = 556;
-// Scale factor: 460/580 = ~0.793
+// Slightly narrower shield to fit the 38% panel comfortably
+const SHIELD_W = 380;
+const SHIELD_H = 480;
 const SHIELD =
-  "M 44 0 L 416 0 Q 460 0 460 44 L 460 365 Q 460 556 230 556 Q 0 556 0 365 L 0 44 Q 0 0 44 0 Z";
+  "M 38 0 L 342 0 Q 380 0 380 38 L 380 310 Q 380 480 190 480 Q 0 480 0 310 L 0 38 Q 0 0 38 0 Z";
 const IMAGE =
-  "M 22 0 L 394 0 Q 416 0 416 22 L 416 343 Q 416 512 208 512 Q 0 512 0 343 L 0 22 Q 0 0 22 0 Z";
-
-const PLATE_W = 910;
-const PLATE_H = 780;
+  "M 20 0 L 360 0 Q 380 0 360 20 L 360 296 Q 360 458 190 458 Q 0 458 0 296 L 0 20 Q 0 0 20 0 Z";
 
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const rx = useSpring(useTransform(my, [-0.5, 0.5], [1.5, -1.5]), {
-    stiffness: 150,
-    damping: 20,
+  const rx = useSpring(useTransform(my, [-0.5, 0.5], [2, -2]), {
+    stiffness: 120,
+    damping: 24,
   });
-  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-2, 2]), {
-    stiffness: 150,
-    damping: 20,
+  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-3, 3]), {
+    stiffness: 120,
+    damping: 24,
   });
   const [mobile, setMobile] = useState(false);
 
@@ -54,34 +49,23 @@ export default function HeroPortrait() {
   return (
     <div
       ref={ref}
-      className="relative"
-      style={{ width: PLATE_W, height: PLATE_H, perspective: 1200 }}
+      className="relative flex items-center justify-center"
+      style={{
+        width: "100%",
+        height: "100%",
+        perspective: 1200,
+        paddingBottom: 52,
+      }}
     >
-      {/* Rear offset slab */}
-      <motion.div
-        className="absolute inset-0"
-        style={{
-          transform: "translate(20px, 20px)",
-          background: "#111",
-          border: "5px solid #111",
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.42 }}
-      />
-
-      {/* Main purple slab */}
-      <motion.div
-        className="absolute inset-0 origin-left"
-        style={{
-          transform: "translateX(-6px)",
-          background: "#5B829E",
-          border: "5px solid #111",
-        }}
-        initial={{ opacity: 0, x: 80 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.7, delay: 0.42, ease: easings.primary }}
-      />
+      {/* Vertical dots — right edge decoration */}
+      <div
+        className="absolute right-5 top-1/2 flex flex-col gap-3"
+        style={{ transform: "translateY(-50%)" }}
+      >
+        {[...Array(5)].map((_, i) => (
+          <div key={i} style={{ width: 10, height: 10, background: "#111" }} />
+        ))}
+      </div>
 
       {/* Shield shadow */}
       <div
@@ -89,9 +73,8 @@ export default function HeroPortrait() {
         style={{
           width: SHIELD_W,
           height: SHIELD_H,
-          top: 390,
-          left: 478,
-          transform: "translate(-50%, -50%)",
+          transform: "translate(14px, 14px)",
+          zIndex: 0,
         }}
       >
         <svg
@@ -103,38 +86,35 @@ export default function HeroPortrait() {
         </svg>
       </div>
 
-      {/* Shield body */}
+      {/* Shield — tilt-on-hover */}
       <motion.div
-        className="absolute z-10"
+        className="relative z-10"
         style={{
           width: SHIELD_W,
           height: SHIELD_H,
-          top: 374,
-          left: 462,
-          transform: "translate(-50%, -50%)",
           rotateX: mobile ? 0 : rx,
           rotateY: mobile ? 0 : ry,
         }}
-        initial={{ x: "calc(-50% + 80px)", y: "-50%", scale: 0.94, opacity: 0 }}
-        animate={{ x: "-50%", y: "-50%", scale: 0.99, opacity: 1 }}
+        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.48, ease: easings.primary }}
       >
-        {/* SVG border + fill */}
+        {/* SVG border */}
         <svg
           viewBox={`0 0 ${SHIELD_W} ${SHIELD_H}`}
           className="absolute inset-0 w-full h-full"
         >
-          <path d={SHIELD} fill="#F6F0E8" stroke="#111" strokeWidth="5" />
+          <path d={SHIELD} fill="#F0EBE0" stroke="#111" strokeWidth="5" />
         </svg>
 
-        {/* Clipped image */}
+        {/* Clipped photo */}
         <div
           className="absolute overflow-hidden"
           style={{
-            top: 22,
-            left: 22,
-            width: SHIELD_W - 44,
-            height: SHIELD_H - 44,
+            top: 18,
+            left: 18,
+            width: SHIELD_W - 36,
+            height: SHIELD_H - 36,
             clipPath: `path('${IMAGE}')`,
           }}
         >
@@ -143,14 +123,14 @@ export default function HeroPortrait() {
             alt="Adith Manikonda"
             fill
             sizes={`${SHIELD_W}px`}
-            className="object-cover object-[center_4%] grayscale contrast-[1.3] scale-[1.12]"
+            className="object-cover object-[center_4%] grayscale contrast-[1.2] scale-[1.08]"
             priority
           />
         </div>
       </motion.div>
 
+      {/* Badge */}
       <HeroBadge />
-      <VerticalDots />
     </div>
   );
 }

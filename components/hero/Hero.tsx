@@ -9,44 +9,206 @@ import { easings } from "@/lib/motion";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen min-h-[900px] w-full overflow-hidden bg-[#EEE7DC]">
-      <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.02]" />
+    <section className="relative h-screen min-h-[900px] w-full overflow-hidden bg-[#F0EBE0]">
+      {/* Grain overlay */}
+      <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
-      <div className="relative w-full h-full">
-        {/* Far-left Orange Decorative Box */}
+      {/* Hard left orange accent bar */}
+      <motion.div
+        className="absolute left-0 z-30 bg-[#E8420A]"
+        style={{
+          top: "28%",
+          height: "44%",
+          width: 10,
+          borderRight: "3px solid #111",
+        }}
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{
+          duration: 0.5,
+          delay: 0.6,
+          ease: easings.primary,
+          originY: 0,
+        }}
+      />
+
+      {/* Outer border frame — full page */}
+      <motion.div
+        className="absolute inset-0 z-50 pointer-events-none"
+        style={{ border: "5px solid #111" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+      />
+
+      <div className="relative w-full h-full flex">
+        {/* ── LEFT PANEL: 62% ── */}
         <motion.div
-          className="absolute left-[-4px] top-[36%] z-30 h-[380px] w-[50px] bg-[#F45113] border-[5px] border-[#111]"
-          style={{ boxShadow: "10px 10px 0 #111" }}
-          initial={{ x: -100 }}
-          animate={{ x: 0 }}
-          transition={{ duration: 0.7, delay: 0.6, ease: easings.primary }}
-        />
+          className="relative flex flex-col justify-center bg-[#111]"
+          style={{
+            width: "62%",
+            borderRight: "5px solid #111",
+            paddingLeft: 72,
+            paddingRight: 48,
+            zIndex: 20,
+          }}
+          initial={{ x: -40, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: easings.primary }}
+        >
+          {/* Top-left logo stamp */}
+          <div
+            className="absolute top-0 left-0 flex items-center justify-center bg-[#E8420A]"
+            style={{
+              width: 64,
+              height: 64,
+              borderRight: "5px solid #111",
+              borderBottom: "5px solid #111",
+            }}
+          >
+            <span
+              className="text-white text-[28px] font-black tracking-[-0.06em] uppercase"
+              style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+            >
+              A.
+            </span>
+          </div>
 
-        {/* Left: Frame — z-20 so its border lines draw over the purple slab */}
-        <div className="absolute z-20" style={{ left: 70, top: 148 }}>
-          <HeroFrame>
+          {/* Nav — top right of left panel */}
+          <div
+            className="absolute top-0 right-0 flex items-center"
+            style={{
+              height: 64,
+              borderBottom: "5px solid #111",
+              paddingLeft: 32,
+              paddingRight: 32,
+              gap: 32,
+            }}
+          >
+            {["WORK", "ABOUT", "CONTACT"].map((item) => (
+              <span
+                key={item}
+                className="text-[#F0EBE0] text-[13px] font-black tracking-[0.18em] cursor-pointer hover:text-[#CFDE00] transition-colors"
+                style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+              >
+                {item}
+              </span>
+            ))}
+            <div
+              className="ml-4 flex flex-col gap-[3px] cursor-pointer"
+              style={{ borderLeft: "2px solid #333", paddingLeft: 20 }}
+            >
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="flex gap-[3px]">
+                  {[...Array(3)].map((__, j) => (
+                    <div
+                      key={j}
+                      style={{ width: 5, height: 5, background: "#F0EBE0" }}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Headline + CTA */}
+          <div style={{ paddingTop: 40 }}>
             <HeroHeadline />
             <HeroCTA />
-          </HeroFrame>
-        </div>
+          </div>
 
-        {/* Right: Portrait — kept at right:-24 so the purple fills the right half naturally.
-            The frame (960px wide from left:50) reaches ~1010px from left.
-            On a 1440px viewport the portrait SVG starts at 1440-1010-24=406px.
-            The purple SLAB left stair edge (x=0) is at 406px — well behind the frame border.
-            Frame border at ~1010px draws on top of the purple. Clean join. */}
-        <div className="absolute z-10" style={{ right: -24, top: 140 }}>
+          {/* Bottom-left decor: small hollow square + dash */}
+          <div
+            className="absolute bottom-0 left-0 flex items-center gap-4"
+            style={{
+              height: 52,
+              paddingLeft: 72,
+              borderTop: "5px solid #333",
+              width: "100%",
+            }}
+          >
+            <div
+              style={{
+                width: 18,
+                height: 18,
+                border: "3px solid #555",
+              }}
+            />
+            <div style={{ width: 52, height: 3, background: "#CFDE00" }} />
+          </div>
+        </motion.div>
+
+        {/* ── RIGHT PANEL: 38% ── */}
+        <motion.div
+          className="relative flex items-center justify-center bg-[#4A8DB7]"
+          style={{
+            width: "38%",
+            zIndex: 10,
+          }}
+          initial={{ x: 60, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: easings.primary }}
+        >
           <HeroPortrait />
-        </div>
+
+          {/* Bottom olive bar — right panel only */}
+          <motion.div
+            className="absolute bottom-0 left-0 right-0"
+            style={{
+              height: 52,
+              background: "#6E6A2D",
+              borderTop: "5px solid #111",
+            }}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.9,
+              ease: easings.primary,
+              originX: 0,
+            }}
+          />
+        </motion.div>
       </div>
 
-      {/* Bottom Olive Bar */}
+      {/* Full-width scrolling ticker at the very bottom */}
       <motion.div
-        className="absolute bottom-0 left-0 right-0 z-40 h-[50px] bg-[#6E6A2D] border-t-[5px] border-[#111]"
-        initial={{ y: 50 }}
+        className="absolute bottom-0 left-0 right-0 z-40 overflow-hidden"
+        style={{
+          height: 52,
+          background: "#E8420A",
+          borderTop: "5px solid #111",
+        }}
+        initial={{ y: 60 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.7, delay: 0.8, ease: easings.primary }}
-      />
+        transition={{ duration: 0.5, delay: 1.0, ease: easings.primary }}
+      >
+        <div
+          className="flex items-center h-full whitespace-nowrap"
+          style={{ animation: "ticker 22s linear infinite" }}
+        >
+          {[...Array(6)].map((_, i) => (
+            <span
+              key={i}
+              className="text-white text-[13px] font-black tracking-[0.2em] uppercase"
+              style={{
+                fontFamily: "var(--font-archivo), monospace",
+                paddingRight: 48,
+              }}
+            >
+              OPEN TO INTERN ■ BACKEND ENGINEER ■ CLEAN CODE ■ PRESSURE-TESTED
+              BUILDS ■
+            </span>
+          ))}
+        </div>
+      </motion.div>
+
+      <style>{`
+        @keyframes ticker {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
     </section>
   );
 }

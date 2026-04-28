@@ -2,49 +2,51 @@
 
 import { motion } from "framer-motion";
 
+// Pixel cluster — small decorative group of squares
 export function PixelCluster() {
   const positions = [
-    { x: 62, y: 63 },
-    { x: 70, y: 70 },
-    { x: 62, y: 78 },
-    { x: 78, y: 78 },
-    { x: 54, y: 87 },
+    { x: 0, y: 0 },
+    { x: 16, y: 8 },
+    { x: 0, y: 16 },
+    { x: 24, y: 16 },
+    { x: 8, y: 24 },
   ];
-
   return (
-    <>
+    <div className="relative" style={{ width: 40, height: 40 }}>
       {positions.map((pos, i) => (
         <motion.div
           key={i}
-          className="absolute bg-[#111]"
-          style={{ width: 13, height: 13, left: pos.x, top: pos.y }}
+          className="absolute bg-[#555]"
+          style={{ width: 10, height: 10, left: pos.x, top: pos.y }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.42 + i * 0.04, duration: 0.15 }}
+          transition={{ delay: 0.44 + i * 0.04, duration: 0.15 }}
         />
-      ))}
-    </>
-  );
-}
-
-export function VerticalDots() {
-  return (
-    <div
-      className="absolute flex flex-col gap-[16px]"
-      style={{ right: 40, top: 92 }}
-    >
-      {[...Array(6)].map((_, i) => (
-        <div key={i} className="h-[18px] w-[18px] rounded-none bg-[#111]" />
       ))}
     </div>
   );
 }
 
+// Vertical dot column — used in portrait panel
+export function VerticalDots({ count = 5 }: { count?: number }) {
+  return (
+    <div className="flex flex-col gap-3">
+      {[...Array(count)].map((_, i) => (
+        <div key={i} style={{ width: 10, height: 10, background: "#111" }} />
+      ))}
+    </div>
+  );
+}
+
+// Small hollow square accent
 export function SmallSquare() {
   return (
     <div
-      className="absolute border-[4px] border-[#111]"
-      style={{ width: 28, height: 28, bottom: 58, left: 20 }}
+      style={{
+        width: 22,
+        height: 22,
+        border: "3px solid #555",
+      }}
     />
   );
 }

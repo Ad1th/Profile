@@ -6,28 +6,43 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function HeroCTA() {
   return (
-    <motion.button
-      className="group relative mt-[30px] ml-[0px] flex h-[78px] w-[322px] cursor-pointer items-center justify-center gap-[28px] bg-[#111] text-white outline-none"
-      initial={{ opacity: 0, y: 30 }}
+    <motion.div
+      className="relative mt-[36px]"
+      style={{ width: 300, height: 68 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 0.82, ease: easings.primary }}
-      whileHover={{ x: -4, y: -4 }}
-      whileTap={{ x: 2, y: 2 }}
+      transition={{ duration: 0.6, delay: 0.72, ease: easings.primary }}
     >
-      {/* The hollow shadow box */}
-      <div className="absolute inset-0 border-[3px] border-[#111] translate-x-[8px] translate-y-[8px] pointer-events-none transition-transform duration-200 group-hover:translate-x-[12px] group-hover:translate-y-[12px] group-active:translate-x-[4px] group-active:translate-y-[4px]" />
-      
-      {/* The main button body */}
-      <div className="absolute inset-0 bg-[#111] border-[3px] border-[#111]" />
-      
-      <span className="relative z-10 text-[27px] font-[900] uppercase tracking-[-0.03em]" style={{ fontFamily: "var(--font-archivo), Impact, sans-serif" }}>
-        View Work
-      </span>
-      <ArrowUpRight
-        className="relative z-10 text-[#F05A24] transition-transform group-hover:translate-x-[6px]"
-        size={30}
-        strokeWidth={3}
+      {/* Hard offset shadow block */}
+      <div
+        className="absolute inset-0"
+        style={{
+          transform: "translate(6px, 6px)",
+          background: "#CFDE00",
+          border: "4px solid #111",
+          zIndex: 0,
+        }}
       />
-    </motion.button>
+
+      {/* Main button */}
+      <motion.button
+        className="absolute inset-0 flex items-center justify-center gap-5 bg-[#F0EBE0] cursor-pointer outline-none"
+        style={{
+          border: "4px solid #111",
+          zIndex: 1,
+        }}
+        whileHover={{ x: -4, y: -4 }}
+        whileTap={{ x: 2, y: 2 }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+      >
+        <span
+          className="text-[#111] text-[22px] font-black uppercase tracking-[-0.03em]"
+          style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+        >
+          VIEW WORK
+        </span>
+        <ArrowUpRight className="text-[#E8420A]" size={28} strokeWidth={3.5} />
+      </motion.button>
+    </motion.div>
   );
 }

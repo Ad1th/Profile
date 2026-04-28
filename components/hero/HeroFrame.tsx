@@ -10,11 +10,11 @@ import React from "react";
 // Decrease W → right border moves left (less overlap with purple).
 // Increase W → right border moves right (more overlap).
 // At left:50 in Hero.tsx, the right border sits at (50 + W)px from the viewport left.
-const W = 880; // <── tweak this first if the join is off
+const W = 890; // <── tweak this first if the join is off
 const H = 780;
 // RIGHT EDGE TILT: top leans left, bottom leans right (toward left border).
 // Increase TILT_OFFSET for a more dramatic lean.
-const TILT_OFFSET = 42; // px difference between top-x and bottom-x of the right edge line
+const TILT_OFFSET = 50; // px difference between top-x and bottom-x of the right edge line
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function HeroFrame({ children }: { children: React.ReactNode }) {
@@ -23,7 +23,12 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
       className="relative"
       style={{ width: W, height: H, transform: "rotate(-0.8deg)" }}
     >
-      <div className="absolute inset-0 z-0 pointer-events-none bg-[#EEE7DC]" />
+      <div
+        className="absolute inset-0 z-0 pointer-events-none bg-[#EEE7DC]"
+        style={{
+          clipPath: `polygon(0 0, ${W - TILT_OFFSET - 20}px 0, ${W - 12}px 100%, 0 100%)`,
+        }}
+      />
 
       {/* TOP border line */}
       <motion.div

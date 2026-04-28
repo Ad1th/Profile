@@ -42,7 +42,7 @@ export default function Hero() {
           </span>
         </div>
 
-        <div className="flex items-center gap-8">
+        <div className="flex-1 flex items-center justify-center gap-10">
           {["WORK", "ABOUT", "CONTACT"].map((item) => (
             <span
               key={item}
@@ -52,15 +52,15 @@ export default function Hero() {
               {item}
             </span>
           ))}
-          <div style={{ width: 2, height: 24, background: "#111" }} />
-          <div className="grid grid-cols-3 gap-[4px] bg-[#111] p-[8px]">
-            {[...Array(9)].map((_, i) => (
-              <div
-                key={i}
-                style={{ width: 4, height: 4, background: "#F0EBE0" }}
-              />
-            ))}
-          </div>
+        </div>
+        <div style={{ width: 2, height: 24, background: "#111" }} />
+        <div className="grid grid-cols-3 gap-[4px] bg-[#111] p-[8px]">
+          {[...Array(9)].map((_, i) => (
+            <div
+              key={i}
+              style={{ width: 4, height: 4, background: "#F0EBE0" }}
+            />
+          ))}
         </div>
       </div>
 
@@ -83,7 +83,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.1, ease: easings.primary }}
         >
           {/* Headline + CTA */}
-          <div style={{ marginTop: 30 }}>
+          <div style={{ marginTop: 50 }}>
             <HeroHeadline />
             <HeroCTA />
           </div>
@@ -100,12 +100,25 @@ export default function Hero() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2, ease: easings.primary }}
         >
-          {/* Subtle left accent bar */}
+          {/* Left accent bar */}
           <div
             className="absolute left-0 top-0 bottom-0"
             style={{
-              width: 3,
-              background: "rgba(207, 222, 0, 0.15)",
+              width: 4,
+              background: "#E8420A",
+            }}
+          />
+          {/* Orange accent block bottom-left */}
+          <div
+            className="absolute"
+            style={{
+              left: 28,
+              bottom: 80,
+              width: 24,
+              height: 24,
+              background: "#E8420A",
+              border: "2px solid #111",
+              zIndex: 5,
             }}
           />
           <HeroPortrait />
@@ -123,7 +136,7 @@ export default function Hero() {
         }}
       >
         <div
-          className="flex-1 flex flex-col justify-center"
+          className="flex-1 flex flex-col items-start justify-center"
           style={{ borderRight: "5px solid #111", padding: "14px 26px" }}
         >
           <div
@@ -140,7 +153,7 @@ export default function Hero() {
           </div>
         </div>
         <div
-          className="flex-1 flex flex-col justify-center"
+          className="flex-1 flex flex-col items-start justify-center"
           style={{ padding: "14px 26px" }}
         >
           <div

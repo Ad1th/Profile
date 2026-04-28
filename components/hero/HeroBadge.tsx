@@ -7,28 +7,31 @@ export default function HeroBadge() {
     <motion.div
       className="absolute flex items-center justify-center gap-4 bg-[#CFDE00]"
       style={{
-        width: 230,
-        height: 44,
-        bottom: 32,
-        right: 12,
-        rotate: 0,
-        border: "4px solid #111",
-        boxShadow: "0 0 0 #111",
-        zIndex: 30,
+        width: 240,
+        height: 46,
+        bottom: 150,
+        right: 24,
+        rotate: "-5deg",
+        border: "5px solid #111",
+        boxShadow: "8px 8px 0 #E8420A",
+        zIndex: 35,
       }}
-      initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
-      animate={{ opacity: 1, scale: 1, rotate: 0 }}
-      transition={{ type: "spring", stiffness: 260, damping: 22, delay: 1.0 }}
-      whileHover={{ scale: 1.04, rotate: 0, y: -2 }}
+      initial={{ opacity: 0, scale: 0.8, rotate: "-8deg" }}
+      animate={{ opacity: 1, scale: 1, rotate: "-5deg" }}
+      transition={{ type: "spring", stiffness: 260, damping: 22, delay: 1.1 }}
+      whileHover={{ scale: 1.06, rotate: "-5deg", y: -3 }}
     >
       <span
-        className="text-[#111] text-[33px] font-black uppercase tracking-[-0.04em] leading-none"
-        style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+        className="text-[#111] text-[14px] font-black uppercase tracking-[0.05em] leading-none"
+        style={{
+          fontFamily: "var(--font-archivo), sans-serif",
+          whiteSpace: "nowrap",
+        }}
       >
         OPEN TO INTERN
       </span>
       <div
-        style={{ width: 10, height: 10, background: "#111", flexShrink: 0 }}
+        style={{ width: 12, height: 12, background: "#111", flexShrink: 0 }}
       />
     </motion.div>
   );

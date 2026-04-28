@@ -7,8 +7,8 @@ import { useRef, useEffect, useState } from "react";
 import HeroBadge from "./HeroBadge";
 import Image from "next/image";
 
-const FRAME_W = 408;
-const FRAME_H = 432;
+const FRAME_W = 470;
+const FRAME_H = 498;
 
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);
@@ -62,33 +62,27 @@ export default function HeroPortrait() {
         ))}
       </div>
 
+      {/* Three horizontal lime ticks — brutalist decoration */}
       <div
         className="absolute"
-        style={{ left: 54, top: 38, width: 30, height: 30, zIndex: 5 }}
+        style={{ left: 48, top: 44, width: 40, height: 24, zIndex: 5 }}
       >
-        <div
-          style={{
-            position: "absolute",
-            width: 30,
-            height: 4,
-            background: "#CFDE00",
-            transform: "rotate(45deg)",
-            top: 13,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            width: 30,
-            height: 4,
-            background: "#CFDE00",
-            transform: "rotate(-45deg)",
-            top: 13,
-          }}
-        />
+        {[0, 8, 16].map((top) => (
+          <div
+            key={top}
+            style={{
+              position: "absolute",
+              width: 24,
+              height: 3,
+              background: "#CFDE00",
+              top,
+              left: 0,
+            }}
+          />
+        ))}
       </div>
 
-      {/* Rectangular photo block with hard offset */}
+      {/* Rectangular photo block with strong brutalist frame */}
       <motion.div
         className="relative z-10"
         style={{
@@ -96,8 +90,8 @@ export default function HeroPortrait() {
           height: FRAME_H,
           rotateX: mobile ? 0 : rx,
           rotateY: mobile ? 0 : ry,
-          border: "5px solid #111",
-          boxShadow: "8px 8px 0 #111",
+          border: "6px solid #111",
+          boxShadow: "12px 12px 0 #F0EBE0",
           background: "#1F1F1F",
         }}
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -119,7 +113,7 @@ export default function HeroPortrait() {
             alt="Adith Manikonda"
             fill
             sizes={`${FRAME_W}px`}
-            className="object-cover object-[center_20%] grayscale contrast-[1.18] scale-[1.02]"
+            className="object-cover object-[center_25%] grayscale contrast-[1.18] scale-[1.01]"
             priority
           />
         </div>

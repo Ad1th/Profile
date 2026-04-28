@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export default function HeroBadge() {
   return (
     <motion.div
-      className="absolute z-30 flex items-center justify-center gap-[24px] bg-[#77742D] border-[5px] border-[#111] px-[42px]"
+      className="absolute z-30 flex items-center justify-center gap-[24px] bg-[#C5D86D] border-[5px] border-[#111] px-[42px]"
       style={{
         width: 340,
         height: 76,

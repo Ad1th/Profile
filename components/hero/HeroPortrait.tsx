@@ -75,7 +75,7 @@ export default function HeroPortrait() {
         className="absolute inset-0 origin-left"
         style={{
           transform: "translateX(-6px)",
-          background: "#D6E94B",
+          background: "#5B829E",
           border: "5px solid #111",
         }}
         initial={{ opacity: 0, x: 80 }}

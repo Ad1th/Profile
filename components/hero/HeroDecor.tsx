@@ -17,7 +17,7 @@ export function PixelCluster() {
         <motion.div
           key={i}
           className="absolute bg-[#111]"
-          style={{ width: 9, height: 9, left: pos.x, top: pos.y }}
+          style={{ width: 13, height: 13, left: pos.x, top: pos.y }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.42 + i * 0.04, duration: 0.15 }}
@@ -30,11 +30,11 @@ export function PixelCluster() {
 export function VerticalDots() {
   return (
     <div
-      className="absolute flex flex-col gap-[18px]"
-      style={{ right: 48, top: 104 }}
+      className="absolute flex flex-col gap-[16px]"
+      style={{ right: 40, top: 92 }}
     >
-      {[...Array(5)].map((_, i) => (
-        <div key={i} className="h-[13px] w-[13px] rounded-full bg-[#111]" />
+      {[...Array(6)].map((_, i) => (
+        <div key={i} className="h-[18px] w-[18px] rounded-none bg-[#111]" />
       ))}
     </div>
   );
@@ -43,8 +43,8 @@ export function VerticalDots() {
 export function SmallSquare() {
   return (
     <div
-      className="absolute border-[2px] border-[#111]"
-      style={{ width: 20, height: 20, bottom: 64, left: 24 }}
+      className="absolute border-[4px] border-[#111]"
+      style={{ width: 28, height: 28, bottom: 58, left: 20 }}
     />
   );
 }

@@ -20,50 +20,6 @@ const IMAGE =
 const PLATE_W = 910;
 const PLATE_H = 780;
 
-// Reference-like slab: a controlled two-step top-left notch and a slanted
-// left edge so the purple panel visually joins the tilted left frame.
-// const SLAB =
-//   "M 890 0 L 130 18 L 130 54 L 89 54 L 82 146 L 52 210 L 90 780 L 890 760 L 890 72 L 864 72 L 864 34 L 890 34 Z";
-
-// This path creates the sharp notched left edge and the angled perspective
-// seen in your screenshot.
-// const SLAB =
-//   "M 890 0 " + // Start top right
-//   "L 120 0 " + // Move left to the start of the first notch
-//   "L 120 50 " + // Drop down (first step)
-//   "L 80 50 " + // Move left again (the 'bite')
-//   "L 80 140 " + // Vertical drop
-//   "L 110 140 " + // Slant inward to create the perspective "fold"
-//   "L 120 270 " + // Move down to the second notch start
-//   "L 85 270 " + // Move left for the second notch
-//   "L 125 780 " + // Down to the bottom left corner
-//   "L 900 780 " + // Move to bottom right with a slight upward tilt
-//   "L 900 80 " + // Up the right side
-//   "L 860 80 " + // Small notch on the right
-//   "L 860 30 " + // Up
-//   "L 890 30 " + // Back out to the edge
-//   "Z"; // Close the path
-
-const SLAB =
-  "M 910 0 " +
-  "L 120 0 " +
-  // Socket 1
-  "L 120 80 L 160 80 L 160 140 L 120 140 " +
-  // Socket 2
-  "L 120 200 L 160 200 L 160 260 L 120 260 " +
-  // Socket 3
-  "L 120 320 L 160 320 L 160 380 L 120 380 " +
-  // Socket 4
-  "L 120 440 L 160 440 L 160 500 L 120 500 " +
-  // Socket 5
-  "L 120 560 L 160 560 L 160 620 L 120 620 " +
-  // Socket 6
-  "L 120 680 L 160 680 L 160 740 L 120 740 " +
-  // Close out to bottom
-  "L 125 780 L 910 780 " +
-  "L 910 80 L 880 80 L 880 30 L 910 30 " +
-  "Z";
-
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
@@ -104,28 +60,28 @@ export default function HeroPortrait() {
       {/* Rear offset slab */}
       <motion.div
         className="absolute inset-0"
-        style={{ transform: "translate(20px, 20px)" }}
+        style={{
+          transform: "translate(20px, 20px)",
+          background: "#111",
+          border: "5px solid #111",
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.42 }}
-      >
-        <svg viewBox={`0 0 ${PLATE_W} ${PLATE_H}`} className="w-full h-full">
-          <path d={SLAB} fill="#111" stroke="#111" strokeWidth="3" />
-        </svg>
-      </motion.div>
+      />
 
       {/* Main purple slab */}
       <motion.div
         className="absolute inset-0 origin-left"
-        style={{ transform: "translateX(-6px)" }}
+        style={{
+          transform: "translateX(-6px)",
+          background: "#D6E94B",
+          border: "5px solid #111",
+        }}
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.42, ease: easings.primary }}
-      >
-        <svg viewBox={`0 0 ${PLATE_W} ${PLATE_H}`} className="w-full h-full">
-          <path d={SLAB} fill="#C8A9F4" stroke="#111" strokeWidth="3" />
-        </svg>
-      </motion.div>
+      />
 
       {/* Shield shadow */}
       <div

@@ -15,8 +15,8 @@ export default function Hero() {
       <div className="relative w-full h-full">
         {/* Far-left Orange Decorative Box */}
         <motion.div
-          className="absolute left-[-3px] top-[38%] z-30 h-[335px] w-[41px] bg-[#F45113] border-[3px] border-[#111]"
-          style={{ boxShadow: "7px 7px 0 #111" }}
+          className="absolute left-[-4px] top-[36%] z-30 h-[380px] w-[50px] bg-[#F45113] border-[5px] border-[#111]"
+          style={{ boxShadow: "10px 10px 0 #111" }}
           initial={{ x: -100 }}
           animate={{ x: 0 }}
           transition={{ duration: 0.7, delay: 0.6, ease: easings.primary }}
@@ -42,7 +42,7 @@ export default function Hero() {
 
       {/* Bottom Olive Bar */}
       <motion.div
-        className="absolute bottom-0 left-0 right-0 z-40 h-[43px] bg-[#6E6A2D] border-t-[3px] border-[#111]"
+        className="absolute bottom-0 left-0 right-0 z-40 h-[50px] bg-[#6E6A2D] border-t-[5px] border-[#111]"
         initial={{ y: 50 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.7, delay: 0.8, ease: easings.primary }}

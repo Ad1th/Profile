@@ -50,12 +50,13 @@ export default function HeroPortrait() {
         height: "100%",
         perspective: 1200,
         paddingBottom: 52,
+        transform: "translate(20px, -10px)",
       }}
     >
       {/* Vertical dots — right edge decoration, moved closer */}
       <div
-        className="absolute right-10 top-1/2 flex flex-col gap-3"
-        style={{ transform: "translateY(-50%)" }}
+        className="absolute right-10 flex flex-col gap-3"
+        style={{ top: "calc(50% - 14px)", transform: "translateY(-50%)" }}
       >
         {[...Array(5)].map((_, i) => (
           <div key={i} style={{ width: 10, height: 10, background: "#111" }} />
@@ -65,7 +66,7 @@ export default function HeroPortrait() {
       {/* Three horizontal lime ticks — brutalist decoration */}
       <div
         className="absolute"
-        style={{ left: 48, top: 44, width: 40, height: 24, zIndex: 5 }}
+        style={{ left: 58, top: 44, width: 40, height: 24, zIndex: 5 }}
       >
         {[0, 8, 16].map((top) => (
           <div
@@ -90,8 +91,8 @@ export default function HeroPortrait() {
           height: FRAME_H,
           rotateX: mobile ? 0 : rx,
           rotateY: mobile ? 0 : ry,
-          border: "6px solid #111",
-          boxShadow: "12px 12px 0 #F0EBE0",
+          border: "7px solid #111",
+          boxShadow: "14px 14px 0 #F0EBE0",
           background: "#1F1F1F",
         }}
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -113,7 +114,7 @@ export default function HeroPortrait() {
             alt="Adith Manikonda"
             fill
             sizes={`${FRAME_W}px`}
-            className="object-cover object-[center_25%] grayscale contrast-[1.18] scale-[1.01]"
+            className="object-cover object-[center_24%] grayscale contrast-[1.18] scale-[1.02]"
             priority
           />
         </div>

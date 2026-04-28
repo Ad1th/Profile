@@ -17,7 +17,7 @@ export default function HeroCTA() {
       <div
         className="absolute inset-0"
         style={{
-          transform: "translate(6px, 6px)",
+          transform: "translate(10px, 10px)",
           background: "#E8420A",
           border: "4px solid #111",
           zIndex: 0,

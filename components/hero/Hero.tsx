@@ -82,6 +82,17 @@ export default function Hero() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.1, ease: easings.primary }}
         >
+          <div
+            className="absolute"
+            style={{
+              left: 22,
+              bottom: 76,
+              width: 14,
+              height: 14,
+              background: "#E8420A",
+              border: "2px solid #111",
+            }}
+          />
           {/* Headline + CTA */}
           <div style={{ marginTop: 50 }}>
             <HeroHeadline />
@@ -112,8 +123,8 @@ export default function Hero() {
           <div
             className="absolute"
             style={{
-              left: 28,
-              bottom: 80,
+              left: 18,
+              bottom: 92,
               width: 24,
               height: 24,
               background: "#E8420A",
@@ -139,6 +150,11 @@ export default function Hero() {
           className="flex-1 flex flex-col items-start justify-center"
           style={{ borderRight: "5px solid #111", padding: "14px 26px" }}
         >
+          <div className="mb-3 flex items-center gap-2">
+            <div style={{ width: 18, height: 3, background: "#111" }} />
+            <div style={{ width: 3, height: 3, background: "#E8420A" }} />
+            <div style={{ width: 3, height: 3, background: "#111" }} />
+          </div>
           <div
             className="text-[#111] text-[48px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
@@ -156,6 +172,17 @@ export default function Hero() {
           className="flex-1 flex flex-col items-start justify-center"
           style={{ padding: "14px 26px" }}
         >
+          <div className="mb-3 flex items-center gap-2">
+            <div style={{ width: 12, height: 3, background: "#111" }} />
+            <div
+              style={{
+                width: 12,
+                height: 3,
+                background: "#111",
+                transform: "skewX(-32deg)",
+              }}
+            />
+          </div>
           <div
             className="text-[#111] text-[48px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
@@ -185,15 +212,15 @@ export default function Hero() {
       >
         <div
           className="flex items-center h-full whitespace-nowrap"
-          style={{ animation: "ticker 22s linear infinite", paddingLeft: 16 }}
+          style={{ animation: "ticker 22s linear infinite", paddingLeft: 18 }}
         >
-          {[...Array(6)].map((_, i) => (
+          {[...Array(4)].map((_, i) => (
             <span
               key={i}
-              className="text-white text-[13px] font-black tracking-[0.2em] uppercase"
+              className="text-white text-[13px] font-black tracking-[0.26em] uppercase"
               style={{
                 fontFamily: "var(--font-archivo), monospace",
-                paddingRight: 56,
+                paddingRight: 64,
               }}
             >
               OPEN TO INTERN ■ BACKEND ENGINEER ■ CLEAN CODE ■ PRESSURE TESTED

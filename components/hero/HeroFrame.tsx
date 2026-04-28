@@ -72,9 +72,9 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
         {/* Tilted right edge */}
         <line
           x1="0"
-          y1="0"
+          y1="-20"
           x2={TILT_OFFSET}
-          y2={H}
+          y2={790}
           stroke="#111"
           strokeWidth="3"
         />
@@ -89,7 +89,7 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
         />
       </motion.svg>
 
-      {/* Filled right-edge notch, matching the small box in the reference. */}
+      {/* Filled right-edge notch, matching the small box in the reference.
       <motion.div
         className="absolute z-20 pointer-events-none bg-[#EEE7DC] border-[3px] border-[#111]"
         style={{
@@ -102,7 +102,7 @@ export default function HeroFrame({ children }: { children: React.ReactNode }) {
         initial={{ opacity: 0, scaleX: 0.7 }}
         animate={{ opacity: 1, scaleX: 1 }}
         transition={{ duration: 0.35, delay: 0.38, ease: easings.primary }}
-      />
+      /> */}
 
       {/* Floating accent line */}
       <motion.div

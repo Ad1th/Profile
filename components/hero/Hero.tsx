@@ -42,7 +42,7 @@ export default function Hero() {
           </span>
         </div>
 
-        <div className="flex-1 flex items-center justify-center gap-10">
+        <div className="flex-1 flex items-center justify-center gap-12">
           {["WORK", "ABOUT", "CONTACT"].map((item) => (
             <span
               key={item}
@@ -66,7 +66,7 @@ export default function Hero() {
 
       <div
         className="relative w-full h-full flex"
-        style={{ paddingTop: 64, paddingBottom: 104 }}
+        style={{ paddingTop: 64, paddingBottom: 112 }}
       >
         {/* ── LEFT PANEL ── */}
         <motion.div
@@ -140,15 +140,17 @@ export default function Hero() {
       <div
         className="absolute left-0 right-0 z-30 flex items-center"
         style={{
-          bottom: 52,
-          height: 100,
+          bottom: 56,
+          height: 102,
           background: "#F0EBE0",
           borderTop: "5px solid #111",
+          borderBottom: "5px solid #111",
+          boxShadow: "0 -4px 0 #111",
         }}
       >
         <div
           className="flex-1 flex flex-col items-start justify-center"
-          style={{ borderRight: "5px solid #111", padding: "14px 26px" }}
+          style={{ borderRight: "5px solid #111", padding: "14px 28px" }}
         >
           <div className="mb-3 flex items-center gap-2">
             <div style={{ width: 18, height: 3, background: "#111" }} />
@@ -170,7 +172,7 @@ export default function Hero() {
         </div>
         <div
           className="flex-1 flex flex-col items-start justify-center"
-          style={{ padding: "14px 26px" }}
+          style={{ padding: "14px 28px" }}
         >
           <div className="mb-3 flex items-center gap-2">
             <div style={{ width: 12, height: 3, background: "#111" }} />
@@ -202,9 +204,10 @@ export default function Hero() {
       <motion.div
         className="absolute bottom-0 left-0 right-0 z-40 overflow-hidden flex items-center"
         style={{
-          height: 52,
+          height: 56,
           background: "#E8420A",
           borderTop: "5px solid #111",
+          boxShadow: "0 -3px 0 #111",
         }}
         initial={{ y: 60 }}
         animate={{ y: 0 }}
@@ -212,12 +215,17 @@ export default function Hero() {
       >
         <div
           className="flex items-center h-full whitespace-nowrap"
-          style={{ animation: "ticker 22s linear infinite", paddingLeft: 18 }}
+          style={{
+            animation: "ticker 22s linear infinite",
+            paddingLeft: 18,
+            paddingTop: 5,
+            paddingBottom: 5,
+          }}
         >
           {[...Array(4)].map((_, i) => (
             <span
               key={i}
-              className="text-white text-[13px] font-black tracking-[0.26em] uppercase"
+              className="text-white text-[14px] font-black tracking-[0.26em] uppercase"
               style={{
                 fontFamily: "var(--font-archivo), monospace",
                 paddingRight: 64,

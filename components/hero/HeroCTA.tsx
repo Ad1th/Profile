@@ -8,7 +8,7 @@ export default function HeroCTA() {
   return (
     <motion.div
       className="relative"
-      style={{ width: 300, height: 68, marginTop: 12 }}
+      style={{ width: 306, height: 70, marginTop: 2 }}
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.56, ease: easings.primary }}
@@ -17,7 +17,7 @@ export default function HeroCTA() {
       <div
         className="absolute inset-0"
         style={{
-          transform: "translate(10px, 10px)",
+          transform: "translate(9px, 9px)",
           background: "#E8420A",
           border: "4px solid #111",
           zIndex: 0,

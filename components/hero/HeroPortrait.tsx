@@ -7,8 +7,8 @@ import { useRef, useEffect, useState } from "react";
 import HeroBadge from "./HeroBadge";
 import Image from "next/image";
 
-const FRAME_W = 470;
-const FRAME_H = 498;
+const FRAME_W = 460;
+const FRAME_H = 488;
 
 export default function HeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);
@@ -49,8 +49,8 @@ export default function HeroPortrait() {
         width: "100%",
         height: "100%",
         perspective: 1200,
-        paddingBottom: 52,
-        transform: "translate(20px, -10px)",
+        paddingBottom: 50,
+        transform: "translate(24px, -18px)",
       }}
     >
       {/* Vertical dots — right edge decoration, moved closer */}
@@ -84,6 +84,19 @@ export default function HeroPortrait() {
       </div>
 
       {/* Rectangular photo block with strong brutalist frame */}
+      <div
+        className="absolute"
+        style={{
+          width: FRAME_W + 34,
+          height: FRAME_H - 16,
+          right: "calc(50% - 265px)",
+          top: "calc(50% - 260px)",
+          background: "#E8420A",
+          border: "4px solid #111",
+          transform: "rotate(-3deg) skewX(-3deg)",
+          zIndex: 0,
+        }}
+      />
       <motion.div
         className="relative z-10"
         style={{
@@ -92,7 +105,7 @@ export default function HeroPortrait() {
           rotateX: mobile ? 0 : rx,
           rotateY: mobile ? 0 : ry,
           border: "7px solid #111",
-          boxShadow: "14px 14px 0 #F0EBE0",
+          boxShadow: "12px 12px 0 #111",
           background: "#1F1F1F",
         }}
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -114,7 +127,7 @@ export default function HeroPortrait() {
             alt="Adith Manikonda"
             fill
             sizes={`${FRAME_W}px`}
-            className="object-cover object-[center_24%] grayscale contrast-[1.18] scale-[1.02]"
+            className="object-cover object-[56%_18%] grayscale contrast-[1.18] scale-[1.04]"
             priority
           />
         </div>

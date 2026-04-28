@@ -7,19 +7,19 @@ export default function HeroBadge() {
     <motion.div
       className="absolute flex items-center justify-center gap-4 bg-[#CFDE00]"
       style={{
-        width: 250,
-        height: 46,
-        bottom: 84,
-        right: -15,
-        rotate: "-5deg",
+        width: 252,
+        height: 48,
+        bottom: 102,
+        right: 24,
+        rotate: "-4deg",
         border: "5px solid #111",
-        boxShadow: "12px 12px 0 #E8420A",
+        boxShadow: "10px 10px 0 #E8420A",
         zIndex: 35,
       }}
       initial={{ opacity: 0, scale: 0.8, rotate: "-8deg" }}
-      animate={{ opacity: 1, scale: 1, rotate: "-5deg" }}
+      animate={{ opacity: 1, scale: 1, rotate: "-4deg" }}
       transition={{ type: "spring", stiffness: 260, damping: 22, delay: 1.1 }}
-      whileHover={{ scale: 1.06, rotate: "-5deg", y: -3 }}
+      whileHover={{ scale: 1.05, rotate: "-4deg", y: -3 }}
     >
       <span
         className="text-[#111] text-[14px] font-black uppercase tracking-[0.04em] leading-none"

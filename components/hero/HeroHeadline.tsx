@@ -34,9 +34,9 @@ export default function HeroHeadline() {
         className="inline-block"
         style={{
           border: "4px solid #CFDE00",
-          padding: "4px 16px 0px 16px",
-          marginTop: 6,
-          marginBottom: 6,
+          padding: "10px 24px 8px 24px",
+          marginTop: 8,
+          marginBottom: 8,
           maxWidth: "fit-content",
           backgroundColor: "transparent",
         }}
@@ -46,7 +46,7 @@ export default function HeroHeadline() {
       >
         <span
           className="block text-[#CFDE00]"
-          style={{ fontSize: "clamp(98px, 10.8vw, 164px)", lineHeight: 0.9 }}
+          style={{ fontSize: "clamp(98px, 10.8vw, 164px)", lineHeight: 0.82 }}
         >
           WITH
         </span>
@@ -83,11 +83,11 @@ export default function HeroHeadline() {
         <motion.p
           className="font-mono text-[#E8E8E8] normal-case"
           style={{
-            fontSize: 14,
+            fontSize: 16,
             fontWeight: 700,
             letterSpacing: "0.02em",
-            lineHeight: 1.5,
-            maxWidth: 340,
+            lineHeight: 1.46,
+            maxWidth: 380,
             opacity: 1,
           }}
           initial={{ opacity: 0 }}

@@ -21,7 +21,7 @@ export default function Navbar() {
         </motion.div>
       </div>
 
-      <div className="pointer-events-auto hidden items-center gap-[56px] md:flex">
+      <div className="pointer-events-auto hidden items-center gap-[64px] md:flex">
         {links.map((link, i) => (
           <motion.a
             key={link}

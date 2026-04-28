@@ -23,7 +23,7 @@ export default function Hero() {
         />
 
         {/* Left: Frame — z-20 so its border lines draw over the purple slab */}
-        <div className="absolute z-20" style={{ left: 50, top: 148 }}>
+        <div className="absolute z-20" style={{ left: 70, top: 148 }}>
           <HeroFrame>
             <HeroHeadline />
             <HeroCTA />

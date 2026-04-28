@@ -17,7 +17,7 @@ const SHIELD =
 const IMAGE =
   "M 22 0 L 394 0 Q 416 0 416 22 L 416 343 Q 416 512 208 512 Q 0 512 0 343 L 0 22 Q 0 0 22 0 Z";
 
-const PLATE_W = 930;
+const PLATE_W = 910;
 const PLATE_H = 780;
 
 // Reference-like slab: a controlled two-step top-left notch and a slanted

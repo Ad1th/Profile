@@ -30,15 +30,34 @@ const TILT_OFFSET = 60; // px difference between top-x and bottom-x of the right
 const W2 = W - 825;
 const H2 = 785;
 const TILT_OFFSET2 = 60;
+const X = W2 - TILT_OFFSET2; // Starting X position for the zig-zag pattern on the right edge
 
 // This path creates the "tab" and the long diagonal lean
+// const RIGHT_EDGE =
+//   `M ${W2 - TILT_OFFSET2} 0 ` + // Start at the top right (accounting for tilt)
+//   `L ${W2 - TILT_OFFSET2} 140 ` + // Go straight down to the start of the notch
+//   `L ${W2 - TILT_OFFSET2 + 30} 140 ` + // Jut OUT to the right (the 'tab')
+//   `L ${W2 - TILT_OFFSET2 + 30} 280 ` + // Go down while inside the tab
+//   `L ${W2 - TILT_OFFSET2} 280 ` + // Move back LEFT to the main line
+//   `L ${W2} ${H2}`; // Long diagonal lean to the bottom right corner
+
+// Zig-zag pattern: Out at 35px, In at 0px
 const RIGHT_EDGE =
-  `M ${W2 - TILT_OFFSET2} 0 ` + // Start at the top right (accounting for tilt)
-  `L ${W2 - TILT_OFFSET2} 140 ` + // Go straight down to the start of the notch
-  `L ${W2 - TILT_OFFSET2 + 30} 140 ` + // Jut OUT to the right (the 'tab')
-  `L ${W2 - TILT_OFFSET2 + 30} 280 ` + // Go down while inside the tab
-  `L ${W2 - TILT_OFFSET2} 280 ` + // Move back LEFT to the main line
-  `L ${W2} ${H2}`; // Long diagonal lean to the bottom right corner
+  `M ${X} 0 ` +
+  // Tooth 1 (0-140)
+  `L ${X} 80 L ${X + 35} 80 L ${X + 35} 140 L ${X} 140 ` +
+  // Tooth 2 (200-260)
+  `L ${X} 200 L ${X + 35} 200 L ${X + 35} 260 L ${X} 260 ` +
+  // Tooth 3 (320-380)
+  `L ${X} 320 L ${X + 35} 320 L ${X + 35} 380 L ${X} 380 ` +
+  // Tooth 4 (440-500)
+  `L ${X} 440 L ${X + 35} 440 L ${X + 35} 500 L ${X} 500 ` +
+  // Tooth 5 (560-620)
+  `L ${X} 560 L ${X + 35} 560 L ${X + 35} 620 L ${X} 620 ` +
+  // Tooth 6 (680-740)
+  `L ${X} 680 L ${X + 35} 680 L ${X + 35} 740 L ${X} 740 ` +
+  // Final stretch to the bottom corner
+  `L ${W2} ${H2}`;
 // ─────────────────────────────────────────────────────────────────────────────
 // ─────────────────────────────────────────────────────────────────────────────
 

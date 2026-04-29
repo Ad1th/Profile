@@ -555,11 +555,12 @@ function HeroMobile() {
         className="relative bg-[#6C8EAD]"
         style={{
           borderBottom: "4px solid #111",
-          padding: "24px 16px",
+          padding: "12px 16px 24px",
           minHeight: "auto",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          marginTop: -50,
         }}
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -594,7 +595,7 @@ function HeroMobile() {
             3+
           </div>
           <div
-            className="text-[#555] text-[11px] font-bold tracking-[0.08em] uppercase"
+            className="text-[#555] text-[10px] font-bold tracking-[0.12em] uppercase"
             style={{
               fontFamily: "var(--font-archivo), monospace",
               marginTop: 6,
@@ -622,7 +623,7 @@ function HeroMobile() {
             12
           </div>
           <div
-            className="text-[#555] text-[11px] font-bold tracking-[0.08em] uppercase"
+            className="text-[#555] text-[10px] font-bold tracking-[0.12em] uppercase"
             style={{
               fontFamily: "var(--font-archivo), monospace",
               marginTop: 6,
@@ -882,7 +883,11 @@ function HeadlineMobile() {
     >
       <motion.span
         className="block text-[#F0EBE0]"
-        style={{ fontSize: "clamp(60px, 18vw, 108px)" }}
+        style={{
+          fontSize: "clamp(60px, 18vw, 108px)",
+          lineHeight: 0.88,
+          marginBottom: 0,
+        }}
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.15, ease: easings.primary }}
@@ -895,8 +900,8 @@ function HeadlineMobile() {
         style={{
           border: "3px solid #CFDE00",
           padding: "4px 14px 0px 14px",
-          marginTop: 8,
-          marginBottom: 8,
+          marginTop: 4,
+          marginBottom: 4,
           maxWidth: "fit-content",
         }}
         initial={{ x: -20, opacity: 0 }}
@@ -905,7 +910,7 @@ function HeadlineMobile() {
       >
         <span
           className="block text-[#CFDE00]"
-          style={{ fontSize: "clamp(56px, 17vw, 104px)", lineHeight: 0.9 }}
+          style={{ fontSize: "clamp(56px, 17vw, 104px)", lineHeight: 0.88 }}
         >
           WITH
         </span>
@@ -913,7 +918,11 @@ function HeadlineMobile() {
 
       <motion.span
         className="block text-[#E8420A]"
-        style={{ fontSize: "clamp(60px, 18vw, 108px)" }}
+        style={{
+          fontSize: "clamp(60px, 18vw, 108px)",
+          lineHeight: 0.88,
+          marginTop: 0,
+        }}
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.35, ease: easings.primary }}
@@ -938,6 +947,7 @@ function HeadlineMobile() {
           fontWeight: 600,
           lineHeight: 1.4,
           opacity: 1,
+          marginBottom: 16,
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -951,7 +961,11 @@ function HeadlineMobile() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5, ease: easings.primary }}
-        style={{ display: "flex", justifyContent: "flex-start" }}
+        style={{
+          display: "flex",
+          justifyContent: "flex-start",
+          marginTop: -5,
+        }}
       >
         <CTAMobile />
       </motion.div>
@@ -1001,7 +1015,7 @@ function CTAMobile() {
 
 function HeroPortraitMobile() {
   return (
-    <div style={{ position: "relative", width: "90%", maxWidth: 220 }}>
+    <div style={{ position: "relative", width: "90%", maxWidth: 238 }}>
       <motion.div
         className="relative"
         style={{

@@ -879,12 +879,13 @@ function HeadlineMobile() {
         fontWeight: 900,
         letterSpacing: "-0.06em",
         lineHeight: 0.88,
+        marginTop: -10,
       }}
     >
       <motion.span
         className="block text-[#F0EBE0]"
         style={{
-          fontSize: "clamp(60px, 18vw, 108px)",
+          fontSize: "clamp(65px, 19vw, 114px)",
           lineHeight: 0.88,
           marginBottom: 0,
         }}
@@ -899,9 +900,9 @@ function HeadlineMobile() {
         className="inline-block"
         style={{
           border: "3px solid #CFDE00",
-          padding: "4px 14px 0px 14px",
-          marginTop: 4,
-          marginBottom: 4,
+          padding: "3px 12px 0px 12px",
+          marginTop: 2,
+          marginBottom: 2,
           maxWidth: "fit-content",
         }}
         initial={{ x: -20, opacity: 0 }}
@@ -910,7 +911,7 @@ function HeadlineMobile() {
       >
         <span
           className="block text-[#CFDE00]"
-          style={{ fontSize: "clamp(56px, 17vw, 104px)", lineHeight: 0.88 }}
+          style={{ fontSize: "clamp(61px, 18vw, 110px)", lineHeight: 0.85 }}
         >
           WITH
         </span>
@@ -919,7 +920,7 @@ function HeadlineMobile() {
       <motion.span
         className="block text-[#E8420A]"
         style={{
-          fontSize: "clamp(60px, 18vw, 108px)",
+          fontSize: "clamp(65px, 19vw, 114px)",
           lineHeight: 0.88,
           marginTop: 0,
         }}
@@ -932,22 +933,23 @@ function HeadlineMobile() {
 
       <div
         style={{
-          width: 40,
+          width: 48,
           height: 2,
           background: "#CFDE00",
-          marginTop: 12,
-          marginBottom: 12,
+          marginTop: 10,
+          marginBottom: 10,
         }}
       />
 
       <motion.p
         className="font-mono text-[#E8E8E8] normal-case"
         style={{
-          fontSize: 12,
-          fontWeight: 600,
-          lineHeight: 1.4,
-          opacity: 1,
-          marginBottom: 16,
+          fontSize: 13,
+          fontWeight: 500,
+          lineHeight: 1.5,
+          opacity: 0.9,
+          marginBottom: 18,
+          letterSpacing: "0.01em",
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

@@ -5,14 +5,46 @@ import HeroCTA from "./HeroCTA";
 import HeroPortrait from "./HeroPortrait";
 import { motion } from "framer-motion";
 import { easings } from "@/lib/motion";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function Hero() {
+  const [viewport, setViewport] = useState<"desktop" | "tablet" | "mobile">(
+    "desktop",
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth;
+      if (w >= 1280) setViewport("desktop");
+      else if (w >= 768) setViewport("tablet");
+      else setViewport("mobile");
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  if (viewport === "tablet") {
+    return <HeroTablet />;
+  }
+
+  if (viewport === "mobile") {
+    return <HeroMobile />;
+  }
+
+  return <HeroDesktop />;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DESKTOP: Two-column split layout (1280px+)
+// ═══════════════════════════════════════════════════════════════
+function HeroDesktop() {
   return (
     <section className="relative h-screen min-h-[900px] w-full overflow-hidden bg-[#F0EBE0]">
-      {/* Grain overlay */}
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
-      {/* Outer border frame — full page */}
       <motion.div
         className="absolute inset-0 z-50 pointer-events-none"
         style={{ border: "5px solid #111" }}
@@ -21,7 +53,6 @@ export default function Hero() {
         transition={{ duration: 0.3, delay: 0.1 }}
       />
 
-      {/* Top bar */}
       <div
         className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between bg-[#F0EBE0]"
         style={{
@@ -68,7 +99,6 @@ export default function Hero() {
         className="relative w-full h-full flex"
         style={{ paddingTop: 64, paddingBottom: 112 }}
       >
-        {/* ── LEFT PANEL ── */}
         <motion.div
           className="relative flex flex-col justify-center bg-[#111]"
           style={{
@@ -93,14 +123,12 @@ export default function Hero() {
               border: "2px solid #111",
             }}
           />
-          {/* Headline + CTA */}
           <div style={{ marginTop: 50 }}>
             <HeroHeadline />
             <HeroCTA />
           </div>
         </motion.div>
 
-        {/* ── RIGHT PANEL ── */}
         <motion.div
           className="relative flex items-center justify-center bg-[#6C8EAD]"
           style={{
@@ -111,15 +139,10 @@ export default function Hero() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2, ease: easings.primary }}
         >
-          {/* Left accent bar */}
           <div
             className="absolute left-0 top-0 bottom-0"
-            style={{
-              width: 4,
-              background: "#E8420A",
-            }}
+            style={{ width: 4, background: "#E8420A" }}
           />
-          {/* Orange accent block bottom-left */}
           <div
             className="absolute"
             style={{
@@ -136,7 +159,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Stats row above ticker */}
       <div
         className="absolute left-0 right-0 z-30 flex items-center"
         style={{
@@ -200,7 +222,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Full-width scrolling ticker at the very bottom */}
       <motion.div
         className="absolute bottom-0 left-0 right-0 z-40 overflow-hidden flex items-center"
         style={{
@@ -245,5 +266,800 @@ export default function Hero() {
         }
       `}</style>
     </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// TABLET: Stacked layout (768px–1279px)
+// ═══════════════════════════════════════════════════════════════
+function HeroTablet() {
+  return (
+    <section className="relative w-full overflow-hidden bg-[#F0EBE0]">
+      <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
+
+      <motion.div
+        className="absolute inset-0 z-50 pointer-events-none"
+        style={{ border: "5px solid #111" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+      />
+
+      <div
+        className="relative z-30 flex items-center justify-between bg-[#F0EBE0]"
+        style={{
+          height: 56,
+          borderBottom: "5px solid #111",
+          padding: "0 16px",
+        }}
+      >
+        <div
+          className="flex items-center justify-center bg-[#E8420A]"
+          style={{ width: 48, height: 40, border: "3px solid #111" }}
+        >
+          <span
+            className="text-white text-[24px] font-black tracking-[-0.08em] uppercase"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            A.
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          {["WORK", "ABOUT", "CONTACT"].map((item) => (
+            <span
+              key={item}
+              className="text-[#111] text-[18px] font-black tracking-[0.13em] cursor-pointer"
+              style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+
+        <div style={{ width: 2, height: 20, background: "#111" }} />
+        <div className="grid grid-cols-3 gap-[3px] bg-[#111] p-[6px]">
+          {[...Array(9)].map((_, i) => (
+            <div
+              key={i}
+              style={{ width: 3, height: 3, background: "#F0EBE0" }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <motion.div
+        className="relative bg-[#111]"
+        style={{
+          minHeight: "40vh",
+          borderBottom: "5px solid #111",
+          padding: "40px 32px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: easings.primary }}
+      >
+        <HeadlineTablet />
+      </motion.div>
+
+      <motion.div
+        className="relative bg-[#6C8EAD]"
+        style={{
+          minHeight: "45vh",
+          borderBottom: "5px solid #111",
+          padding: "40px 32px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
+        }}
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.2, ease: easings.primary }}
+      >
+        <div
+          className="absolute left-0 top-0 bottom-0"
+          style={{ width: 4, background: "#E8420A" }}
+        />
+        <HeroPortraitTablet />
+      </motion.div>
+
+      <div
+        className="relative z-30 grid grid-cols-2 gap-0"
+        style={{
+          background: "#F0EBE0",
+          borderBottom: "5px solid #111",
+          boxShadow: "0 -4px 0 #111",
+        }}
+      >
+        <div
+          style={{
+            borderRight: "5px solid #111",
+            padding: "24px 20px",
+            minHeight: "120px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <div className="mb-3 flex items-center gap-2">
+            <div style={{ width: 14, height: 2, background: "#111" }} />
+            <div style={{ width: 2, height: 2, background: "#E8420A" }} />
+          </div>
+          <div
+            className="text-[#111] text-[36px] font-black leading-none"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            3+
+          </div>
+          <div
+            className="text-[#444] text-[14px] font-bold tracking-[0.12em] uppercase"
+            style={{ fontFamily: "var(--font-archivo), monospace" }}
+          >
+            Years Building
+          </div>
+        </div>
+
+        <div
+          style={{
+            padding: "24px 20px",
+            minHeight: "120px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <div className="mb-3 flex items-center gap-2">
+            <div style={{ width: 10, height: 2, background: "#111" }} />
+            <div
+              style={{
+                width: 10,
+                height: 2,
+                background: "#111",
+                transform: "skewX(-32deg)",
+              }}
+            />
+          </div>
+          <div
+            className="text-[#111] text-[36px] font-black leading-none"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            12
+          </div>
+          <div
+            className="text-[#444] text-[14px] font-bold tracking-[0.12em] uppercase"
+            style={{ fontFamily: "var(--font-archivo), monospace" }}
+          >
+            Projects Shipped
+          </div>
+        </div>
+      </div>
+
+      <motion.div
+        className="relative z-40 overflow-hidden flex items-center"
+        style={{
+          height: 48,
+          background: "#E8420A",
+          borderTop: "5px solid #111",
+          boxShadow: "0 -3px 0 #111",
+        }}
+        initial={{ y: 60 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, delay: 1.0, ease: easings.primary }}
+      >
+        <div
+          className="flex items-center h-full whitespace-nowrap"
+          style={{
+            animation: "ticker 20s linear infinite",
+            paddingLeft: 16,
+          }}
+        >
+          {[...Array(3)].map((_, i) => (
+            <span
+              key={i}
+              className="text-white text-[12px] font-black tracking-[0.24em] uppercase"
+              style={{
+                fontFamily: "var(--font-archivo), monospace",
+                paddingRight: 48,
+              }}
+            >
+              OPEN TO INTERN ■ BACKEND ■ CLEAN CODE ■ PRESSURE TESTED BUILDS ■
+            </span>
+          ))}
+        </div>
+      </motion.div>
+
+      <style>{`
+        @keyframes ticker {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MOBILE: Single-column poster layout (<768px)
+// ═══════════════════════════════════════════════════════════════
+function HeroMobile() {
+  return (
+    <section className="relative w-full overflow-hidden bg-[#F0EBE0]">
+      <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
+
+      <motion.div
+        className="absolute inset-0 z-50 pointer-events-none"
+        style={{ border: "4px solid #111" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+      />
+
+      <div
+        className="relative z-30 flex items-center justify-between bg-[#F0EBE0]"
+        style={{
+          height: 48,
+          borderBottom: "4px solid #111",
+          padding: "0 12px",
+        }}
+      >
+        <div
+          className="flex items-center justify-center bg-[#E8420A]"
+          style={{ width: 40, height: 34, border: "3px solid #111" }}
+        >
+          <span
+            className="text-white text-[18px] font-black tracking-[-0.08em] uppercase"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            A.
+          </span>
+        </div>
+
+        <div style={{ flex: 1 }} />
+
+        <div
+          style={{ width: 2, height: 18, background: "#111", marginRight: 8 }}
+        />
+        <div className="grid grid-cols-3 gap-[2px] bg-[#111] p-[4px]">
+          {[...Array(9)].map((_, i) => (
+            <div
+              key={i}
+              style={{ width: 2, height: 2, background: "#F0EBE0" }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <motion.div
+        className="relative bg-[#111]"
+        style={{
+          borderBottom: "4px solid #111",
+          padding: "32px 20px",
+          minHeight: "50vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: easings.primary }}
+      >
+        <HeadlineMobile />
+      </motion.div>
+
+      <motion.div
+        className="relative bg-[#6C8EAD]"
+        style={{
+          borderBottom: "4px solid #111",
+          padding: "24px 16px",
+          minHeight: "auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.2, ease: easings.primary }}
+      >
+        <HeroPortraitMobile />
+      </motion.div>
+
+      <div
+        className="relative z-30 grid grid-cols-2 gap-0"
+        style={{
+          background: "#F0EBE0",
+          borderBottom: "4px solid #111",
+        }}
+      >
+        <div
+          style={{
+            borderRight: "4px solid #111",
+            borderBottom: "4px solid #111",
+            padding: "16px 12px",
+            minHeight: "100px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            textAlign: "center",
+          }}
+        >
+          <div
+            className="text-[#111] text-[28px] font-black leading-none"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            3+
+          </div>
+          <div
+            className="text-[#555] text-[11px] font-bold tracking-[0.08em] uppercase"
+            style={{
+              fontFamily: "var(--font-archivo), monospace",
+              marginTop: 6,
+            }}
+          >
+            Years
+          </div>
+        </div>
+
+        <div
+          style={{
+            borderBottom: "4px solid #111",
+            padding: "16px 12px",
+            minHeight: "100px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            textAlign: "center",
+          }}
+        >
+          <div
+            className="text-[#111] text-[28px] font-black leading-none"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            12
+          </div>
+          <div
+            className="text-[#555] text-[11px] font-bold tracking-[0.08em] uppercase"
+            style={{
+              fontFamily: "var(--font-archivo), monospace",
+              marginTop: 6,
+            }}
+          >
+            Projects
+          </div>
+        </div>
+      </div>
+
+      <motion.div
+        className="relative z-40 overflow-hidden flex items-center"
+        style={{
+          height: 40,
+          background: "#E8420A",
+          borderTop: "4px solid #111",
+        }}
+        initial={{ y: 60 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, delay: 1.0, ease: easings.primary }}
+      >
+        <div
+          className="flex items-center h-full whitespace-nowrap"
+          style={{
+            animation: "ticker 18s linear infinite",
+            paddingLeft: 12,
+          }}
+        >
+          {[...Array(2)].map((_, i) => (
+            <span
+              key={i}
+              className="text-white text-[10px] font-black tracking-[0.2em] uppercase"
+              style={{
+                fontFamily: "var(--font-archivo), monospace",
+                paddingRight: 32,
+              }}
+            >
+              OPEN TO INTERN ■ BACKEND ■ CLEAN CODE ■
+            </span>
+          ))}
+        </div>
+      </motion.div>
+
+      <style>{`
+        @keyframes ticker {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Helper: Tablet Headline
+// ═══════════════════════════════════════════════════════════════
+function HeadlineTablet() {
+  return (
+    <div
+      className="flex flex-col select-none uppercase"
+      style={{
+        fontFamily: "var(--font-anton), 'Arial Black', Impact, sans-serif",
+        fontWeight: 900,
+        letterSpacing: "-0.06em",
+        lineHeight: 0.88,
+      }}
+    >
+      <motion.span
+        className="block text-[#F0EBE0]"
+        style={{ fontSize: "clamp(48px, 8vw, 96px)" }}
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.65, delay: 0.15, ease: easings.primary }}
+      >
+        BACKEND
+      </motion.span>
+
+      <motion.div
+        className="inline-block"
+        style={{
+          border: "3px solid #CFDE00",
+          padding: "3px 12px 0px 12px",
+          marginTop: 6,
+          marginBottom: 6,
+          maxWidth: "fit-content",
+          backgroundColor: "transparent",
+        }}
+        initial={{ x: -30, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.65, delay: 0.25, ease: easings.primary }}
+      >
+        <span
+          className="block text-[#CFDE00]"
+          style={{ fontSize: "clamp(48px, 8vw, 92px)", lineHeight: 0.9 }}
+        >
+          WITH
+        </span>
+      </motion.div>
+
+      <motion.span
+        className="block text-[#E8420A]"
+        style={{ fontSize: "clamp(48px, 8vw, 96px)" }}
+        initial={{ y: 60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.65, delay: 0.35, ease: easings.primary }}
+      >
+        TASTE.
+      </motion.span>
+
+      <motion.p
+        className="font-mono text-[#E8E8E8] normal-case mt-6"
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          letterSpacing: "0.02em",
+          lineHeight: 1.5,
+          maxWidth: 280,
+          opacity: 1,
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.4, ease: easings.primary }}
+      >
+        Pressure tested builds with clean internals.
+      </motion.p>
+
+      <motion.div
+        className="mt-8"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.5, ease: easings.primary }}
+      >
+        <CTATablet />
+      </motion.div>
+    </div>
+  );
+}
+
+function CTATablet() {
+  return (
+    <div style={{ position: "relative", width: 220, height: 52 }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "#E8420A",
+          border: "3px solid #111",
+          transform: "translate(6px, 6px)",
+          zIndex: 0,
+        }}
+      />
+      <button
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "#CFDE00",
+          border: "3px solid #111",
+          zIndex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 12,
+          cursor: "pointer",
+          fontSize: 14,
+          fontWeight: 900,
+          fontFamily: "var(--font-archivo), sans-serif",
+          textTransform: "uppercase",
+          letterSpacing: "-0.03em",
+          color: "#111",
+          outline: "none",
+        }}
+      >
+        VIEW WORK
+      </button>
+    </div>
+  );
+}
+
+function HeroPortraitTablet() {
+  return (
+    <div style={{ position: "relative", width: "100%", maxWidth: 340 }}>
+      <motion.div
+        className="relative"
+        style={{
+          width: "100%",
+          aspectRatio: "3 / 4",
+          border: "5px solid #111",
+          boxShadow: "10px 10px 0 #F0EBE0",
+          background: "#1F1F1F",
+        }}
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.3, ease: easings.primary }}
+      >
+        <img
+          src="/images/me2.jpeg"
+          alt="Adith Manikonda"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 24%",
+            filter: "grayscale(100%) contrast(1.18)",
+            transform: "scale(1.02)",
+          }}
+        />
+      </motion.div>
+
+      <motion.div
+        className="absolute flex items-center justify-center gap-3 bg-[#CFDE00]"
+        style={{
+          width: 200,
+          height: 40,
+          bottom: 20,
+          right: -10,
+          rotate: "-5deg",
+          border: "4px solid #111",
+          boxShadow: "8px 8px 0 #E8420A",
+          zIndex: 20,
+        }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 22,
+          delay: 0.7,
+        }}
+      >
+        <span
+          className="text-[#111] text-[12px] font-black uppercase tracking-[0.04em] leading-none"
+          style={{
+            fontFamily: "var(--font-archivo), sans-serif",
+            whiteSpace: "nowrap",
+          }}
+        >
+          OPEN TO INTERN
+        </span>
+      </motion.div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Helper: Mobile Headline
+// ═══════════════════════════════════════════════════════════════
+function HeadlineMobile() {
+  return (
+    <div
+      className="flex flex-col select-none uppercase"
+      style={{
+        fontFamily: "var(--font-anton), 'Arial Black', Impact, sans-serif",
+        fontWeight: 900,
+        letterSpacing: "-0.06em",
+        lineHeight: 0.88,
+      }}
+    >
+      <motion.span
+        className="block text-[#F0EBE0]"
+        style={{ fontSize: "clamp(60px, 18vw, 108px)" }}
+        initial={{ y: 40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.15, ease: easings.primary }}
+      >
+        BACKEND
+      </motion.span>
+
+      <motion.div
+        className="inline-block"
+        style={{
+          border: "3px solid #CFDE00",
+          padding: "4px 14px 0px 14px",
+          marginTop: 8,
+          marginBottom: 8,
+          maxWidth: "fit-content",
+        }}
+        initial={{ x: -20, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.25, ease: easings.primary }}
+      >
+        <span
+          className="block text-[#CFDE00]"
+          style={{ fontSize: "clamp(56px, 17vw, 104px)", lineHeight: 0.9 }}
+        >
+          WITH
+        </span>
+      </motion.div>
+
+      <motion.span
+        className="block text-[#E8420A]"
+        style={{ fontSize: "clamp(60px, 18vw, 108px)" }}
+        initial={{ y: 40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.35, ease: easings.primary }}
+      >
+        TASTE.
+      </motion.span>
+
+      <div
+        style={{
+          width: 40,
+          height: 2,
+          background: "#CFDE00",
+          marginTop: 12,
+          marginBottom: 12,
+        }}
+      />
+
+      <motion.p
+        className="font-mono text-[#E8E8E8] normal-case"
+        style={{
+          fontSize: 12,
+          fontWeight: 600,
+          lineHeight: 1.4,
+          opacity: 1,
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.4, ease: easings.primary }}
+      >
+        Pressure tested builds with clean internals.
+      </motion.p>
+
+      <motion.div
+        className="mt-6"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.5, ease: easings.primary }}
+        style={{ display: "flex", justifyContent: "flex-start" }}
+      >
+        <CTAMobile />
+      </motion.div>
+    </div>
+  );
+}
+
+function CTAMobile() {
+  return (
+    <div style={{ position: "relative", width: 160, height: 40 }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "#E8420A",
+          border: "3px solid #111",
+          transform: "translate(4px, 4px)",
+          zIndex: 0,
+        }}
+      />
+      <button
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "#CFDE00",
+          border: "3px solid #111",
+          zIndex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 8,
+          cursor: "pointer",
+          fontSize: 11,
+          fontWeight: 900,
+          fontFamily: "var(--font-archivo), sans-serif",
+          textTransform: "uppercase",
+          letterSpacing: "-0.03em",
+          color: "#111",
+          outline: "none",
+        }}
+      >
+        VIEW WORK
+      </button>
+    </div>
+  );
+}
+
+function HeroPortraitMobile() {
+  return (
+    <div style={{ position: "relative", width: "90%", maxWidth: 220 }}>
+      <motion.div
+        className="relative"
+        style={{
+          width: "100%",
+          aspectRatio: "1 / 1",
+          border: "4px solid #111",
+          boxShadow: "6px 6px 0 #F0EBE0",
+          background: "#1F1F1F",
+        }}
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.25, ease: easings.primary }}
+      >
+        <img
+          src="/images/me2.jpeg"
+          alt="Adith Manikonda"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 24%",
+            filter: "grayscale(100%) contrast(1.18)",
+            transform: "scale(1.02)",
+          }}
+        />
+      </motion.div>
+
+      <motion.div
+        className="absolute flex items-center justify-center bg-[#CFDE00]"
+        style={{
+          width: 140,
+          height: 32,
+          bottom: -6,
+          right: -10,
+          rotate: "-5deg",
+          border: "3px solid #111",
+          boxShadow: "5px 5px 0 #E8420A",
+          zIndex: 20,
+        }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 22,
+          delay: 0.6,
+        }}
+      >
+        <span
+          className="text-[#111] text-[9px] font-black uppercase tracking-[0.04em] leading-none"
+          style={{
+            fontFamily: "var(--font-archivo), sans-serif",
+            whiteSpace: "nowrap",
+          }}
+        >
+          OPEN TO INTERN
+        </span>
+      </motion.div>
+    </div>
   );
 }

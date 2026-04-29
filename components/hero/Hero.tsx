@@ -16,7 +16,7 @@ export default function Hero() {
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
-      if (w >= 1280) setViewport("desktop");
+      if (w >= 1025) setViewport("desktop");
       else if (w >= 768) setViewport("tablet");
       else setViewport("mobile");
     };
@@ -270,11 +270,11 @@ function HeroDesktop() {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// TABLET: Stacked layout (768px–1279px)
+// TABLET: Mini-desktop split layout (768px–1024px)
 // ═══════════════════════════════════════════════════════════════
 function HeroTablet() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#F0EBE0]">
+    <section className="relative min-h-screen w-full overflow-hidden bg-[#F0EBE0]">
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
       <motion.div
@@ -309,7 +309,7 @@ function HeroTablet() {
           {["WORK", "ABOUT", "CONTACT"].map((item) => (
             <span
               key={item}
-              className="text-[#111] text-[18px] font-black tracking-[0.13em] cursor-pointer"
+              className="text-[#111] text-[16px] font-black tracking-[0.13em] cursor-pointer"
               style={{ fontFamily: "var(--font-archivo), sans-serif" }}
             >
               {item}
@@ -328,45 +328,74 @@ function HeroTablet() {
         </div>
       </div>
 
-      <motion.div
-        className="relative bg-[#111]"
+      <div
+        className="relative"
         style={{
-          minHeight: "40vh",
+          minHeight: "calc(100vh - 56px - 112px - 48px)",
+          display: "grid",
+          gridTemplateColumns: "52% 48%",
           borderBottom: "5px solid #111",
-          padding: "40px 32px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
         }}
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.1, ease: easings.primary }}
       >
-        <HeadlineTablet />
-      </motion.div>
+        <motion.div
+          className="relative bg-[#111]"
+          style={{
+            borderRight: "5px solid #111",
+            padding: "32px clamp(20px, 4vw, 36px)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+          initial={{ x: -28, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: easings.primary }}
+        >
+          <div
+            className="absolute"
+            style={{
+              left: 16,
+              bottom: 22,
+              width: 12,
+              height: 12,
+              background: "#E8420A",
+              border: "2px solid #111",
+            }}
+          />
+          <div style={{ width: "100%", maxWidth: 460 }}>
+            <HeadlineTablet />
+          </div>
+        </motion.div>
 
-      <motion.div
-        className="relative bg-[#6C8EAD]"
-        style={{
-          minHeight: "45vh",
-          borderBottom: "5px solid #111",
-          padding: "40px 32px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
-        }}
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.2, ease: easings.primary }}
-      >
-        <div
-          className="absolute left-0 top-0 bottom-0"
-          style={{ width: 4, background: "#E8420A" }}
-        />
-        <HeroPortraitTablet />
-      </motion.div>
+        <motion.div
+          className="relative bg-[#6C8EAD]"
+          style={{
+            padding: "28px clamp(16px, 3vw, 28px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          initial={{ x: 40, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: easings.primary }}
+        >
+          <div
+            className="absolute left-0 top-0 bottom-0"
+            style={{ width: 4, background: "#E8420A" }}
+          />
+          <div
+            className="absolute"
+            style={{
+              left: 14,
+              bottom: 18,
+              width: 16,
+              height: 16,
+              background: "#E8420A",
+              border: "2px solid #111",
+            }}
+          />
+          <HeroPortraitTablet />
+        </motion.div>
+      </div>
 
       <div
         className="relative z-30 grid grid-cols-2 gap-0"
@@ -740,7 +769,7 @@ function HeadlineTablet() {
           fontWeight: 600,
           letterSpacing: "0.02em",
           lineHeight: 1.5,
-          maxWidth: 280,
+          maxWidth: 360,
           opacity: 1,
         }}
         initial={{ opacity: 0 }}
@@ -804,7 +833,7 @@ function CTATablet() {
 
 function HeroPortraitTablet() {
   return (
-    <div style={{ position: "relative", width: "100%", maxWidth: 340 }}>
+    <div style={{ position: "relative", width: "100%", maxWidth: 360 }}>
       <motion.div
         className="relative"
         style={{

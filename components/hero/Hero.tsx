@@ -581,7 +581,7 @@ function HeroMobile() {
             borderRight: "4px solid #111",
             borderBottom: "4px solid #111",
             padding: "16px 12px",
-            minHeight: "100px",
+            minHeight: "85px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -609,7 +609,7 @@ function HeroMobile() {
           style={{
             borderBottom: "4px solid #111",
             padding: "16px 12px",
-            minHeight: "100px",
+            minHeight: "85px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",

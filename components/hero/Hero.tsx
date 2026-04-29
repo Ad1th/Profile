@@ -555,12 +555,12 @@ function HeroMobile() {
         className="relative bg-[#6C8EAD]"
         style={{
           borderBottom: "4px solid #111",
-          padding: "12px 16px 24px",
+          padding: "28px 16px 32px",
           minHeight: "auto",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          marginTop: -50,
+          marginTop: -35,
         }}
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -1018,7 +1018,7 @@ function CTAMobile() {
 
 function HeroPortraitMobile() {
   return (
-    <div style={{ position: "relative", width: "90%", maxWidth: 238 }}>
+    <div style={{ position: "relative", width: "90%", maxWidth: 268 }}>
       <motion.div
         className="relative"
         style={{

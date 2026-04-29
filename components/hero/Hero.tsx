@@ -887,6 +887,7 @@ function HeadlineMobile() {
         style={{
           fontSize: "clamp(65px, 19vw, 114px)",
           lineHeight: 0.88,
+          marginTop: -35,
           marginBottom: 0,
         }}
         initial={{ y: 40, opacity: 0 }}
@@ -901,7 +902,7 @@ function HeadlineMobile() {
         style={{
           border: "3px solid #CFDE00",
           padding: "3px 12px 0px 12px",
-          marginTop: 2,
+          marginTop: 4,
           marginBottom: 2,
           maxWidth: "fit-content",
         }}
@@ -922,7 +923,7 @@ function HeadlineMobile() {
         style={{
           fontSize: "clamp(65px, 19vw, 114px)",
           lineHeight: 0.88,
-          marginTop: 0,
+          marginTop: 4,
         }}
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

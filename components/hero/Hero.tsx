@@ -225,7 +225,7 @@ function HeroDesktop() {
             className="text-[#111] text-[48px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
-            12
+            15+
           </div>
           <div
             className="text-[#444] text-[25px] font-bold tracking-[0.12em] uppercase"
@@ -471,7 +471,7 @@ function HeroTabletLandscape() {
             className="text-[#111] text-[36px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
-            12
+            15+
           </div>
           <div
             className="text-[#444] text-[14px] font-bold tracking-[0.12em] uppercase"
@@ -679,7 +679,7 @@ function HeroTabletPortrait() {
             className="text-[#111] text-[34px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
-            12
+            15+
           </div>
           <div
             className="text-[#444] text-[13px] font-bold tracking-[0.12em] uppercase"

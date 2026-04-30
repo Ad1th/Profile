@@ -1,40 +1,281 @@
-
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=IBM+Plex+Mono:wght@400;700&display=swap');
-  .nb-wrap { font-family: 'Space Grotesk', sans-serif; background: #F0EBE0; border: 3px solid #111; }
-  .nb-nav { background: #F0EBE0; border-bottom: 3px solid #111; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; }
-  .nb-logo { background: #E8420A; color: #fff; font-weight: 700; font-size: 18px; padding: 4px 10px; border: 2px solid #111; letter-spacing: -1px; }
-  .nb-navlinks { display: flex; gap: 28px; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #111; font-family: 'IBM Plex Mono', monospace; }
-  .nb-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 420px; }
-  .nb-left { background: #111; padding: 28px 24px; border-right: 3px solid #111; position: relative; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
-  .nb-accent-bar { position: absolute; left: 0; top: 60px; width: 8px; height: 80px; background: #E8420A; }
-  .nb-headline { line-height: 0.9; margin: 0 0 16px; }
-  .nb-headline .l1 { font-size: 72px; font-weight: 700; color: #fff; display: block; letter-spacing: -3px; text-transform: uppercase; }
-  .nb-headline .l2 { font-size: 72px; font-weight: 700; color: #CFDE00; display: block; letter-spacing: -3px; text-transform: uppercase; border: 3px solid #CFDE00; padding: 0 4px; display: inline-block; margin: 4px 0; }
-  .nb-headline .l3 { font-size: 72px; font-weight: 700; color: #E8420A; display: block; letter-spacing: -3px; text-transform: uppercase; }
-  .nb-sub { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #ccc; line-height: 1.5; margin: 12px 0 0; border-left: 3px solid #CFDE00; padding-left: 10px; }
-  .nb-cta { display: flex; align-items: center; gap: 0; margin-top: 20px; }
-  .nb-cta-btn { background: #CFDE00; color: #111; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; padding: 10px 18px; border: 3px solid #111; cursor: pointer; font-family: 'IBM Plex Mono', monospace; box-shadow: 4px 4px 0 #E8420A; }
-  .nb-corner-tag { position: absolute; top: 20px; right: 20px; background: #CFDE00; color: #111; font-size: 9px; font-weight: 700; letter-spacing: 1px; padding: 3px 7px; border: 2px solid #111; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
-  .nb-right { background: #4A8DB7; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
-  .nb-img-frame { width: 260px; height: 280px; background: #222; border: 4px solid #111; box-shadow: 8px 8px 0 #111; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-  .nb-img-placeholder { width: 100%; height: 100%; background: repeating-linear-gradient(45deg, #333 0px, #333 10px, #444 10px, #444 20px); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; }
-  .nb-img-placeholder span { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #888; text-align: center; letter-spacing: 1px; text-transform: uppercase; }
-  .nb-badge { position: absolute; bottom: -3px; right: -3px; background: #CFDE00; color: #111; font-weight: 700; font-size: 11px; padding: 6px 12px; border: 3px solid #111; letter-spacing: 1px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
-  .nb-status-dot { display: inline-block; width: 8px; height: 8px; background: #E8420A; border: 1px solid #111; margin-right: 6px; animation: blink 1.2s step-end infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-  .nb-ticker { background: #E8420A; border-top: 3px solid #111; padding: 7px 0; overflow: hidden; white-space: nowrap; }
-  .nb-ticker-inner { display: inline-block; animation: scroll 18s linear infinite; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 700; color: #fff; letter-spacing: 2px; text-transform: uppercase; }
-  @keyframes scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-  .nb-x-mark { position: absolute; top: 18px; left: 20px; width: 28px; height: 28px; }
-  .nb-x-mark::before, .nb-x-mark::after { content: ''; position: absolute; width: 100%; height: 3px; background: #CFDE00; top: 50%; transform-origin: center; }
-  .nb-x-mark::before { transform: translateY(-50%) rotate(45deg); }
-  .nb-x-mark::after { transform: translateY(-50%) rotate(-45deg); }
-  .nb-bottom-strip { display: grid; grid-template-columns: 1fr 1fr; border-top: 3px solid #111; }
-  .nb-stat { padding: 14px 20px; border-right: 3px solid #111; }
-  .nb-stat:last-child { border-right: none; }
-  .nb-stat-num { font-size: 28px; font-weight: 700; color: #111; letter-spacing: -1px; }
-  .nb-stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=IBM+Plex+Mono:wght@400;700&display=swap");
+  .nb-wrap {
+    font-family: "Space Grotesk", sans-serif;
+    background: #f0ebe0;
+    border: 3px solid #111;
+  }
+  .nb-nav {
+    background: #f0ebe0;
+    border-bottom: 3px solid #111;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nb-logo {
+    background: #e8420a;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 4px 10px;
+    border: 2px solid #111;
+    letter-spacing: -1px;
+  }
+  .nb-navlinks {
+    display: flex;
+    gap: 28px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #111;
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .nb-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 420px;
+  }
+  .nb-left {
+    background: #111;
+    padding: 28px 24px;
+    border-right: 3px solid #111;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  .nb-accent-bar {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    width: 8px;
+    height: 80px;
+    background: #e8420a;
+  }
+  .nb-headline {
+    line-height: 0.9;
+    margin: 0 0 16px;
+  }
+  .nb-headline .l1 {
+    font-size: 72px;
+    font-weight: 700;
+    color: #fff;
+    display: block;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+  }
+  .nb-headline .l2 {
+    font-size: 72px;
+    font-weight: 700;
+    color: #cfde00;
+    display: block;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+    border: 3px solid #cfde00;
+    padding: 0 4px;
+    display: inline-block;
+    margin: 4px 0;
+  }
+  .nb-headline .l3 {
+    font-size: 72px;
+    font-weight: 700;
+    color: #e8420a;
+    display: block;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+  }
+  .nb-sub {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: #ccc;
+    line-height: 1.5;
+    margin: 12px 0 0;
+    border-left: 3px solid #cfde00;
+    padding-left: 10px;
+  }
+  .nb-cta {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 20px;
+  }
+  .nb-cta-btn {
+    background: #cfde00;
+    color: #111;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border: 3px solid #111;
+    cursor: pointer;
+    font-family: "IBM Plex Mono", monospace;
+    box-shadow: 4px 4px 0 #e8420a;
+  }
+  .nb-corner-tag {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #cfde00;
+    color: #111;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 7px;
+    border: 2px solid #111;
+    font-family: "IBM Plex Mono", monospace;
+    text-transform: uppercase;
+  }
+  .nb-right {
+    background: #4a8db7;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .nb-img-frame {
+    width: 260px;
+    height: 280px;
+    background: #222;
+    border: 4px solid #111;
+    box-shadow: 8px 8px 0 #111;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nb-img-placeholder {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+      #333 0px,
+      #333 10px,
+      #444 10px,
+      #444 20px
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .nb-img-placeholder span {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: #888;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .nb-badge {
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    background: #cfde00;
+    color: #111;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 6px 12px;
+    border: 3px solid #111;
+    letter-spacing: 1px;
+    font-family: "IBM Plex Mono", monospace;
+    text-transform: uppercase;
+  }
+  .nb-status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #e8420a;
+    border: 1px solid #111;
+    margin-right: 6px;
+    animation: blink 1.2s step-end infinite;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  .nb-ticker {
+    background: #e8420a;
+    border-top: 3px solid #111;
+    padding: 7px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .nb-ticker-inner {
+    display: inline-block;
+    animation: scroll 18s linear infinite;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  @keyframes scroll {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  .nb-x-mark {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    width: 28px;
+    height: 28px;
+  }
+  .nb-x-mark::before,
+  .nb-x-mark::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: #cfde00;
+    top: 50%;
+    transform-origin: center;
+  }
+  .nb-x-mark::before {
+    transform: translateY(-50%) rotate(45deg);
+  }
+  .nb-x-mark::after {
+    transform: translateY(-50%) rotate(-45deg);
+  }
+  .nb-bottom-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 3px solid #111;
+  }
+  .nb-stat {
+    padding: 14px 20px;
+    border-right: 3px solid #111;
+  }
+  .nb-stat:last-child {
+    border-right: none;
+  }
+  .nb-stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -1px;
+  }
+  .nb-stat-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
 </style>
 
 <div class="nb-wrap">
@@ -43,24 +284,32 @@
     <div class="nb-navlinks">
       <span>Work</span><span>About</span><span>Contact</span>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,8px);gap:3px;">
-      <div style="width:8px;height:8px;background:#111"></div><div style="width:8px;height:8px;background:#111"></div><div style="width:8px;height:8px;background:#111"></div>
-      <div style="width:8px;height:8px;background:#111"></div><div style="width:8px;height:8px;background:#111"></div><div style="width:8px;height:8px;background:#111"></div>
-      <div style="width:8px;height:8px;background:#111"></div><div style="width:8px;height:8px;background:#111"></div><div style="width:8px;height:8px;background:#111"></div>
+    <div style="display: grid; grid-template-columns: repeat(3, 8px); gap: 3px">
+      <div style="width: 8px; height: 8px; background: #111"></div>
+      <div style="width: 8px; height: 8px; background: #111"></div>
+      <div style="width: 8px; height: 8px; background: #111"></div>
+      <div style="width: 8px; height: 8px; background: #111"></div>
+      <div style="width: 8px; height: 8px; background: #111"></div>
+      <div style="width: 8px; height: 8px; background: #111"></div>
+      <div style="width: 8px; height: 8px; background: #111"></div>
+      <div style="width: 8px; height: 8px; background: #111"></div>
+      <div style="width: 8px; height: 8px; background: #111"></div>
     </div>
   </nav>
 
   <div class="nb-hero">
     <div class="nb-left">
       <div class="nb-accent-bar"></div>
-      <div class="nb-corner-tag"><span class="nb-status-dot"></span>Available</div>
+      <div class="nb-corner-tag">
+        <span class="nb-status-dot"></span>Available
+      </div>
       <div>
         <div class="nb-headline">
           <span class="l1">BACKEND</span>
           <span class="l2">WITH</span>
           <span class="l3">TASTE.</span>
         </div>
-        <p class="nb-sub">Pressure-tested builds<br>with clean internals.</p>
+        <p class="nb-sub">Pressure-tested builds<br />with clean internals.</p>
       </div>
       <div>
         <div class="nb-cta">
@@ -72,8 +321,15 @@
     <div class="nb-right">
       <div class="nb-img-frame">
         <div class="nb-img-placeholder">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="14" r="7" stroke="#666" stroke-width="2"/><path d="M6 36c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="#666" stroke-width="2"/></svg>
-          <span>Your photo<br>goes here</span>
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="14" r="7" stroke="#666" stroke-width="2" />
+            <path
+              d="M6 36c0-7.732 6.268-14 14-14s14 6.268 14 14"
+              stroke="#666"
+              stroke-width="2"
+            />
+          </svg>
+          <span>Your photo<br />goes here</span>
         </div>
         <div class="nb-badge">OPEN TO INTERN ■</div>
       </div>
@@ -87,12 +343,16 @@
       <div class="nb-stat-label">Years building</div>
     </div>
     <div class="nb-stat">
-      <div class="nb-stat-num">12</div>
+      <div class="nb-stat-num">15+</div>
       <div class="nb-stat-label">Projects shipped</div>
     </div>
   </div>
 
   <div class="nb-ticker">
-    <span class="nb-ticker-inner">OPEN TO INTERN ■ BACKEND ENGINEER ■ CLEAN CODE ■ PRESSURE-TESTED BUILDS ■ AVAILABLE FOR WORK ■ OPEN TO INTERN ■ BACKEND ENGINEER ■ CLEAN CODE ■</span>
+    <span class="nb-ticker-inner"
+      >OPEN TO INTERN ■ BACKEND ENGINEER ■ CLEAN CODE ■ PRESSURE-TESTED BUILDS ■
+      AVAILABLE FOR WORK ■ OPEN TO INTERN ■ BACKEND ENGINEER ■ CLEAN CODE
+      ■</span
+    >
   </div>
 </div>

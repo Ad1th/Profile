@@ -12,6 +12,7 @@ export default function HeroHeadline() {
         fontWeight: 900,
         letterSpacing: "-0.06em",
         lineHeight: 0.88,
+        marginTop: -70,
         textRendering: "geometricPrecision",
         WebkitFontSmoothing: "antialiased",
       }}

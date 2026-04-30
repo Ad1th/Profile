@@ -112,7 +112,7 @@ Should overlap image frame slightly.
 Examples:
 
 - 3+ YEARS BUILDING
-- 12 PROJECTS SHIPPED
+- 15+ PROJECTS SHIPPED
 
 ### Ticker
 

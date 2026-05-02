@@ -173,7 +173,7 @@ function HeroDesktop() {
         </motion.div>
       </div>
 
-      <div
+      <motion.div
         className="absolute left-0 right-0 z-30 flex items-center"
         style={{
           bottom: 56,
@@ -183,6 +183,9 @@ function HeroDesktop() {
           borderBottom: "5px solid #111",
           boxShadow: "0 -4px 0 #111",
         }}
+        initial={{ opacity: 0, y: 18, scale: 0.985 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.65, delay: 0.35, ease: easings.primary }}
       >
         <div
           className="flex-1 flex flex-col items-start justify-center"
@@ -234,7 +237,7 @@ function HeroDesktop() {
             Projects Shipped
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <motion.div
         className="absolute bottom-0 left-0 right-0 z-40 overflow-hidden flex items-center"
@@ -411,13 +414,16 @@ function HeroTabletLandscape() {
         </motion.div>
       </div>
 
-      <div
+      <motion.div
         className="relative z-30 grid grid-cols-2 gap-0"
         style={{
           background: "#F0EBE0",
           borderBottom: "5px solid #111",
           boxShadow: "0 -4px 0 #111",
         }}
+        initial={{ opacity: 0, y: 16, scale: 0.985 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.65, delay: 0.3, ease: easings.primary }}
       >
         <div
           style={{
@@ -480,7 +486,7 @@ function HeroTabletLandscape() {
             Projects Shipped
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <motion.div
         className="relative z-40 overflow-hidden flex items-center"
@@ -619,13 +625,16 @@ function HeroTabletPortrait() {
         <HeroPortraitTabletPortrait />
       </motion.div>
 
-      <div
+      <motion.div
         className="relative z-30 grid grid-cols-2 gap-0"
         style={{
           background: "#F0EBE0",
           borderBottom: "5px solid #111",
           boxShadow: "0 -4px 0 #111",
         }}
+        initial={{ opacity: 0, y: 16, scale: 0.985 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.65, delay: 0.3, ease: easings.primary }}
       >
         <div
           style={{
@@ -688,7 +697,7 @@ function HeroTabletPortrait() {
             Projects Shipped
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <motion.div
         className="relative z-40 overflow-hidden flex items-center"
@@ -820,12 +829,15 @@ function HeroMobile() {
         <HeroPortraitMobile />
       </motion.div>
 
-      <div
+      <motion.div
         className="relative z-30 grid grid-cols-2 gap-0"
         style={{
           background: "#F0EBE0",
           borderBottom: "4px solid #111",
         }}
+        initial={{ opacity: 0, y: 14, scale: 0.985 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.65, delay: 0.25, ease: easings.primary }}
       >
         <div
           style={{
@@ -883,7 +895,7 @@ function HeroMobile() {
             Projects
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <motion.div
         className="relative z-40 overflow-hidden flex items-center"

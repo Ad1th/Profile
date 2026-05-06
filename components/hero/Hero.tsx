@@ -237,6 +237,34 @@ function HeroDesktop() {
             Projects Shipped
           </div>
         </div>
+        <div
+          className="flex-1 flex flex-col items-start justify-center"
+          style={{ padding: "14px 28px" }}
+        >
+          <div className="mb-3 flex items-center gap-2">
+            <div style={{ width: 12, height: 3, background: "#111" }} />
+            <div
+              style={{
+                width: 12,
+                height: 3,
+                background: "#111",
+                transform: "skewX(-32deg)",
+              }}
+            />
+          </div>
+          <div
+            className="text-[#111] text-[48px] font-black leading-none"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            80+
+          </div>
+          <div
+            className="text-[#444] text-[25px] font-bold tracking-[0.12em] uppercase"
+            style={{ fontFamily: "var(--font-archivo), monospace" }}
+          >
+            Repositories
+          </div>
+        </div>
       </motion.div>
 
       <motion.div

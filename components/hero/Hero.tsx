@@ -926,10 +926,11 @@ function HeroMobile() {
       </motion.div>
 
       <motion.div
-        className="relative z-30 grid grid-cols-2 gap-0"
+        className="relative z-30 grid gap-0"
         style={{
           background: "#F0EBE0",
           borderBottom: "4px solid #111",
+          gridTemplateColumns: "repeat(3, 1fr)",
         }}
         initial={{ opacity: 0, y: 14, scale: 0.985 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -966,6 +967,7 @@ function HeroMobile() {
 
         <div
           style={{
+            borderRight: "4px solid #111",
             borderBottom: "4px solid #111",
             padding: "16px 12px",
             minHeight: "85px",
@@ -989,6 +991,34 @@ function HeroMobile() {
             }}
           >
             Projects
+          </div>
+        </div>
+
+        <div
+          style={{
+            borderBottom: "4px solid #111",
+            padding: "16px 12px",
+            minHeight: "85px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            textAlign: "center",
+          }}
+        >
+          <div
+            className="text-[#111] text-[28px] font-black leading-none"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            80+
+          </div>
+          <div
+            className="text-[#555] text-[10px] font-bold tracking-[0.12em] uppercase"
+            style={{
+              fontFamily: "var(--font-archivo), monospace",
+              marginTop: 6,
+            }}
+          >
+            Repos
           </div>
         </div>
       </motion.div>

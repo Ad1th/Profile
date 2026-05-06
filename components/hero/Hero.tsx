@@ -514,6 +514,40 @@ function HeroTabletLandscape() {
             Projects Shipped
           </div>
         </div>
+
+        <div
+          style={{
+            padding: "24px 20px",
+            minHeight: "120px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <div className="mb-3 flex items-center gap-2">
+            <div style={{ width: 10, height: 2, background: "#111" }} />
+            <div
+              style={{
+                width: 10,
+                height: 2,
+                background: "#111",
+                transform: "skewX(-32deg)",
+              }}
+            />
+          </div>
+          <div
+            className="text-[#111] text-[36px] font-black leading-none"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            80+
+          </div>
+          <div
+            className="text-[#444] text-[14px] font-bold tracking-[0.12em] uppercase"
+            style={{ fontFamily: "var(--font-archivo), monospace" }}
+          >
+            Repositories
+          </div>
+        </div>
       </motion.div>
 
       <motion.div
@@ -723,6 +757,40 @@ function HeroTabletPortrait() {
             style={{ fontFamily: "var(--font-archivo), monospace" }}
           >
             Projects Shipped
+          </div>
+        </div>
+
+        <div
+          style={{
+            padding: "20px 20px",
+            minHeight: "110px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <div className="mb-3 flex items-center gap-2">
+            <div style={{ width: 10, height: 2, background: "#111" }} />
+            <div
+              style={{
+                width: 10,
+                height: 2,
+                background: "#111",
+                transform: "skewX(-32deg)",
+              }}
+            />
+          </div>
+          <div
+            className="text-[#111] text-[34px] font-black leading-none"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            80+
+          </div>
+          <div
+            className="text-[#444] text-[13px] font-bold tracking-[0.12em] uppercase"
+            style={{ fontFamily: "var(--font-archivo), monospace" }}
+          >
+            Repositories
           </div>
         </div>
       </motion.div>

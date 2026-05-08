@@ -288,18 +288,20 @@ function HeroDesktop() {
             paddingBottom: 5,
           }}
         >
-          {[...Array(4)].map((_, i) => (
+          {/* ticker */}
+          {[...Array(4)].map((_, i) =>
+            // prettier-ignore
             <span
-              key={i}
-              className="text-white text-[14px] font-black tracking-[0.26em] uppercase"
-              style={{
-                fontFamily: "var(--font-archivo), monospace",
-                paddingRight: 64,
-              }}
-            >
-              MAKE IT WORK ■ MAKE IT FAST ■ MAKE IT HOLD ■ MAKE IT BETTER ■
-            </span>
-          ))}
+            key={i}
+            className="text-white text-[14px] font-black tracking-[0.26em] uppercase"
+            style={{
+              fontFamily: "var(--font-archivo), monospace",
+              paddingRight: 64,
+            }}
+          >
+             MAKE IT WORK    ■    MAKE IT FAST    ■    MAKE IT HOLD    ■    MAKE IT BETTER    ■
+          </span>,
+          )}
         </div>
       </motion.div>
 

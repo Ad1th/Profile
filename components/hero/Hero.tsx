@@ -4,10 +4,9 @@ import type React from "react";
 import HeroHeadline from "./HeroHeadline";
 import HeroCTA from "./HeroCTA";
 import HeroPortrait from "./HeroPortrait";
-import Navbar from "@/components/layout/Navbar";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { easings } from "@/lib/motion";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function Hero() {
   const [viewport, setViewport] = useState<
@@ -50,8 +49,7 @@ export default function Hero() {
   }
 
   return (
-    <div className="relative">
-      <Navbar />
+    <div className="relative bg-[#F4EFE6]">
       {heroContent}
     </div>
   );
@@ -61,13 +59,43 @@ export default function Hero() {
 // DESKTOP: Two-column split layout (1280px+)
 // ═══════════════════════════════════════════════════════════════
 function HeroDesktop() {
+  const stageRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: stageRef,
+    offset: ["start start", "end start"],
+  });
+
+  const leftX = useTransform(scrollYProgress, [0.08, 0.32], ["0%", "-8%"]);
+  const leftY = useTransform(scrollYProgress, [0.08, 0.32], ["0%", "-4%"]);
+  const leftScale = useTransform(scrollYProgress, [0.08, 0.32], [1, 0.96]);
+  const leftOpacity = useTransform(scrollYProgress, [0.08, 0.32], [1, 0.92]);
+
+  const rightX = useTransform(scrollYProgress, [0.08, 0.32], ["0%", "6%"]);
+  const rightY = useTransform(scrollYProgress, [0.08, 0.32], ["0%", "5%"]);
+  const rightScale = useTransform(scrollYProgress, [0.08, 0.32], [1, 0.94]);
+
+  const statY = useTransform(scrollYProgress, [0.14, 0.34], ["0%", "120%"]);
+  const statOpacity = useTransform(scrollYProgress, [0.14, 0.28], [1, 0]);
+
+  const backendY = useTransform(scrollYProgress, [0.12, 0.32], ["0%", "-12%"]);
+  const withScale = useTransform(scrollYProgress, [0.12, 0.32], [1, 0.88]);
+  const tasteY = useTransform(scrollYProgress, [0.12, 0.32], ["0%", "18%"]);
+  const tasteRotate = useTransform(scrollYProgress, [0.12, 0.32], [0, -1]);
+
+  const portraitScale = useTransform(scrollYProgress, [0.12, 0.34], [1, 0.78]);
+  const portraitY = useTransform(scrollYProgress, [0.12, 0.34], ["0%", "10%"]);
+
   return (
-    <section className="relative h-screen min-h-[900px] w-full overflow-hidden bg-[#F0EBE0]">
-      <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
+    <section
+      ref={stageRef}
+      className="relative hidden h-[155svh] min-h-[1260px] w-full bg-[#F4EFE6] lg:block"
+    >
+      <div className="sticky top-0 h-[100svh] min-h-[760px] w-full overflow-hidden bg-[#F4EFE6]">
+        <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
       <motion.div
         className="absolute inset-0 z-50 pointer-events-none"
-        style={{ border: "5px solid #111" }}
+        style={{ border: "5px solid #050505" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.1 }}
@@ -75,51 +103,57 @@ function HeroDesktop() {
 
       <div
         className="relative w-full h-full flex"
-        style={{ paddingTop: 72, paddingBottom: 112 }}
+        style={{ paddingTop: 88, paddingBottom: 100 }}
       >
         <motion.div
-          className="relative flex flex-col justify-center bg-[#111]"
+          className="relative flex flex-col justify-center bg-[#050505]"
           style={{
-            width: "50%",
-            borderRight: "5px solid #111",
+            width: "52%",
+            borderRight: "5px solid #050505",
             paddingLeft: 48,
             paddingRight: 48,
             zIndex: 20,
+            x: leftX,
+            y: leftY,
+            scale: leftScale,
+            opacity: leftOpacity,
           }}
-          initial={{ x: -40, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: easings.primary }}
         >
           <div
             className="absolute"
             style={{
-              left: 22,
-              bottom: 76,
-              width: 14,
-              height: 14,
-              background: "#E8420A",
-              border: "2px solid #111",
+              left: 28,
+              bottom: 28,
+              width: 18,
+              height: 18,
+              background: "#F24A05",
+              border: "2px solid #050505",
             }}
           />
           <div style={{ marginTop: 50 }}>
-            <HeroHeadline />
+            <HeroHeadline
+              backendStyle={{ y: backendY }}
+              withStyle={{ scale: withScale }}
+              tasteStyle={{ y: tasteY, rotate: tasteRotate }}
+            />
             <HeroCTA />
           </div>
         </motion.div>
 
         <motion.div
-          className="relative flex items-center justify-center bg-[#6C8EAD]"
+          className="relative flex items-center justify-center bg-[#7C9BB8]"
           style={{
-            width: "50%",
+            width: "48%",
+            background: "#7C9BB8",
             zIndex: 10,
+            x: rightX,
+            y: rightY,
+            scale: rightScale,
           }}
-          initial={{ x: 60, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: easings.primary }}
         >
           <div
             className="absolute left-0 top-0 bottom-0"
-            style={{ width: 4, background: "#E8420A" }}
+            style={{ width: 4, background: "#F24A05" }}
           />
           <div
             className="absolute"
@@ -128,12 +162,12 @@ function HeroDesktop() {
               bottom: 92,
               width: 24,
               height: 24,
-              background: "#E8420A",
-              border: "2px solid #111",
+              background: "#F24A05",
+              border: "2px solid #050505",
               zIndex: 5,
             }}
           />
-          <HeroPortrait />
+          <HeroPortrait containerStyle={{ y: portraitY, scale: portraitScale }} />
         </motion.div>
       </div>
 
@@ -142,26 +176,25 @@ function HeroDesktop() {
         style={{
           bottom: 56,
           height: 102,
-          background: "#F0EBE0",
-          borderTop: "5px solid #111",
-          borderBottom: "5px solid #111",
-          boxShadow: "0 -4px 0 #111",
+          background: "#F4EFE6",
+          borderTop: "5px solid #050505",
+          borderBottom: "5px solid #050505",
+          boxShadow: "0 -4px 0 #050505",
+          y: statY,
+          opacity: statOpacity,
         }}
-        initial={{ opacity: 0, y: 18, scale: 0.985 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.65, delay: 0.35, ease: easings.primary }}
       >
         <div
           className="flex-1 flex flex-col items-start justify-center"
-          style={{ borderRight: "5px solid #111", padding: "14px 28px" }}
+          style={{ borderRight: "5px solid #050505", padding: "14px 28px" }}
         >
           <div className="mb-3 flex items-center gap-2">
-            <div style={{ width: 18, height: 3, background: "#111" }} />
-            <div style={{ width: 3, height: 3, background: "#E8420A" }} />
-            <div style={{ width: 3, height: 3, background: "#111" }} />
+            <div style={{ width: 18, height: 3, background: "#050505" }} />
+            <div style={{ width: 3, height: 3, background: "#F24A05" }} />
+            <div style={{ width: 3, height: 3, background: "#050505" }} />
           </div>
           <div
-            className="text-[#111] text-[48px] font-black leading-none"
+            className="text-[#050505] text-[48px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             3+
@@ -175,21 +208,21 @@ function HeroDesktop() {
         </div>
         <div
           className="flex-1 flex flex-col items-start justify-center"
-          style={{ padding: "5px 28px", borderRight: "5px solid #111" }}
+          style={{ padding: "5px 28px", borderRight: "5px solid #050505" }}
         >
           <div className="mb-3 flex items-center gap-2">
-            <div style={{ width: 12, height: 3, background: "#111" }} />
+            <div style={{ width: 12, height: 3, background: "#050505" }} />
             <div
               style={{
                 width: 12,
                 height: 3,
-                background: "#111",
+                background: "#050505",
                 transform: "skewX(-32deg)",
               }}
             />
           </div>
           <div
-            className="text-[#111] text-[48px] font-black leading-none"
+            className="text-[#050505] text-[48px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             15+
@@ -203,21 +236,21 @@ function HeroDesktop() {
         </div>
         <div
           className="flex-1 flex flex-col items-start justify-center"
-          style={{ padding: "14px 28px", borderRight: "5px solid #111" }}
+          style={{ padding: "14px 28px", borderRight: "5px solid #050505" }}
         >
           <div className="mb-3 flex items-center gap-2">
-            <div style={{ width: 12, height: 3, background: "#111" }} />
+            <div style={{ width: 12, height: 3, background: "#050505" }} />
             <div
               style={{
                 width: 12,
                 height: 3,
-                background: "#111",
+                background: "#050505",
                 transform: "skewX(-32deg)",
               }}
             />
           </div>
           <div
-            className="text-[#111] text-[48px] font-black leading-none"
+            className="text-[#050505] text-[48px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             80+
@@ -234,10 +267,10 @@ function HeroDesktop() {
       <motion.div
         className="absolute bottom-0 left-0 right-0 z-40 overflow-hidden flex items-center"
         style={{
-          height: 56,
-          background: "#E8420A",
-          borderTop: "5px solid #111",
-          boxShadow: "0 -3px 0 #111",
+          height: 44,
+          background: "#F24A05",
+          borderTop: "5px solid #050505",
+          boxShadow: "0 -3px 0 #050505",
         }}
         initial={{ y: 60 }}
         animate={{ y: 0 }}
@@ -247,6 +280,7 @@ function HeroDesktop() {
           className="flex items-center h-full whitespace-nowrap"
           style={{
             animation: "ticker 22s linear infinite",
+            animationDuration: "18s",
             paddingLeft: 18,
             paddingTop: 5,
             paddingBottom: 5,
@@ -275,6 +309,7 @@ function HeroDesktop() {
           to { transform: translateX(-50%); }
         }
       `}</style>
+      </div>
     </section>
   );
 }
@@ -284,12 +319,12 @@ function HeroDesktop() {
 // ═══════════════════════════════════════════════════════════════
 function HeroTabletLandscape() {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#F0EBE0]">
+    <section className="relative min-h-screen w-full overflow-hidden bg-[#F4EFE6]">
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
       <motion.div
         className="absolute inset-0 z-50 pointer-events-none"
-        style={{ border: "5px solid #111" }}
+        style={{ border: "5px solid #050505" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.1 }}
@@ -302,13 +337,13 @@ function HeroTabletLandscape() {
           minHeight: "calc(100vh - 72px - 112px - 48px)",
           display: "grid",
           gridTemplateColumns: "52% 48%",
-          borderBottom: "5px solid #111",
+          borderBottom: "5px solid #050505",
         }}
       >
         <motion.div
-          className="relative bg-[#111]"
+          className="relative bg-[#050505]"
           style={{
-            borderRight: "5px solid #111",
+            borderRight: "5px solid #050505",
             padding: "32px clamp(20px, 4vw, 36px)",
             display: "flex",
             flexDirection: "column",
@@ -325,8 +360,8 @@ function HeroTabletLandscape() {
               bottom: 22,
               width: 12,
               height: 12,
-              background: "#E8420A",
-              border: "2px solid #111",
+              background: "#F24A05",
+              border: "2px solid #050505",
             }}
           />
           <div style={{ width: "100%", maxWidth: 460 }}>
@@ -335,7 +370,7 @@ function HeroTabletLandscape() {
         </motion.div>
 
         <motion.div
-          className="relative bg-[#6C8EAD]"
+          className="relative bg-[#7C9BB8]"
           style={{
             padding: "28px clamp(16px, 3vw, 28px)",
             display: "flex",
@@ -348,7 +383,7 @@ function HeroTabletLandscape() {
         >
           <div
             className="absolute left-0 top-0 bottom-0"
-            style={{ width: 4, background: "#E8420A" }}
+            style={{ width: 4, background: "#F24A05" }}
           />
           <div
             className="absolute"
@@ -357,8 +392,8 @@ function HeroTabletLandscape() {
               bottom: 18,
               width: 16,
               height: 16,
-              background: "#E8420A",
-              border: "2px solid #111",
+              background: "#F24A05",
+              border: "2px solid #050505",
             }}
           />
           <HeroPortraitTablet />
@@ -368,9 +403,9 @@ function HeroTabletLandscape() {
       <motion.div
         className="relative z-30 grid grid-cols-2 gap-0"
         style={{
-          background: "#F0EBE0",
-          borderBottom: "5px solid #111",
-          boxShadow: "0 -4px 0 #111",
+          background: "#F4EFE6",
+          borderBottom: "5px solid #050505",
+          boxShadow: "0 -4px 0 #050505",
         }}
         initial={{ opacity: 0, y: 16, scale: 0.985 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -378,7 +413,7 @@ function HeroTabletLandscape() {
       >
         <div
           style={{
-            borderRight: "5px solid #111",
+            borderRight: "5px solid #050505",
             padding: "24px 20px",
             minHeight: "120px",
             display: "flex",
@@ -387,11 +422,11 @@ function HeroTabletLandscape() {
           }}
         >
           <div className="mb-3 flex items-center gap-2">
-            <div style={{ width: 14, height: 2, background: "#111" }} />
-            <div style={{ width: 2, height: 2, background: "#E8420A" }} />
+            <div style={{ width: 14, height: 2, background: "#050505" }} />
+            <div style={{ width: 2, height: 2, background: "#F24A05" }} />
           </div>
           <div
-            className="text-[#111] text-[36px] font-black leading-none"
+            className="text-[#050505] text-[36px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             3+
@@ -411,22 +446,22 @@ function HeroTabletLandscape() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            borderRight: "5px solid #111",
+            borderRight: "5px solid #050505",
           }}
         >
           <div className="mb-3 flex items-center gap-2">
-            <div style={{ width: 10, height: 2, background: "#111" }} />
+            <div style={{ width: 10, height: 2, background: "#050505" }} />
             <div
               style={{
                 width: 10,
                 height: 2,
-                background: "#111",
+                background: "#050505",
                 transform: "skewX(-32deg)",
               }}
             />
           </div>
           <div
-            className="text-[#111] text-[36px] font-black leading-none"
+            className="text-[#050505] text-[36px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             15+
@@ -449,18 +484,18 @@ function HeroTabletLandscape() {
           }}
         >
           <div className="mb-3 flex items-center gap-2">
-            <div style={{ width: 10, height: 2, background: "#111" }} />
+            <div style={{ width: 10, height: 2, background: "#050505" }} />
             <div
               style={{
                 width: 10,
                 height: 2,
-                background: "#111",
+                background: "#050505",
                 transform: "skewX(-32deg)",
               }}
             />
           </div>
           <div
-            className="text-[#111] text-[36px] font-black leading-none"
+            className="text-[#050505] text-[36px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             80+
@@ -478,9 +513,9 @@ function HeroTabletLandscape() {
         className="relative z-40 overflow-hidden flex items-center"
         style={{
           height: 48,
-          background: "#E8420A",
-          borderTop: "5px solid #111",
-          boxShadow: "0 -3px 0 #111",
+          background: "#F24A05",
+          borderTop: "5px solid #050505",
+          boxShadow: "0 -3px 0 #050505",
         }}
         initial={{ y: 60 }}
         animate={{ y: 0 }}
@@ -520,22 +555,22 @@ function HeroTabletLandscape() {
 
 function HeroTabletPortrait() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#F0EBE0]">
+    <section className="relative w-full overflow-hidden bg-[#F4EFE6]">
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
       <motion.div
         className="absolute inset-0 z-50 pointer-events-none"
-        style={{ border: "5px solid #111" }}
+        style={{ border: "5px solid #050505" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.1 }}
       />
 
       <motion.div
-        className="relative bg-[#111]"
+        className="relative bg-[#050505]"
         style={{
           marginTop: 72,
-          borderBottom: "5px solid #111",
+          borderBottom: "5px solid #050505",
           padding: "34px 30px 28px",
           display: "flex",
           justifyContent: "center",
@@ -550,9 +585,9 @@ function HeroTabletPortrait() {
       </motion.div>
 
       <motion.div
-        className="relative bg-[#6C8EAD]"
+        className="relative bg-[#7C9BB8]"
         style={{
-          borderBottom: "5px solid #111",
+          borderBottom: "5px solid #050505",
           padding: "30px 24px 34px",
           display: "flex",
           alignItems: "center",
@@ -564,7 +599,7 @@ function HeroTabletPortrait() {
       >
         <div
           className="absolute left-0 top-0 bottom-0"
-          style={{ width: 4, background: "#E8420A" }}
+          style={{ width: 4, background: "#F24A05" }}
         />
         <HeroPortraitTabletPortrait />
       </motion.div>
@@ -572,9 +607,9 @@ function HeroTabletPortrait() {
       <motion.div
         className="relative z-30 grid grid-cols-2 gap-0"
         style={{
-          background: "#F0EBE0",
-          borderBottom: "5px solid #111",
-          boxShadow: "0 -4px 0 #111",
+          background: "#F4EFE6",
+          borderBottom: "5px solid #050505",
+          boxShadow: "0 -4px 0 #050505",
         }}
         initial={{ opacity: 0, y: 16, scale: 0.985 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -582,7 +617,7 @@ function HeroTabletPortrait() {
       >
         <div
           style={{
-            borderRight: "5px solid #111",
+            borderRight: "5px solid #050505",
             padding: "20px 20px",
             minHeight: "110px",
             display: "flex",
@@ -591,11 +626,11 @@ function HeroTabletPortrait() {
           }}
         >
           <div className="mb-3 flex items-center gap-2">
-            <div style={{ width: 14, height: 2, background: "#111" }} />
-            <div style={{ width: 2, height: 2, background: "#E8420A" }} />
+            <div style={{ width: 14, height: 2, background: "#050505" }} />
+            <div style={{ width: 2, height: 2, background: "#F24A05" }} />
           </div>
           <div
-            className="text-[#111] text-[34px] font-black leading-none"
+            className="text-[#050505] text-[34px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             3+
@@ -615,22 +650,22 @@ function HeroTabletPortrait() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            borderRight: "5px solid #111",
+            borderRight: "5px solid #050505",
           }}
         >
           <div className="mb-3 flex items-center gap-2">
-            <div style={{ width: 10, height: 2, background: "#111" }} />
+            <div style={{ width: 10, height: 2, background: "#050505" }} />
             <div
               style={{
                 width: 10,
                 height: 2,
-                background: "#111",
+                background: "#050505",
                 transform: "skewX(-32deg)",
               }}
             />
           </div>
           <div
-            className="text-[#111] text-[34px] font-black leading-none"
+            className="text-[#050505] text-[34px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             15+
@@ -653,18 +688,18 @@ function HeroTabletPortrait() {
           }}
         >
           <div className="mb-3 flex items-center gap-2">
-            <div style={{ width: 10, height: 2, background: "#111" }} />
+            <div style={{ width: 10, height: 2, background: "#050505" }} />
             <div
               style={{
                 width: 10,
                 height: 2,
-                background: "#111",
+                background: "#050505",
                 transform: "skewX(-32deg)",
               }}
             />
           </div>
           <div
-            className="text-[#111] text-[34px] font-black leading-none"
+            className="text-[#050505] text-[34px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             80+
@@ -682,9 +717,9 @@ function HeroTabletPortrait() {
         className="relative z-40 overflow-hidden flex items-center"
         style={{
           height: 48,
-          background: "#E8420A",
-          borderTop: "5px solid #111",
-          boxShadow: "0 -3px 0 #111",
+          background: "#F24A05",
+          borderTop: "5px solid #050505",
+          boxShadow: "0 -3px 0 #050505",
         }}
         initial={{ y: 60 }}
         animate={{ y: 0 }}
@@ -727,22 +762,22 @@ function HeroTabletPortrait() {
 // ═══════════════════════════════════════════════════════════════
 function HeroMobile() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#F0EBE0]">
+    <section className="relative w-full overflow-hidden bg-[#F4EFE6]">
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
       <motion.div
         className="absolute inset-0 z-50 pointer-events-none"
-        style={{ border: "4px solid #111" }}
+        style={{ border: "4px solid #050505" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.1 }}
       />
 
       <motion.div
-        className="relative bg-[#111]"
+        className="relative bg-[#050505]"
         style={{
           marginTop: 72,
-          borderBottom: "4px solid #111",
+          borderBottom: "4px solid #050505",
           padding: "32px 20px",
           minHeight: "50vh",
           display: "flex",
@@ -757,9 +792,9 @@ function HeroMobile() {
       </motion.div>
 
       <motion.div
-        className="relative bg-[#6C8EAD]"
+        className="relative bg-[#7C9BB8]"
         style={{
-          borderBottom: "4px solid #111",
+          borderBottom: "4px solid #050505",
           padding: "28px 16px 32px",
           minHeight: "auto",
           display: "flex",
@@ -776,8 +811,8 @@ function HeroMobile() {
       <motion.div
         className="relative z-30 grid gap-0"
         style={{
-          background: "#F0EBE0",
-          borderBottom: "4px solid #111",
+          background: "#F4EFE6",
+          borderBottom: "4px solid #050505",
           gridTemplateColumns: "repeat(3, 1fr)",
         }}
         initial={{ opacity: 0, y: 14, scale: 0.985 }}
@@ -786,8 +821,8 @@ function HeroMobile() {
       >
         <div
           style={{
-            borderRight: "4px solid #111",
-            borderBottom: "4px solid #111",
+            borderRight: "4px solid #050505",
+            borderBottom: "4px solid #050505",
             padding: "16px 12px",
             minHeight: "85px",
             display: "flex",
@@ -797,7 +832,7 @@ function HeroMobile() {
           }}
         >
           <div
-            className="text-[#111] text-[28px] font-black leading-none"
+            className="text-[#050505] text-[28px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             3+
@@ -815,8 +850,8 @@ function HeroMobile() {
 
         <div
           style={{
-            borderRight: "4px solid #111",
-            borderBottom: "4px solid #111",
+            borderRight: "4px solid #050505",
+            borderBottom: "4px solid #050505",
             padding: "16px 12px",
             minHeight: "85px",
             display: "flex",
@@ -826,7 +861,7 @@ function HeroMobile() {
           }}
         >
           <div
-            className="text-[#111] text-[28px] font-black leading-none"
+            className="text-[#050505] text-[28px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             12
@@ -844,8 +879,8 @@ function HeroMobile() {
 
         <div
           style={{
-            borderRight: "4px solid #111",
-            borderBottom: "4px solid #111",
+            borderRight: "4px solid #050505",
+            borderBottom: "4px solid #050505",
             padding: "16px 12px",
             minHeight: "85px",
             display: "flex",
@@ -855,7 +890,7 @@ function HeroMobile() {
           }}
         >
           <div
-            className="text-[#111] text-[28px] font-black leading-none"
+            className="text-[#050505] text-[28px] font-black leading-none"
             style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             80+
@@ -876,8 +911,8 @@ function HeroMobile() {
         className="relative z-40 overflow-hidden flex items-center"
         style={{
           height: 40,
-          background: "#E8420A",
-          borderTop: "4px solid #111",
+          background: "#F24A05",
+          borderTop: "4px solid #050505",
         }}
         initial={{ y: 60 }}
         animate={{ y: 0 }}
@@ -930,7 +965,7 @@ function HeadlineTablet() {
       }}
     >
       <motion.span
-        className="block text-[#F0EBE0]"
+        className="block text-[#F4EFE6]"
         style={{ fontSize: "clamp(48px, 8vw, 96px)" }}
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -942,7 +977,7 @@ function HeadlineTablet() {
       <motion.div
         className="inline-block"
         style={{
-          border: "3px solid #CFDE00",
+          border: "3px solid #D7F205",
           padding: "3px 12px 0px 12px",
           marginTop: 6,
           marginBottom: 6,
@@ -954,7 +989,7 @@ function HeadlineTablet() {
         transition={{ duration: 0.65, delay: 0.25, ease: easings.primary }}
       >
         <span
-          className="block text-[#CFDE00]"
+          className="block text-[#D7F205]"
           style={{ fontSize: "clamp(48px, 8vw, 92px)", lineHeight: 0.9 }}
         >
           WITH
@@ -962,7 +997,7 @@ function HeadlineTablet() {
       </motion.div>
 
       <motion.span
-        className="block text-[#E8420A]"
+        className="block text-[#F24A05]"
         style={{ fontSize: "clamp(48px, 8vw, 96px)" }}
         initial={{ y: 60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -1007,8 +1042,8 @@ function CTATablet() {
         style={{
           position: "absolute",
           inset: 0,
-          background: "#E8420A",
-          border: "3px solid #111",
+          background: "#F24A05",
+          border: "3px solid #050505",
           transform: "translate(6px, 6px)",
           zIndex: 0,
         }}
@@ -1017,8 +1052,8 @@ function CTATablet() {
         style={{
           position: "absolute",
           inset: 0,
-          background: "#CFDE00",
-          border: "3px solid #111",
+          background: "#D7F205",
+          border: "3px solid #050505",
           zIndex: 1,
           display: "flex",
           alignItems: "center",
@@ -1030,7 +1065,7 @@ function CTATablet() {
           fontFamily: "var(--font-archivo), sans-serif",
           textTransform: "uppercase",
           letterSpacing: "-0.03em",
-          color: "#111",
+          color: "#050505",
           outline: "none",
         }}
       >
@@ -1048,8 +1083,8 @@ function HeroPortraitTablet() {
         style={{
           width: "100%",
           aspectRatio: "3 / 4",
-          border: "5px solid #111",
-          boxShadow: "10px 10px 0 #F0EBE0",
+          border: "5px solid #050505",
+          boxShadow: "10px 10px 0 #F4EFE6",
           background: "#1F1F1F",
         }}
         initial={{ scale: 0.9, opacity: 0 }}
@@ -1071,28 +1106,23 @@ function HeroPortraitTablet() {
       </motion.div>
 
       <motion.div
-        className="absolute flex items-center justify-center gap-3 bg-[#CFDE00]"
+        className="absolute flex items-center justify-center gap-3 bg-[#D7F205]"
         style={{
           width: 200,
           height: 40,
           bottom: 20,
           right: -10,
           rotate: "-5deg",
-          border: "4px solid #111",
-          boxShadow: "8px 8px 0 #E8420A",
+          border: "4px solid #050505",
+          boxShadow: "8px 8px 0 #F24A05",
           zIndex: 20,
         }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 22,
-          delay: 0.7,
-        }}
+        transition={{ duration: 0.42, delay: 0.7, ease: easings.primary }}
       >
         <span
-          className="text-[#111] text-[12px] font-black uppercase tracking-[0.04em] leading-none"
+          className="text-[#050505] text-[12px] font-black uppercase tracking-[0.04em] leading-none"
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
             whiteSpace: "nowrap",
@@ -1117,7 +1147,7 @@ function HeadlineTabletPortrait() {
       }}
     >
       <motion.span
-        className="block text-[#F0EBE0]"
+        className="block text-[#F4EFE6]"
         style={{ fontSize: "clamp(62px, 10.5vw, 106px)" }}
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -1129,7 +1159,7 @@ function HeadlineTabletPortrait() {
       <motion.div
         className="inline-block"
         style={{
-          border: "3px solid #CFDE00",
+          border: "3px solid #D7F205",
           padding: "4px 12px 0px 12px",
           marginTop: 6,
           marginBottom: 6,
@@ -1141,7 +1171,7 @@ function HeadlineTabletPortrait() {
         transition={{ duration: 0.65, delay: 0.25, ease: easings.primary }}
       >
         <span
-          className="block text-[#CFDE00]"
+          className="block text-[#D7F205]"
           style={{ fontSize: "clamp(58px, 9.8vw, 100px)", lineHeight: 0.9 }}
         >
           WITH
@@ -1149,7 +1179,7 @@ function HeadlineTabletPortrait() {
       </motion.div>
 
       <motion.span
-        className="block text-[#E8420A]"
+        className="block text-[#F24A05]"
         style={{ fontSize: "clamp(62px, 10.5vw, 106px)" }}
         initial={{ y: 60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -1195,8 +1225,8 @@ function HeroPortraitTabletPortrait() {
         style={{
           width: "100%",
           aspectRatio: "4 / 5",
-          border: "5px solid #111",
-          boxShadow: "10px 10px 0 #F0EBE0",
+          border: "5px solid #050505",
+          boxShadow: "10px 10px 0 #F4EFE6",
           background: "#1F1F1F",
         }}
         initial={{ scale: 0.9, opacity: 0 }}
@@ -1218,28 +1248,23 @@ function HeroPortraitTabletPortrait() {
       </motion.div>
 
       <motion.div
-        className="absolute flex items-center justify-center gap-3 bg-[#CFDE00]"
+        className="absolute flex items-center justify-center gap-3 bg-[#D7F205]"
         style={{
           width: 210,
           height: 42,
           bottom: 16,
           right: -10,
           rotate: "-5deg",
-          border: "4px solid #111",
-          boxShadow: "8px 8px 0 #E8420A",
+          border: "4px solid #050505",
+          boxShadow: "8px 8px 0 #F24A05",
           zIndex: 20,
         }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 22,
-          delay: 0.7,
-        }}
+        transition={{ duration: 0.42, delay: 0.7, ease: easings.primary }}
       >
         <span
-          className="text-[#111] text-[12px] font-black uppercase tracking-[0.04em] leading-none"
+          className="text-[#050505] text-[12px] font-black uppercase tracking-[0.04em] leading-none"
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
             whiteSpace: "nowrap",
@@ -1268,7 +1293,7 @@ function HeadlineMobile() {
       }}
     >
       <motion.span
-        className="block text-[#F0EBE0]"
+        className="block text-[#F4EFE6]"
         style={{
           fontSize: "clamp(65px, 19vw, 114px)",
           lineHeight: 0.88,
@@ -1285,7 +1310,7 @@ function HeadlineMobile() {
       <motion.div
         className="inline-block"
         style={{
-          border: "3px solid #CFDE00",
+          border: "3px solid #D7F205",
           padding: "3px 12px 0px 12px",
           marginTop: 4,
           marginBottom: 2,
@@ -1296,7 +1321,7 @@ function HeadlineMobile() {
         transition={{ duration: 0.6, delay: 0.25, ease: easings.primary }}
       >
         <span
-          className="block text-[#CFDE00]"
+          className="block text-[#D7F205]"
           style={{ fontSize: "clamp(61px, 18vw, 110px)", lineHeight: 0.85 }}
         >
           WITH
@@ -1304,7 +1329,7 @@ function HeadlineMobile() {
       </motion.div>
 
       <motion.span
-        className="block text-[#E8420A]"
+        className="block text-[#F24A05]"
         style={{
           fontSize: "clamp(65px, 19vw, 114px)",
           lineHeight: 0.88,
@@ -1321,7 +1346,7 @@ function HeadlineMobile() {
         style={{
           width: 48,
           height: 2,
-          background: "#CFDE00",
+          background: "#D7F205",
           marginTop: 10,
           marginBottom: 10,
         }}
@@ -1368,8 +1393,8 @@ function CTAMobile() {
         style={{
           position: "absolute",
           inset: 0,
-          background: "#E8420A",
-          border: "3px solid #111",
+          background: "#F24A05",
+          border: "3px solid #050505",
           transform: "translate(4px, 4px)",
           zIndex: 0,
         }}
@@ -1378,8 +1403,8 @@ function CTAMobile() {
         style={{
           position: "absolute",
           inset: 0,
-          background: "#CFDE00",
-          border: "3px solid #111",
+          background: "#D7F205",
+          border: "3px solid #050505",
           zIndex: 1,
           display: "flex",
           alignItems: "center",
@@ -1391,7 +1416,7 @@ function CTAMobile() {
           fontFamily: "var(--font-archivo), sans-serif",
           textTransform: "uppercase",
           letterSpacing: "-0.03em",
-          color: "#111",
+          color: "#050505",
           outline: "none",
         }}
       >
@@ -1409,8 +1434,8 @@ function HeroPortraitMobile() {
         style={{
           width: "100%",
           aspectRatio: "1 / 1",
-          border: "4px solid #111",
-          boxShadow: "6px 6px 0 #F0EBE0",
+          border: "4px solid #050505",
+          boxShadow: "6px 6px 0 #F4EFE6",
           background: "#1F1F1F",
         }}
         initial={{ scale: 0.9, opacity: 0 }}
@@ -1432,28 +1457,23 @@ function HeroPortraitMobile() {
       </motion.div>
 
       <motion.div
-        className="absolute flex items-center justify-center bg-[#CFDE00]"
+        className="absolute flex items-center justify-center bg-[#D7F205]"
         style={{
           width: 140,
           height: 32,
           bottom: -6,
           right: -10,
           rotate: "-5deg",
-          border: "3px solid #111",
-          boxShadow: "5px 5px 0 #E8420A",
+          border: "3px solid #050505",
+          boxShadow: "5px 5px 0 #F24A05",
           zIndex: 20,
         }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 22,
-          delay: 0.6,
-        }}
+        transition={{ duration: 0.42, delay: 0.6, ease: easings.primary }}
       >
         <span
-          className="text-[#111] text-[9px] font-black uppercase tracking-[0.04em] leading-none"
+          className="text-[#050505] text-[9px] font-black uppercase tracking-[0.04em] leading-none"
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
             whiteSpace: "nowrap",

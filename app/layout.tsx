@@ -1,6 +1,7 @@
 import type React from "react";
 import "./globals.css";
 import { Anton, Archivo_Black } from "next/font/google";
+import Navbar from "@/components/layout/Navbar";
 
 const archivo = Archivo_Black({
   weight: "400",
@@ -33,6 +34,7 @@ export default function RootLayout({
       className={`${archivo.variable} ${anton.variable}`}
     >
       <body>
+        <Navbar />
         {children}
       </body>
     </html>

@@ -8,8 +8,8 @@ import { easings } from "@/lib/motion";
 export default function AboutBio() {
   return (
     <motion.div
-      className="relative bg-[#6C8EAD] h-full"
-      style={{ border: "4px solid #111", padding: "28px 28px 32px 28px" }}
+      className="relative bg-[#7C9BB8] h-full"
+      style={{ border: "4px solid #050505", padding: "28px 28px 32px 28px" }}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -17,27 +17,27 @@ export default function AboutBio() {
     >
       {/* Top-right corner bracket */}
       <div className="absolute top-0 right-0">
-        <div style={{ width: 24, height: 4, background: "#111", position: "absolute", top: 12, right: 0 }} />
-        <div style={{ width: 4, height: 24, background: "#111", position: "absolute", top: 12, right: 12 }} />
+        <div style={{ width: 24, height: 4, background: "#050505", position: "absolute", top: 12, right: 0 }} />
+        <div style={{ width: 4, height: 24, background: "#050505", position: "absolute", top: 12, right: 12 }} />
       </div>
 
       {/* Bottom-left corner bracket */}
       <div className="absolute bottom-0 left-0">
-        <div style={{ width: 24, height: 4, background: "#111", position: "absolute", bottom: 12, left: 0 }} />
-        <div style={{ width: 4, height: 24, background: "#111", position: "absolute", bottom: 12, left: 12 }} />
+        <div style={{ width: 24, height: 4, background: "#050505", position: "absolute", bottom: 12, left: 0 }} />
+        <div style={{ width: 4, height: 24, background: "#050505", position: "absolute", bottom: 12, left: 12 }} />
       </div>
 
       {/* Badge */}
       <div
-        className="inline-flex items-center justify-center bg-[#CFDE00]"
+        className="inline-flex items-center justify-center bg-[#D7F205]"
         style={{
-          border: "3px solid #111",
+          border: "3px solid #050505",
           padding: "5px 14px",
           marginBottom: 20,
         }}
       >
         <span
-          className="text-[#111] font-black uppercase tracking-[0.04em]"
+          className="text-[#050505] font-black uppercase tracking-[0.04em]"
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
             fontSize: 15,
@@ -49,7 +49,7 @@ export default function AboutBio() {
 
       {/* Bio text */}
       <p
-        className="text-[#111]"
+        className="text-[#050505]"
         style={{
           fontFamily: "var(--font-archivo), monospace",
           fontSize: 18,

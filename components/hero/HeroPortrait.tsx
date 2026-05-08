@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type MotionStyle } from "framer-motion";
 import { easings } from "@/lib/motion";
-import { useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useMotionValue, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import HeroBadge from "./HeroBadge";
 import Image from "next/image";
@@ -10,18 +10,16 @@ import Image from "next/image";
 const FRAME_W = 460;
 const FRAME_H = 488;
 
-export default function HeroPortrait() {
+type HeroPortraitProps = {
+  containerStyle?: MotionStyle;
+};
+
+export default function HeroPortrait({ containerStyle }: HeroPortraitProps) {
   const ref = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const rx = useSpring(useTransform(my, [-0.5, 0.5], [2, -2]), {
-    stiffness: 120,
-    damping: 24,
-  });
-  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-3, 3]), {
-    stiffness: 120,
-    damping: 24,
-  });
+  const rx = useTransform(my, [-0.5, 0.5], [2, -2]);
+  const ry = useTransform(mx, [-0.5, 0.5], [-3, 3]);
   const [mobile, setMobile] = useState(false);
 
   useEffect(() => {
@@ -42,7 +40,7 @@ export default function HeroPortrait() {
   }, [mx, my]);
 
   return (
-    <div
+    <motion.div
       ref={ref}
       className="relative flex items-center justify-center"
       style={{
@@ -50,16 +48,23 @@ export default function HeroPortrait() {
         height: "100%",
         perspective: 1200,
         paddingBottom: 50,
-        transform: "translate(24px, -18px)",
+        x: 24,
+        y: -18,
+        ...containerStyle,
       }}
     >
       {/* Vertical dots — right edge decoration, moved closer */}
       <div
         className="absolute right-10 flex flex-col gap-3"
-        style={{ top: "calc(50% - 14px)", transform: "translateY(-50%)" }}
+        style={{
+          top: "50%",
+          right: 28,
+          gap: 12,
+          transform: "translateY(-50%)",
+        }}
       >
         {[...Array(5)].map((_, i) => (
-          <div key={i} style={{ width: 10, height: 10, background: "#111" }} />
+          <div key={i} style={{ width: 10, height: 10, background: "#050505" }} />
         ))}
       </div>
 
@@ -75,7 +80,7 @@ export default function HeroPortrait() {
               position: "absolute",
               width: 24,
               height: 3,
-              background: "#CFDE00",
+              background: "#D7F205",
               top,
               left: 0,
             }}
@@ -87,26 +92,30 @@ export default function HeroPortrait() {
       <div
         className="absolute"
         style={{
-          width: FRAME_W + 34,
-          height: FRAME_H - 16,
-          right: "calc(50% - 265px)",
-          top: "calc(50% - 260px)",
-          background: "#E8420A",
-          border: "4px solid #111",
-          transform: "rotate(-3deg) skewX(-3deg)",
+          width: "66%",
+          aspectRatio: 0.72,
+          minWidth: 360,
+          maxWidth: FRAME_W + 34,
+          right: "calc(50% - 260px)",
+          top: "calc(50% - 254px)",
+          background: "#F24A05",
+          border: "4px solid #050505",
+          transform: "translate(30px, -10px) rotate(-3deg) skewX(-3deg)",
           zIndex: 0,
         }}
       />
       <motion.div
         className="relative z-10"
         style={{
-          width: FRAME_W,
-          height: FRAME_H,
+          width: "66%",
+          aspectRatio: 0.72,
+          minWidth: 360,
+          maxWidth: FRAME_W,
           rotateX: mobile ? 0 : rx,
           rotateY: mobile ? 0 : ry,
-          border: "7px solid #111",
-          boxShadow: "12px 12px 0 #111",
-          background: "#1F1F1F",
+          border: "7px solid #050505",
+          boxShadow: "12px 12px 0 #050505",
+          background: "#F4EFE6",
         }}
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -118,8 +127,8 @@ export default function HeroPortrait() {
           style={{
             top: 0,
             left: 0,
-            width: FRAME_W,
-            height: FRAME_H,
+            width: "100%",
+            height: "100%",
           }}
         >
           <Image
@@ -135,6 +144,6 @@ export default function HeroPortrait() {
 
       {/* Badge */}
       <HeroBadge />
-    </div>
+    </motion.div>
   );
 }

@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-[#EEE7DC] text-[#111111] overflow-x-hidden antialiased;
+    @apply bg-[#F4EFE6] text-[#050505] overflow-x-hidden antialiased;
   }
 }
 
@@ -14,10 +14,10 @@
   }
   
   .hard-shadow {
-    box-shadow: 8px 8px 0px 0px #111111;
+    box-shadow: 8px 8px 0px 0px #050505;
   }
   
   .hard-shadow-sm {
-    box-shadow: 4px 4px 0px 0px #111111;
+    box-shadow: 4px 4px 0px 0px #050505;
   }
 }

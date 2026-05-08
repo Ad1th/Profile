@@ -119,8 +119,8 @@ export default function AboutBuiltToBeUsed({
           textAlign: "left",
 
           position: "absolute",
-          top: viewportTransition ? "2.2rem" : "2.8rem",
-          left: viewportTransition ? "4rem" : "5rem",
+          top: viewportTransition ? "4rem" : "2.8rem",
+          left: viewportTransition ? "16rem" : "2.8rem",
 
           zIndex: 2,
         }}

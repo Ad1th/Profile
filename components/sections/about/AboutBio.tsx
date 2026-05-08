@@ -17,14 +17,50 @@ export default function AboutBio() {
     >
       {/* Top-right corner bracket */}
       <div className="absolute top-0 right-0">
-        <div style={{ width: 24, height: 4, background: "#111", position: "absolute", top: 12, right: 0 }} />
-        <div style={{ width: 4, height: 24, background: "#111", position: "absolute", top: 12, right: 12 }} />
+        <div
+          style={{
+            width: 24,
+            height: 4,
+            background: "#111",
+            position: "absolute",
+            top: 12,
+            right: 0,
+          }}
+        />
+        <div
+          style={{
+            width: 4,
+            height: 24,
+            background: "#111",
+            position: "absolute",
+            top: 12,
+            right: 12,
+          }}
+        />
       </div>
 
       {/* Bottom-left corner bracket */}
       <div className="absolute bottom-0 left-0">
-        <div style={{ width: 24, height: 4, background: "#111", position: "absolute", bottom: 12, left: 0 }} />
-        <div style={{ width: 4, height: 24, background: "#111", position: "absolute", bottom: 12, left: 12 }} />
+        <div
+          style={{
+            width: 24,
+            height: 4,
+            background: "#111",
+            position: "absolute",
+            bottom: 12,
+            left: 0,
+          }}
+        />
+        <div
+          style={{
+            width: 4,
+            height: 24,
+            background: "#111",
+            position: "absolute",
+            bottom: 12,
+            left: 12,
+          }}
+        />
       </div>
 
       {/* Badge */}

@@ -256,7 +256,7 @@ export default function About({
               : "auto auto",
             display: "grid",
             alignItems: "stretch",
-            paddingTop: viewportTransition ? 24 : 0,
+            paddingTop: viewportTransition ? 74 : 0,
             boxSizing: "border-box",
           }}
         >

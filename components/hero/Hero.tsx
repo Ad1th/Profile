@@ -5,9 +5,9 @@ import HeroHeadline from "./HeroHeadline";
 import HeroCTA from "./HeroCTA";
 import HeroPortrait from "./HeroPortrait";
 import Navbar from "@/components/layout/Navbar";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { easings } from "@/lib/motion";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function Hero() {
   const [viewport, setViewport] = useState<
@@ -61,8 +61,47 @@ export default function Hero() {
 // DESKTOP: Two-column split layout (1280px+)
 // ═══════════════════════════════════════════════════════════════
 function HeroDesktop() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["end end", "end 40%"],
+  });
+
+  const backendX = useTransform(scrollYProgress, [0.05, 0.22], [0, -40]);
+  const backendOpacity = useTransform(
+    scrollYProgress,
+    [0.05, 0.22],
+    [1, 0.92],
+  );
+  const withX = useTransform(scrollYProgress, [0.08, 0.26], [0, 24]);
+  const withScale = useTransform(scrollYProgress, [0.08, 0.26], [1, 0.97]);
+  const tasteY = useTransform(scrollYProgress, [0.12, 0.32], [0, 36]);
+  const tasteRotate = useTransform(scrollYProgress, [0.12, 0.32], [0, 1]);
+  const imageScale = useTransform(scrollYProgress, [0.15, 0.42], [1, 0.92]);
+  const imageY = useTransform(scrollYProgress, [0.15, 0.42], [0, 60]);
+  const stickerRotate = useTransform(
+    scrollYProgress,
+    [0.18, 0.35],
+    [-4, -10],
+  );
+  const stickerX = useTransform(scrollYProgress, [0.18, 0.35], [0, 40]);
+  const marqueeOpacity = useTransform(scrollYProgress, [0.12, 0.3], [1, 0]);
+  const marqueeFilter = useTransform(
+    scrollYProgress,
+    [0.12, 0.3],
+    ["blur(0px)", "blur(3px)"],
+  );
+  const marqueeDuration = useTransform(
+    scrollYProgress,
+    [0.12, 0.3],
+    ["22s", "34s"],
+  );
+
   return (
-    <section className="relative h-screen min-h-[900px] w-full overflow-hidden bg-[#F0EBE0]">
+    <section
+      ref={sectionRef}
+      className="relative h-screen min-h-[900px] w-full overflow-hidden bg-[#F0EBE0]"
+    >
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
       <motion.div
@@ -102,7 +141,11 @@ function HeroDesktop() {
             }}
           />
           <div style={{ marginTop: 50 }}>
-            <HeroHeadline />
+            <HeroHeadline
+              backendStyle={{ x: backendX, opacity: backendOpacity }}
+              withStyle={{ x: withX, scale: withScale }}
+              tasteStyle={{ y: tasteY, rotate: tasteRotate }}
+            />
             <HeroCTA />
           </div>
         </motion.div>
@@ -133,7 +176,10 @@ function HeroDesktop() {
               zIndex: 5,
             }}
           />
-          <HeroPortrait />
+          <HeroPortrait
+            panelStyle={{ scale: imageScale, y: imageY }}
+            stickerStyle={{ rotate: stickerRotate, x: stickerX }}
+          />
         </motion.div>
       </div>
 
@@ -238,15 +284,18 @@ function HeroDesktop() {
           background: "#E8420A",
           borderTop: "5px solid #111",
           boxShadow: "0 -3px 0 #111",
+          opacity: marqueeOpacity,
+          filter: marqueeFilter,
         }}
         initial={{ y: 60 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 1.0, ease: easings.primary }}
       >
-        <div
+        <motion.div
           className="flex items-center h-full whitespace-nowrap"
           style={{
-            animation: "ticker 22s linear infinite",
+            animation: "ticker linear infinite",
+            animationDuration: marqueeDuration,
             paddingLeft: 18,
             paddingTop: 5,
             paddingBottom: 5,
@@ -266,7 +315,7 @@ function HeroDesktop() {
              MAKE IT WORK    ■    MAKE IT FAST    ■    MAKE IT HOLD    ■    MAKE IT BETTER    ■
           </span>,
           )}
-        </div>
+        </motion.div>
       </motion.div>
 
       <style>{`
@@ -1084,12 +1133,7 @@ function HeroPortraitTablet() {
         }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 22,
-          delay: 0.7,
-        }}
+        transition={{ duration: 0.42, delay: 0.7, ease: easings.editorial }}
       >
         <span
           className="text-[#111] text-[12px] font-black uppercase tracking-[0.04em] leading-none"
@@ -1231,12 +1275,7 @@ function HeroPortraitTabletPortrait() {
         }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 22,
-          delay: 0.7,
-        }}
+        transition={{ duration: 0.42, delay: 0.7, ease: easings.editorial }}
       >
         <span
           className="text-[#111] text-[12px] font-black uppercase tracking-[0.04em] leading-none"
@@ -1445,12 +1484,7 @@ function HeroPortraitMobile() {
         }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 22,
-          delay: 0.6,
-        }}
+        transition={{ duration: 0.42, delay: 0.6, ease: easings.editorial }}
       >
         <span
           className="text-[#111] text-[9px] font-black uppercase tracking-[0.04em] leading-none"

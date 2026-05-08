@@ -1,5 +1,7 @@
 export const easings = {
   primary: [0.16, 1, 0.3, 1] as const,
+  editorial: [0.22, 1, 0.36, 1] as const,
+  paper: [0.34, 1.56, 0.64, 1] as const,
   snap: [0.34, 1.56, 0.64, 1] as const,
 };
 

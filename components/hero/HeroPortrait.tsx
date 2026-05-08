@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type MotionStyle } from "framer-motion";
 import { easings } from "@/lib/motion";
-import { useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useMotionValue, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import HeroBadge from "./HeroBadge";
 import Image from "next/image";
@@ -10,18 +10,18 @@ import Image from "next/image";
 const FRAME_W = 460;
 const FRAME_H = 488;
 
-export default function HeroPortrait() {
+export default function HeroPortrait({
+  panelStyle,
+  stickerStyle,
+}: {
+  panelStyle?: MotionStyle;
+  stickerStyle?: MotionStyle;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const rx = useSpring(useTransform(my, [-0.5, 0.5], [2, -2]), {
-    stiffness: 120,
-    damping: 24,
-  });
-  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-3, 3]), {
-    stiffness: 120,
-    damping: 24,
-  });
+  const rx = useTransform(my, [-0.5, 0.5], [2, -2]);
+  const ry = useTransform(mx, [-0.5, 0.5], [-3, 3]);
   const [mobile, setMobile] = useState(false);
 
   useEffect(() => {
@@ -42,9 +42,13 @@ export default function HeroPortrait() {
   }, [mx, my]);
 
   return (
-    <div
-      ref={ref}
+    <motion.div
       className="relative flex items-center justify-center"
+      style={{ width: "100%", height: "100%", ...panelStyle }}
+    >
+      <div
+        ref={ref}
+        className="relative flex items-center justify-center"
       style={{
         width: "100%",
         height: "100%",
@@ -134,7 +138,8 @@ export default function HeroPortrait() {
       </motion.div>
 
       {/* Badge */}
-      <HeroBadge />
-    </div>
+      <HeroBadge transitionStyle={stickerStyle} />
+      </div>
+    </motion.div>
   );
 }

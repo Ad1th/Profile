@@ -86,7 +86,7 @@ export default function AboutBuiltToBeUsed() {
             }}
             whileHover={{ x: -3, y: -3 }}
             whileTap={{ x: 1, y: 1 }}
-            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            transition={{ duration: 0.16, ease: easings.editorial }}
           >
             <span
               className="text-[#111] font-black uppercase tracking-[-0.02em]"

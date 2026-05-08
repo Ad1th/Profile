@@ -33,7 +33,7 @@ export default function HeroCTA() {
         }}
         whileHover={{ x: -4, y: -4 }}
         whileTap={{ x: 2, y: 2 }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        transition={{ duration: 0.16, ease: easings.editorial }}
       >
         <span
           className="text-[#111] text-[22px] font-black uppercase tracking-[-0.03em]"

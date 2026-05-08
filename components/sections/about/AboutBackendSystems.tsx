@@ -25,7 +25,7 @@ export default function AboutBackendSystems({
       style={{
         border: "4px solid #111",
         padding: viewportTransition
-          ? "18px 18px 20px 18px"
+          ? "14px 16px 16px 16px"
           : "24px 24px 28px 24px",
         height: "100%",
       }}
@@ -42,12 +42,12 @@ export default function AboutBackendSystems({
             fontFamily: "var(--font-archivo), 'Arial Black', sans-serif",
             fontWeight: 900,
             fontSize: viewportTransition
-              ? "clamp(16px, 1.45vw, 22px)"
+              ? "clamp(14px, 1.25vw, 19px)"
               : "clamp(20px, 1.8vw, 26px)",
             letterSpacing: "-0.02em",
             color: "#CFDE00",
             lineHeight: 1.05,
-            marginBottom: viewportTransition ? 10 : 14,
+            marginBottom: viewportTransition ? 12 : 14,
           }}
         >
           BACKEND
@@ -63,7 +63,7 @@ export default function AboutBackendSystems({
             width: 40,
             height: 3,
             background: "#CFDE00",
-            marginBottom: viewportTransition ? 10 : 14,
+            marginBottom: viewportTransition ? 12 : 14,
           }}
         />
 
@@ -71,8 +71,8 @@ export default function AboutBackendSystems({
         <p
           className="font-mono"
           style={{
-            fontSize: viewportTransition ? 13 : 14,
-            fontWeight: 500,
+            fontSize: viewportTransition ? 16 : 14,
+            fontWeight: 900,
             lineHeight: 1.45,
             color: "#C8C0B4",
           }}
@@ -95,7 +95,7 @@ export default function AboutBackendSystems({
             key={i}
             style={{
               width: bar.w,
-              height: viewportTransition ? bar.h - 4 : bar.h,
+              height: viewportTransition ? bar.h - 6 : bar.h,
               background: "#CFDE00",
             }}
             initial={{ scaleY: 0, originY: 1 }}

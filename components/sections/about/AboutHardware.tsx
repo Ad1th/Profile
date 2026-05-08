@@ -18,7 +18,7 @@ export default function AboutHardware({
         border: "4px solid #111",
         borderLeft: "none",
         padding: viewportTransition
-          ? "18px 18px 18px 18px"
+          ? "14px 16px 14px 16px"
           : "24px 24px 24px 24px",
         height: "100%",
       }}
@@ -34,15 +34,15 @@ export default function AboutHardware({
           style={{
             border: "3px solid #111",
             background: "#CFDE00",
-            padding: viewportTransition ? "4px 10px" : "5px 12px",
-            marginBottom: viewportTransition ? 12 : 18,
+            padding: viewportTransition ? "4px 9px" : "5px 12px",
+            marginBottom: viewportTransition ? 14 : 18,
           }}
         >
           <span
             className="text-[#111] font-black uppercase tracking-[0.04em]"
             style={{
               fontFamily: "var(--font-archivo), sans-serif",
-              fontSize: viewportTransition ? 12 : 14,
+              fontSize: viewportTransition ? 15 : 14,
             }}
           >
             HARDWARE / SYSTEMS
@@ -53,15 +53,15 @@ export default function AboutHardware({
         <p
           style={{
             fontFamily: "var(--font-archivo), monospace",
-            fontSize: viewportTransition ? 13 : 16,
-            fontWeight: 500,
+            fontSize: viewportTransition ? 15 : 14,
+            fontWeight: 900,
             lineHeight: 1.45,
             color: "#111",
           }}
         >
           Sometimes I drift into
           <br />
-          hardware — where
+          hardware, where
           <br />
           software stops being
           <br />
@@ -74,8 +74,8 @@ export default function AboutHardware({
       <div className="flex flex-col items-end gap-3">
         {/* Chip SVG */}
         <svg
-          width={viewportTransition ? "58" : "68"}
-          height={viewportTransition ? "58" : "68"}
+          width={viewportTransition ? "52" : "68"}
+          height={viewportTransition ? "52" : "68"}
           viewBox="0 0 68 68"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +173,7 @@ export default function AboutHardware({
               key={i}
               style={{
                 width: 3,
-                height: 16,
+                height: viewportTransition ? 13 : 16,
                 background: "#111",
                 transform: "skewX(-20deg)",
                 opacity: 0.45,

@@ -2,6 +2,12 @@
 
 import { motion } from "framer-motion";
 import { easings } from "@/lib/motion";
+import { Anton } from "next/font/google";
+
+const anton = Anton({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 interface AboutBuiltToBeUsedProps {
   viewportTransition?: boolean;
@@ -18,7 +24,7 @@ export default function AboutBuiltToBeUsed({
         border: "4px solid #111",
         borderTop: "none",
         padding: viewportTransition
-          ? "18px 24px 22px 24px"
+          ? "16px 26px 20px 26px"
           : "28px 32px 32px 32px",
         height: "100%",
       }}
@@ -99,16 +105,24 @@ export default function AboutBuiltToBeUsed({
 
       {/* Headline */}
       <h2
-        className="text-[#111] uppercase leading-none select-none"
+        className={`${anton.className} text-[#111] uppercase select-none`}
         style={{
-          fontFamily: "var(--font-archivo), 'Arial Black', sans-serif",
-          fontWeight: 900,
+          fontWeight: 400,
+
           fontSize: viewportTransition
-            ? "clamp(48px, 5.5vw, 86px)"
-            : "clamp(64px, 7vw, 112px)",
-          letterSpacing: "-0.04em",
-          lineHeight: 0.88,
-          marginTop: viewportTransition ? 10 : 20,
+            ? "clamp(88px, 8vw, 150px)"
+            : "clamp(120px, 10vw, 210px)",
+
+          letterSpacing: "-0.035em",
+          lineHeight: 0.98,
+
+          textAlign: "left",
+
+          position: "absolute",
+          top: viewportTransition ? "2.2rem" : "2.8rem",
+          left: viewportTransition ? "4rem" : "5rem",
+
+          zIndex: 2,
         }}
       >
         BUILT TO
@@ -118,13 +132,13 @@ export default function AboutBuiltToBeUsed({
 
       {/* CTA Button */}
       <div
-        className="flex justify-end"
-        style={{ marginTop: viewportTransition ? 18 : 28 }}
+        className="absolute bottom-8 right-8" //aligns bottom right of the window
+        style={{ marginTop: viewportTransition ? 16 : 28 }}
       >
         <div
           className="relative"
           style={{
-            width: viewportTransition ? 194 : 220,
+            width: viewportTransition ? 218 : 220,
             height: viewportTransition ? 46 : 52,
           }}
         >
@@ -143,6 +157,7 @@ export default function AboutBuiltToBeUsed({
             style={{
               border: "4px solid #111",
               zIndex: 1,
+              letterSpacing: "0.08em",
             }}
             whileHover={{ x: -3, y: -3 }}
             whileTap={{ x: 1, y: 1 }}
@@ -152,7 +167,7 @@ export default function AboutBuiltToBeUsed({
               className="text-[#111] font-black uppercase tracking-[-0.02em]"
               style={{
                 fontFamily: "var(--font-archivo), sans-serif",
-                fontSize: viewportTransition ? 15 : 18,
+                fontSize: viewportTransition ? 14 : 18,
               }}
             >
               OPEN TO BUILD

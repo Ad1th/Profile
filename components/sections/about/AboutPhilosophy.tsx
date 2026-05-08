@@ -24,7 +24,6 @@ export default function AboutPhilosophy() {
         borderBottom: "15px solid #E8420A",
         borderLeft: "15px solid #E8420A",
         borderRight: "15px solid #E8420A",
-        padding: "23px 24px 28px 28px",
       }}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -60,92 +59,90 @@ export default function AboutPhilosophy() {
           ✕
         </span>
       </div>
-      {/* <motion.div //long line below x and - to show window menu
-        className="absolute top-0 right-0"
+      <motion.div
+        className="relative bg-[#F0EBE0] h-full flex flex-col justify-between"
         style={{
-          width: 600,
-          height: 4,
-          background: "#E8420A",
-          marginTop: 26,
-          marginRight: 0,
+          // replace with thicker top border of 28px solid #E8420A and thinner bottom border of 22px solid #E8420A to give asymmetrical weight to the design
+          border: "3px solid #111",
+          padding: "23px 24px 28px 28px",
         }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.55, delay: 0.16, ease: easings.primary }}
-      ></motion.div> */}
-
-      {/* Headline */}
-      <h2
-        className={`${anton.className} text-[#111] uppercase select-none`}
-        style={{
-          // fontFamily: "var(--font-archivo), 'Anton', sans-serif",
-          fontSize: "clamp(50px, 2vw, 28px)",
-          fontWeight: 200,
-          letterSpacing: "0.01em",
-          lineHeight: 0.7,
-          marginBottom: 14,
-          marginTop: 8,
-        }}
       >
-        BEHAVIOR &gt; BUZZWORDS
-      </h2>
+        {/* Headline */}
+        <h2
+          className={`${anton.className} text-[#111] uppercase select-none`}
+          style={{
+            // fontFamily: "var(--font-archivo), 'Anton', sans-serif",
+            fontSize: "clamp(50px, 2vw, 28px)",
+            fontWeight: 200,
+            letterSpacing: "0.01em",
+            lineHeight: 0.7,
+            marginBottom: 14,
+            marginTop: 8,
+          }}
+        >
+          BEHAVIOR &gt; BUZZWORDS
+        </h2>
 
-      {/* Horizontal rule */}
-      <div
-        style={{
-          width: "100%",
-          height: 2,
-          background: "#111",
-          marginBottom: 16,
-        }}
-      />
+        {/* Horizontal rule */}
+        <div
+          style={{
+            width: "100%",
+            height: 2,
+            background: "#111",
+            marginBottom: 16,
+          }}
+        />
 
-      {/* Body text */}
-      <p
-        className="text-[#111]"
-        style={{
-          fontFamily: "var(--font-archivo), monospace",
-          fontSize: 20,
-          fontWeight: 300,
-          lineHeight: 1.5,
-          letterSpacing: "0.05em",
-          marginBottom: 16,
-        }}
-      >
-        I care more about how
-        <br />
-        something behaves
-        <br />
-        than how it's described.
-      </p>
+        {/* Body text */}
+        <p
+          className="text-[#111]"
+          style={{
+            fontFamily: "var(--font-archivo), monospace",
+            fontSize: 20,
+            fontWeight: 300,
+            lineHeight: 1.5,
+            letterSpacing: "0.05em",
+            marginBottom: 16,
+          }}
+        >
+          I care more about how
+          <br />
+          something behaves
+          <br />
+          than how it's described.
+        </p>
 
-      {/* Bullet list */}
-      <div className="flex flex-col gap-[10px]">
-        {bullets.map((b) => (
-          <div key={b} className="flex items-center gap-3">
-            <div
-              style={{
-                width: 14,
-                height: 14,
-                background: "#E8420A",
-                flexShrink: 0,
-              }}
-            />
-            <span
-              className="text-[#111] uppercase font-bold"
-              style={{
-                fontFamily: "var(--font-archivo), sans-serif",
-                fontSize: 18,
-                fontWeight: 300,
-                letterSpacing: "0.06em",
-              }}
-            >
-              {b}
-            </span>
-          </div>
-        ))}
-      </div>
+        {/* Bullet list */}
+        <div className="flex flex-col gap-[10px]">
+          {bullets.map((b) => (
+            <div key={b} className="flex items-center gap-3">
+              <div
+                style={{
+                  width: 14,
+                  height: 14,
+                  background: "#E8420A",
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                className="text-[#111] uppercase font-bold"
+                style={{
+                  fontFamily: "var(--font-archivo), sans-serif",
+                  fontSize: 18,
+                  fontWeight: 300,
+                  letterSpacing: "0.06em",
+                }}
+              >
+                {b}
+              </span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </motion.div>
   );
 }

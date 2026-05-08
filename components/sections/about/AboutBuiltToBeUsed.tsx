@@ -21,11 +21,11 @@ export default function AboutBuiltToBeUsed({
     <motion.div
       className="relative bg-[#6C8EAD] flex flex-col justify-between overflow-hidden"
       style={{
-        border: "4px solid #111",
+        border: "3px solid #111",
         borderTop: "none",
         padding: viewportTransition
-          ? "12px 20px 14px 20px"
-          : "18px 24px 20px 24px",
+          ? "10px 18px 12px 18px"
+          : "16px 20px 18px 20px",
         height: "100%",
       }}
       initial={{ opacity: 0, y: 16 }}
@@ -110,17 +110,18 @@ export default function AboutBuiltToBeUsed({
           fontWeight: 400,
 
           fontSize: viewportTransition
-            ? "clamp(56px, 12vw, 120px)"
-            : "clamp(72px, 6.5vw, 132px)",
+            ? "clamp(40px, 8vw, 78px)"
+            : "clamp(64px, 6.5vw, 112px)",
 
-          letterSpacing: "-0.035em",
-          lineHeight: 0.98,
+          letterSpacing: "-0.04em",
+          lineHeight: 0.9,
 
           textAlign: "left",
 
           position: "absolute",
-          top: viewportTransition ? "2rem" : "2.8rem",
-          left: viewportTransition ? "16rem" : "2.8rem",
+          top: viewportTransition ? "calc(2rem + 30px)" : "2.8rem",
+          left: viewportTransition ? "calc(16rem + 40px)" : "2.8rem",
+          transform: viewportTransition ? "translate(0,0)" : undefined,
 
           zIndex: 2,
         }}
@@ -132,8 +133,11 @@ export default function AboutBuiltToBeUsed({
 
       {/* CTA Button */}
       <div
-        className="absolute bottom-8 right-8" //aligns bottom right of the window
-        style={{ marginTop: viewportTransition ? 16 : 28 }}
+        className="absolute"
+        style={{
+          bottom: viewportTransition ? "24px" : "28px",
+          right: viewportTransition ? "28px" : "32px",
+        }}
       >
         <div
           className="relative"
@@ -155,7 +159,7 @@ export default function AboutBuiltToBeUsed({
           <motion.button
             className="absolute inset-0 flex items-center justify-center gap-3 bg-[#CFDE00] cursor-pointer outline-none"
             style={{
-              border: "4px solid #111",
+              border: "3px solid #111",
               zIndex: 1,
               letterSpacing: "0.08em",
             }}
@@ -167,7 +171,7 @@ export default function AboutBuiltToBeUsed({
               className="text-[#111] font-black uppercase tracking-[-0.02em]"
               style={{
                 fontFamily: "var(--font-archivo), sans-serif",
-                fontSize: viewportTransition ? 14 : 18,
+                fontSize: viewportTransition ? 13 : 16,
               }}
             >
               OPEN TO BUILD

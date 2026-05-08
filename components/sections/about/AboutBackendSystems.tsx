@@ -23,7 +23,7 @@ export default function AboutBackendSystems({
     <motion.div
       className="relative bg-[#111] flex flex-col justify-between overflow-hidden"
       style={{
-        border: "4px solid #111",
+        border: "3px solid #111",
         padding: viewportTransition
           ? "14px 16px 16px 16px"
           : "24px 24px 28px 24px",

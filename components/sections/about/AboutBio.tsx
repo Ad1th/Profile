@@ -9,7 +9,7 @@ export default function AboutBio() {
   return (
     <motion.div
       className="relative bg-[#6C8EAD] h-full"
-      style={{ border: "4px solid #111", padding: "28px 28px 32px 28px" }}
+      style={{ border: "3px solid #111", padding: "20px 20px 24px 20px" }}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -24,7 +24,7 @@ export default function AboutBio() {
             background: "#111",
             position: "absolute",
             top: 12,
-            right: 0,
+            right: 12,
           }}
         />
         <div
@@ -48,7 +48,7 @@ export default function AboutBio() {
             background: "#111",
             position: "absolute",
             bottom: 12,
-            left: 0,
+            left: 12,
           }}
         />
         <div
@@ -76,7 +76,7 @@ export default function AboutBio() {
           className="text-[#111] font-black uppercase tracking-[0.04em]"
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
-            fontSize: 15,
+            fontSize: 13,
           }}
         >
           CSE @ VIT VELLORE
@@ -88,9 +88,9 @@ export default function AboutBio() {
         className="text-[#111]"
         style={{
           fontFamily: "var(--font-archivo), monospace",
-          fontSize: 18,
+          fontSize: 15,
           fontWeight: 500,
-          lineHeight: 1.52,
+          lineHeight: 1.44,
         }}
       >
         I like building things

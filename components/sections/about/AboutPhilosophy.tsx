@@ -2,6 +2,12 @@
 
 import { motion } from "framer-motion";
 import { easings } from "@/lib/motion";
+import { Anton } from "next/font/google";
+
+const anton = Anton({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 // Cream card with orange border: "BEHAVIOR > BUZZWORDS" + bullet list
 export default function AboutPhilosophy() {
@@ -10,7 +16,7 @@ export default function AboutPhilosophy() {
   return (
     <motion.div
       className="relative bg-[#F0EBE0] h-full flex flex-col"
-      style={{ border: "4px solid #E8420A", padding: "24px 24px 28px 24px" }}
+      style={{ border: "25px solid #E8420A", padding: "24px 24px 28px 24px" }}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -18,15 +24,16 @@ export default function AboutPhilosophy() {
     >
       {/* Fake window chrome — top-right close buttons */}
       <div
-        className="absolute top-0 right-0 flex items-center gap-0"
-        style={{ padding: "6px 10px", borderBottom: "3px solid #E8420A" }}
+        className="absolute top-0 right-1 flex items-center gap-0 " //goes into the border above, negative padding
+        style={{ padding: "0px 0px" /*borderBottom: "3px solid #E8420A"*/ }}
       >
         <span
           className="text-[#111] font-black"
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
-            fontSize: 13,
-            marginRight: 8,
+            fontSize: 17,
+            marginRight: 20,
+            marginTop: -23,
           }}
         >
           —
@@ -35,21 +42,37 @@ export default function AboutPhilosophy() {
           className="text-[#111] font-black"
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
-            fontSize: 13,
+            fontSize: 17,
+            marginTop: -23,
           }}
         >
           ✕
         </span>
       </div>
+      {/* <motion.div //long line below x and - to show window menu
+        className="absolute top-0 right-0"
+        style={{
+          width: 600,
+          height: 4,
+          background: "#E8420A",
+          marginTop: 26,
+          marginRight: 0,
+        }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.55, delay: 0.16, ease: easings.primary }}
+      ></motion.div> */}
 
       {/* Headline */}
       <h2
-        className="text-[#111] uppercase leading-none"
+        className={`${anton.className} text-[#111] uppercase select-none`}
         style={{
-          fontFamily: "var(--font-archivo), 'Arial Black', sans-serif",
-          fontSize: "clamp(20px, 2vw, 28px)",
-          fontWeight: 900,
-          letterSpacing: "-0.02em",
+          // fontFamily: "var(--font-archivo), 'Anton', sans-serif",
+          fontSize: "clamp(50px, 2vw, 28px)",
+          fontWeight: 200,
+          letterSpacing: "0.01em",
+          lineHeight: 0.7,
           marginBottom: 14,
           marginTop: 8,
         }}
@@ -58,17 +81,25 @@ export default function AboutPhilosophy() {
       </h2>
 
       {/* Horizontal rule */}
-      <div style={{ width: "100%", height: 2, background: "#111", marginBottom: 16 }} />
+      <div
+        style={{
+          width: "100%",
+          height: 2,
+          background: "#111",
+          marginBottom: 16,
+        }}
+      />
 
       {/* Body text */}
       <p
         className="text-[#111]"
         style={{
           fontFamily: "var(--font-archivo), monospace",
-          fontSize: 16,
-          fontWeight: 500,
+          fontSize: 20,
+          fontWeight: 300,
           lineHeight: 1.5,
-          marginBottom: 20,
+          letterSpacing: "0.05em",
+          marginBottom: 16,
         }}
       >
         I care more about how
@@ -83,13 +114,19 @@ export default function AboutPhilosophy() {
         {bullets.map((b) => (
           <div key={b} className="flex items-center gap-3">
             <div
-              style={{ width: 14, height: 14, background: "#E8420A", flexShrink: 0 }}
+              style={{
+                width: 14,
+                height: 14,
+                background: "#E8420A",
+                flexShrink: 0,
+              }}
             />
             <span
               className="text-[#111] uppercase font-bold"
               style={{
                 fontFamily: "var(--font-archivo), sans-serif",
-                fontSize: 14,
+                fontSize: 18,
+                fontWeight: 300,
                 letterSpacing: "0.06em",
               }}
             >

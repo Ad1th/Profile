@@ -15,11 +15,11 @@ export default function AboutHardware({
     <motion.div
       className="relative bg-[#F0EBE0] flex flex-col justify-between overflow-hidden"
       style={{
-        border: "4px solid #111",
+        border: "3px solid #111",
         borderLeft: "none",
         padding: viewportTransition
-          ? "14px 16px 14px 16px"
-          : "24px 24px 24px 24px",
+          ? "12px 14px 12px 14px"
+          : "20px 20px 20px 20px",
         height: "100%",
       }}
       initial={{ opacity: 0, y: 20 }}
@@ -42,7 +42,7 @@ export default function AboutHardware({
             className="text-[#111] font-black uppercase tracking-[0.04em]"
             style={{
               fontFamily: "var(--font-archivo), sans-serif",
-              fontSize: viewportTransition ? 15 : 14,
+              fontSize: viewportTransition ? 11 : 14,
             }}
           >
             HARDWARE / SYSTEMS
@@ -74,8 +74,8 @@ export default function AboutHardware({
       <div className="flex flex-col items-end gap-3">
         {/* Chip SVG */}
         <svg
-          width={viewportTransition ? "52" : "68"}
-          height={viewportTransition ? "52" : "68"}
+          width={viewportTransition ? "46" : "64"}
+          height={viewportTransition ? "46" : "64"}
           viewBox="0 0 68 68"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -173,10 +173,10 @@ export default function AboutHardware({
               key={i}
               style={{
                 width: 3,
-                height: viewportTransition ? 13 : 16,
+                height: viewportTransition ? 12 : 14,
                 background: "#111",
                 transform: "skewX(-20deg)",
-                opacity: 0.45,
+                opacity: 0.38,
               }}
             />
           ))}

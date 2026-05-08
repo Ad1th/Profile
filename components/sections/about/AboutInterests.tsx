@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import { easings } from "@/lib/motion";
 
@@ -382,7 +383,7 @@ export default function AboutInterests() {
   return (
     <motion.div
       className="w-full bg-[#6C8EAD] flex items-stretch"
-      style={{ border: "4px solid #111", borderTop: "none" }}
+      style={{ border: "3px solid #111", borderTop: "none" }}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -391,20 +392,23 @@ export default function AboutInterests() {
       {interests.map((item, i) => (
         <div
           key={item.label}
-          className="flex-1 flex flex-col items-center justify-center gap-3"
+          className="flex-1 flex flex-col items-center justify-center gap-2"
           style={{
-            padding: "20px 8px",
+            padding: "14px 6px",
             borderLeft: i > 0 ? "3px solid #111" : "none",
           }}
         >
-          {item.icon}
+          {React.cloneElement(item.icon as any, {
+            width: 36,
+            height: 32,
+          })}
           <span
             className="text-[#111] text-center font-black uppercase"
             style={{
               fontFamily: "var(--font-archivo), sans-serif",
-              fontSize: 11,
-              letterSpacing: "0.08em",
-              lineHeight: 0.9,
+              fontSize: 10,
+              letterSpacing: "0.06em",
+              lineHeight: 0.95,
               whiteSpace: "pre-line",
             }}
           >

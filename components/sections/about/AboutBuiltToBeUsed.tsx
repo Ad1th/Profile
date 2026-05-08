@@ -110,7 +110,7 @@ export default function AboutBuiltToBeUsed({
           fontWeight: 400,
 
           fontSize: viewportTransition
-            ? "clamp(54px, 10vw, 100px)"
+            ? "clamp(56px, 12vw, 120px)"
             : "clamp(72px, 6.5vw, 132px)",
 
           letterSpacing: "-0.035em",
@@ -119,7 +119,7 @@ export default function AboutBuiltToBeUsed({
           textAlign: "left",
 
           position: "absolute",
-          top: viewportTransition ? "4rem" : "2.8rem",
+          top: viewportTransition ? "2rem" : "2.8rem",
           left: viewportTransition ? "16rem" : "2.8rem",
 
           zIndex: 2,

@@ -6,7 +6,6 @@ import HeroPortrait from "./HeroPortrait";
 import { motion } from "framer-motion";
 import { easings } from "@/lib/motion";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
 export default function Hero() {
   const [viewport, setViewport] = useState<
@@ -68,50 +67,8 @@ function HeroDesktop() {
       />
 
       <div
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-[#F0EBE0]"
-        style={{
-          height: 64,
-          borderBottom: "5px solid #111",
-          padding: "0 24px",
-        }}
-      >
-        <div
-          className="flex items-center justify-center bg-[#E8420A]"
-          style={{ width: 56, height: 46, border: "3px solid #111" }}
-        >
-          <span
-            className="text-white text-[32px] font-black tracking-[-0.08em] uppercase"
-            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
-          >
-            A.
-          </span>
-        </div>
-
-        <div className="flex-1 flex items-center justify-center gap-12">
-          {["WORK", "ABOUT", "CONTACT"].map((item) => (
-            <span
-              key={item}
-              className="text-[#111] text-[32px] font-black tracking-[0.13em] cursor-pointer"
-              style={{ fontFamily: "var(--font-archivo), sans-serif" }}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-        <div style={{ width: 2, height: 24, background: "#111" }} />
-        <div className="grid grid-cols-3 gap-[4px] bg-[#111] p-[8px]">
-          {[...Array(9)].map((_, i) => (
-            <div
-              key={i}
-              style={{ width: 4, height: 4, background: "#F0EBE0" }}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div
         className="relative w-full h-full flex"
-        style={{ paddingTop: 64, paddingBottom: 112 }}
+        style={{ paddingTop: 80, paddingBottom: 112 }}
       >
         <motion.div
           className="relative flex flex-col justify-center bg-[#111]"
@@ -332,53 +289,10 @@ function HeroTabletLandscape() {
       />
 
       <div
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-[#F0EBE0]"
-        style={{
-          height: 56,
-          borderBottom: "5px solid #111",
-          padding: "0 16px",
-        }}
-      >
-        <div
-          className="flex items-center justify-center bg-[#E8420A]"
-          style={{ width: 48, height: 40, border: "3px solid #111" }}
-        >
-          <span
-            className="text-white text-[24px] font-black tracking-[-0.08em] uppercase"
-            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
-          >
-            A.
-          </span>
-        </div>
-
-        <div className="flex items-center gap-4">
-          {["WORK", "ABOUT", "CONTACT"].map((item) => (
-            <span
-              key={item}
-              className="text-[#111] text-[16px] font-black tracking-[0.13em] cursor-pointer"
-              style={{ fontFamily: "var(--font-archivo), sans-serif" }}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-
-        <div style={{ width: 2, height: 20, background: "#111" }} />
-        <div className="grid grid-cols-3 gap-[3px] bg-[#111] p-[6px]">
-          {[...Array(9)].map((_, i) => (
-            <div
-              key={i}
-              style={{ width: 3, height: 3, background: "#F0EBE0" }}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div
         className="relative"
         style={{
-          marginTop: 56,
-          minHeight: "calc(100vh - 56px - 112px - 48px)",
+          marginTop: 80,
+          minHeight: "calc(100vh - 80px - 112px - 48px)",
           display: "grid",
           gridTemplateColumns: "52% 48%",
           borderBottom: "5px solid #111",
@@ -610,53 +524,10 @@ function HeroTabletPortrait() {
         transition={{ duration: 0.3, delay: 0.1 }}
       />
 
-      <div
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-[#F0EBE0]"
-        style={{
-          height: 56,
-          borderBottom: "5px solid #111",
-          padding: "0 16px",
-        }}
-      >
-        <div
-          className="flex items-center justify-center bg-[#E8420A]"
-          style={{ width: 48, height: 40, border: "3px solid #111" }}
-        >
-          <span
-            className="text-white text-[24px] font-black tracking-[-0.08em] uppercase"
-            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
-          >
-            A.
-          </span>
-        </div>
-
-        <div className="flex items-center gap-4">
-          {["WORK", "ABOUT", "CONTACT"].map((item) => (
-            <span
-              key={item}
-              className="text-[#111] text-[15px] font-black tracking-[0.13em] cursor-pointer"
-              style={{ fontFamily: "var(--font-archivo), sans-serif" }}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-
-        <div style={{ width: 2, height: 20, background: "#111" }} />
-        <div className="grid grid-cols-3 gap-[3px] bg-[#111] p-[6px]">
-          {[...Array(9)].map((_, i) => (
-            <div
-              key={i}
-              style={{ width: 3, height: 3, background: "#F0EBE0" }}
-            />
-          ))}
-        </div>
-      </div>
-
       <motion.div
         className="relative bg-[#111]"
         style={{
-          marginTop: 56,
+          marginTop: 80,
           borderBottom: "5px solid #111",
           padding: "34px 30px 28px",
           display: "flex",
@@ -860,45 +731,10 @@ function HeroMobile() {
         transition={{ duration: 0.3, delay: 0.1 }}
       />
 
-      <div
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-[#F0EBE0]"
-        style={{
-          height: 48,
-          borderBottom: "4px solid #111",
-          padding: "0 12px",
-        }}
-      >
-        <div
-          className="flex items-center justify-center bg-[#E8420A]"
-          style={{ width: 40, height: 34, border: "3px solid #111" }}
-        >
-          <span
-            className="text-white text-[18px] font-black tracking-[-0.08em] uppercase"
-            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
-          >
-            A.
-          </span>
-        </div>
-
-        <div style={{ flex: 1 }} />
-
-        <div
-          style={{ width: 2, height: 18, background: "#111", marginRight: 8 }}
-        />
-        <div className="grid grid-cols-3 gap-[2px] bg-[#111] p-[4px]">
-          {[...Array(9)].map((_, i) => (
-            <div
-              key={i}
-              style={{ width: 2, height: 2, background: "#F0EBE0" }}
-            />
-          ))}
-        </div>
-      </div>
-
       <motion.div
         className="relative bg-[#111]"
         style={{
-          marginTop: 48,
+          marginTop: 80,
           borderBottom: "4px solid #111",
           padding: "32px 20px",
           minHeight: "50vh",

@@ -27,6 +27,7 @@
 import {
   motion,
   useScroll,
+  useSpring,
   useTransform,
   type MotionValue,
 } from "framer-motion";
@@ -45,7 +46,14 @@ const QUART_INOUT = [0.76, 0, 0.24, 1] as const;
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 function useSmoothProgress(raw: MotionValue<number>): MotionValue<number> {
-  return raw;
+  // Temporal lag: keeps the same scroll travel but makes motion settle slower.
+  // Tuned for a much slower (~3x) perceived transition response.
+  return useSpring(raw, {
+    stiffness: 70,
+    damping: 24,
+    mass: 3,
+    restDelta: 0.0008,
+  });
 }
 
 // ─── COMPONENT ───────────────────────────────────────────────────────────────

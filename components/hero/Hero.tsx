@@ -297,8 +297,7 @@ function HeroDesktop() {
                 paddingRight: 64,
               }}
             >
-              OPEN TO INTERN ■ BACKEND ENGINEER ■ CLEAN CODE ■ PRESSURE TESTED
-              BUILDS ■
+              MAKE IT WORK ■ MAKE IT FAST ■ MAKE IT HOLD ■ MAKE IT BETTER ■
             </span>
           ))}
         </div>

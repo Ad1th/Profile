@@ -37,7 +37,7 @@ import About from "@/components/sections/about/About";
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 // Virtual scroll distance the transition plays over.
 // Keep this tight to avoid a dead-scroll tail after the transition settles.
-const SCROLL_TRAVEL = "clamp(56px, 5svh, 120px)";
+const SCROLL_TRAVEL = "clamp(72px, 6svh, 144px)";
 
 // Easing curves
 const EXPO_OUT = [0.16, 1, 0.3, 1] as const;

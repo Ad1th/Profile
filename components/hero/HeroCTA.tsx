@@ -18,30 +18,30 @@ export default function HeroCTA() {
         className="absolute inset-0"
         style={{
           transform: "translate(9px, 9px)",
-          background: "#F24A05",
-          border: "4px solid #050505",
+          background: "#E8420A",
+          border: "4px solid #111",
           zIndex: 0,
         }}
       />
 
       {/* Main button */}
       <motion.button
-        className="absolute inset-0 flex items-center justify-center gap-5 bg-[#D7F205] cursor-pointer outline-none"
+        className="absolute inset-0 flex items-center justify-center gap-5 bg-[#CFDE00] cursor-pointer outline-none"
         style={{
-          border: "4px solid #050505",
+          border: "4px solid #111",
           zIndex: 1,
         }}
         whileHover={{ x: -4, y: -4 }}
         whileTap={{ x: 2, y: 2 }}
-        transition={{ duration: 0.16, ease: easings.primary }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
       >
         <span
-          className="text-[#050505] text-[22px] font-black uppercase tracking-[-0.03em]"
+          className="text-[#111] text-[22px] font-black uppercase tracking-[-0.03em]"
           style={{ fontFamily: "var(--font-archivo), sans-serif" }}
         >
           VIEW WORK
         </span>
-        <ArrowUpRight className="text-[#050505]" size={28} strokeWidth={3.5} />
+        <ArrowUpRight className="text-[#111]" size={28} strokeWidth={3.5} />
       </motion.button>
     </motion.div>
   );

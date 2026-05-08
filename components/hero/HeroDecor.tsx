@@ -32,7 +32,7 @@ export function VerticalDots({ count = 5 }: { count?: number }) {
   return (
     <div className="flex flex-col gap-3">
       {[...Array(count)].map((_, i) => (
-        <div key={i} style={{ width: 10, height: 10, background: "#050505" }} />
+        <div key={i} style={{ width: 10, height: 10, background: "#111" }} />
       ))}
     </div>
   );

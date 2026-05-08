@@ -15,8 +15,8 @@ export default function AboutBackendSystems() {
 
   return (
     <motion.div
-      className="relative bg-[#050505] flex flex-col justify-between overflow-hidden"
-      style={{ border: "4px solid #050505", padding: "24px 24px 28px 24px" }}
+      className="relative bg-[#111] flex flex-col justify-between overflow-hidden"
+      style={{ border: "4px solid #111", padding: "24px 24px 28px 24px" }}
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
@@ -31,7 +31,7 @@ export default function AboutBackendSystems() {
             fontWeight: 900,
             fontSize: "clamp(20px, 1.8vw, 26px)",
             letterSpacing: "-0.02em",
-            color: "#D7F205",
+            color: "#CFDE00",
             lineHeight: 1.05,
             marginBottom: 14,
           }}
@@ -44,7 +44,7 @@ export default function AboutBackendSystems() {
         </h3>
 
         {/* Divider rule */}
-        <div style={{ width: 40, height: 3, background: "#D7F205", marginBottom: 14 }} />
+        <div style={{ width: 40, height: 3, background: "#CFDE00", marginBottom: 14 }} />
 
         {/* Body text */}
         <p
@@ -72,7 +72,7 @@ export default function AboutBackendSystems() {
             style={{
               width: bar.w,
               height: bar.h,
-              background: "#D7F205",
+              background: "#CFDE00",
             }}
             initial={{ scaleY: 0, originY: 1 }}
             whileInView={{ scaleY: 1 }}

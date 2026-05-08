@@ -7,8 +7,8 @@ import { easings } from "@/lib/motion";
 export default function AboutBuiltToBeUsed() {
   return (
     <motion.div
-      className="relative bg-[#7C9BB8] flex flex-col justify-between overflow-hidden"
-      style={{ border: "4px solid #050505", borderTop: "none", padding: "28px 32px 32px 32px" }}
+      className="relative bg-[#6C8EAD] flex flex-col justify-between overflow-hidden"
+      style={{ border: "4px solid #111", borderTop: "none", padding: "28px 32px 32px 32px" }}
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -16,8 +16,8 @@ export default function AboutBuiltToBeUsed() {
     >
       {/* Top-left corner bracket */}
       <div className="absolute top-0 left-0">
-        <div style={{ width: 28, height: 4, background: "#050505", position: "absolute", top: 16, left: 0 }} />
-        <div style={{ width: 4, height: 28, background: "#050505", position: "absolute", top: 16, left: 16 }} />
+        <div style={{ width: 28, height: 4, background: "#111", position: "absolute", top: 16, left: 0 }} />
+        <div style={{ width: 4, height: 28, background: "#111", position: "absolute", top: 16, left: 16 }} />
       </div>
 
       {/* Top-right diagonal hatching decoration */}
@@ -33,7 +33,7 @@ export default function AboutBuiltToBeUsed() {
               style={{
                 width: 3,
                 height: 22,
-                background: "#050505",
+                background: "#111",
                 transform: "skewX(-20deg)",
                 opacity: 0.55,
               }}
@@ -44,13 +44,13 @@ export default function AboutBuiltToBeUsed() {
 
       {/* Bottom-right corner bracket */}
       <div className="absolute bottom-0 right-0">
-        <div style={{ width: 28, height: 4, background: "#050505", position: "absolute", bottom: 16, right: 0 }} />
-        <div style={{ width: 4, height: 28, background: "#050505", position: "absolute", bottom: 16, right: 16 }} />
+        <div style={{ width: 28, height: 4, background: "#111", position: "absolute", bottom: 16, right: 0 }} />
+        <div style={{ width: 4, height: 28, background: "#111", position: "absolute", bottom: 16, right: 16 }} />
       </div>
 
       {/* Headline */}
       <h2
-        className="text-[#050505] uppercase leading-none select-none"
+        className="text-[#111] uppercase leading-none select-none"
         style={{
           fontFamily: "var(--font-archivo), 'Arial Black', sans-serif",
           fontWeight: 900,
@@ -73,23 +73,23 @@ export default function AboutBuiltToBeUsed() {
             className="absolute inset-0"
             style={{
               transform: "translate(6px, 6px)",
-              background: "#050505",
+              background: "#111",
               zIndex: 0,
             }}
           />
           {/* Button */}
           <motion.button
-            className="absolute inset-0 flex items-center justify-center gap-3 bg-[#D7F205] cursor-pointer outline-none"
+            className="absolute inset-0 flex items-center justify-center gap-3 bg-[#CFDE00] cursor-pointer outline-none"
             style={{
-              border: "4px solid #050505",
+              border: "4px solid #111",
               zIndex: 1,
             }}
             whileHover={{ x: -3, y: -3 }}
             whileTap={{ x: 1, y: 1 }}
-            transition={{ duration: 0.16, ease: easings.primary }}
+            transition={{ type: "spring", stiffness: 500, damping: 30 }}
           >
             <span
-              className="text-[#050505] font-black uppercase tracking-[-0.02em]"
+              className="text-[#111] font-black uppercase tracking-[-0.02em]"
               style={{
                 fontFamily: "var(--font-archivo), sans-serif",
                 fontSize: 18,
@@ -98,7 +98,7 @@ export default function AboutBuiltToBeUsed() {
               OPEN TO BUILD
             </span>
             {/* Small square accent */}
-            <div style={{ width: 10, height: 10, background: "#050505", flexShrink: 0 }} />
+            <div style={{ width: 10, height: 10, background: "#111", flexShrink: 0 }} />
           </motion.button>
         </div>
       </div>

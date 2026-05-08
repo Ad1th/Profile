@@ -1,19 +1,9 @@
 "use client";
 
-import { motion, type MotionStyle } from "framer-motion";
+import { motion } from "framer-motion";
 import { easings } from "@/lib/motion";
 
-type HeroHeadlineProps = {
-  backendStyle?: MotionStyle;
-  withStyle?: MotionStyle;
-  tasteStyle?: MotionStyle;
-};
-
-export default function HeroHeadline({
-  backendStyle,
-  withStyle,
-  tasteStyle,
-}: HeroHeadlineProps) {
+export default function HeroHeadline() {
   return (
     <div
       className="flex flex-col select-none uppercase"
@@ -30,12 +20,8 @@ export default function HeroHeadline({
       {/* BACKEND — white, full width bleed */}
       <div style={{ clipPath: "inset(0 -40% 0 0)", overflow: "visible" }}>
         <motion.span
-          className="block text-[#F4EFE6]"
-          style={{
-            fontSize: "clamp(96px, 11vw, 180px)",
-            lineHeight: 0.82,
-            ...backendStyle,
-          }}
+          className="block text-[#F0EBE0]"
+          style={{ fontSize: "clamp(100px, 11vw, 168px)" }}
           initial={{ y: 70, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.65, delay: 0.0, ease: easings.primary }}
@@ -48,25 +34,20 @@ export default function HeroHeadline({
       <motion.div
         className="inline-block"
         style={{
-          border: "4px solid #D7F205",
-          padding: "12px 18px 4px 18px",
+          border: "4px solid #CFDE00",
+          padding: "10px 24px 8px 24px",
           marginTop: 8,
           marginBottom: 8,
           maxWidth: "fit-content",
           backgroundColor: "transparent",
-          ...withStyle,
         }}
         initial={{ x: -40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.65, delay: 0.16, ease: easings.primary }}
       >
         <span
-          className="block text-[#D7F205]"
-          style={{
-            color: "#D7F205",
-            fontSize: "clamp(96px, 11vw, 180px)",
-            lineHeight: 0.82,
-          }}
+          className="block text-[#CFDE00]"
+          style={{ fontSize: "clamp(98px, 10.8vw, 164px)", lineHeight: 0.82 }}
         >
           WITH
         </span>
@@ -75,13 +56,8 @@ export default function HeroHeadline({
       {/* TASTE. — orange, solid, bold */}
       <div style={{ clipPath: "inset(0 -40% 0 0)", overflow: "visible" }}>
         <motion.span
-          className="block text-[#F24A05]"
-          style={{
-            color: "#F24A05",
-            fontSize: "clamp(96px, 11vw, 180px)",
-            lineHeight: 0.82,
-            ...tasteStyle,
-          }}
+          className="block text-[#E8420A]"
+          style={{ fontSize: "clamp(100px, 11vw, 168px)" }}
           initial={{ y: 90, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.65, delay: 0.32, ease: easings.primary }}
@@ -97,7 +73,7 @@ export default function HeroHeadline({
           style={{
             width: 64,
             height: 4,
-            background: "#D7F205",
+            background: "#CFDE00",
             originX: 0,
             marginBottom: 14,
           }}
@@ -108,12 +84,12 @@ export default function HeroHeadline({
         <motion.p
           className="font-mono text-[#E8E8E8] normal-case"
           style={{
-            fontSize: 22,
+            fontSize: 16,
             fontWeight: 700,
             letterSpacing: "0.02em",
-            lineHeight: 1.45,
-            maxWidth: 420,
-            opacity: 0.92,
+            lineHeight: 1.46,
+            maxWidth: 380,
+            opacity: 1,
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

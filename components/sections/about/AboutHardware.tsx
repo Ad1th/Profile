@@ -18,7 +18,7 @@ export default function AboutHardware({
         border: "3px solid #111",
         borderLeft: "none",
         padding: viewportTransition
-          ? "12px 14px 12px 14px"
+          ? "30px 14px 12px 14px"
           : "20px 20px 20px 20px",
         height: "100%",
       }}
@@ -42,7 +42,7 @@ export default function AboutHardware({
             className="text-[#111] font-black uppercase tracking-[0.04em]"
             style={{
               fontFamily: "var(--font-archivo), sans-serif",
-              fontSize: viewportTransition ? 11 : 14,
+              fontSize: viewportTransition ? 18 : 14,
             }}
           >
             HARDWARE / SYSTEMS
@@ -53,7 +53,7 @@ export default function AboutHardware({
         <p
           style={{
             fontFamily: "var(--font-archivo), monospace",
-            fontSize: viewportTransition ? 15 : 14,
+            fontSize: viewportTransition ? 18 : 14,
             fontWeight: 900,
             lineHeight: 1.45,
             color: "#111",

@@ -76,7 +76,7 @@ export default function AboutBio() {
           className="text-[#111] font-black uppercase tracking-[0.04em]"
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
-            fontSize: 13,
+            fontSize: 20,
           }}
         >
           CSE @ VIT VELLORE
@@ -88,8 +88,8 @@ export default function AboutBio() {
         className="text-[#111]"
         style={{
           fontFamily: "var(--font-archivo), monospace",
-          fontSize: 15,
-          fontWeight: 500,
+          fontSize: 25,
+          // fontWeight: 100,
           lineHeight: 1.44,
         }}
       >

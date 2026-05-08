@@ -4,7 +4,7 @@ export default function Navbar() {
   const links = ["WORK", "ABOUT", "CONTACT"];
 
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 flex h-[64px] items-center justify-between border-b-[4px] border-[#111] bg-[#F0EBE0] px-[14px] pointer-events-none md:px-[20px]">
+    <nav className="fixed left-0 right-0 top-0 z-50 flex h-[72px] items-center justify-between border-b-[4px] border-[#111] bg-[#F0EBE0] px-[14px] pointer-events-none md:px-[20px]">
       <div className="pointer-events-auto flex items-center gap-[14px]">
         <div className="flex h-[42px] w-[42px] items-center justify-center border-[3px] border-[#111] bg-[#F45113] shadow-[4px_4px_0_#111] md:h-[46px] md:w-[46px]">
           <span className="pt-[1px] font-archivo text-[22px] font-[900] leading-none tracking-[-0.08em] text-[#111] md:text-[25px]">

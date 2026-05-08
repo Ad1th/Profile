@@ -59,6 +59,7 @@ export default function AboutPhilosophy() {
           ✕
         </span>
       </div>
+      {/* add black border accents to the inner corners of the card, positioned 12px from the edges and sized 24px by 4px, rotated to form L shapes */}
       <motion.div
         className="relative bg-[#F0EBE0] h-full flex flex-col justify-between"
         style={{

@@ -1,6 +1,8 @@
 # Adith's Portfolio
 
-Personal portfolio website built with Next.js and Tailwind CSS to showcase projects, hackathons, timeline milestones, patents, and achievements.
+Personal portfolio website for Adith Manikonda, built with Next.js and Tailwind CSS.
+
+The current homepage focuses on a custom split-screen hero and a dense about section with bold typography, motion, and editorial layout treatment.
 
 ## Tech Stack
 
@@ -8,57 +10,52 @@ Personal portfolio website built with Next.js and Tailwind CSS to showcase proje
 - React 19
 - TypeScript
 - Tailwind CSS
-- Framer Motion / GSAP
+- Framer Motion
+- GSAP
+- Lenis
+- Three.js / React Three Fiber
 
-## Run Locally
+## Getting Started
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:3000` in your browser.
 
 ## Scripts
 
 ```bash
-npm run dev
-npm run build
-npm run start
-npm run lint
+pnpm dev
+pnpm build
+pnpm start
+pnpm lint
 ```
 
-## Main Sections
+## What’s Included
 
-- Hero + About
-- Skills
-- Technical Projects
-- Patents
-- Achievements
-- Hackathons
-- Journey Timeline
-
-## Key Project Highlights
-
-- Hallucination Reference Detector
-- Scotland Yard
-- archAIc
-- Argus
-- BlindSpot
-- Wave Energy Harvesters
+- Responsive hero with desktop, tablet, and mobile layouts
+- Animated portfolio intro with headline, CTA, and portrait
+- Custom about grid with layered panels and motion-driven sections
+- Reusable UI primitives in `components/ui/`
+- Shared motion helpers in `lib/motion.ts`
 
 ## Project Structure
 
 ```text
-app/page.tsx              # Main portfolio page
-components/timeline.tsx   # Journey timeline
-components/ui/*           # Reusable UI components
-public/*                  # Static assets
+app/                      # App router entry point and global layout
+components/hero/          # Hero section and subcomponents
+components/layout/        # Layout chrome such as navigation
+components/sections/      # Page sections, including About
+components/ui/            # Reusable UI building blocks
+lib/                      # Shared utilities and motion settings
+public/                   # Static assets and images
 ```
 
 ## Customization
 
-- Update section content in `app/page.tsx`
-- Update timeline milestones in `components/timeline.tsx`
-- Replace assets in `public/` and update corresponding paths
-
+- Update the homepage composition in `app/page.tsx`
+- Edit hero copy and layout in `components/hero/`
+- Edit the about section in `components/sections/about/`
+- Replace assets in `public/` and update the corresponding references

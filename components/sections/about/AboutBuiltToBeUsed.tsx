@@ -24,8 +24,8 @@ export default function AboutBuiltToBeUsed({
         border: "4px solid #111",
         borderTop: "none",
         padding: viewportTransition
-          ? "16px 26px 20px 26px"
-          : "28px 32px 32px 32px",
+          ? "12px 20px 14px 20px"
+          : "18px 24px 20px 24px",
         height: "100%",
       }}
       initial={{ opacity: 0, y: 16 }}
@@ -110,8 +110,8 @@ export default function AboutBuiltToBeUsed({
           fontWeight: 400,
 
           fontSize: viewportTransition
-            ? "clamp(88px, 8vw, 150px)"
-            : "clamp(120px, 10vw, 210px)",
+            ? "clamp(54px, 10vw, 100px)"
+            : "clamp(72px, 6.5vw, 132px)",
 
           letterSpacing: "-0.035em",
           lineHeight: 0.98,

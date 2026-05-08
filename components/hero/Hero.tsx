@@ -211,7 +211,7 @@ function HeroDesktop() {
         </div>
         <div
           className="flex-1 flex flex-col items-start justify-center"
-          style={{ padding: "14px 28px" }}
+          style={{ padding: "5px 28px", borderRight: "5px solid #111" }}
         >
           <div className="mb-3 flex items-center gap-2">
             <div style={{ width: 12, height: 3, background: "#111" }} />
@@ -239,7 +239,7 @@ function HeroDesktop() {
         </div>
         <div
           className="flex-1 flex flex-col items-start justify-center"
-          style={{ padding: "14px 28px" }}
+          style={{ padding: "14px 28px", borderRight: "5px solid #111" }}
         >
           <div className="mb-3 flex items-center gap-2">
             <div style={{ width: 12, height: 3, background: "#111" }} />
@@ -488,6 +488,7 @@ function HeroTabletLandscape() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
+            borderRight: "5px solid #111",
           }}
         >
           <div className="mb-3 flex items-center gap-2">
@@ -733,6 +734,7 @@ function HeroTabletPortrait() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
+            borderRight: "5px solid #111",
           }}
         >
           <div className="mb-3 flex items-center gap-2">
@@ -996,6 +998,7 @@ function HeroMobile() {
 
         <div
           style={{
+            borderRight: "4px solid #111",
             borderBottom: "4px solid #111",
             padding: "16px 12px",
             minHeight: "85px",

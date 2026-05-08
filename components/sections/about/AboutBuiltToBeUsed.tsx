@@ -3,12 +3,25 @@
 import { motion } from "framer-motion";
 import { easings } from "@/lib/motion";
 
+interface AboutBuiltToBeUsedProps {
+  viewportTransition?: boolean;
+}
+
 // Big blue panel: corner brackets + "BUILT TO BE USED." + "OPEN TO BUILD" button
-export default function AboutBuiltToBeUsed() {
+export default function AboutBuiltToBeUsed({
+  viewportTransition = false,
+}: AboutBuiltToBeUsedProps) {
   return (
     <motion.div
       className="relative bg-[#6C8EAD] flex flex-col justify-between overflow-hidden"
-      style={{ border: "4px solid #111", borderTop: "none", padding: "28px 32px 32px 32px" }}
+      style={{
+        border: "4px solid #111",
+        borderTop: "none",
+        padding: viewportTransition
+          ? "18px 24px 22px 24px"
+          : "28px 32px 32px 32px",
+        height: "100%",
+      }}
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -16,8 +29,26 @@ export default function AboutBuiltToBeUsed() {
     >
       {/* Top-left corner bracket */}
       <div className="absolute top-0 left-0">
-        <div style={{ width: 28, height: 4, background: "#111", position: "absolute", top: 16, left: 0 }} />
-        <div style={{ width: 4, height: 28, background: "#111", position: "absolute", top: 16, left: 16 }} />
+        <div
+          style={{
+            width: 28,
+            height: 4,
+            background: "#111",
+            position: "absolute",
+            top: 16,
+            left: 0,
+          }}
+        />
+        <div
+          style={{
+            width: 4,
+            height: 28,
+            background: "#111",
+            position: "absolute",
+            top: 16,
+            left: 16,
+          }}
+        />
       </div>
 
       {/* Top-right diagonal hatching decoration */}
@@ -44,8 +75,26 @@ export default function AboutBuiltToBeUsed() {
 
       {/* Bottom-right corner bracket */}
       <div className="absolute bottom-0 right-0">
-        <div style={{ width: 28, height: 4, background: "#111", position: "absolute", bottom: 16, right: 0 }} />
-        <div style={{ width: 4, height: 28, background: "#111", position: "absolute", bottom: 16, right: 16 }} />
+        <div
+          style={{
+            width: 28,
+            height: 4,
+            background: "#111",
+            position: "absolute",
+            bottom: 16,
+            right: 0,
+          }}
+        />
+        <div
+          style={{
+            width: 4,
+            height: 28,
+            background: "#111",
+            position: "absolute",
+            bottom: 16,
+            right: 16,
+          }}
+        />
       </div>
 
       {/* Headline */}
@@ -54,10 +103,12 @@ export default function AboutBuiltToBeUsed() {
         style={{
           fontFamily: "var(--font-archivo), 'Arial Black', sans-serif",
           fontWeight: 900,
-          fontSize: "clamp(64px, 7vw, 112px)",
+          fontSize: viewportTransition
+            ? "clamp(48px, 5.5vw, 86px)"
+            : "clamp(64px, 7vw, 112px)",
           letterSpacing: "-0.04em",
           lineHeight: 0.88,
-          marginTop: 20,
+          marginTop: viewportTransition ? 10 : 20,
         }}
       >
         BUILT TO
@@ -66,8 +117,17 @@ export default function AboutBuiltToBeUsed() {
       </h2>
 
       {/* CTA Button */}
-      <div className="flex justify-end" style={{ marginTop: 28 }}>
-        <div className="relative" style={{ width: 220, height: 52 }}>
+      <div
+        className="flex justify-end"
+        style={{ marginTop: viewportTransition ? 18 : 28 }}
+      >
+        <div
+          className="relative"
+          style={{
+            width: viewportTransition ? 194 : 220,
+            height: viewportTransition ? 46 : 52,
+          }}
+        >
           {/* Shadow block */}
           <div
             className="absolute inset-0"
@@ -92,13 +152,20 @@ export default function AboutBuiltToBeUsed() {
               className="text-[#111] font-black uppercase tracking-[-0.02em]"
               style={{
                 fontFamily: "var(--font-archivo), sans-serif",
-                fontSize: 18,
+                fontSize: viewportTransition ? 15 : 18,
               }}
             >
               OPEN TO BUILD
             </span>
             {/* Small square accent */}
-            <div style={{ width: 10, height: 10, background: "#111", flexShrink: 0 }} />
+            <div
+              style={{
+                width: 10,
+                height: 10,
+                background: "#111",
+                flexShrink: 0,
+              }}
+            />
           </motion.button>
         </div>
       </div>

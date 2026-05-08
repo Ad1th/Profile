@@ -219,7 +219,8 @@ export default function About({
     builtOpacityProp ?? useTransform(localProgress, [0.36, 0.58], [0, 1]);
 
   const footerY =
-    footerYProp ?? useTransform(localProgress, [0.48, 0.68], [32, 0]);
+    footerYProp ??
+    useTransform(localProgress, [0.48, 0.68], [viewportTransition ? 8 : 32, 0]);
   const footerOpacity =
     footerOpacityProp ?? useTransform(localProgress, [0.48, 0.68], [0, 1]);
 
@@ -247,15 +248,14 @@ export default function About({
       >
         {/* ── MAIN GRID ──────────────────────────────────────────────────── */}
         <div
-          className="grid"
+          className="grid flex-1 min-h-0"
           style={{
             gridTemplateColumns: "37% 26% 37%",
             gridTemplateRows: viewportTransition
               ? "minmax(0, 1fr) minmax(0, 1fr)"
               : "auto auto",
-            flex: viewportTransition ? "1 1 auto" : undefined,
-            minHeight: viewportTransition ? 0 : undefined,
-            height: viewportTransition ? "100%" : undefined,
+            display: "grid",
+            alignItems: "stretch",
           }}
         >
           {/* ── ROW 1 ──────────────────────────────────────────────────── */}
@@ -266,8 +266,8 @@ export default function About({
             style={{
               borderRight: "4px solid #111",
               borderBottom: "4px solid #111",
-              padding: "48px 32px",
-              minHeight: 420,
+              padding: viewportTransition ? "32px 28px" : "48px 32px",
+              minHeight: viewportTransition ? undefined : 420,
               y: buildY,
               opacity: buildOpacity,
               scale: buildScale,
@@ -361,7 +361,7 @@ export default function About({
 
           {/* Col 1 Row 2 — Backend Systems + Hardware */}
           <div
-            className="grid"
+            className="grid h-full min-h-0"
             style={{
               gridTemplateColumns: "50% 50%",
               borderRight: "4px solid #111",
@@ -372,22 +372,30 @@ export default function About({
                 y: backendY,
                 opacity: backendOpacity,
                 scale: backendScale,
+                height: "100%",
               }}
             >
-              <AboutBackendSystems />
+              <AboutBackendSystems viewportTransition={viewportTransition} />
             </motion.div>
             <motion.div
               style={{
                 x: hardwareX,
                 opacity: hardwareOpacity,
+                height: "100%",
               }}
             >
-              <AboutHardware />
+              <AboutHardware viewportTransition={viewportTransition} />
             </motion.div>
           </div>
 
           {/* Col 2+3 Row 2 — Interests + Built to be used */}
-          <div className="flex flex-col" style={{ gridColumn: "2 / 4" }}>
+          <div
+            className="grid h-full min-h-0"
+            style={{
+              gridColumn: "2 / 4",
+              gridTemplateRows: "auto minmax(0, 1fr)",
+            }}
+          >
             <motion.div
               style={{
                 y: interestsY,
@@ -398,20 +406,26 @@ export default function About({
               <AboutInterests />
             </motion.div>
             <motion.div
+              className="min-h-0 h-full"
               style={{
                 scale: builtScale,
                 opacity: builtOpacity,
                 transformOrigin: "50% 0%",
               }}
             >
-              <AboutBuiltToBeUsed />
+              <AboutBuiltToBeUsed viewportTransition={viewportTransition} />
             </motion.div>
           </div>
         </div>
 
         {/* ── FOOTER ─────────────────────────────────────────────────────── */}
-        <motion.div style={{ y: footerY, opacity: footerOpacity }}>
-          <AboutFooter />
+        <motion.div
+          className={
+            viewportTransition ? "absolute inset-x-0 bottom-0 z-20" : ""
+          }
+          style={{ y: footerY, opacity: footerOpacity }}
+        >
+          <AboutFooter viewportTransition={viewportTransition} />
         </motion.div>
       </motion.div>
     </section>

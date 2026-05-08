@@ -3,8 +3,14 @@
 import { motion } from "framer-motion";
 import { easings } from "@/lib/motion";
 
+interface AboutBackendSystemsProps {
+  viewportTransition?: boolean;
+}
+
 // Black card: "BACKEND SYSTEMS PERFORMANCE" in acid-yellow + staircase bar chart
-export default function AboutBackendSystems() {
+export default function AboutBackendSystems({
+  viewportTransition = false,
+}: AboutBackendSystemsProps) {
   // Staircase bars — ascending from left to right
   const bars = [
     { w: 18, h: 16 },
@@ -16,7 +22,13 @@ export default function AboutBackendSystems() {
   return (
     <motion.div
       className="relative bg-[#111] flex flex-col justify-between overflow-hidden"
-      style={{ border: "4px solid #111", padding: "24px 24px 28px 24px" }}
+      style={{
+        border: "4px solid #111",
+        padding: viewportTransition
+          ? "18px 18px 20px 18px"
+          : "24px 24px 28px 24px",
+        height: "100%",
+      }}
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
@@ -29,11 +41,13 @@ export default function AboutBackendSystems() {
           style={{
             fontFamily: "var(--font-archivo), 'Arial Black', sans-serif",
             fontWeight: 900,
-            fontSize: "clamp(20px, 1.8vw, 26px)",
+            fontSize: viewportTransition
+              ? "clamp(16px, 1.45vw, 22px)"
+              : "clamp(20px, 1.8vw, 26px)",
             letterSpacing: "-0.02em",
             color: "#CFDE00",
             lineHeight: 1.05,
-            marginBottom: 14,
+            marginBottom: viewportTransition ? 10 : 14,
           }}
         >
           BACKEND
@@ -44,15 +58,22 @@ export default function AboutBackendSystems() {
         </h3>
 
         {/* Divider rule */}
-        <div style={{ width: 40, height: 3, background: "#CFDE00", marginBottom: 14 }} />
+        <div
+          style={{
+            width: 40,
+            height: 3,
+            background: "#CFDE00",
+            marginBottom: viewportTransition ? 10 : 14,
+          }}
+        />
 
         {/* Body text */}
         <p
           className="font-mono"
           style={{
-            fontSize: 14,
+            fontSize: viewportTransition ? 13 : 14,
             fontWeight: 500,
-            lineHeight: 1.5,
+            lineHeight: 1.45,
             color: "#C8C0B4",
           }}
         >
@@ -65,13 +86,16 @@ export default function AboutBackendSystems() {
       </div>
 
       {/* Staircase graphic */}
-      <div className="flex items-end gap-[3px]" style={{ marginTop: 18 }}>
+      <div
+        className="flex items-end gap-[3px]"
+        style={{ marginTop: viewportTransition ? 12 : 18 }}
+      >
         {bars.map((bar, i) => (
           <motion.div
             key={i}
             style={{
               width: bar.w,
-              height: bar.h,
+              height: viewportTransition ? bar.h - 4 : bar.h,
               background: "#CFDE00",
             }}
             initial={{ scaleY: 0, originY: 1 }}

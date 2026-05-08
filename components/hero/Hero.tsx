@@ -4,7 +4,6 @@ import type React from "react";
 import HeroHeadline from "./HeroHeadline";
 import HeroCTA from "./HeroCTA";
 import HeroPortrait from "./HeroPortrait";
-import Navbar from "@/components/layout/Navbar";
 import {
   motion,
   type MotionValue,
@@ -58,12 +57,7 @@ export default function Hero({
     heroContent = <HeroDesktop transitionProgress={transitionProgress} />;
   }
 
-  return (
-    <div className="relative">
-      <Navbar />
-      {heroContent}
-    </div>
-  );
+  return <div className="relative">{heroContent}</div>;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -82,22 +76,14 @@ function HeroDesktop({
   const scrollYProgress = transitionProgress ?? localProgress;
 
   const backendX = useTransform(scrollYProgress, [0.05, 0.22], [0, -40]);
-  const backendOpacity = useTransform(
-    scrollYProgress,
-    [0.05, 0.22],
-    [1, 0.92],
-  );
+  const backendOpacity = useTransform(scrollYProgress, [0.05, 0.22], [1, 0.92]);
   const withX = useTransform(scrollYProgress, [0.08, 0.26], [0, 24]);
   const withScale = useTransform(scrollYProgress, [0.08, 0.26], [1, 0.97]);
   const tasteY = useTransform(scrollYProgress, [0.12, 0.32], [0, 36]);
   const tasteRotate = useTransform(scrollYProgress, [0.12, 0.32], [0, 1]);
   const imageScale = useTransform(scrollYProgress, [0.15, 0.42], [1, 0.92]);
   const imageY = useTransform(scrollYProgress, [0.15, 0.42], [0, 60]);
-  const stickerRotate = useTransform(
-    scrollYProgress,
-    [0.18, 0.35],
-    [-4, -10],
-  );
+  const stickerRotate = useTransform(scrollYProgress, [0.18, 0.35], [-4, -10]);
   const stickerX = useTransform(scrollYProgress, [0.18, 0.35], [0, 40]);
   const marqueeOpacity = useTransform(scrollYProgress, [0.12, 0.3], [1, 0]);
   const marqueeFilter = useTransform(

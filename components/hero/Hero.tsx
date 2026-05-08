@@ -68,7 +68,7 @@ function HeroDesktop() {
 
       <div
         className="relative w-full h-full flex"
-        style={{ paddingTop: 80, paddingBottom: 112 }}
+        style={{ paddingTop: 72, paddingBottom: 112 }}
       >
         <motion.div
           className="relative flex flex-col justify-center bg-[#111]"
@@ -291,8 +291,8 @@ function HeroTabletLandscape() {
       <div
         className="relative"
         style={{
-          marginTop: 80,
-          minHeight: "calc(100vh - 80px - 112px - 48px)",
+          marginTop: 72,
+          minHeight: "calc(100vh - 72px - 112px - 48px)",
           display: "grid",
           gridTemplateColumns: "52% 48%",
           borderBottom: "5px solid #111",
@@ -527,7 +527,7 @@ function HeroTabletPortrait() {
       <motion.div
         className="relative bg-[#111]"
         style={{
-          marginTop: 80,
+          marginTop: 72,
           borderBottom: "5px solid #111",
           padding: "34px 30px 28px",
           display: "flex",
@@ -734,7 +734,7 @@ function HeroMobile() {
       <motion.div
         className="relative bg-[#111]"
         style={{
-          marginTop: 80,
+          marginTop: 72,
           borderBottom: "4px solid #111",
           padding: "32px 20px",
           minHeight: "50vh",

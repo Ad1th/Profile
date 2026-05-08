@@ -1,9 +1,10 @@
 import type React from "react";
 import "./globals.css";
 import { Anton, Archivo_Black } from "next/font/google";
+import Navbar from "@/components/layout/Navbar";
 
-const archivo = Archivo_Black({ 
-  weight: "400", 
+const archivo = Archivo_Black({
+  weight: "400",
   subsets: ["latin"],
   variable: "--font-archivo",
 });
@@ -16,14 +17,24 @@ const anton = Anton({
 
 export const metadata = {
   title: "Adith Manikonda",
-  description: "Personal portfolio website of Adith Manikonda, an Engineering Freshman at VIT",
+  description:
+    "Personal portfolio website of Adith Manikonda, an Engineering Freshman at VIT",
   generator: "v0.dev",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${archivo.variable} ${anton.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${archivo.variable} ${anton.variable}`}
+    >
       <body>
+        <Navbar />
         {children}
       </body>
     </html>

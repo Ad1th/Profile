@@ -1,8 +1,10 @@
 "use client";
 
+import type React from "react";
 import HeroHeadline from "./HeroHeadline";
 import HeroCTA from "./HeroCTA";
 import HeroPortrait from "./HeroPortrait";
+import Navbar from "@/components/layout/Navbar";
 import { motion } from "framer-motion";
 import { easings } from "@/lib/motion";
 import { useState, useEffect } from "react";
@@ -35,19 +37,24 @@ export default function Hero() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  let heroContent: React.ReactNode;
+
   if (viewport === "tabletPortrait") {
-    return <HeroTabletPortrait />;
+    heroContent = <HeroTabletPortrait />;
+  } else if (viewport === "tabletLandscape") {
+    heroContent = <HeroTabletLandscape />;
+  } else if (viewport === "mobile") {
+    heroContent = <HeroMobile />;
+  } else {
+    heroContent = <HeroDesktop />;
   }
 
-  if (viewport === "tabletLandscape") {
-    return <HeroTabletLandscape />;
-  }
-
-  if (viewport === "mobile") {
-    return <HeroMobile />;
-  }
-
-  return <HeroDesktop />;
+  return (
+    <div className="relative">
+      <Navbar />
+      {heroContent}
+    </div>
+  );
 }
 
 // ═══════════════════════════════════════════════════════════════

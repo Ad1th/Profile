@@ -68,7 +68,7 @@ function HeroDesktop() {
       />
 
       <div
-        className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between bg-[#F0EBE0]"
+        className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between bg-[#F0EBE0]"
         style={{
           height: 64,
           borderBottom: "5px solid #111",
@@ -332,7 +332,7 @@ function HeroTabletLandscape() {
       />
 
       <div
-        className="relative z-30 flex items-center justify-between bg-[#F0EBE0]"
+        className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between bg-[#F0EBE0]"
         style={{
           height: 56,
           borderBottom: "5px solid #111",
@@ -377,6 +377,7 @@ function HeroTabletLandscape() {
       <div
         className="relative"
         style={{
+          marginTop: 56,
           minHeight: "calc(100vh - 56px - 112px - 48px)",
           display: "grid",
           gridTemplateColumns: "52% 48%",
@@ -610,7 +611,7 @@ function HeroTabletPortrait() {
       />
 
       <div
-        className="relative z-30 flex items-center justify-between bg-[#F0EBE0]"
+        className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between bg-[#F0EBE0]"
         style={{
           height: 56,
           borderBottom: "5px solid #111",
@@ -655,6 +656,7 @@ function HeroTabletPortrait() {
       <motion.div
         className="relative bg-[#111]"
         style={{
+          marginTop: 56,
           borderBottom: "5px solid #111",
           padding: "34px 30px 28px",
           display: "flex",
@@ -859,7 +861,7 @@ function HeroMobile() {
       />
 
       <div
-        className="relative z-30 flex items-center justify-between bg-[#F0EBE0]"
+        className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between bg-[#F0EBE0]"
         style={{
           height: 48,
           borderBottom: "4px solid #111",
@@ -896,6 +898,7 @@ function HeroMobile() {
       <motion.div
         className="relative bg-[#111]"
         style={{
+          marginTop: 48,
           borderBottom: "4px solid #111",
           padding: "32px 20px",
           minHeight: "50vh",
@@ -919,7 +922,6 @@ function HeroMobile() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          marginTop: -35,
         }}
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

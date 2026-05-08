@@ -420,9 +420,7 @@ export default function About({
 
         {/* ── FOOTER ─────────────────────────────────────────────────────── */}
         <motion.div
-          className={
-            viewportTransition ? "absolute inset-x-0 bottom-0 z-20" : ""
-          }
+          className={viewportTransition ? "relative z-20" : ""}
           style={{ y: footerY, opacity: footerOpacity }}
         >
           <AboutFooter viewportTransition={viewportTransition} />

@@ -15,11 +15,11 @@ export default function AboutFooter({
     <motion.div
       className="w-full flex items-center justify-between"
       style={{
-        height: viewportTransition ? 36 : 52,
+        height: viewportTransition ? 32 : 52,
         background: "#111",
         border: "4px solid #111",
         borderTop: "none",
-        padding: viewportTransition ? "0 16px" : "0 24px",
+        padding: viewportTransition ? "0 14px" : "0 24px",
       }}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}

@@ -1,6 +1,11 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  type MotionValue,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { easings } from "@/lib/motion";
 import { useRef } from "react";
 import AboutBio from "./AboutBio";
@@ -29,67 +34,76 @@ import AboutFooter from "./AboutFooter";
 //  └─────────────────────────────────────────────────────┘
 // ─────────────────────────────────────────────────────────────────
 
-export default function About() {
+export default function About({
+  transitionProgress,
+  viewportTransition = false,
+}: {
+  transitionProgress?: MotionValue<number>;
+  viewportTransition?: boolean;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: localProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "start 40%"],
+    offset: ["start 60%", "start 0%"],
   });
+  const scrollYProgress = transitionProgress ?? localProgress;
 
-  const buildY = useTransform(scrollYProgress, [0.28, 0.48], [80, 0]);
-  const buildOpacity = useTransform(scrollYProgress, [0.28, 0.48], [0, 1]);
-  const buildScale = useTransform(scrollYProgress, [0.28, 0.48], [0.96, 1]);
+  const shellOpacity = useTransform(scrollYProgress, [0.04, 0.14], [0, 1]);
+
+  const buildY = useTransform(scrollYProgress, [0.12, 0.34], [80, 0]);
+  const buildOpacity = useTransform(scrollYProgress, [0.12, 0.34], [0, 1]);
+  const buildScale = useTransform(scrollYProgress, [0.12, 0.34], [0.96, 1]);
 
   const bioClip = useTransform(
     scrollYProgress,
-    [0.34, 0.5],
+    [0.18, 0.38],
     ["inset(0 100% 0 0)", "inset(0 0% 0 0)"],
   );
-  const bioY = useTransform(scrollYProgress, [0.34, 0.5], [24, 0]);
-  const bioOpacity = useTransform(scrollYProgress, [0.34, 0.5], [0, 1]);
+  const bioY = useTransform(scrollYProgress, [0.18, 0.38], [24, 0]);
+  const bioOpacity = useTransform(scrollYProgress, [0.18, 0.38], [0, 1]);
 
-  const backendY = useTransform(scrollYProgress, [0.36, 0.54], [40, 0]);
-  const backendOpacity = useTransform(scrollYProgress, [0.36, 0.54], [0, 1]);
-  const backendScale = useTransform(scrollYProgress, [0.36, 0.54], [0.96, 1]);
+  const backendY = useTransform(scrollYProgress, [0.24, 0.44], [40, 0]);
+  const backendOpacity = useTransform(scrollYProgress, [0.24, 0.44], [0, 1]);
+  const backendScale = useTransform(scrollYProgress, [0.24, 0.44], [0.96, 1]);
 
   const hardwareX = useTransform(
     scrollYProgress,
-    [0.4, 0.52, 0.58],
+    [0.28, 0.42, 0.5],
     [-80, 8, 0],
   );
-  const hardwareOpacity = useTransform(scrollYProgress, [0.4, 0.5], [0, 1]);
+  const hardwareOpacity = useTransform(scrollYProgress, [0.28, 0.4], [0, 1]);
 
-  const interestsY = useTransform(scrollYProgress, [0.42, 0.6], [48, 0]);
-  const interestsOpacity = useTransform(scrollYProgress, [0.42, 0.6], [0, 1]);
-  const interestsScale = useTransform(scrollYProgress, [0.42, 0.6], [0.96, 1]);
+  const interestsY = useTransform(scrollYProgress, [0.32, 0.52], [48, 0]);
+  const interestsOpacity = useTransform(scrollYProgress, [0.32, 0.52], [0, 1]);
+  const interestsScale = useTransform(scrollYProgress, [0.32, 0.52], [0.96, 1]);
 
-  const builtScale = useTransform(scrollYProgress, [0.45, 0.65], [1.06, 1]);
-  const builtOpacity = useTransform(scrollYProgress, [0.45, 0.65], [0, 1]);
+  const builtScale = useTransform(scrollYProgress, [0.36, 0.58], [1.06, 1]);
+  const builtOpacity = useTransform(scrollYProgress, [0.36, 0.58], [0, 1]);
   const builtTracking = useTransform(
     scrollYProgress,
-    [0.45, 0.65],
+    [0.36, 0.58],
     ["0.035em", "0em"],
   );
 
-  const paperOpacity = useTransform(scrollYProgress, [0.52, 0.58], [0, 1]);
+  const paperOpacity = useTransform(scrollYProgress, [0.42, 0.48], [0, 1]);
   const paperScale = useTransform(
     scrollYProgress,
-    [0.52, 0.58, 0.66, 0.74],
+    [0.42, 0.48, 0.56, 0.64],
     [0.7, 0.82, 1.03, 1],
   );
   const paperRotate = useTransform(
     scrollYProgress,
-    [0.52, 0.58, 0.66, 0.74],
+    [0.42, 0.48, 0.56, 0.64],
     [-8, -4, 1, 0],
   );
   const paperFilter = useTransform(
     scrollYProgress,
-    [0.52, 0.58, 0.66, 0.74],
+    [0.42, 0.48, 0.56, 0.64],
     ["blur(6px)", "blur(4px)", "blur(1px)", "blur(0px)"],
   );
   const paperClip = useTransform(
     scrollYProgress,
-    [0.52, 0.58, 0.66, 0.74],
+    [0.42, 0.48, 0.56, 0.64],
     [
       "polygon(8% 0, 100% 10%, 92% 100%, 0 88%)",
       "polygon(2% 4%, 98% 0, 100% 92%, 4% 100%)",
@@ -98,22 +112,25 @@ export default function About() {
     ],
   );
 
-  const footerY = useTransform(scrollYProgress, [0.56, 0.74], [32, 0]);
-  const footerOpacity = useTransform(scrollYProgress, [0.56, 0.74], [0, 1]);
+  const footerY = useTransform(scrollYProgress, [0.48, 0.68], [32, 0]);
+  const footerOpacity = useTransform(scrollYProgress, [0.48, 0.68], [0, 1]);
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#EEE7DC] overflow-hidden"
+      className={`relative w-full overflow-hidden ${
+        viewportTransition ? "h-full bg-transparent" : "bg-transparent"
+      }`}
       style={{ padding: "0 0" }}
     >
       {/* Outer border frame — matches hero's border */}
-      <div
-        className="relative mx-auto"
+      <motion.div
+        className={`relative mx-auto ${viewportTransition ? "flex h-full flex-col" : ""}`}
         style={{
           border: "5px solid #111",
           borderTop: "none", // hero section handles top
           maxWidth: "100%",
+          opacity: shellOpacity,
         }}
       >
         {/* ── MAIN GRID ────────────────────────────────── */}
@@ -128,6 +145,8 @@ export default function About() {
           style={{
             gridTemplateColumns: "37% 26% 37%",
             gridTemplateRows: "auto auto",
+            flex: viewportTransition ? "1 1 auto" : undefined,
+            minHeight: viewportTransition ? 0 : undefined,
           }}
         >
           {/* ── ROW 1 ───────────────────────────────────── */}
@@ -284,7 +303,7 @@ export default function About() {
         <motion.div style={{ y: footerY, opacity: footerOpacity }}>
           <AboutFooter />
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

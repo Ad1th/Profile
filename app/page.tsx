@@ -1,11 +1,9 @@
-import Hero from "@/components/hero/Hero";
-import About from "@/components/sections/about/About";
+import HeroAboutTransition from "@/components/sections/HeroAboutTransition";
 
 export default function Page() {
   return (
     <main className="relative w-full bg-[#EEE7DC] min-h-screen overflow-hidden selection:bg-[#F05A24] selection:text-white">
-      <Hero />
-      <About />
+      <HeroAboutTransition />
     </main>
   );
 }

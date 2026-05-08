@@ -5,11 +5,20 @@ import HeroHeadline from "./HeroHeadline";
 import HeroCTA from "./HeroCTA";
 import HeroPortrait from "./HeroPortrait";
 import Navbar from "@/components/layout/Navbar";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  type MotionValue,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { easings } from "@/lib/motion";
 import { useRef, useState, useEffect } from "react";
 
-export default function Hero() {
+export default function Hero({
+  transitionProgress,
+}: {
+  transitionProgress?: MotionValue<number>;
+}) {
   const [viewport, setViewport] = useState<
     "desktop" | "tabletLandscape" | "tabletPortrait" | "mobile"
   >("desktop");
@@ -46,7 +55,7 @@ export default function Hero() {
   } else if (viewport === "mobile") {
     heroContent = <HeroMobile />;
   } else {
-    heroContent = <HeroDesktop />;
+    heroContent = <HeroDesktop transitionProgress={transitionProgress} />;
   }
 
   return (
@@ -60,12 +69,17 @@ export default function Hero() {
 // ═══════════════════════════════════════════════════════════════
 // DESKTOP: Two-column split layout (1280px+)
 // ═══════════════════════════════════════════════════════════════
-function HeroDesktop() {
+function HeroDesktop({
+  transitionProgress,
+}: {
+  transitionProgress?: MotionValue<number>;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: localProgress } = useScroll({
     target: sectionRef,
     offset: ["end end", "end 40%"],
   });
+  const scrollYProgress = transitionProgress ?? localProgress;
 
   const backendX = useTransform(scrollYProgress, [0.05, 0.22], [0, -40]);
   const backendOpacity = useTransform(

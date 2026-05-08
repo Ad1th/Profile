@@ -18,7 +18,7 @@ export default function Navbar() {
           <a
             key={link}
             href={`#${link.toLowerCase()}`}
-            className="font-archivo text-[15px] font-[900] uppercase leading-none tracking-[-0.04em] text-[#111]"
+            className="font-archivo text-[20px] font-[900] uppercase leading-none tracking-[-0.04em] text-[#111]"
           >
             {link}
           </a>

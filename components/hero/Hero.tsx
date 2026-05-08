@@ -68,7 +68,7 @@ function HeroDesktop() {
       />
 
       <div
-        className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between bg-[#F0EBE0]"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-[#F0EBE0]"
         style={{
           height: 64,
           borderBottom: "5px solid #111",
@@ -332,7 +332,7 @@ function HeroTabletLandscape() {
       />
 
       <div
-        className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between bg-[#F0EBE0]"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-[#F0EBE0]"
         style={{
           height: 56,
           borderBottom: "5px solid #111",
@@ -611,7 +611,7 @@ function HeroTabletPortrait() {
       />
 
       <div
-        className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between bg-[#F0EBE0]"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-[#F0EBE0]"
         style={{
           height: 56,
           borderBottom: "5px solid #111",
@@ -861,7 +861,7 @@ function HeroMobile() {
       />
 
       <div
-        className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between bg-[#F0EBE0]"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-[#F0EBE0]"
         style={{
           height: 48,
           borderBottom: "4px solid #111",

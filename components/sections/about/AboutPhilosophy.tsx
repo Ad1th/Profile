@@ -14,9 +14,18 @@ export default function AboutPhilosophy() {
   const bullets = ["UNDER LOAD.", "UNDER PRESSURE.", "UNDER MISTAKES."];
 
   return (
+    // Outer cream card with orange border  top border thicker than bottom border to give asymmetrical "weight" to the design
     <motion.div
-      className="relative bg-[#F0EBE0] h-full flex flex-col"
-      style={{ border: "25px solid #E8420A", padding: "24px 24px 28px 24px" }}
+      className="relative bg-[#F0EBE0] h-full flex flex-col justify-between"
+      style={{
+        // replace with thicker top border of 28px solid #E8420A and thinner bottom border of 22px solid #E8420A to give asymmetrical weight to the design
+        border: "3px solid #111",
+        borderTop: "32px solid #E8420A",
+        borderBottom: "15px solid #E8420A",
+        borderLeft: "15px solid #E8420A",
+        borderRight: "15px solid #E8420A",
+        padding: "23px 24px 28px 28px",
+      }}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -32,6 +41,7 @@ export default function AboutPhilosophy() {
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
             fontSize: 17,
+            fontWeight: 1000,
             marginRight: 20,
             marginTop: -23,
           }}
@@ -43,6 +53,7 @@ export default function AboutPhilosophy() {
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
             fontSize: 17,
+            fontWeight: 1100,
             marginTop: -23,
           }}
         >

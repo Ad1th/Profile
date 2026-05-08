@@ -24,15 +24,20 @@
  * Mobile: normal stacked layout, no transition.
  */
 
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 import { useRef } from "react";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
-// Virtual scroll distance the transition plays over (px).
-// Viewport height is added on top → total section height = 100svh + SCROLL_TRAVEL
-const SCROLL_TRAVEL = 540;
+// Virtual scroll distance the transition plays over.
+// Keep this tight to avoid a dead-scroll tail after the transition settles.
+const SCROLL_TRAVEL = "clamp(160px, 24svh, 280px)";
 
 // Easing curves
 const EXPO_OUT = [0.16, 1, 0.3, 1] as const;
@@ -180,7 +185,7 @@ export default function HeroAboutTransition() {
         style={{
           // CRITICAL: section height = viewport + exact scroll travel.
           // This eliminates ALL dead scroll space after the transition.
-          height: `calc(100svh + ${SCROLL_TRAVEL}px)`,
+          height: `calc(100svh + ${SCROLL_TRAVEL})`,
         }}
       >
         {/* Pinned viewport — exactly 100svh, never taller */}
@@ -197,28 +202,7 @@ export default function HeroAboutTransition() {
               scale: heroScale,
             }}
           >
-            <Hero
-              transitionProgress={p}
-              // Pass per-element motion overrides so hero sub-components
-              // participate in the transition (Hero.tsx must accept these)
-              heroLeftStyle={{ x: heroLeftX, opacity: heroLeftOpacity }}
-              heroRightStyle={{ x: heroRightX, opacity: heroRightOpacity }}
-              statsStyle={{
-                y: statsY,
-                opacity: statsOpacity,
-                scaleY: statsScaleY,
-              }}
-              marqueeStyle={{ opacity: marqueeOpacity }}
-              headlineBackendStyle={{ y: backendY }}
-              headlineWithStyle={{ x: withX }}
-              headlineTasteStyle={{ y: tasteY }}
-              portraitStyle={{ y: portraitY, opacity: portraitOpacity }}
-              badgeStyle={{
-                rotate: badgeRotate,
-                opacity: badgeOpacity,
-                scale: badgeScale,
-              }}
-            />
+            <Hero transitionProgress={p} />
           </motion.div>
 
           {/* ── LAYER 2: About (reconstructs) ───────────────────────────── */}

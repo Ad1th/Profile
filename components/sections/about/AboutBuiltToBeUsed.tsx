@@ -103,6 +103,30 @@ export default function AboutBuiltToBeUsed({
         />
       </div>
 
+      {/* Bottom-left corner bracket */}
+      <div className="absolute bottom-0 left-0">
+        <div
+          style={{
+            width: 28,
+            height: 4,
+            background: "#111",
+            position: "absolute",
+            bottom: 16,
+            left: 16,
+          }}
+        />
+        <div
+          style={{
+            width: 4,
+            height: 28,
+            background: "#111",
+            position: "absolute",
+            bottom: 16,
+            left: 16,
+          }}
+        />
+      </div>
+
       {/* Headline */}
       <h2
         className={`${anton.className} text-[#111] uppercase select-none`}

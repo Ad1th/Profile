@@ -25,7 +25,7 @@ export default function AboutBackendSystems({
       style={{
         border: "3px solid #111",
         padding: viewportTransition
-          ? "14px 16px 16px 16px"
+          ? "18px 16px 16px 16px"
           : "24px 24px 28px 24px",
         height: "100%",
       }}
@@ -40,14 +40,14 @@ export default function AboutBackendSystems({
           className="uppercase leading-none select-none"
           style={{
             fontFamily: "var(--font-archivo), 'Arial Black', sans-serif",
-            fontWeight: 900,
+            fontWeight: 700,
             fontSize: viewportTransition
-              ? "clamp(14px, 1.25vw, 19px)"
-              : "clamp(20px, 1.8vw, 26px)",
-            letterSpacing: "-0.02em",
+              ? "clamp(28px, 2.25vw, 20px)"
+              : "clamp(22px, 2.2vw, 28px)",
+            letterSpacing: "0.02em",
             color: "#CFDE00",
-            lineHeight: 1.05,
-            marginBottom: viewportTransition ? 12 : 14,
+            lineHeight: 1.15,
+            marginBottom: viewportTransition ? 14 : 14,
           }}
         >
           BACKEND
@@ -60,7 +60,7 @@ export default function AboutBackendSystems({
         {/* Divider rule */}
         <div
           style={{
-            width: 40,
+            width: 250,
             height: 3,
             background: "#CFDE00",
             marginBottom: viewportTransition ? 12 : 14,
@@ -71,7 +71,7 @@ export default function AboutBackendSystems({
         <p
           className="font-mono"
           style={{
-            fontSize: viewportTransition ? 16 : 14,
+            fontSize: viewportTransition ? 20 : 14,
             fontWeight: 900,
             lineHeight: 1.45,
             color: "#C8C0B4",

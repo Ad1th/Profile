@@ -18,7 +18,7 @@ export default function AboutHardware({
         border: "3px solid #111",
         borderLeft: "none",
         padding: viewportTransition
-          ? "30px 14px 12px 14px"
+          ? "34px 14px 12px 14px"
           : "20px 20px 20px 20px",
         height: "100%",
       }}
@@ -35,7 +35,7 @@ export default function AboutHardware({
             border: "3px solid #111",
             background: "#CFDE00",
             padding: viewportTransition ? "4px 9px" : "5px 12px",
-            marginBottom: viewportTransition ? 14 : 18,
+            marginBottom: viewportTransition ? 22 : 18,
           }}
         >
           <span
@@ -53,8 +53,8 @@ export default function AboutHardware({
         <p
           style={{
             fontFamily: "var(--font-archivo), monospace",
-            fontSize: viewportTransition ? 18 : 14,
-            fontWeight: 900,
+            fontSize: viewportTransition ? 20 : 14,
+            // fontWeight: 700,
             lineHeight: 1.45,
             color: "#111",
           }}

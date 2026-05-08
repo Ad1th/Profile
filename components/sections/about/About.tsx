@@ -256,6 +256,8 @@ export default function About({
               : "auto auto",
             display: "grid",
             alignItems: "stretch",
+            paddingTop: viewportTransition ? 24 : 0,
+            boxSizing: "border-box",
           }}
         >
           {/* ── ROW 1 ──────────────────────────────────────────────────── */}

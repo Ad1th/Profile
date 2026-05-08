@@ -110,10 +110,10 @@ export default function AboutBuiltToBeUsed({
           fontWeight: 400,
 
           fontSize: viewportTransition
-            ? "clamp(40px, 8vw, 78px)"
+            ? "clamp(120px, 14vw, 108px)"
             : "clamp(64px, 6.5vw, 112px)",
 
-          letterSpacing: "-0.04em",
+          letterSpacing: "0.02em",
           lineHeight: 0.9,
 
           textAlign: "left",

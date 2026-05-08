@@ -42,7 +42,7 @@ export default function AboutBuiltToBeUsed({
             background: "#111",
             position: "absolute",
             top: 16,
-            left: 0,
+            left: 16,
           }}
         />
         <div
@@ -88,7 +88,7 @@ export default function AboutBuiltToBeUsed({
             background: "#111",
             position: "absolute",
             bottom: 16,
-            right: 0,
+            right: 16,
           }}
         />
         <div

@@ -41,8 +41,8 @@ export default function AboutPhilosophy() {
             fontFamily: "var(--font-archivo), sans-serif",
             fontSize: 17,
             fontWeight: 1000,
-            marginRight: 20,
-            marginTop: -23,
+            marginRight: 14,
+            marginTop: -28,
           }}
         >
           —
@@ -51,9 +51,10 @@ export default function AboutPhilosophy() {
           className="text-[#111] font-black"
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
-            fontSize: 17,
-            fontWeight: 1100,
-            marginTop: -23,
+            fontSize: 20,
+            fontWeight: 1400,
+            marginTop: -25,
+            marginRight: 5,
           }}
         >
           ✕

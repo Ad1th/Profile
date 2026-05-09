@@ -18,7 +18,7 @@ export default function AboutHardware({
         border: "3px solid #111",
         borderLeft: "none",
         padding: viewportTransition
-          ? "34px 14px 12px 14px"
+          ? "44px 16px 12px 14px"
           : "20px 20px 20px 20px",
         height: "100%",
       }}
@@ -34,14 +34,15 @@ export default function AboutHardware({
           style={{
             border: "3px solid #111",
             background: "#CFDE00",
-            padding: viewportTransition ? "4px 9px" : "5px 12px",
+            padding: viewportTransition ? "6px 9px" : "5px 12px",
             marginBottom: viewportTransition ? 22 : 18,
           }}
         >
           <span
             className="text-[#111] font-black uppercase tracking-[0.04em]"
             style={{
-              fontFamily: "var(--font-archivo), sans-serif",
+              fontFamily: "var(--font-Roboto-Mono), monospace",
+              fontWeight: 900,
               fontSize: viewportTransition ? 18 : 14,
             }}
           >
@@ -52,9 +53,10 @@ export default function AboutHardware({
         {/* Body text */}
         <p
           style={{
-            fontFamily: "var(--font-archivo), monospace",
-            fontSize: viewportTransition ? 20 : 14,
-            // fontWeight: 700,
+            // font-family: 'IBM Plex Mono', monospace;
+            fontFamily: "var(--font-IBM-Plex-Mono), monospace",
+            fontSize: viewportTransition ? 22 : 14,
+            fontWeight: 500,
             lineHeight: 1.45,
             color: "#111",
           }}
@@ -65,7 +67,9 @@ export default function AboutHardware({
           <br />
           software stops being
           <br />
-          abstract and things fail
+          abstract, physics fights
+          <br />
+          back and things fail
           <br />
           in the real world.
         </p>

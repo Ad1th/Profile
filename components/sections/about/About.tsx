@@ -286,8 +286,8 @@ export default function About({
               {/* Orange vertical bar */}
               <motion.div
                 style={{
-                  width: 35,
-                  background: "#E8420A",
+                  width: 30,
+                  background: "#f6450a",
                   border: "3px solid #111",
                   flexShrink: 0,
                 }}

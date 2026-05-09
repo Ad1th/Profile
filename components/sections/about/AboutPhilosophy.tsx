@@ -230,8 +230,8 @@ export default function AboutPhilosophy() {
         <div
           className="absolute top-4 right-4"
           style={{
-            width: 34,
-            height: 4,
+            width: 18,
+            height: 18,
             top: 18,
             right: 18,
             background: "#E8420A",

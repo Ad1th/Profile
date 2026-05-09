@@ -256,7 +256,7 @@ export default function About({
         <div
           className="grid flex-1 min-h-0"
           style={{
-            gridTemplateColumns: "37% 26% 37%",
+            gridTemplateColumns: viewportTransition ? "37% 26% 37%" : "1fr",
             gridTemplateRows: viewportTransition
               ? "minmax(0, 1fr) minmax(0, 1fr)"
               : "auto auto",
@@ -372,8 +372,8 @@ export default function About({
           <div
             className="grid h-full min-h-0"
             style={{
-              gridTemplateColumns: "50% 50%",
-              borderRight: "4px solid #111",
+              gridTemplateColumns: viewportTransition ? "50% 50%" : "1fr",
+              borderRight: viewportTransition ? "4px solid #111" : undefined,
             }}
           >
             <motion.div
@@ -401,8 +401,10 @@ export default function About({
           <div
             className="grid h-full min-h-0"
             style={{
-              gridColumn: "2 / 4",
-              gridTemplateRows: "auto minmax(0, 1fr)",
+              gridColumn: viewportTransition ? "2 / 4" : undefined,
+              gridTemplateRows: viewportTransition
+                ? "auto minmax(0, 1fr)"
+                : "auto auto",
             }}
           >
             <motion.div

@@ -790,10 +790,10 @@ function HeroMobile() {
       <motion.div
         className="relative bg-[#111]"
         style={{
-          marginTop: 72,
+          marginTop: 0,
           borderBottom: "4px solid #111",
-          padding: "32px 20px",
-          minHeight: "50vh",
+          padding: "20px 16px",
+          minHeight: "46vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",

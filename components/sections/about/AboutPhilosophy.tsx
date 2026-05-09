@@ -103,10 +103,10 @@ export default function AboutPhilosophy() {
         <p
           className="text-[#111]"
           style={{
-            fontFamily: "var(--font-archivo), monospace",
+            fontFamily: "var(--font-Roboto), serif",
             fontSize: 20,
-            fontWeight: 300,
-            lineHeight: 1.5,
+            fontWeight: 700,
+            lineHeight: 1.45,
             letterSpacing: "0.05em",
             marginBottom: 16,
           }}
@@ -142,9 +142,9 @@ export default function AboutPhilosophy() {
               <span
                 className="text-[#111] uppercase font-bold"
                 style={{
-                  fontFamily: "var(--font-archivo), sans-serif",
+                  fontFamily: "var(--font-Roboto), serif",
                   fontSize: 18,
-                  fontWeight: 300,
+                  fontWeight: 700,
                   letterSpacing: "0.06em",
                 }}
               >

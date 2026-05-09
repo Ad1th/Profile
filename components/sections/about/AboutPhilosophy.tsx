@@ -93,7 +93,7 @@ export default function AboutPhilosophy() {
         <div
           style={{
             width: "100%",
-            height: 2,
+            height: 4,
             background: "#111",
             marginBottom: 16,
           }}
@@ -118,6 +118,15 @@ export default function AboutPhilosophy() {
           than how it's described.
         </p>
 
+        {/* Horizontal rule */}
+        <div
+          style={{
+            width: "100%",
+            height: 4,
+            background: "#111",
+            marginBottom: 16,
+          }}
+        />
         {/* Bullet list */}
         <div className="flex flex-col gap-[10px]">
           {bullets.map((b) => (

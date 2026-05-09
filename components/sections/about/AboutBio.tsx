@@ -9,7 +9,7 @@ export default function AboutBio() {
   return (
     <motion.div
       className="relative bg-[#6C8EAD] h-full"
-      style={{ border: "3px solid #111", padding: "20px 20px 24px 20px" }}
+      style={{ border: "3px solid #111", padding: "30px 20px 24px 20px" }}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -91,6 +91,7 @@ export default function AboutBio() {
           fontSize: 28,
           // fontWeight: 100,
           lineHeight: 1.44,
+          paddingLeft: 16,
         }}
       >
         I like building things

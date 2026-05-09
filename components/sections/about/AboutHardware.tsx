@@ -58,6 +58,7 @@ export default function AboutHardware({
             fontSize: viewportTransition ? 22 : 14,
             fontWeight: 500,
             lineHeight: 1.45,
+            paddingLeft: viewportTransition ? 10 : 0,
             color: "#111",
           }}
         >

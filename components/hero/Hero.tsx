@@ -1361,7 +1361,11 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
       >
         <span
           className="block text-[#CFDE00]"
-          style={{ fontSize: "clamp(61px, 18vw, 110px)", lineHeight: 0.85 }}
+          style={{
+            fontSize: outlineSize,
+            lineHeight: 0.85,
+            whiteSpace: "nowrap",
+          }}
         >
           WITH
         </span>
@@ -1370,9 +1374,10 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
       <motion.span
         className="block text-[#E8420A]"
         style={{
-          fontSize: "clamp(65px, 19vw, 114px)",
+          fontSize: titleSize,
           lineHeight: 0.88,
           marginTop: 4,
+          whiteSpace: "nowrap",
         }}
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

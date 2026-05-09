@@ -25,6 +25,12 @@ import AboutBuiltToBeUsed from "./AboutBuiltToBeUsed";
 import AboutBackendSystems from "./AboutBackendSystems";
 import AboutHardware from "./AboutHardware";
 import AboutFooter from "./AboutFooter";
+import { Anton } from "next/font/google";
+
+const anton = Anton({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 // ─── PROPS ───────────────────────────────────────────────────────────────────
 interface AboutProps {
@@ -269,7 +275,7 @@ export default function About({
             style={{
               borderRight: "4px solid #111",
               borderBottom: "4px solid #111",
-              padding: viewportTransition ? "32px 28px" : "48px 32px",
+              padding: viewportTransition ? "28px 30px" : "44px 32px",
               minHeight: viewportTransition ? undefined : 420,
               y: buildY,
               opacity: buildOpacity,
@@ -280,7 +286,7 @@ export default function About({
               {/* Orange vertical bar */}
               <motion.div
                 style={{
-                  width: 14,
+                  width: 35,
                   background: "#E8420A",
                   border: "3px solid #111",
                   flexShrink: 0,
@@ -293,12 +299,12 @@ export default function About({
 
               {/* Headline text */}
               <div
-                className="flex flex-col justify-center select-none uppercase"
+                className={`${anton.className} text-[#111] uppercase select-none`}
                 style={{
-                  fontFamily: "var(--font-archivo), 'Arial Black', sans-serif",
-                  fontWeight: 900,
-                  letterSpacing: "-0.04em",
-                  lineHeight: 0.9,
+                  fontWeight: 400,
+                  letterSpacing: "0.06em",
+                  lineHeight: 1.0,
+                  fontSize: viewportTransition ? "clamp(32px, 4vw, 120px)" : 48,
                 }}
               >
                 {[
@@ -311,7 +317,7 @@ export default function About({
                     className="block"
                     style={{
                       color: line.color,
-                      fontSize: "clamp(56px, 5.6vw, 90px)",
+                      fontSize: "clamp(90px, 7.2vw, 260px)",
                     }}
                     // Only use whileInView when standalone (not in transition)
                     initial={standalone ? { y: 40, opacity: 0 } : false}

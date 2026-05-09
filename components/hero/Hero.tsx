@@ -114,7 +114,7 @@ function HeroDesktop({
 
       <div
         className="relative w-full h-full flex"
-        style={{ paddingTop: 72, paddingBottom: 112 }}
+        style={{ paddingTop: 56, paddingBottom: 112 }}
       >
         <motion.div
           className="relative flex flex-col justify-center bg-[#111]"

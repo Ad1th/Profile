@@ -19,10 +19,11 @@ export default function AboutBackendSystems({
 }: AboutBackendSystemsProps) {
   // Staircase bars — ascending from left to right
   const bars = [
-    { w: 18, h: 16 },
-    { w: 18, h: 28 },
-    { w: 18, h: 42 },
-    { w: 18, h: 56 },
+    { w: 20, h: 22 },
+    { w: 20, h: 34 },
+    { w: 20, h: 48 },
+    { w: 20, h: 62 },
+    { w: 20, h: 80 },
   ];
 
   return (
@@ -107,7 +108,10 @@ export default function AboutBackendSystems({
       {/* Staircase graphic */}
       <div
         className="flex items-end gap-[0px]"
-        style={{ marginTop: viewportTransition ? 12 : 18 }}
+        style={{
+          marginTop: viewportTransition ? 10 : 18,
+          marginLeft: viewportTransition ? 160 : -2,
+        }}
       >
         {bars.map((bar, i) => (
           <motion.div

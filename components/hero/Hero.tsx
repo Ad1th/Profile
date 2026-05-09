@@ -775,6 +775,23 @@ function HeroTabletPortrait() {
 // MOBILE: Single-column poster layout (<768px)
 // ═══════════════════════════════════════════════════════════════
 function HeroMobile() {
+  const [portrait, setPortrait] = useState(true);
+
+  useEffect(() => {
+    const media = window.matchMedia("(orientation: portrait)");
+
+    const syncPortrait = () => setPortrait(media.matches);
+
+    syncPortrait();
+    media.addEventListener("change", syncPortrait);
+    window.addEventListener("resize", syncPortrait);
+
+    return () => {
+      media.removeEventListener("change", syncPortrait);
+      window.removeEventListener("resize", syncPortrait);
+    };
+  }, []);
+
   return (
     <section className="relative w-full overflow-hidden bg-[#F0EBE0]">
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
@@ -802,7 +819,7 @@ function HeroMobile() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.1, ease: easings.primary }}
       >
-        <HeadlineMobile />
+        <HeadlineMobile portrait={portrait} />
       </motion.div>
 
       <motion.div
@@ -1294,7 +1311,14 @@ function HeroPortraitTabletPortrait() {
 // ═══════════════════════════════════════════════════════════════
 // Helper: Mobile Headline
 // ═══════════════════════════════════════════════════════════════
-function HeadlineMobile() {
+function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
+  const titleSize = portrait
+    ? "clamp(44px, 18vw, 78px)"
+    : "clamp(58px, 16vw, 98px)";
+  const outlineSize = portrait
+    ? "clamp(40px, 12vw, 72px)"
+    : "clamp(54px, 15vw, 92px)";
+
   return (
     <div
       className="flex flex-col select-none uppercase"
@@ -1303,16 +1327,17 @@ function HeadlineMobile() {
         fontWeight: 900,
         letterSpacing: "-0.06em",
         lineHeight: 0.88,
-        marginTop: -10,
+        marginTop: portrait ? -16 : -10,
       }}
     >
       <motion.span
         className="block text-[#F0EBE0]"
         style={{
-          fontSize: "clamp(65px, 19vw, 114px)",
+          fontSize: titleSize,
           lineHeight: 0.88,
-          marginTop: -35,
+          marginTop: portrait ? -24 : -35,
           marginBottom: 0,
+          whiteSpace: "nowrap",
         }}
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

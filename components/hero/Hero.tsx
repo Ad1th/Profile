@@ -75,14 +75,14 @@ function HeroDesktop({
   });
   const scrollYProgress = transitionProgress ?? localProgress;
 
-  const backendX = useTransform(scrollYProgress, [0.05, 0.22], [0, -40]);
+  const backendX = useTransform(scrollYProgress, [0.05, 0.22], [0, -604]);
   const backendOpacity = useTransform(scrollYProgress, [0.05, 0.22], [1, 0.92]);
-  const withX = useTransform(scrollYProgress, [0.08, 0.26], [0, 24]);
+  const withX = useTransform(scrollYProgress, [0.08, 0.26], [0, 1800]);
   const withScale = useTransform(scrollYProgress, [0.08, 0.26], [1, 0.97]);
-  const tasteY = useTransform(scrollYProgress, [0.12, 0.32], [0, 36]);
+  const tasteY = useTransform(scrollYProgress, [0.12, 0.32], [0, 600]);
   const tasteRotate = useTransform(scrollYProgress, [0.12, 0.32], [0, 1]);
   const imageScale = useTransform(scrollYProgress, [0.15, 0.42], [1, 0.92]);
-  const imageY = useTransform(scrollYProgress, [0.15, 0.42], [0, 60]);
+  const imageY = useTransform(scrollYProgress, [0.15, 0.42], [0, 900]);
   const stickerRotate = useTransform(scrollYProgress, [0.18, 0.35], [-4, -10]);
   const stickerX = useTransform(scrollYProgress, [0.18, 0.35], [0, 40]);
   const marqueeOpacity = useTransform(scrollYProgress, [0.12, 0.3], [1, 0]);

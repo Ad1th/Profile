@@ -68,62 +68,70 @@ export default function HeroAboutTransition() {
 
   // Smoothed — drives all motion
   const p = useSmoothProgress(rawProgress);
+  // Extra lag for the hero exit and About entry only.
+  // This keeps the middle morph timing intact while stretching the edges.
+  const edgeP = useSpring(rawProgress, {
+    stiffness: 45,
+    damping: 30,
+    mass: 3,
+    restDelta: 0.0008,
+  });
 
   // ── HERO LAYER ─────────────────────────────────────────────────────────────
 
   // Overall hero wrapper: fades out and slides up as phase 2 completes
-  const heroOpacity = useTransform(p, [0.2, 0.65], [1, 0]);
-  const heroY = useTransform(p, [0.1, 0.65], [0, -48]);
-  const heroScale = useTransform(p, [0.1, 0.6], [1, 0.97]);
+  const heroOpacity = useTransform(edgeP, [0.18, 0.78], [1, 0]);
+  const heroY = useTransform(edgeP, [0.08, 0.78], [0, -48]);
+  const heroScale = useTransform(edgeP, [0.08, 0.72], [1, 0.97]);
 
   // Left black panel: slides left during breakup
-  const heroLeftX = useTransform(p, [0.1, 0.5], [0, -32]);
-  const heroLeftOpacity = useTransform(p, [0.15, 0.55], [1, 0]);
+  const heroLeftX = useTransform(edgeP, [0.1, 0.62], [0, -32]);
+  const heroLeftOpacity = useTransform(edgeP, [0.14, 0.72], [1, 0]);
 
   // Right blue/portrait panel: slides right + fades
-  const heroRightX = useTransform(p, [0.1, 0.5], [0, 40]);
-  const heroRightOpacity = useTransform(p, [0.15, 0.55], [1, 0]);
+  const heroRightX = useTransform(edgeP, [0.1, 0.62], [0, 40]);
+  const heroRightOpacity = useTransform(edgeP, [0.14, 0.72], [1, 0]);
 
   // Stats row: compresses down and fades
-  const statsY = useTransform(p, [0.05, 0.4], [0, 28]);
-  const statsOpacity = useTransform(p, [0.05, 0.4], [1, 0]);
-  const statsScaleY = useTransform(p, [0.05, 0.4], [1, 0.6]);
+  const statsY = useTransform(edgeP, [0.04, 0.52], [0, 28]);
+  const statsOpacity = useTransform(edgeP, [0.04, 0.52], [1, 0]);
+  const statsScaleY = useTransform(edgeP, [0.04, 0.5], [1, 0.6]);
 
   // Marquee (orange bottom bar): fades during phase 1
-  const marqueeOpacity = useTransform(p, [0.05, 0.35], [1, 0]);
+  const marqueeOpacity = useTransform(edgeP, [0.04, 0.48], [1, 0]);
 
   // Hero headline words: subtle parallax drift
-  const backendY = useTransform(p, [0.0, 0.35], [0, -16]);
-  const withX = useTransform(p, [0.08, 0.45], [0, -24]);
-  const tasteY = useTransform(p, [0.08, 0.45], [0, 22]);
+  const backendY = useTransform(edgeP, [0.0, 0.5], [0, -16]);
+  const withX = useTransform(edgeP, [0.08, 0.56], [0, -24]);
+  const tasteY = useTransform(edgeP, [0.08, 0.56], [0, 22]);
 
   // Portrait frame: rises and fades
-  const portraitY = useTransform(p, [0.05, 0.5], [0, -36]);
-  const portraitOpacity = useTransform(p, [0.1, 0.55], [1, 0]);
+  const portraitY = useTransform(edgeP, [0.06, 0.62], [0, -36]);
+  const portraitOpacity = useTransform(edgeP, [0.1, 0.68], [1, 0]);
 
   // Badge: drifts & shrinks
-  const badgeRotate = useTransform(p, [0.0, 0.4], [-4, -10]);
-  const badgeOpacity = useTransform(p, [0.1, 0.45], [1, 0]);
-  const badgeScale = useTransform(p, [0.1, 0.45], [1, 0.7]);
+  const badgeRotate = useTransform(edgeP, [0.0, 0.5], [-4, -10]);
+  const badgeOpacity = useTransform(edgeP, [0.1, 0.58], [1, 0]);
+  const badgeScale = useTransform(edgeP, [0.1, 0.58], [1, 0.7]);
 
   // ── ABOUT LAYER ────────────────────────────────────────────────────────────
 
   // Shell border frame fades in early
-  const shellOpacity = useTransform(p, [0.25, 0.55], [0, 1]);
+  const shellOpacity = useTransform(edgeP, [0.3, 0.7], [0, 1]);
 
   // "I BUILD / BREAK / FIX" — emerges from left panel position
-  const buildY = useTransform(p, [0.3, 0.7], [72, 0]);
-  const buildOpacity = useTransform(p, [0.3, 0.68], [0, 1]);
-  const buildScale = useTransform(p, [0.3, 0.7], [0.94, 1]);
+  const buildY = useTransform(edgeP, [0.34, 0.78], [72, 0]);
+  const buildOpacity = useTransform(edgeP, [0.34, 0.76], [0, 1]);
+  const buildScale = useTransform(edgeP, [0.34, 0.78], [0.94, 1]);
 
   // Bio card — clips in from right (was portrait region)
   const bioClip = useTransform(
-    p,
-    [0.36, 0.72],
+    edgeP,
+    [0.4, 0.78],
     ["inset(0 100% 0 0)", "inset(0 0% 0 0)"],
   );
-  const bioOpacity = useTransform(p, [0.36, 0.68], [0, 1]);
-  const bioY = useTransform(p, [0.36, 0.72], [20, 0]);
+  const bioOpacity = useTransform(edgeP, [0.4, 0.74], [0, 1]);
+  const bioY = useTransform(edgeP, [0.4, 0.78], [20, 0]);
 
   // Philosophy card — PAPER UNCRUMPLE (phase 3 centrepiece)
   // Starts crumpled: skewed clip-path + rotation + blur + scale
@@ -159,30 +167,30 @@ export default function HeroAboutTransition() {
   );
 
   // Backend systems card — slides up from below
-  const backendAboutY = useTransform(p, [0.42, 0.8], [52, 0]);
-  const backendAboutOpacity = useTransform(p, [0.42, 0.76], [0, 1]);
-  const backendAboutScale = useTransform(p, [0.42, 0.8], [0.95, 1]);
+  const backendAboutY = useTransform(edgeP, [0.46, 0.84], [52, 0]);
+  const backendAboutOpacity = useTransform(edgeP, [0.46, 0.8], [0, 1]);
+  const backendAboutScale = useTransform(edgeP, [0.46, 0.84], [0.95, 1]);
 
   // Hardware card — slides in from left
-  const hardwareX = useTransform(p, [0.44, 0.82], [-64, 0]);
-  const hardwareOpacity = useTransform(p, [0.44, 0.78], [0, 1]);
+  const hardwareX = useTransform(edgeP, [0.48, 0.86], [-64, 0]);
+  const hardwareOpacity = useTransform(edgeP, [0.48, 0.82], [0, 1]);
 
   // Interests strip — rises from bottom
-  const interestsY = useTransform(p, [0.48, 0.86], [48, 0]);
-  const interestsOpacity = useTransform(p, [0.48, 0.82], [0, 1]);
-  const interestsScale = useTransform(p, [0.48, 0.86], [0.96, 1]);
+  const interestsY = useTransform(edgeP, [0.52, 0.9], [48, 0]);
+  const interestsOpacity = useTransform(edgeP, [0.52, 0.86], [0, 1]);
+  const interestsScale = useTransform(edgeP, [0.52, 0.9], [0.96, 1]);
 
   // "Built to be used" — scales in from centre
   const builtScale = useTransform(
-    p,
-    [0.52, 0.86, 0.94, 1.0],
+    edgeP,
+    [0.56, 0.88, 0.96, 1.0],
     [1.08, 1.01, 0.995, 1], // slight overshoot then settle
   );
-  const builtOpacity = useTransform(p, [0.52, 0.84], [0, 1]);
+  const builtOpacity = useTransform(edgeP, [0.56, 0.86], [0, 1]);
 
   // Footer — rises last
-  const footerY = useTransform(p, [0.6, 1.0], [32, 0]);
-  const footerOpacity = useTransform(p, [0.6, 0.94], [0, 1]);
+  const footerY = useTransform(edgeP, [0.64, 1.0], [32, 0]);
+  const footerOpacity = useTransform(edgeP, [0.64, 0.96], [0, 1]);
 
   return (
     <>

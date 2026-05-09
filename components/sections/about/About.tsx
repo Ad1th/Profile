@@ -303,7 +303,7 @@ export default function About({
                 style={{
                   fontWeight: 400,
                   letterSpacing: "0.06em",
-                  lineHeight: 1.0,
+                  lineHeight: 0.92,
                   fontSize: viewportTransition ? "clamp(32px, 4vw, 120px)" : 48,
                 }}
               >
@@ -317,7 +317,7 @@ export default function About({
                     className="block"
                     style={{
                       color: line.color,
-                      fontSize: "clamp(90px, 7.2vw, 260px)",
+                      fontSize: "clamp(95px, 7.7vw, 260px)",
                     }}
                     // Only use whileInView when standalone (not in transition)
                     initial={standalone ? { y: 40, opacity: 0 } : false}

@@ -31,8 +31,8 @@ export default function AboutBackendSystems({
       style={{
         border: "3px solid #111",
         padding: viewportTransition
-          ? "18px 16px 16px 16px"
-          : "24px 24px 28px 24px",
+          ? "35px 20px 28px 30px"
+          : "25px 24px 28px 24px",
         height: "100%",
       }}
       initial={{ opacity: 0, x: -20 }}
@@ -40,6 +40,18 @@ export default function AboutBackendSystems({
       viewport={{ once: true }}
       transition={{ duration: 0.55, delay: 0.1, ease: easings.primary }}
     >
+      {/* White Border */}
+      <div
+        style={{
+          position: "absolute",
+          top: 10,
+          left: 10,
+          right: 10,
+          bottom: 10,
+          border: "3px solid #C8C0B4",
+          pointerEvents: "none",
+        }}
+      />
       {/* Yellow headline */}
       <div>
         <h3

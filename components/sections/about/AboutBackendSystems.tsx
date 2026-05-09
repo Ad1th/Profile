@@ -2,6 +2,12 @@
 
 import { motion } from "framer-motion";
 import { easings } from "@/lib/motion";
+import { Anton } from "next/font/google";
+
+const anton = Anton({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 interface AboutBackendSystemsProps {
   viewportTransition?: boolean;
@@ -39,15 +45,16 @@ export default function AboutBackendSystems({
         <h3
           className="uppercase leading-none select-none"
           style={{
-            fontFamily: "var(--font-archivo), 'Arial Black', sans-serif",
-            fontWeight: 700,
+            fontFamily: "var(--font-anton), 'Arial Black', sans-serif",
+            // letterSpacing: "0.75em",
+            // fontWeight: 700,
             fontSize: viewportTransition
-              ? "clamp(28px, 2.25vw, 20px)"
+              ? "clamp(33px, 2.35vw, 25px)"
               : "clamp(22px, 2.2vw, 28px)",
             letterSpacing: "0.02em",
             color: "#CFDE00",
             lineHeight: 1.15,
-            marginBottom: viewportTransition ? 14 : 14,
+            marginBottom: viewportTransition ? 10 : 14,
           }}
         >
           BACKEND
@@ -60,10 +67,10 @@ export default function AboutBackendSystems({
         {/* Divider rule */}
         <div
           style={{
-            width: 250,
+            width: 188,
             height: 3,
             background: "#CFDE00",
-            marginBottom: viewportTransition ? 12 : 14,
+            marginBottom: viewportTransition ? 19 : 14,
           }}
         />
 
@@ -87,7 +94,7 @@ export default function AboutBackendSystems({
 
       {/* Staircase graphic */}
       <div
-        className="flex items-end gap-[3px]"
+        className="flex items-end gap-[0px]"
         style={{ marginTop: viewportTransition ? 12 : 18 }}
       >
         {bars.map((bar, i) => (

@@ -143,8 +143,8 @@ export default function AboutBuiltToBeUsed({
           // textAlign: "left",
 
           //text starts top left, with some padding from the corner brackets
-          marginTop: 35,
-          marginLeft: 100,
+          marginTop: 17,
+          marginLeft: 110,
         }}
       >
         BUILT TO
@@ -156,8 +156,8 @@ export default function AboutBuiltToBeUsed({
       <div
         className="absolute"
         style={{
-          bottom: viewportTransition ? "30px" : "28px",
-          right: viewportTransition ? "30px" : "32px",
+          bottom: viewportTransition ? "22px" : "28px",
+          right: viewportTransition ? "24px" : "32px",
         }}
       >
         <div

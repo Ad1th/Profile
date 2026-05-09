@@ -15,10 +15,10 @@ export default function AboutHardware({
     <motion.div
       className="relative bg-[#F0EBE0] flex flex-col justify-between overflow-hidden"
       style={{
-        border: "3px solid #111",
+        border: "10px solid #111",
         borderLeft: "none",
         padding: viewportTransition
-          ? "44px 16px 12px 14px"
+          ? "40px 16px 12px 14px"
           : "20px 20px 20px 20px",
         height: "100%",
       }}
@@ -78,8 +78,8 @@ export default function AboutHardware({
       <div className="flex flex-col items-end gap-3">
         {/* Chip SVG */}
         <svg
-          width={viewportTransition ? "46" : "64"}
-          height={viewportTransition ? "46" : "64"}
+          width={viewportTransition ? "55" : "64"}
+          height={viewportTransition ? "55" : "64"}
           viewBox="0 0 68 68"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

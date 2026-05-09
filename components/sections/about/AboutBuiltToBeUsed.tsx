@@ -19,7 +19,7 @@ export default function AboutBuiltToBeUsed({
 }: AboutBuiltToBeUsedProps) {
   return (
     <motion.div
-      className="relative bg-[#6C8EAD] flex flex-col justify-between overflow-hidden"
+      className="relative bg-[#6C8EAD] flex flex-col"
       style={{
         border: "3px solid #111",
         borderTop: "none",
@@ -68,11 +68,11 @@ export default function AboutBuiltToBeUsed({
             <div
               key={i}
               style={{
-                width: 3,
+                width: 6,
                 height: 22,
                 background: "#111",
                 transform: "skewX(-20deg)",
-                opacity: 0.55,
+                opacity: 0.75,
               }}
             />
           ))}
@@ -134,20 +134,17 @@ export default function AboutBuiltToBeUsed({
           fontWeight: 400,
 
           fontSize: viewportTransition
-            ? "clamp(120px, 14vw, 108px)"
+            ? "clamp(140px, 15vw, 108px)"
             : "clamp(64px, 6.5vw, 112px)",
 
           letterSpacing: "0.02em",
           lineHeight: 0.9,
 
-          textAlign: "left",
+          // textAlign: "left",
 
-          position: "absolute",
-          top: viewportTransition ? "calc(2rem + 30px)" : "2.8rem",
-          left: viewportTransition ? "calc(16rem + 40px)" : "2.8rem",
-          transform: viewportTransition ? "translate(0,0)" : undefined,
-
-          zIndex: 2,
+          //text starts top left, with some padding from the corner brackets
+          marginTop: 35,
+          marginLeft: 100,
         }}
       >
         BUILT TO
@@ -159,22 +156,22 @@ export default function AboutBuiltToBeUsed({
       <div
         className="absolute"
         style={{
-          bottom: viewportTransition ? "24px" : "28px",
-          right: viewportTransition ? "28px" : "32px",
+          bottom: viewportTransition ? "30px" : "28px",
+          right: viewportTransition ? "30px" : "32px",
         }}
       >
         <div
           className="relative"
           style={{
-            width: viewportTransition ? 218 : 220,
-            height: viewportTransition ? 46 : 52,
+            width: viewportTransition ? 250 : 220,
+            height: viewportTransition ? 56 : 52,
           }}
         >
           {/* Shadow block */}
           <div
             className="absolute inset-0"
             style={{
-              transform: "translate(6px, 6px)",
+              transform: "translate(8px, 8px)",
               background: "#111",
               zIndex: 0,
             }}
@@ -183,7 +180,7 @@ export default function AboutBuiltToBeUsed({
           <motion.button
             className="absolute inset-0 flex items-center justify-center gap-3 bg-[#CFDE00] cursor-pointer outline-none"
             style={{
-              border: "3px solid #111",
+              border: "4px solid #111",
               zIndex: 1,
               letterSpacing: "0.08em",
             }}
@@ -195,7 +192,7 @@ export default function AboutBuiltToBeUsed({
               className="text-[#111] font-black uppercase tracking-[-0.02em]"
               style={{
                 fontFamily: "var(--font-archivo), sans-serif",
-                fontSize: viewportTransition ? 13 : 16,
+                fontSize: viewportTransition ? 20 : 16,
               }}
             >
               OPEN TO BUILD
@@ -203,8 +200,8 @@ export default function AboutBuiltToBeUsed({
             {/* Small square accent */}
             <div
               style={{
-                width: 10,
-                height: 10,
+                width: 14,
+                height: 14,
                 background: "#111",
                 flexShrink: 0,
               }}

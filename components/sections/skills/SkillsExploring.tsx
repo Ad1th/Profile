@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type MotionValue } from "framer-motion";
 import { easings } from "@/lib/motion";
 
 const exploring = [
@@ -15,9 +15,17 @@ const exploring = [
   "CHAOS ENGINEERING",
 ];
 
-export default function SkillsExploring({ standalone }: { standalone: boolean }) {
+export default function SkillsExploring({
+  standalone,
+  transitionProgress,
+}: {
+  standalone: boolean;
+  transitionProgress?: MotionValue<number>;
+}) {
+  const transitionMode = Boolean(transitionProgress);
+
   return (
-    <div
+    <motion.div
       className="bg-[#6C8EAD] flex flex-col"
       style={{
         border: "3px solid #111",
@@ -26,9 +34,18 @@ export default function SkillsExploring({ standalone }: { standalone: boolean })
         borderRight: "none",
         padding: "28px 30px 32px 30px",
       }}
+      initial={transitionMode ? { x: 36, opacity: 0 } : false}
+      animate={transitionMode ? { x: 0, opacity: 1 } : undefined}
+      transition={{ duration: 0.6, delay: 0.12, ease: easings.primary }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between" style={{ marginBottom: 24 }}>
+      <motion.div
+        className="flex items-center justify-between"
+        style={{ marginBottom: 24 }}
+        initial={transitionMode ? { x: 14, opacity: 0 } : false}
+        animate={transitionMode ? { x: 0, opacity: 1 } : undefined}
+        transition={{ duration: 0.45, delay: 0.2, ease: easings.primary }}
+      >
         <span
           className="font-mono text-[#111] uppercase"
           style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.12em" }}
@@ -37,10 +54,28 @@ export default function SkillsExploring({ standalone }: { standalone: boolean })
         </span>
         {/* Top-right corner bracket */}
         <div className="relative" style={{ width: 22, height: 18 }}>
-          <div style={{ width: 22, height: 4, background: "#111", position: "absolute", top: 0, right: 0 }} />
-          <div style={{ width: 4, height: 18, background: "#111", position: "absolute", top: 0, right: 0 }} />
+          <div
+            style={{
+              width: 22,
+              height: 4,
+              background: "#111",
+              position: "absolute",
+              top: 0,
+              right: 0,
+            }}
+          />
+          <div
+            style={{
+              width: 4,
+              height: 18,
+              background: "#111",
+              position: "absolute",
+              top: 0,
+              right: 0,
+            }}
+          />
         </div>
-      </div>
+      </motion.div>
 
       {/* Tags */}
       <div className="flex flex-wrap gap-[10px]">
@@ -53,10 +88,22 @@ export default function SkillsExploring({ standalone }: { standalone: boolean })
               padding: "8px 16px",
               cursor: "default",
             }}
-            initial={standalone ? { opacity: 0, scale: 0.88 } : false}
-            whileInView={standalone ? { opacity: 1, scale: 1 } : undefined}
+            initial={
+              standalone || transitionMode
+                ? { opacity: 0, scale: 0.88, y: 10 }
+                : false
+            }
+            animate={
+              standalone || transitionMode
+                ? { opacity: 1, scale: 1, y: 0 }
+                : undefined
+            }
             viewport={{ once: true }}
-            transition={{ duration: 0.35, delay: i * 0.055, ease: easings.primary }}
+            transition={{
+              duration: 0.35,
+              delay: transitionMode ? 0.28 + i * 0.045 : i * 0.055,
+              ease: easings.primary,
+            }}
             whileHover={{ y: -3, boxShadow: "4px 4px 0 #111" }}
           >
             <span
@@ -75,9 +122,27 @@ export default function SkillsExploring({ standalone }: { standalone: boolean })
 
       {/* Bottom-left corner bracket */}
       <div className="relative mt-auto pt-4" style={{ width: 22, height: 18 }}>
-        <div style={{ width: 22, height: 4, background: "#111", position: "absolute", bottom: 0, left: 0 }} />
-        <div style={{ width: 4, height: 18, background: "#111", position: "absolute", bottom: 0, left: 0 }} />
+        <div
+          style={{
+            width: 22,
+            height: 4,
+            background: "#111",
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+          }}
+        />
+        <div
+          style={{
+            width: 4,
+            height: 18,
+            background: "#111",
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+          }}
+        />
       </div>
-    </div>
+    </motion.div>
   );
 }

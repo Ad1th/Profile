@@ -3,16 +3,21 @@
 /**
  * AboutSkillsTransition.tsx
  *
- * Cinematic 4-phase scroll transition: About deconstructs → Skills reconstructs.
- * Pinned viewport pattern matching HeroAboutTransition.
+ * One-time horizontal transition: ABOUT (identity / manifesto) slides out,
+ * SKILLS (engineering dashboard) slides in.
  *
- * SCROLL PHASES [0, 1]:
- *  Phase 1  0.00 → 0.22   About destabilisation
- *  Phase 2  0.22 → 0.52   About panel breakup
- *  Phase 3  0.52 → 0.78   Skills reconstruction
- *  Phase 4  0.78 → 1.00   Lock-in settle
+ * Why this exists:
+ * - Hero → About is already cinematic and pinned.
+ * - ABOUT → SKILLS should feel like switching operating system panels,
+ *   not like a normal slideshow or a vertical page break.
+ * - After this section finishes, the page returns to normal vertical flow.
  *
- * Mobile: normal stacked layout, no transition.
+ * Implementation notes:
+ * - The section is pinned for a short scroll window.
+ * - A wide horizontal rail moves ABOUT left and SKILLS in from the right.
+ * - SKILLS children activate in a staggered sequence so the dashboard feels
+ *   like subsystems booting up one at a time.
+ * - Mobile keeps the normal stacked flow.
  */
 
 import {
@@ -30,20 +35,24 @@ const SCROLL_TRAVEL = "clamp(8px, 1svh, 12px)";
 
 function useSmoothProgress(raw: MotionValue<number>): MotionValue<number> {
   return useSpring(raw, {
-    stiffness: 60,
-    damping: 22,
-    mass: 3.2,
+    stiffness: 66,
+    damping: 24,
+    mass: 3,
     restDelta: 0.0008,
   });
 }
 
 function useEdgeProgress(raw: MotionValue<number>): MotionValue<number> {
   return useSpring(raw, {
-    stiffness: 40,
+    stiffness: 42,
     damping: 28,
-    mass: 3.5,
+    mass: 3.4,
     restDelta: 0.0008,
   });
+}
+
+function useSettledValue<T>(progress: MotionValue<number>, value: T) {
+  return useTransform(progress, () => value);
 }
 
 export default function AboutSkillsTransition() {
@@ -57,70 +66,46 @@ export default function AboutSkillsTransition() {
   const p = useSmoothProgress(rawProgress);
   const edgeP = useEdgeProgress(rawProgress);
 
-  // ── ABOUT LAYER (exits) ──────────────────────────────────────────────────
+  // Shared rail movement: this is the visual lock.
+  const railX = useTransform(edgeP, [0.08, 0.84], ["0vw", "-100vw"]);
 
-  // Overall About wrapper fades/slides up as phase 2 completes
-  const aboutOpacity = useTransform(edgeP, [0.18, 0.72], [1, 0]);
-  const aboutY       = useTransform(edgeP, [0.10, 0.72], [0, -44]);
-  const aboutScale   = useTransform(edgeP, [0.10, 0.68], [1, 0.97]);
+  // ABOUT panel: compress a little before it leaves the viewport.
+  const aboutScale = useTransform(edgeP, [0.08, 0.24], [1, 0.975]);
+  const aboutX = useTransform(edgeP, [0.12, 0.3], [0, -6]);
 
-  // I BUILD panel exits left
-  const buildExitX   = useTransform(edgeP, [0.12, 0.58], [0, -48]);
-  const buildExitO   = useTransform(edgeP, [0.16, 0.60], [1, 0]);
+  // SKILLS panel: enters as the rail slides, then settles into place.
+  const skillsScale = useTransform(edgeP, [0.22, 0.48], [0.985, 1]);
+  const skillsOpacity = useTransform(edgeP, [0.16, 0.3], [0, 1]);
 
-  // Bio panel exits right
-  const bioExitX     = useTransform(edgeP, [0.12, 0.56], [0, 52]);
-  const bioExitO     = useTransform(edgeP, [0.14, 0.58], [1, 0]);
+  // SKILLS shell/rows: each subsystem boots in sequence.
+  const skillsShellOpacity = useTransform(edgeP, [0.16, 0.34], [0, 1]);
+  const skillsHeaderY = useTransform(edgeP, [0.2, 0.36], [22, 0]);
+  const skillsHeaderOpacity = useTransform(edgeP, [0.2, 0.3], [0, 1]);
+  const skillsGridY = useTransform(edgeP, [0.28, 0.48], [20, 0]);
+  const skillsGridOpacity = useTransform(edgeP, [0.28, 0.4], [0, 1]);
+  const skillsGridScale = useTransform(edgeP, [0.28, 0.5], [0.98, 1]);
+  const skillsBottomY = useTransform(edgeP, [0.36, 0.58], [18, 0]);
+  const skillsBottomOpacity = useTransform(edgeP, [0.36, 0.5], [0, 1]);
+  const skillsFooterY = useTransform(edgeP, [0.52, 0.76], [16, 0]);
+  const skillsFooterOpacity = useTransform(edgeP, [0.52, 0.66], [0, 1]);
 
-  // Philosophy (orange card) shrinks & fades
-  const philoScale   = useTransform(edgeP, [0.14, 0.56], [1, 0.88]);
-  const philoO       = useTransform(edgeP, [0.16, 0.58], [1, 0]);
+  // About should read as a resolved panel while it exits.
+  const settledOne = useSettledValue(p, 1);
+  const settledZero = useSettledValue(p, 0);
+  const settledInset = useSettledValue(p, "inset(0 0% 0 0)");
+  const settledClip = useSettledValue(
+    p,
+    "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+  );
+  const settledBlur = useSettledValue(p, "blur(0px)");
+  const settledPaper = useSettledValue(p, 1);
+  const settledZeroString = useSettledValue(p, 0);
 
-  // Backend systems slides down
-  const backendExitY = useTransform(edgeP, [0.18, 0.60], [0, 36]);
-  const backendExitO = useTransform(edgeP, [0.18, 0.60], [1, 0]);
-
-  // Hardware exits left
-  const hardwareExitX = useTransform(edgeP, [0.20, 0.58], [0, -40]);
-  const hardwareExitO = useTransform(edgeP, [0.20, 0.58], [1, 0]);
-
-  // Interests strip fades
-  const interestsExitO = useTransform(edgeP, [0.14, 0.52], [1, 0]);
-  const interestsExitY = useTransform(edgeP, [0.14, 0.52], [0, 24]);
-
-  // Built to be used scales out
-  const builtExitScale = useTransform(edgeP, [0.16, 0.54], [1, 0.94]);
-  const builtExitO     = useTransform(edgeP, [0.16, 0.54], [1, 0]);
-
-  // Footer exits down
-  const footerExitY = useTransform(edgeP, [0.12, 0.50], [0, 20]);
-  const footerExitO = useTransform(edgeP, [0.12, 0.50], [1, 0]);
-
-  // ── SKILLS LAYER (enters) ────────────────────────────────────────────────
-
-  // Shell fades in
-  const skillsShellO = useTransform(edgeP, [0.34, 0.64], [0, 1]);
-
-  // Header slides down into place
-  const headerY      = useTransform(edgeP, [0.38, 0.72], [-52, 0]);
-  const headerO      = useTransform(edgeP, [0.38, 0.70], [0, 1]);
-
-  // Core grid rises
-  const gridY        = useTransform(edgeP, [0.44, 0.80], [48, 0]);
-  const gridO        = useTransform(edgeP, [0.44, 0.78], [0, 1]);
-  const gridScale    = useTransform(edgeP, [0.44, 0.80], [0.96, 1]);
-
-  // Bottom row rises
-  const bottomY      = useTransform(edgeP, [0.52, 0.88], [40, 0]);
-  const bottomO      = useTransform(edgeP, [0.52, 0.86], [0, 1]);
-
-  // Footer last
-  const skillsFooterY = useTransform(edgeP, [0.62, 1.0], [28, 0]);
-  const skillsFooterO = useTransform(edgeP, [0.62, 0.96], [0, 1]);
+  const skillsProgress = useTransform(edgeP, [0.18, 0.84], [0, 1]);
 
   return (
     <>
-      {/* ─── DESKTOP: pinned transition ─────────────────────────────────── */}
+      {/* ─── DESKTOP: pinned horizontal rail ───────────────────────────── */}
       <section
         ref={stageRef}
         className="relative hidden lg:block bg-[#111]"
@@ -128,75 +113,89 @@ export default function AboutSkillsTransition() {
       >
         <div
           className="sticky top-0 overflow-hidden bg-[#111]"
-          style={{ height: "100svh" }}
+          style={{
+            height: "100svh",
+            overscrollBehavior: "contain",
+            touchAction: "pan-y",
+          }}
         >
-          {/* ── LAYER 1: About (deconstructs) ───────────────────────────── */}
+          {/* Horizontal rail: moving this rail is the actual lock. */}
           <motion.div
-            className="absolute inset-0 z-10"
-            style={{
-              opacity: aboutOpacity,
-              y: aboutY,
-              scale: aboutScale,
-            }}
+            className="relative flex h-full w-[200vw] will-change-transform"
+            style={{ x: railX }}
           >
-            <About
-              viewportTransition
-              // Pass static "settled" values for About's own sub-elements
-              // so the about section appears fully rendered as it exits
-              shellOpacity={useTransform(p, () => 1) as any}
-              buildY={useTransform(p, () => 0) as any}
-              buildOpacity={useTransform(p, () => 1) as any}
-              buildScale={useTransform(p, () => 1) as any}
-              bioClip={useTransform(p, () => "inset(0 0% 0 0)") as any}
-              bioOpacity={useTransform(p, () => 1) as any}
-              bioY={useTransform(p, () => 0) as any}
-              paperOpacity={useTransform(p, () => 1) as any}
-              paperScale={useTransform(p, () => 1) as any}
-              paperRotate={useTransform(p, () => 0) as any}
-              paperSkewX={useTransform(p, () => 0) as any}
-              paperSkewY={useTransform(p, () => 0) as any}
-              paperFilter={useTransform(p, () => "blur(0px)") as any}
-              paperClip={useTransform(p, () => "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)") as any}
-              backendY={useTransform(p, () => 0) as any}
-              backendOpacity={useTransform(p, () => 1) as any}
-              backendScale={useTransform(p, () => 1) as any}
-              hardwareX={useTransform(p, () => 0) as any}
-              hardwareOpacity={useTransform(p, () => 1) as any}
-              interestsY={useTransform(p, () => 0) as any}
-              interestsOpacity={useTransform(p, () => 1) as any}
-              interestsScale={useTransform(p, () => 1) as any}
-              builtScale={useTransform(p, () => 1) as any}
-              builtOpacity={useTransform(p, () => 1) as any}
-              footerY={useTransform(p, () => 0) as any}
-              footerOpacity={useTransform(p, () => 1) as any}
-            />
-          </motion.div>
+            {/* ABOUT PANELS ------------------------------------------------ */}
+            <motion.div
+              className="relative h-full w-screen flex-shrink-0 overflow-hidden bg-[#111]"
+              style={{
+                scale: aboutScale,
+                x: aboutX,
+                transformOrigin: "100% 50%",
+              }}
+            >
+              <About
+                viewportTransition
+                // The left side should feel resolved, not mid-animation,
+                // while the rail itself carries the transition.
+                shellOpacity={settledOne}
+                buildY={settledZero}
+                buildOpacity={settledOne}
+                buildScale={settledOne}
+                bioClip={settledInset}
+                bioOpacity={settledOne}
+                bioY={settledZero}
+                paperOpacity={settledOne}
+                paperScale={settledPaper}
+                paperRotate={settledZero}
+                paperSkewX={settledZero}
+                paperSkewY={settledZero}
+                paperFilter={settledBlur}
+                paperClip={settledClip}
+                backendY={settledZero}
+                backendOpacity={settledOne}
+                backendScale={settledOne}
+                hardwareX={settledZero}
+                hardwareOpacity={settledOne}
+                interestsY={settledZero}
+                interestsOpacity={settledOne}
+                interestsScale={settledOne}
+                builtScale={settledOne}
+                builtOpacity={settledOne}
+                footerY={settledZeroString}
+                footerOpacity={settledOne}
+              />
+            </motion.div>
 
-          {/* ── LAYER 2: Skills (reconstructs) ──────────────────────────── */}
-          <motion.div
-            className="absolute inset-0 z-20"
-            style={{ pointerEvents: "auto" }}
-          >
-            <Skills
-              viewportTransition
-              shellOpacity={skillsShellO}
-              headerY={headerY}
-              headerOpacity={headerO}
-              gridY={gridY}
-              gridOpacity={gridO}
-              gridScale={gridScale}
-              bottomRowY={bottomY}
-              bottomRowOpacity={bottomO}
-              footerY={skillsFooterY}
-              footerOpacity={skillsFooterO}
-            />
+            {/* SKILLS DASHBOARD ------------------------------------------- */}
+            <motion.div
+              className="relative h-full w-screen flex-shrink-0 overflow-hidden bg-[#111]"
+              style={{
+                opacity: skillsOpacity,
+                scale: skillsScale,
+                transformOrigin: "0% 50%",
+              }}
+            >
+              <Skills
+                viewportTransition
+                transitionProgress={skillsProgress}
+                shellOpacity={skillsShellOpacity}
+                headerY={skillsHeaderY}
+                headerOpacity={skillsHeaderOpacity}
+                gridY={skillsGridY}
+                gridOpacity={skillsGridOpacity}
+                gridScale={skillsGridScale}
+                bottomRowY={skillsBottomY}
+                bottomRowOpacity={skillsBottomOpacity}
+                footerY={skillsFooterY}
+                footerOpacity={skillsFooterOpacity}
+              />
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* ─── MOBILE / TABLET: normal stacked ────────────────────────────── */}
+      {/* ─── MOBILE / TABLET: normal stacked flow ─────────────────────── */}
       <div className="lg:hidden">
-        <About />
         <Skills />
       </div>
     </>

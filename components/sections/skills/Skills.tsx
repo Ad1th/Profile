@@ -10,7 +10,12 @@
  * scroll-driven entry. Falls back to whileInView standalone.
  */
 
-import { motion, type MotionValue, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  type MotionValue,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { useRef } from "react";
 import { easings } from "@/lib/motion";
 import SkillsHeader from "./SkillsHeader";
@@ -22,6 +27,7 @@ import SkillsPhilosophy from "./SkillsPhilosophy";
 
 interface SkillsProps {
   viewportTransition?: boolean;
+  transitionProgress?: MotionValue<number>;
   shellOpacity?: MotionValue<number>;
   headerY?: MotionValue<number>;
   headerOpacity?: MotionValue<number>;
@@ -36,6 +42,7 @@ interface SkillsProps {
 
 export default function Skills({
   viewportTransition = false,
+  transitionProgress,
   shellOpacity: shellOpacityProp,
   headerY: headerYProp,
   headerOpacity: headerOpacityProp,
@@ -54,18 +61,28 @@ export default function Skills({
   });
 
   // Fallbacks — resolve to "fully visible" from local scroll
-  const shellOpacity  = shellOpacityProp  ?? useTransform(scrollYProgress, [0.0, 0.12], [0, 1]);
-  const headerY       = headerYProp       ?? useTransform(scrollYProgress, [0.04, 0.22], [60, 0]);
-  const headerOpacity = headerOpacityProp ?? useTransform(scrollYProgress, [0.04, 0.22], [0, 1]);
-  const gridY         = gridYProp         ?? useTransform(scrollYProgress, [0.10, 0.36], [48, 0]);
-  const gridOpacity   = gridOpacityProp   ?? useTransform(scrollYProgress, [0.10, 0.36], [0, 1]);
-  const gridScale     = gridScaleProp     ?? useTransform(scrollYProgress, [0.10, 0.36], [0.97, 1]);
-  const bottomRowY    = bottomRowYProp    ?? useTransform(scrollYProgress, [0.22, 0.50], [40, 0]);
-  const bottomRowOpacity = bottomRowOpacityProp ?? useTransform(scrollYProgress, [0.22, 0.50], [0, 1]);
-  const footerY       = footerYProp       ?? useTransform(scrollYProgress, [0.36, 0.60], [24, 0]);
-  const footerOpacity = footerOpacityProp ?? useTransform(scrollYProgress, [0.36, 0.60], [0, 1]);
+  const shellOpacity =
+    shellOpacityProp ?? useTransform(scrollYProgress, [0.0, 0.12], [0, 1]);
+  const headerY =
+    headerYProp ?? useTransform(scrollYProgress, [0.04, 0.22], [60, 0]);
+  const headerOpacity =
+    headerOpacityProp ?? useTransform(scrollYProgress, [0.04, 0.22], [0, 1]);
+  const gridY =
+    gridYProp ?? useTransform(scrollYProgress, [0.1, 0.36], [48, 0]);
+  const gridOpacity =
+    gridOpacityProp ?? useTransform(scrollYProgress, [0.1, 0.36], [0, 1]);
+  const gridScale =
+    gridScaleProp ?? useTransform(scrollYProgress, [0.1, 0.36], [0.97, 1]);
+  const bottomRowY =
+    bottomRowYProp ?? useTransform(scrollYProgress, [0.22, 0.5], [40, 0]);
+  const bottomRowOpacity =
+    bottomRowOpacityProp ?? useTransform(scrollYProgress, [0.22, 0.5], [0, 1]);
+  const footerY =
+    footerYProp ?? useTransform(scrollYProgress, [0.36, 0.6], [24, 0]);
+  const footerOpacity =
+    footerOpacityProp ?? useTransform(scrollYProgress, [0.36, 0.6], [0, 1]);
 
-  const standalone = !viewportTransition;
+  const standalone = !viewportTransition && !transitionProgress;
 
   return (
     <section
@@ -85,14 +102,20 @@ export default function Skills({
       >
         {/* ── TOP HEADER ROW ────────────────────────────────────────── */}
         <motion.div style={{ y: headerY, opacity: headerOpacity }}>
-          <SkillsHeader standalone={standalone} />
+          <SkillsHeader
+            standalone={standalone}
+            transitionProgress={transitionProgress}
+          />
         </motion.div>
 
         {/* ── CORE SKILLS GRID ──────────────────────────────────────── */}
         <motion.div
           style={{ y: gridY, opacity: gridOpacity, scale: gridScale }}
         >
-          <SkillsCoreGrid standalone={standalone} />
+          <SkillsCoreGrid
+            standalone={standalone}
+            transitionProgress={transitionProgress}
+          />
         </motion.div>
 
         {/* ── BOTTOM ROW: Languages + Exploring ─────────────────────── */}
@@ -104,13 +127,22 @@ export default function Skills({
             opacity: bottomRowOpacity,
           }}
         >
-          <SkillsLanguages standalone={standalone} />
-          <SkillsExploring standalone={standalone} />
+          <SkillsLanguages
+            standalone={standalone}
+            transitionProgress={transitionProgress}
+          />
+          <SkillsExploring
+            standalone={standalone}
+            transitionProgress={transitionProgress}
+          />
         </motion.div>
 
         {/* ── FOOTER ────────────────────────────────────────────────── */}
         <motion.div style={{ y: footerY, opacity: footerOpacity }}>
-          <SkillsFooter viewportTransition={viewportTransition} />
+          <SkillsFooter
+            viewportTransition={viewportTransition}
+            transitionProgress={transitionProgress}
+          />
         </motion.div>
       </motion.div>
     </section>

@@ -1,18 +1,19 @@
 "use client";
 
 /**
- * HeroAboutTransition.tsx  (IMPROVED)
+ * HeroAboutTransition.tsx
  *
- * Cinematic 5-phase scroll transition: Hero deconstructs → About reconstructs.
+ * Phase 1 of the page scroll sequence.
  *
- * IMPROVEMENTS over v1:
- *  - Softer spring stiffness/damping → smoother, more premium feel
- *  - edgeP damping increased: exit/entry feel more deliberate, less snappy
- *  - Wider phase overlaps: elements don't all move at once
- *  - Hero headline words have more staggered parallax
- *  - Portrait rises with a slight rotation for personality
- *  - About entry uses scale-with-overshoot on BUILD card
- *  - Paper uncrumple has ext/Users/adith/Downloads/files (2)/AboutSkillsTransition.tsxra skew bounce keyframes
+ * Pin travel: 100svh + ~80px
+ * - The section is taller than the viewport by ~80px.
+ * - useScroll tracks that 80px of scroll distance (start→end).
+ * - The spring carries the animation well past that trigger,
+ *   so the full Hero→About transition plays out smoothly.
+ * - 80px feels like "a small intentional scroll", not a hair trigger.
+ *
+ * After this section the sticky unpins and the user naturally
+ * scrolls into AboutSkillsTransition below.
  */
 
 import {
@@ -26,13 +27,16 @@ import { useRef } from "react";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
 
-const SCROLL_TRAVEL = "clamp(8px, 1svh, 12px)";
+// How far past 100svh this section extends.
+// This is the raw scroll distance that triggers the transition.
+// 80px = small intentional scroll, spring carries the rest.
+const SCROLL_TRAVEL = "80px";
 
 function useSmoothProgress(raw: MotionValue<number>): MotionValue<number> {
   return useSpring(raw, {
-    stiffness: 55, // softer — was 70
-    damping: 26, // more damping — was 24
-    mass: 3.2, // slightly more inertia — was 3
+    stiffness: 55,
+    damping: 26,
+    mass: 3.2,
     restDelta: 0.0008,
   });
 }
@@ -47,129 +51,53 @@ export default function HeroAboutTransition() {
 
   const p = useSmoothProgress(rawProgress);
 
-  // Separate slow-damped spring for edges (hero exit + about entry)
   const edgeP = useSpring(rawProgress, {
-    stiffness: 38, // very soft — was 45
-    damping: 32, // more damping — was 30
-    mass: 3.8, // more inertia — was 3
+    stiffness: 38,
+    damping: 32,
+    mass: 3.8,
     restDelta: 0.0008,
   });
 
   // ── HERO LAYER ─────────────────────────────────────────────────────────
-
-  // Overall hero: fades out, slides up, shrinks slightly
   const heroOpacity = useTransform(edgeP, [0.14, 0.8], [1, 0]);
   const heroY = useTransform(edgeP, [0.06, 0.8], [0, -52]);
   const heroScale = useTransform(edgeP, [0.06, 0.74], [1, 0.965]);
 
-  // Left (black) panel: slides left
-  const heroLeftX = useTransform(edgeP, [0.1, 0.64], [0, -36]);
-  const heroLeftOpacity = useTransform(edgeP, [0.12, 0.74], [1, 0]);
-
-  // Right (portrait) panel: slides right + fades
-  const heroRightX = useTransform(edgeP, [0.1, 0.64], [0, 44]);
-  const heroRightOpacity = useTransform(edgeP, [0.12, 0.74], [1, 0]);
-
-  // Stats row: compresses + fades earlier
-  const statsY = useTransform(edgeP, [0.04, 0.5], [0, 32]);
-  const statsOpacity = useTransform(edgeP, [0.04, 0.48], [1, 0]);
-  const statsScaleY = useTransform(edgeP, [0.04, 0.48], [1, 0.55]);
-
-  // Marquee: fades in phase 1
-  const marqueeOpacity = useTransform(edgeP, [0.04, 0.46], [1, 0]);
-
-  // Hero headline — wider stagger between words for parallax drama
-  const backendY = useTransform(edgeP, [0.0, 0.52], [0, -20]);
-  const withX = useTransform(edgeP, [0.06, 0.58], [0, -28]);
-  const tasteY = useTransform(edgeP, [0.08, 0.6], [0, 28]);
-
-  // Portrait: rises with subtle rotation
-  const portraitY = useTransform(edgeP, [0.04, 0.64], [0, -40]);
-  const portraitOpacity = useTransform(edgeP, [0.08, 0.7], [1, 0]);
-  const portraitRotate = useTransform(edgeP, [0.04, 0.64], [0, -1.5]);
-
-  // Badge: drifts + shrinks
-  const badgeRotate = useTransform(edgeP, [0.0, 0.52], [-4, -12]);
-  const badgeOpacity = useTransform(edgeP, [0.08, 0.56], [1, 0]);
-  const badgeScale = useTransform(edgeP, [0.08, 0.56], [1, 0.65]);
-
   // ── ABOUT LAYER ───────────────────────────────────────────────────────
-
-  // Shell border fades in slightly earlier
   const shellOpacity = useTransform(edgeP, [0.28, 0.68], [0, 1]);
 
-  // "I BUILD / BREAK / FIX" — slight bounce overshoot
   const buildY = useTransform(edgeP, [0.32, 0.76, 0.9, 1.0], [76, -4, 1, 0]);
   const buildOpacity = useTransform(edgeP, [0.32, 0.74], [0, 1]);
-  const buildScale = useTransform(
-    edgeP,
-    [0.32, 0.76, 0.9, 1.0],
-    [0.93, 1.02, 0.99, 1],
-  );
+  const buildScale = useTransform(edgeP, [0.32, 0.76, 0.9, 1.0], [0.93, 1.02, 0.99, 1]);
 
-  // Bio card — clips in from right
-  const bioClip = useTransform(
-    edgeP,
-    [0.38, 0.76],
-    ["inset(0 100% 0 0)", "inset(0 0% 0 0)"],
-  );
+  const bioClip = useTransform(edgeP, [0.38, 0.76], ["inset(0 100% 0 0)", "inset(0 0% 0 0)"]);
   const bioOpacity = useTransform(edgeP, [0.38, 0.74], [0, 1]);
   const bioY = useTransform(edgeP, [0.38, 0.76], [22, 0]);
 
-  // Philosophy — paper uncrumple (phase 3 centrepiece) — enhanced bounce
   const paperOpacity = useTransform(p, [0.3, 0.6], [0, 1]);
-  const paperScale = useTransform(
-    p,
-    [0.3, 0.4, 0.58, 0.74, 0.86, 0.94],
-    [0.58, 0.76, 0.95, 1.03, 0.99, 1],
-  );
-  const paperRotate = useTransform(
-    p,
-    [0.3, 0.4, 0.58, 0.74, 0.86, 0.94],
-    [-14, -7, 2.5, 0.8, -0.3, 0],
-  );
+  const paperScale = useTransform(p, [0.3, 0.4, 0.58, 0.74, 0.86, 0.94], [0.58, 0.76, 0.95, 1.03, 0.99, 1]);
+  const paperRotate = useTransform(p, [0.3, 0.4, 0.58, 0.74, 0.86, 0.94], [-14, -7, 2.5, 0.8, -0.3, 0]);
   const paperSkewX = useTransform(p, [0.3, 0.42, 0.7, 0.84], [-10, -4, 1.5, 0]);
   const paperSkewY = useTransform(p, [0.3, 0.42, 0.7, 0.84], [5, 2.5, -0.8, 0]);
-  const paperFilter = useTransform(
-    p,
-    [0.3, 0.4, 0.66, 0.8],
-    ["blur(10px)", "blur(6px)", "blur(1.5px)", "blur(0px)"],
-  );
-  const paperClip = useTransform(
-    p,
-    [0.3, 0.4, 0.58, 0.74, 0.84],
-    [
-      "polygon(14% 5%, 95% 0%, 86% 95%, 3% 100%)",
-      "polygon(6% 3%, 97% 2%, 94% 96%, 4% 96%)",
-      "polygon(1% 1%, 99% 2%, 98% 99%, 0% 98%)",
-      "polygon(0% 0%, 100% 1%, 99% 100%, 0% 99%)",
-      "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-    ],
-  );
+  const paperFilter = useTransform(p, [0.3, 0.4, 0.66, 0.8], ["blur(10px)", "blur(6px)", "blur(1.5px)", "blur(0px)"]);
+  const paperClip = useTransform(p, [0.3, 0.4, 0.58, 0.74, 0.84], [
+    "polygon(14% 5%, 95% 0%, 86% 95%, 3% 100%)",
+    "polygon(6% 3%, 97% 2%, 94% 96%, 4% 96%)",
+    "polygon(1% 1%, 99% 2%, 98% 99%, 0% 98%)",
+    "polygon(0% 0%, 100% 1%, 99% 100%, 0% 99%)",
+    "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+  ]);
 
-  // Backend systems — slides up
   const backendAboutY = useTransform(edgeP, [0.44, 0.82], [56, 0]);
   const backendAboutOpacity = useTransform(edgeP, [0.44, 0.8], [0, 1]);
   const backendAboutScale = useTransform(edgeP, [0.44, 0.82], [0.94, 1]);
-
-  // Hardware — slides in from left
   const hardwareX = useTransform(edgeP, [0.46, 0.84], [-68, 0]);
   const hardwareOpacity = useTransform(edgeP, [0.46, 0.82], [0, 1]);
-
-  // Interests — rises from below
   const interestsY = useTransform(edgeP, [0.5, 0.88], [52, 0]);
   const interestsOpacity = useTransform(edgeP, [0.5, 0.86], [0, 1]);
   const interestsScale = useTransform(edgeP, [0.5, 0.88], [0.95, 1]);
-
-  // Built to be used — scale overshoot
-  const builtScale = useTransform(
-    edgeP,
-    [0.54, 0.86, 0.94, 1.0],
-    [1.1, 1.02, 0.993, 1],
-  );
+  const builtScale = useTransform(edgeP, [0.54, 0.86, 0.94, 1.0], [1.1, 1.02, 0.993, 1]);
   const builtOpacity = useTransform(edgeP, [0.54, 0.84], [0, 1]);
-
-  // Footer — rises last
   const footerY = useTransform(edgeP, [0.62, 1.0], [36, 0]);
   const footerOpacity = useTransform(edgeP, [0.62, 0.96], [0, 1]);
 
@@ -185,7 +113,7 @@ export default function HeroAboutTransition() {
           className="sticky top-0 overflow-hidden bg-[#111]"
           style={{ height: "100svh" }}
         >
-          {/* LAYER 1: Hero */}
+          {/* LAYER 1: Hero — fades out */}
           <motion.div
             className="absolute inset-0 z-10"
             style={{ opacity: heroOpacity, y: heroY, scale: heroScale }}
@@ -193,11 +121,8 @@ export default function HeroAboutTransition() {
             <Hero transitionProgress={p} />
           </motion.div>
 
-          {/* LAYER 2: About */}
-          <motion.div
-            className="absolute inset-0 z-20"
-            style={{ pointerEvents: "auto" }}
-          >
+          {/* LAYER 2: About — builds in underneath */}
+          <motion.div className="absolute inset-0 z-0">
             <About
               viewportTransition
               shellOpacity={shellOpacity}

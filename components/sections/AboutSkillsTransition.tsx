@@ -3,21 +3,18 @@
 /**
  * AboutSkillsTransition.tsx
  *
- * One-time horizontal transition: ABOUT (identity / manifesto) slides out,
- * SKILLS (engineering dashboard) slides in.
+ * Phase 2 of the page scroll sequence.
  *
- * Why this exists:
- * - Hero → About is already cinematic and pinned.
- * - ABOUT → SKILLS should feel like switching operating system panels,
- *   not like a normal slideshow or a vertical page break.
- * - After this section finishes, the page returns to normal vertical flow.
+ * Pin travel: 100svh + ~300px
+ * - Much larger than HeroAboutTransition's 80px.
+ * - User scrolls a comfortable, "normal" distance to pan About → Skills.
+ * - The horizontal rail slides left as they scroll — feels like
+ *   switching OS panels, not a hair-trigger PPT slide.
+ * - After ~300px of scroll the pin releases and vertical scroll resumes
+ *   into the Experience section below.
  *
- * Implementation notes:
- * - The section is pinned for a short scroll window.
- * - A wide horizontal rail moves ABOUT left and SKILLS in from the right.
- * - SKILLS children activate in a staggered sequence so the dashboard feels
- *   like subsystems booting up one at a time.
- * - Mobile keeps the normal stacked flow.
+ * The About panel shown here is the fully-resolved state (all props settled
+ * at 1 / 0) so it looks identical to what HeroAboutTransition left behind.
  */
 
 import {
@@ -31,16 +28,9 @@ import { useRef } from "react";
 import About from "@/components/sections/about/About";
 import Skills from "@/components/sections/skills/Skills";
 
-const SCROLL_TRAVEL = "5svh";
-
-function useSmoothProgress(raw: MotionValue<number>): MotionValue<number> {
-  return useSpring(raw, {
-    stiffness: 55,
-    damping: 26,
-    mass: 3.2,
-    restDelta: 0.0008,
-  });
-}
+// How far past 100svh this section extends.
+// ~300px = comfortable regular scroll distance to trigger the horizontal pan.
+const SCROLL_TRAVEL = "300px";
 
 function useEdgeProgress(raw: MotionValue<number>): MotionValue<number> {
   return useSpring(raw, {
@@ -51,10 +41,6 @@ function useEdgeProgress(raw: MotionValue<number>): MotionValue<number> {
   });
 }
 
-function useSettledValue<T>(progress: MotionValue<number>, value: T) {
-  return useTransform(progress, () => value);
-}
-
 export default function AboutSkillsTransition() {
   const stageRef = useRef<HTMLElement>(null);
 
@@ -63,21 +49,20 @@ export default function AboutSkillsTransition() {
     offset: ["start start", "end end"],
   });
 
-  const p = useSmoothProgress(rawProgress);
   const edgeP = useEdgeProgress(rawProgress);
 
-  // Rail: 1svh scroll triggers rawProgress → 1; soft spring carries the pan.
+  // Rail: slides from 0 → -100vw as edgeP goes 0 → 0.88
   const railX = useTransform(edgeP, [0.0, 0.88], ["0vw", "-100vw"]);
 
-  // ABOUT panel: compress a little as it leaves.
+  // About panel: subtle exit compression
   const aboutScale = useTransform(edgeP, [0.0, 0.22], [1, 0.975]);
   const aboutX = useTransform(edgeP, [0.02, 0.26], [0, -6]);
 
-  // SKILLS panel: enters as rail slides in.
+  // Skills panel: enters as rail slides in
   const skillsScale = useTransform(edgeP, [0.16, 0.52], [0.985, 1]);
   const skillsOpacity = useTransform(edgeP, [0.08, 0.28], [0, 1]);
 
-  // SKILLS shell/rows: subsystems boot in staggered sequence.
+  // Skills subsystems boot in staggered sequence
   const skillsShellOpacity = useTransform(edgeP, [0.1, 0.32], [0, 1]);
   const skillsHeaderY = useTransform(edgeP, [0.14, 0.34], [22, 0]);
   const skillsHeaderOpacity = useTransform(edgeP, [0.14, 0.28], [0, 1]);
@@ -88,20 +73,16 @@ export default function AboutSkillsTransition() {
   const skillsBottomOpacity = useTransform(edgeP, [0.32, 0.50], [0, 1]);
   const skillsFooterY = useTransform(edgeP, [0.48, 0.74], [16, 0]);
   const skillsFooterOpacity = useTransform(edgeP, [0.48, 0.66], [0, 1]);
-
-  // About should read as a resolved panel while it exits.
-  const settledOne = useSettledValue(p, 1);
-  const settledZero = useSettledValue(p, 0);
-  const settledInset = useSettledValue(p, "inset(0 0% 0 0)");
-  const settledClip = useSettledValue(
-    p,
-    "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-  );
-  const settledBlur = useSettledValue(p, "blur(0px)");
-  const settledPaper = useSettledValue(p, 1);
-  const settledZeroString = useSettledValue(p, 0);
-
   const skillsProgress = useTransform(edgeP, [0.1, 0.88], [0, 1]);
+
+  // About props: all settled/resolved — About looks fully built when this section starts
+  // We use static MotionValues at resolved state so About renders correctly
+  // without re-animating (it already built in during HeroAboutTransition)
+  const one = useTransform(edgeP, () => 1);
+  const zero = useTransform(edgeP, () => 0);
+  const insetFull = useTransform(edgeP, () => "inset(0 0% 0 0)");
+  const clipFull = useTransform(edgeP, () => "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)");
+  const blurNone = useTransform(edgeP, () => "blur(0px)");
 
   return (
     <>
@@ -113,18 +94,14 @@ export default function AboutSkillsTransition() {
       >
         <div
           className="sticky top-0 overflow-hidden bg-[#111]"
-          style={{
-            height: "100svh",
-            overscrollBehavior: "contain",
-            touchAction: "pan-y",
-          }}
+          style={{ height: "100svh" }}
         >
-          {/* Horizontal rail: moving this rail is the actual lock. */}
+          {/* Horizontal rail */}
           <motion.div
             className="relative flex h-full w-[200vw] will-change-transform"
             style={{ x: railX }}
           >
-            {/* ABOUT PANELS ------------------------------------------------ */}
+            {/* ABOUT PANEL — fully resolved, exits with rail */}
             <motion.div
               className="relative h-full w-screen flex-shrink-0 overflow-hidden bg-[#111]"
               style={{
@@ -135,38 +112,36 @@ export default function AboutSkillsTransition() {
             >
               <About
                 viewportTransition
-                // The left side should feel resolved, not mid-animation,
-                // while the rail itself carries the transition.
-                shellOpacity={settledOne}
-                buildY={settledZero}
-                buildOpacity={settledOne}
-                buildScale={settledOne}
-                bioClip={settledInset}
-                bioOpacity={settledOne}
-                bioY={settledZero}
-                paperOpacity={settledOne}
-                paperScale={settledPaper}
-                paperRotate={settledZero}
-                paperSkewX={settledZero}
-                paperSkewY={settledZero}
-                paperFilter={settledBlur}
-                paperClip={settledClip}
-                backendY={settledZero}
-                backendOpacity={settledOne}
-                backendScale={settledOne}
-                hardwareX={settledZero}
-                hardwareOpacity={settledOne}
-                interestsY={settledZero}
-                interestsOpacity={settledOne}
-                interestsScale={settledOne}
-                builtScale={settledOne}
-                builtOpacity={settledOne}
-                footerY={settledZeroString}
-                footerOpacity={settledOne}
+                shellOpacity={one}
+                buildY={zero}
+                buildOpacity={one}
+                buildScale={one}
+                bioClip={insetFull}
+                bioOpacity={one}
+                bioY={zero}
+                paperOpacity={one}
+                paperScale={one}
+                paperRotate={zero}
+                paperSkewX={zero}
+                paperSkewY={zero}
+                paperFilter={blurNone}
+                paperClip={clipFull}
+                backendY={zero}
+                backendOpacity={one}
+                backendScale={one}
+                hardwareX={zero}
+                hardwareOpacity={one}
+                interestsY={zero}
+                interestsOpacity={one}
+                interestsScale={one}
+                builtScale={one}
+                builtOpacity={one}
+                footerY={zero}
+                footerOpacity={one}
               />
             </motion.div>
 
-            {/* SKILLS DASHBOARD ------------------------------------------- */}
+            {/* SKILLS DASHBOARD — enters from the right */}
             <motion.div
               className="relative h-full w-screen flex-shrink-0 overflow-hidden bg-[#111]"
               style={{

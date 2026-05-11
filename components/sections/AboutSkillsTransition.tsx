@@ -31,22 +31,22 @@ import { useRef } from "react";
 import About from "@/components/sections/about/About";
 import Skills from "@/components/sections/skills/Skills";
 
-const SCROLL_TRAVEL = "1svh";
+const SCROLL_TRAVEL = "5svh";
 
 function useSmoothProgress(raw: MotionValue<number>): MotionValue<number> {
   return useSpring(raw, {
-    stiffness: 66,
-    damping: 24,
-    mass: 3,
+    stiffness: 55,
+    damping: 26,
+    mass: 3.2,
     restDelta: 0.0008,
   });
 }
 
 function useEdgeProgress(raw: MotionValue<number>): MotionValue<number> {
   return useSpring(raw, {
-    stiffness: 60,
-    damping: 22,
-    mass: 2.2,
+    stiffness: 38,
+    damping: 30,
+    mass: 3.6,
     restDelta: 0.0008,
   });
 }
@@ -66,28 +66,28 @@ export default function AboutSkillsTransition() {
   const p = useSmoothProgress(rawProgress);
   const edgeP = useEdgeProgress(rawProgress);
 
-  // Shared rail movement: starts immediately, completes by 80%.
-  const railX = useTransform(edgeP, [0.0, 0.78], ["0vw", "-100vw"]);
+  // Rail: 1svh scroll triggers rawProgress → 1; soft spring carries the pan.
+  const railX = useTransform(edgeP, [0.0, 0.88], ["0vw", "-100vw"]);
 
-  // ABOUT panel: compress a little before it leaves the viewport.
-  const aboutScale = useTransform(edgeP, [0.0, 0.18], [1, 0.975]);
-  const aboutX = useTransform(edgeP, [0.02, 0.22], [0, -6]);
+  // ABOUT panel: compress a little as it leaves.
+  const aboutScale = useTransform(edgeP, [0.0, 0.22], [1, 0.975]);
+  const aboutX = useTransform(edgeP, [0.02, 0.26], [0, -6]);
 
-  // SKILLS panel: enters as the rail slides, then settles into place.
-  const skillsScale = useTransform(edgeP, [0.14, 0.42], [0.985, 1]);
-  const skillsOpacity = useTransform(edgeP, [0.06, 0.24], [0, 1]);
+  // SKILLS panel: enters as rail slides in.
+  const skillsScale = useTransform(edgeP, [0.16, 0.52], [0.985, 1]);
+  const skillsOpacity = useTransform(edgeP, [0.08, 0.28], [0, 1]);
 
-  // SKILLS shell/rows: each subsystem boots in sequence.
-  const skillsShellOpacity = useTransform(edgeP, [0.08, 0.28], [0, 1]);
-  const skillsHeaderY = useTransform(edgeP, [0.1, 0.28], [22, 0]);
-  const skillsHeaderOpacity = useTransform(edgeP, [0.1, 0.24], [0, 1]);
-  const skillsGridY = useTransform(edgeP, [0.18, 0.40], [20, 0]);
-  const skillsGridOpacity = useTransform(edgeP, [0.18, 0.34], [0, 1]);
-  const skillsGridScale = useTransform(edgeP, [0.18, 0.44], [0.98, 1]);
-  const skillsBottomY = useTransform(edgeP, [0.26, 0.50], [18, 0]);
-  const skillsBottomOpacity = useTransform(edgeP, [0.26, 0.44], [0, 1]);
-  const skillsFooterY = useTransform(edgeP, [0.40, 0.66], [16, 0]);
-  const skillsFooterOpacity = useTransform(edgeP, [0.40, 0.58], [0, 1]);
+  // SKILLS shell/rows: subsystems boot in staggered sequence.
+  const skillsShellOpacity = useTransform(edgeP, [0.1, 0.32], [0, 1]);
+  const skillsHeaderY = useTransform(edgeP, [0.14, 0.34], [22, 0]);
+  const skillsHeaderOpacity = useTransform(edgeP, [0.14, 0.28], [0, 1]);
+  const skillsGridY = useTransform(edgeP, [0.22, 0.48], [20, 0]);
+  const skillsGridOpacity = useTransform(edgeP, [0.22, 0.40], [0, 1]);
+  const skillsGridScale = useTransform(edgeP, [0.22, 0.52], [0.98, 1]);
+  const skillsBottomY = useTransform(edgeP, [0.32, 0.58], [18, 0]);
+  const skillsBottomOpacity = useTransform(edgeP, [0.32, 0.50], [0, 1]);
+  const skillsFooterY = useTransform(edgeP, [0.48, 0.74], [16, 0]);
+  const skillsFooterOpacity = useTransform(edgeP, [0.48, 0.66], [0, 1]);
 
   // About should read as a resolved panel while it exits.
   const settledOne = useSettledValue(p, 1);
@@ -101,7 +101,7 @@ export default function AboutSkillsTransition() {
   const settledPaper = useSettledValue(p, 1);
   const settledZeroString = useSettledValue(p, 0);
 
-  const skillsProgress = useTransform(edgeP, [0.08, 0.78], [0, 1]);
+  const skillsProgress = useTransform(edgeP, [0.1, 0.88], [0, 1]);
 
   return (
     <>

@@ -37,14 +37,14 @@ import Skills from "@/components/sections/skills/Skills";
 import Experience from "@/components/sections/Experience/Experience";
 
 // ─── SCROLL BUDGET ──────────────────────────────────────────────────────────
-// Large values = slow, deliberate transitions. User has to scroll a lot
-// before the animation completes, so it never feels hair-trigger.
-const PHASE1_PX = 800; // Hero → About
-const PHASE2_PX = 1200; // About → Skills (horizontal pan)
-const TOTAL_EXTRA_PX = PHASE1_PX + PHASE2_PX; // 2000px beyond 100svh
+// Keep the full transition within a single viewport scroll so Experience
+// appears immediately after Skills with no dead track in between.
+// NOTE: needs a tiny extra height so useScroll can interpolate 0→1
+// (when end == start, progress jumps to 1 and you land on Skills).
+const SCROLL_EXTRA_PX = 1; // extra scroll beyond 100svh
 
-// Fraction of total scroll that Phase 1 occupies
-const PHASE1_RATIO = PHASE1_PX / TOTAL_EXTRA_PX; // 0.4
+// Fraction of scroll that Phase 1 occupies
+const PHASE1_RATIO = 0.4;
 // Phase 2 occupies [PHASE1_RATIO → 1.0]
 
 // ─── SPRING CONFIGS ─────────────────────────────────────────────────────────
@@ -198,7 +198,7 @@ export default function FullTransition() {
   const phase2Local = useTransform(panP, [P2_START, P2_END], [0, 1]);
 
   // Rail slides left: About exits, Skills enters
-  const railX = useTransform(phase2Local, [0.0, 0.85], ["0vw", "-100vw"]);
+  const railX = useTransform(phase2Local, [0.0, 1.0], ["0vw", "-100vw"]);
 
   // About panel: subtle exit compression
   const aboutExitScale = useTransform(phase2Local, [0.0, 0.25], [1, 0.975]);
@@ -219,20 +219,20 @@ export default function FullTransition() {
   const skillsBottomOpacity = useTransform(phase2Local, [0.28, 0.46], [0, 1]);
   const skillsFooterY = useTransform(phase2Local, [0.44, 0.7], [16, 0]);
   const skillsFooterOpacity = useTransform(phase2Local, [0.44, 0.62], [0, 1]);
-  const skillsProgress = useTransform(phase2Local, [0.08, 0.85], [0, 1]);
+  const skillsProgress = useTransform(phase2Local, [0.08, 1.0], [0, 1]);
 
   return (
     <>
       {/* ── DESKTOP: single pinned stage ─────────────────────────────────── */}
       {/*
-        Height = 100svh + TOTAL_EXTRA_PX creates the scrollable track.
+        Height = 100svh + SCROLL_EXTRA_PX creates the scrollable track.
         The sticky inner div never moves — only scroll position changes.
-        The user scrolls 2000px of invisible track to drive both transitions.
+        With SCROLL_EXTRA_PX = 0, transitions complete within one viewport.
       */}
       <section
         ref={stageRef}
         className="relative hidden lg:block bg-[#111]"
-        style={{ height: `calc(100svh + ${TOTAL_EXTRA_PX}px)` }}
+        style={{ height: `calc(100svh + ${SCROLL_EXTRA_PX}px)` }}
       >
         {/* ── PINNED VIEWPORT — fills exactly 100svh, never scrolls ───── */}
         <div

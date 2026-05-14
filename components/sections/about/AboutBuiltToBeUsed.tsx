@@ -28,10 +28,14 @@ export default function AboutBuiltToBeUsed({
           : "16px 20px 18px 20px",
         height: "100%",
       }}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.55, delay: 0.25, ease: easings.primary }}
+      initial={viewportTransition ? false : { opacity: 0, y: 16 }}
+      whileInView={viewportTransition ? undefined : { opacity: 1, y: 0 }}
+      viewport={viewportTransition ? undefined : { once: true }}
+      transition={
+        viewportTransition
+          ? undefined
+          : { duration: 0.55, delay: 0.25, ease: easings.primary }
+      }
     >
       {/* Top-left corner bracket */}
       <div className="absolute top-0 left-0">

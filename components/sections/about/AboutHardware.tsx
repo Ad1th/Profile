@@ -11,6 +11,8 @@ interface AboutHardwareProps {
 export default function AboutHardware({
   viewportTransition = false,
 }: AboutHardwareProps) {
+  const standalone = !viewportTransition;
+
   return (
     <motion.div
       className="relative bg-[#F0EBE0] flex flex-col justify-between overflow-hidden"
@@ -22,10 +24,14 @@ export default function AboutHardware({
           : "20px 20px 20px 20px",
         height: "100%",
       }}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.55, delay: 0.18, ease: easings.primary }}
+      initial={standalone ? { opacity: 0, y: 20 } : false}
+      whileInView={standalone ? { opacity: 1, y: 0 } : undefined}
+      viewport={standalone ? { once: true } : undefined}
+      transition={
+        standalone
+          ? { duration: 0.55, delay: 0.18, ease: easings.primary }
+          : undefined
+      }
     >
       {/* Badge */}
       <div>

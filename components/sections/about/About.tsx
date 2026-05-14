@@ -1,23 +1,24 @@
 "use client";
 
 /**
- * About.tsx
+ * About.tsx — CINEMATIC RECEIVER (NOT ORCHESTRATOR)
  *
- * Accepts optional MotionValue props from HeroAboutTransition for the
- * cinematic scroll-driven transition on desktop.
+ * CRITICAL: This component receives scroll orchestration from CinematicSequence.
  *
- * When props are NOT passed (mobile / standalone), it falls back to
- * whileInView animations exactly as before.
+ * It does NOT:
+ * - Call useScroll
+ * - Create fallback transforms
+ * - Track scroll progress
+ * - Own any viewport logic
+ *
+ * It ONLY:
+ * - Accepts MotionValue props from parent
+ * - Renders with those transforms
+ * - Uses whileInView for standalone (mobile) mode
  */
 
-import {
-  motion,
-  type MotionValue,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, type MotionValue } from "framer-motion";
 import { easings } from "@/lib/motion";
-import { useRef } from "react";
 import AboutBio from "./AboutBio";
 import AboutPhilosophy from "./AboutPhilosophy";
 import AboutInterests from "./AboutInterests";
@@ -111,134 +112,16 @@ export default function About({
   footerY: footerYProp,
   footerOpacity: footerOpacityProp,
 }: AboutProps) {
-  // ── Fallback: whileInView scroll when used standalone ────────────────────
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress: localProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 60%", "start 0%"],
-  });
+  // ─── CINEMATIC MODE ─────────────────────────────────────────────────────
+  // When viewportTransition=true, use the MotionValue props from parent.
+  // When viewportTransition=false (standalone/mobile), use whileInView instead.
+  // Do NOT create fallback transforms or useScroll.
 
-  // Helper: if a MotionValue prop was provided, use it; otherwise fall back
-  // to a local transform that produces a static "fully visible" value.
-  // (whileInView handles the actual animation in sub-components when standalone.)
-  const mv = <T,>(
-    prop: MotionValue<T> | undefined,
-    fallback: T,
-  ): MotionValue<T> | undefined => prop;
-
-  // Standalone fallback transforms — these resolve to "fully settled" values
-  // so the layout renders correctly when there's no transition parent.
   const standalone = !viewportTransition;
-
-  const shellOpacity =
-    shellOpacityProp ?? useTransform(localProgress, [0.04, 0.14], [0, 1]);
-
-  const buildY =
-    buildYProp ?? useTransform(localProgress, [0.12, 0.34], [80, 0]);
-  const buildOpacity =
-    buildOpacityProp ?? useTransform(localProgress, [0.12, 0.34], [0, 1]);
-  const buildScale =
-    buildScaleProp ?? useTransform(localProgress, [0.12, 0.34], [0.96, 1]);
-
-  const bioClip =
-    bioClipProp ??
-    useTransform(
-      localProgress,
-      [0.18, 0.38],
-      ["inset(0 100% 0 0)", "inset(0 0% 0 0)"],
-    );
-  const bioY = bioYProp ?? useTransform(localProgress, [0.18, 0.38], [24, 0]);
-  const bioOpacity =
-    bioOpacityProp ?? useTransform(localProgress, [0.18, 0.38], [0, 1]);
-
-  const paperOpacity =
-    paperOpacityProp ?? useTransform(localProgress, [0.42, 0.52], [0, 1]);
-  const paperScale =
-    paperScaleProp ??
-    useTransform(
-      localProgress,
-      [0.42, 0.5, 0.58, 0.68, 0.76],
-      [0.62, 0.78, 0.96, 1.025, 1],
-    );
-  const paperRotate =
-    paperRotateProp ??
-    useTransform(
-      localProgress,
-      [0.42, 0.5, 0.58, 0.68, 0.76],
-      [-12, -6, 2, 0.5, 0],
-    );
-  const paperSkewX =
-    paperSkewXProp ??
-    useTransform(localProgress, [0.42, 0.52, 0.64, 0.72], [-8, -3, 1, 0]);
-  const paperSkewY =
-    paperSkewYProp ??
-    useTransform(localProgress, [0.42, 0.52, 0.64, 0.72], [4, 2, -0.5, 0]);
-  const paperFilter =
-    paperFilterProp ??
-    useTransform(
-      localProgress,
-      [0.42, 0.5, 0.6, 0.7],
-      ["blur(8px)", "blur(5px)", "blur(2px)", "blur(0px)"],
-    );
-  const paperClip =
-    paperClipProp ??
-    useTransform(
-      localProgress,
-      [0.42, 0.5, 0.58, 0.66, 0.74],
-      [
-        "polygon(12% 4%, 96% 0%, 88% 94%, 2% 100%)",
-        "polygon(5% 2%, 98% 3%, 95% 97%, 3% 95%)",
-        "polygon(1% 1%, 99% 2%, 98% 99%, 0% 98%)",
-        "polygon(0% 0%, 100% 1%, 99% 100%, 0% 99%)",
-        "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-      ],
-    );
-
-  const backendY =
-    backendYProp ?? useTransform(localProgress, [0.24, 0.44], [40, 0]);
-  const backendOpacity =
-    backendOpacityProp ?? useTransform(localProgress, [0.24, 0.44], [0, 1]);
-  const backendScale =
-    backendScaleProp ?? useTransform(localProgress, [0.24, 0.44], [0.96, 1]);
-
-  const hardwareX =
-    hardwareXProp ??
-    useTransform(localProgress, [0.28, 0.42, 0.5], [-80, 8, 0]);
-  const hardwareOpacity =
-    hardwareOpacityProp ?? useTransform(localProgress, [0.28, 0.4], [0, 1]);
-
-  const interestsY =
-    interestsYProp ?? useTransform(localProgress, [0.32, 0.52], [48, 0]);
-  const interestsOpacity =
-    interestsOpacityProp ?? useTransform(localProgress, [0.32, 0.52], [0, 1]);
-  const interestsScale =
-    interestsScaleProp ?? useTransform(localProgress, [0.32, 0.52], [0.96, 1]);
-
-  const builtScale =
-    builtScaleProp ??
-    useTransform(
-      localProgress,
-      [0.36, 0.58, 0.72, 0.8],
-      [1.08, 1.01, 0.995, 1],
-    );
-  const builtOpacity =
-    builtOpacityProp ?? useTransform(localProgress, [0.36, 0.58], [0, 1]);
-
-  const footerY =
-    footerYProp ??
-    useTransform(localProgress, [0.48, 0.68], [viewportTransition ? 8 : 32, 0]);
-  const footerOpacity =
-    footerOpacityProp ?? useTransform(localProgress, [0.48, 0.68], [0, 1]);
 
   // ─── RENDER ───────────────────────────────────────────────────────────────
   return (
-    <section
-      ref={sectionRef}
-      className={`relative w-full overflow-hidden ${
-        viewportTransition ? "h-full bg-transparent" : "bg-transparent"
-      }`}
-      style={{ height: viewportTransition ? "100%" : undefined }}
-    >
+    <section className="relative w-full overflow-hidden bg-transparent">
       {/* Outer border frame */}
       <motion.div
         className={`relative mx-auto ${
@@ -248,8 +131,7 @@ export default function About({
           border: "5px solid #111",
           borderTop: "none",
           maxWidth: "100%",
-          opacity: shellOpacity,
-          height: viewportTransition ? "100%" : undefined,
+          opacity: shellOpacityProp,
         }}
       >
         {/* ── MAIN GRID ──────────────────────────────────────────────────── */}
@@ -277,9 +159,9 @@ export default function About({
               borderBottom: "4px solid #111",
               padding: viewportTransition ? "28px 30px" : "44px 32px",
               minHeight: viewportTransition ? undefined : 420,
-              y: buildY,
-              opacity: buildOpacity,
-              scale: buildScale,
+              y: buildYProp,
+              opacity: buildOpacityProp,
+              scale: buildScaleProp,
             }}
           >
             <div className="flex items-stretch gap-6 w-full h-full">
@@ -291,10 +173,16 @@ export default function About({
                   border: "3px solid #111",
                   flexShrink: 0,
                 }}
-                initial={{ scaleY: 0 }}
-                whileInView={{ scaleY: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, ease: easings.primary }}
+                // Receiver-only: no viewport-driven animation in cinematic mode.
+                // In standalone/mobile mode, preserve original whileInView behavior.
+                initial={standalone ? { scaleY: 0 } : false}
+                whileInView={standalone ? { scaleY: 1 } : undefined}
+                viewport={standalone ? { once: true } : undefined}
+                transition={
+                  standalone
+                    ? { duration: 0.4, ease: easings.primary }
+                    : undefined
+                }
               />
 
               {/* Headline text */}
@@ -318,16 +206,23 @@ export default function About({
                     style={{
                       color: line.color,
                       fontSize: "clamp(95px, 7.7vw, 260px)",
+                      // In cinematic mode, parent controls visibility via shell/bio/etc;
+                      // ensure headline does not run its own whileInView.
+                      opacity: standalone ? undefined : 1,
+                      transform: standalone ? undefined : "translateY(0px)",
                     }}
-                    // Only use whileInView when standalone (not in transition)
                     initial={standalone ? { y: 40, opacity: 0 } : false}
                     whileInView={standalone ? { y: 0, opacity: 1 } : undefined}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.55,
-                      delay: i * 0.12,
-                      ease: easings.primary,
-                    }}
+                    viewport={standalone ? { once: true } : undefined}
+                    transition={
+                      standalone
+                        ? {
+                            duration: 0.55,
+                            delay: i * 0.12,
+                            ease: easings.primary,
+                          }
+                        : undefined
+                    }
                   >
                     {line.text}
                   </motion.span>
@@ -341,29 +236,29 @@ export default function About({
             style={{
               borderRight: "4px solid #111",
               borderBottom: "4px solid #111",
-              clipPath: bioClip,
-              y: bioY,
-              opacity: bioOpacity,
+              clipPath: bioClipProp,
+              y: bioYProp,
+              opacity: bioOpacityProp,
             }}
           >
-            <AboutBio />
+            <AboutBio viewportTransition={viewportTransition} />
           </motion.div>
 
           {/* Col 3 Row 1 — Philosophy (paper uncrumple) */}
           <motion.div
             style={{
               borderBottom: "4px solid #111",
-              opacity: paperOpacity,
-              scale: paperScale,
-              rotate: paperRotate,
-              skewX: paperSkewX,
-              skewY: paperSkewY,
-              filter: paperFilter,
-              clipPath: paperClip,
+              opacity: paperOpacityProp,
+              scale: paperScaleProp,
+              rotate: paperRotateProp,
+              skewX: paperSkewXProp,
+              skewY: paperSkewYProp,
+              filter: paperFilterProp,
+              clipPath: paperClipProp,
               transformOrigin: "50% 42%",
             }}
           >
-            <AboutPhilosophy />
+            <AboutPhilosophy viewportTransition={viewportTransition} />
           </motion.div>
 
           {/* ── ROW 2 ──────────────────────────────────────────────────── */}
@@ -378,9 +273,9 @@ export default function About({
           >
             <motion.div
               style={{
-                y: backendY,
-                opacity: backendOpacity,
-                scale: backendScale,
+                y: backendYProp,
+                opacity: backendOpacityProp,
+                scale: backendScaleProp,
                 height: "100%",
               }}
             >
@@ -388,8 +283,8 @@ export default function About({
             </motion.div>
             <motion.div
               style={{
-                x: hardwareX,
-                opacity: hardwareOpacity,
+                x: hardwareXProp,
+                opacity: hardwareOpacityProp,
                 height: "100%",
               }}
             >
@@ -409,18 +304,18 @@ export default function About({
           >
             <motion.div
               style={{
-                y: interestsY,
-                opacity: interestsOpacity,
-                scale: interestsScale,
+                y: interestsYProp,
+                opacity: interestsOpacityProp,
+                scale: interestsScaleProp,
               }}
             >
-              <AboutInterests />
+              <AboutInterests viewportTransition={viewportTransition} />
             </motion.div>
             <motion.div
               className="min-h-0 h-full"
               style={{
-                scale: builtScale,
-                opacity: builtOpacity,
+                scale: builtScaleProp,
+                opacity: builtOpacityProp,
                 transformOrigin: "50% 0%",
               }}
             >
@@ -432,7 +327,7 @@ export default function About({
         {/* ── FOOTER ─────────────────────────────────────────────────────── */}
         <motion.div
           className={viewportTransition ? "relative z-20" : ""}
-          style={{ y: footerY, opacity: footerOpacity }}
+          style={{ y: footerYProp, opacity: footerOpacityProp }}
         >
           <AboutFooter viewportTransition={viewportTransition} />
         </motion.div>

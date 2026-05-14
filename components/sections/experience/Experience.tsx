@@ -6,8 +6,9 @@
  * Placeholder Experience section — same neo-brutalist design language
  * as Hero / About / Skills. Black / cream / acid-yellow / orange / steel-blue.
  *
- * This is a single "page" of vertical content that follows the pinned
- * FullTransition section. Receives proper design later.
+ * This is a single "page" of vertical content that follows the CinematicSequence
+ * section. After the cinematic rail completes, normal vertical scrolling resumes.
+ * Receives proper design later.
  */
 
 import { motion } from "framer-motion";

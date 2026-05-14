@@ -10,6 +10,10 @@ const anton = Anton({
 });
 
 interface AboutBackendSystemsProps {
+  /**
+   * When true, the cinematic parent owns all animation.
+   * This component must not use whileInView/viewport observers.
+   */
   viewportTransition?: boolean;
 }
 
@@ -17,6 +21,7 @@ interface AboutBackendSystemsProps {
 export default function AboutBackendSystems({
   viewportTransition = false,
 }: AboutBackendSystemsProps) {
+  const standalone = !viewportTransition;
   // Staircase bars — ascending from left to right
   const bars = [
     { w: 20, h: 22 },
@@ -36,10 +41,14 @@ export default function AboutBackendSystems({
           : "25px 24px 28px 24px",
         height: "100%",
       }}
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.55, delay: 0.1, ease: easings.primary }}
+      initial={standalone ? { opacity: 0, x: -20 } : false}
+      whileInView={standalone ? { opacity: 1, x: 0 } : undefined}
+      viewport={standalone ? { once: true } : undefined}
+      transition={
+        standalone
+          ? { duration: 0.55, delay: 0.1, ease: easings.primary }
+          : undefined
+      }
     >
       {/* White Border */}
       <div
@@ -121,10 +130,12 @@ export default function AboutBackendSystems({
               height: viewportTransition ? bar.h - 6 : bar.h,
               background: "#CFDE00",
             }}
-            initial={{ scaleY: 0, originY: 1 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.35, delay: 0.3 + i * 0.08 }}
+            initial={standalone ? { scaleY: 0, originY: 1 } : false}
+            whileInView={standalone ? { scaleY: 1 } : undefined}
+            viewport={standalone ? { once: true } : undefined}
+            transition={
+              standalone ? { duration: 0.35, delay: 0.3 + i * 0.08 } : undefined
+            }
           />
         ))}
       </div>

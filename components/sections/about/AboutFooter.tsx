@@ -11,6 +11,8 @@ interface AboutFooterProps {
 export default function AboutFooter({
   viewportTransition = false,
 }: AboutFooterProps) {
+  const standalone = !viewportTransition;
+
   return (
     <motion.div
       className="w-full flex items-center justify-between"
@@ -21,10 +23,14 @@ export default function AboutFooter({
         borderTop: "none",
         padding: viewportTransition ? "0 14px" : "0 24px",
       }}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.3, ease: easings.primary }}
+      initial={standalone ? { opacity: 0 } : false}
+      whileInView={standalone ? { opacity: 1 } : undefined}
+      viewport={standalone ? { once: true } : undefined}
+      transition={
+        standalone
+          ? { duration: 0.5, delay: 0.3, ease: easings.primary }
+          : undefined
+      }
     >
       {/* Left: bracket + left label */}
       <div className="flex items-center gap-3">

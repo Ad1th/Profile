@@ -1,22 +1,23 @@
 "use client";
 
 /**
- * Skills.tsx
+ * Skills.tsx — CINEMATIC RECEIVER (NOT ORCHESTRATOR)
  *
- * Neo-brutalist skills section. Mirrors the design language of Hero + About:
- * black / cream / acid-yellow / orange / steel-blue palette.
+ * CRITICAL: This component receives scroll orchestration from CinematicSequence.
  *
- * Accepts optional MotionValue props from SkillsTransition for cinematic
- * scroll-driven entry. Falls back to whileInView standalone.
+ * It does NOT:
+ * - Call useScroll
+ * - Create fallback transforms
+ * - Track scroll progress
+ * - Own any viewport logic
+ *
+ * It ONLY:
+ * - Accepts MotionValue props from parent
+ * - Renders with those transforms
+ * - Uses whileInView for standalone (mobile) mode
  */
 
-import {
-  motion,
-  type MotionValue,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import { useRef } from "react";
+import { motion, type MotionValue } from "framer-motion";
 import { easings } from "@/lib/motion";
 import SkillsHeader from "./SkillsHeader";
 import SkillsCoreGrid from "./SkillsCoreGrid";
@@ -54,54 +55,26 @@ export default function Skills({
   footerY: footerYProp,
   footerOpacity: footerOpacityProp,
 }: SkillsProps) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 70%", "start 0%"],
-  });
-
-  // Fallbacks — resolve to "fully visible" from local scroll
-  const shellOpacity =
-    shellOpacityProp ?? useTransform(scrollYProgress, [0.0, 0.12], [0, 1]);
-  const headerY =
-    headerYProp ?? useTransform(scrollYProgress, [0.04, 0.22], [60, 0]);
-  const headerOpacity =
-    headerOpacityProp ?? useTransform(scrollYProgress, [0.04, 0.22], [0, 1]);
-  const gridY =
-    gridYProp ?? useTransform(scrollYProgress, [0.1, 0.36], [48, 0]);
-  const gridOpacity =
-    gridOpacityProp ?? useTransform(scrollYProgress, [0.1, 0.36], [0, 1]);
-  const gridScale =
-    gridScaleProp ?? useTransform(scrollYProgress, [0.1, 0.36], [0.97, 1]);
-  const bottomRowY =
-    bottomRowYProp ?? useTransform(scrollYProgress, [0.22, 0.5], [40, 0]);
-  const bottomRowOpacity =
-    bottomRowOpacityProp ?? useTransform(scrollYProgress, [0.22, 0.5], [0, 1]);
-  const footerY =
-    footerYProp ?? useTransform(scrollYProgress, [0.36, 0.6], [24, 0]);
-  const footerOpacity =
-    footerOpacityProp ?? useTransform(scrollYProgress, [0.36, 0.6], [0, 1]);
+  // ─── CINEMATIC MODE ─────────────────────────────────────────────────────
+  // When viewportTransition=true, use the MotionValue props from parent.
+  // When viewportTransition=false (standalone/mobile), use whileInView instead.
+  // Do NOT create fallback transforms or useScroll.
 
   const standalone = !viewportTransition && !transitionProgress;
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full bg-[#EEE7DC] overflow-hidden"
-      style={{ height: viewportTransition ? "100%" : undefined }}
-    >
+    <section className="relative w-full bg-[#EEE7DC] overflow-hidden">
       {/* Outer border shell */}
       <motion.div
         className="relative mx-auto flex flex-col"
         style={{
           border: "5px solid #111",
           maxWidth: "100%",
-          opacity: shellOpacity,
-          height: viewportTransition ? "100%" : undefined,
+          opacity: shellOpacityProp,
         }}
       >
         {/* ── TOP HEADER ROW ────────────────────────────────────────── */}
-        <motion.div style={{ y: headerY, opacity: headerOpacity }}>
+        <motion.div style={{ y: headerYProp, opacity: headerOpacityProp }}>
           <SkillsHeader
             standalone={standalone}
             transitionProgress={transitionProgress}
@@ -110,7 +83,11 @@ export default function Skills({
 
         {/* ── CORE SKILLS GRID ──────────────────────────────────────── */}
         <motion.div
-          style={{ y: gridY, opacity: gridOpacity, scale: gridScale }}
+          style={{
+            y: gridYProp,
+            opacity: gridOpacityProp,
+            scale: gridScaleProp,
+          }}
         >
           <SkillsCoreGrid
             standalone={standalone}
@@ -123,8 +100,8 @@ export default function Skills({
           className="grid"
           style={{
             gridTemplateColumns: "38% 62%",
-            y: bottomRowY,
-            opacity: bottomRowOpacity,
+            y: bottomRowYProp,
+            opacity: bottomRowOpacityProp,
           }}
         >
           <SkillsLanguages
@@ -138,7 +115,7 @@ export default function Skills({
         </motion.div>
 
         {/* ── FOOTER ────────────────────────────────────────────────── */}
-        <motion.div style={{ y: footerY, opacity: footerOpacity }}>
+        <motion.div style={{ y: footerYProp, opacity: footerOpacityProp }}>
           <SkillsFooter
             viewportTransition={viewportTransition}
             transitionProgress={transitionProgress}

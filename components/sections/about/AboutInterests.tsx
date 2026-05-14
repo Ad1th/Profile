@@ -379,15 +379,30 @@ const interests = [
   },
 ];
 
-export default function AboutInterests() {
+interface AboutInterestsProps {
+  /**
+   * When true, the cinematic parent owns all animation.
+   * This component must not use whileInView/viewport observers.
+   */
+  viewportTransition?: boolean;
+}
+
+export default function AboutInterests({
+  viewportTransition = false,
+}: AboutInterestsProps) {
+  const standalone = !viewportTransition;
   return (
     <motion.div
       className="w-full bg-[#6C8EAD] flex items-stretch"
       style={{ border: "3px solid #111", borderTop: "none" }}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.2, ease: easings.primary }}
+      initial={standalone ? { opacity: 0 } : false}
+      whileInView={standalone ? { opacity: 1 } : undefined}
+      viewport={standalone ? { once: true } : undefined}
+      transition={
+        standalone
+          ? { duration: 0.5, delay: 0.2, ease: easings.primary }
+          : undefined
+      }
     >
       {interests.map((item, i) => (
         <div

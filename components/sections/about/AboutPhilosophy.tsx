@@ -24,7 +24,18 @@ const anton = Anton({
   - horizontal separators
   - statement bullets
 */
-export default function AboutPhilosophy() {
+interface AboutPhilosophyProps {
+  /**
+   * When true, cinematic parent owns all animation.
+   * This component must not use whileInView/viewport observers.
+   */
+  viewportTransition?: boolean;
+}
+
+export default function AboutPhilosophy({
+  viewportTransition = false,
+}: AboutPhilosophyProps) {
+  const standalone = !viewportTransition;
   /*
     Bullet list content.
     Keeping this as an array makes it easier
@@ -84,14 +95,18 @@ export default function AboutPhilosophy() {
         Entrance animation.
         Slight upward reveal.
       */
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
-        duration: 0.55,
-        delay: 0.16,
-        ease: easings.primary,
-      }}
+      initial={standalone ? { opacity: 0, y: 24 } : false}
+      whileInView={standalone ? { opacity: 1, y: 0 } : undefined}
+      viewport={standalone ? { once: true } : undefined}
+      transition={
+        standalone
+          ? {
+              duration: 0.55,
+              delay: 0.16,
+              ease: easings.primary,
+            }
+          : undefined
+      }
     >
       {/* =========================================================
           TOP RIGHT WINDOW CONTROLS
@@ -203,14 +218,18 @@ export default function AboutPhilosophy() {
           */
           padding: "22px 24px 24px 24px",
         }}
-        initial={{ opacity: 0, y: 18 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{
-          duration: 0.5,
-          delay: 0.18,
-          ease: easings.primary,
-        }}
+        initial={standalone ? { opacity: 0, y: 18 } : false}
+        whileInView={standalone ? { opacity: 1, y: 0 } : undefined}
+        viewport={standalone ? { once: true } : undefined}
+        transition={
+          standalone
+            ? {
+                duration: 0.5,
+                delay: 0.18,
+                ease: easings.primary,
+              }
+            : undefined
+        }
       >
         {/* =====================================================
             TOP RIGHT ORANGE ACCENT LINE

@@ -332,6 +332,9 @@ export default function FullTransition() {
         <About />
         <Skills />
       </div>
+
+      {/* ── EXPERIENCE: flows naturally after pinned section or stacked flow ── */}
+      <Experience />
     </>
   );
 }

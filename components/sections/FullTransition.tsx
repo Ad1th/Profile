@@ -34,22 +34,21 @@ import { useRef } from "react";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
 import Skills from "@/components/sections/skills/Skills";
-import Experience from "@/components/sections/Experience/Experience";
+import Experience from "@/components/sections/experience/Experience";
 
 // ─── SCROLL BUDGET ──────────────────────────────────────────────────────────
-// Large values = slow, deliberate transitions. User has to scroll a lot
-// before the animation completes, so it never feels hair-trigger.
-const PHASE1_PX = 800; // Hero → About
-const PHASE2_PX = 1200; // About → Skills (horizontal pan)
-const TOTAL_EXTRA_PX = PHASE1_PX + PHASE2_PX; // 2000px beyond 100svh
+// Single transition viewport with strict phase locks:
+// 1) Hero -> About only
+// 2) About -> Skills horizontal pan only
+// 3) Short release distance, then Experience
+const PHASE1_PX = 520;
+const PHASE2_PX = 760;
+const TOTAL_EXTRA_PX = PHASE1_PX + PHASE2_PX;
 
-// Fraction of total scroll that Phase 1 occupies
-const PHASE1_RATIO = PHASE1_PX / TOTAL_EXTRA_PX; // 0.4
-// Phase 2 occupies [PHASE1_RATIO → 1.0]
+const PHASE1_END = PHASE1_PX / TOTAL_EXTRA_PX;
+const PHASE2_END = 1;
 
 // ─── SPRING CONFIGS ─────────────────────────────────────────────────────────
-// Intentionally stiff + heavy so there's no snap/rubber-band feeling.
-// The springs add smoothness without making things feel responsive to tiny inputs.
 function useHeroSpring(raw: MotionValue<number>) {
   return useSpring(raw, {
     stiffness: 60,
@@ -87,22 +86,18 @@ export default function FullTransition() {
 
   const p = useHeroSpring(rawProgress); // paper uncrumple (snappier)
   const edgeP = useEdgeSpring(rawProgress); // hero/about layer fades
-  const panP = usePanSpring(rawProgress); // horizontal rail
+  // Keep pan tied directly to scroll so it cannot continue while the section unpins.
+  const panP = rawProgress;
 
   // ─── PHASE 1: HERO → ABOUT ──────────────────────────────────────────────
-  // Phase 1 occupies rawProgress [0 → PHASE1_RATIO].
-  // We scale the animation keypoints by P1E so they complete within phase 1.
-  const P1E = PHASE1_RATIO; // 0.4
+  const P1E = PHASE1_END;
 
-  // Hero exits
   const heroOpacity = useTransform(edgeP, [0.1 * P1E, 0.7 * P1E], [1, 0]);
   const heroY = useTransform(edgeP, [0.04 * P1E, 0.7 * P1E], [0, -52]);
   const heroScale = useTransform(edgeP, [0.04 * P1E, 0.65 * P1E], [1, 0.965]);
 
-  // About shell fades in
   const shellOpacity = useTransform(edgeP, [0.2 * P1E, 0.55 * P1E], [0, 1]);
 
-  // Build headline
   const buildY = useTransform(
     edgeP,
     [0.24 * P1E, 0.68 * P1E, 0.84 * P1E, P1E],
@@ -115,7 +110,6 @@ export default function FullTransition() {
     [0.93, 1.02, 0.99, 1],
   );
 
-  // Bio clip reveal
   const bioClip = useTransform(
     edgeP,
     [0.3 * P1E, 0.68 * P1E],
@@ -124,7 +118,6 @@ export default function FullTransition() {
   const bioOpacity = useTransform(edgeP, [0.3 * P1E, 0.66 * P1E], [0, 1]);
   const bioY = useTransform(edgeP, [0.3 * P1E, 0.68 * P1E], [22, 0]);
 
-  // Paper uncrumple (uses snappier p spring)
   const paperOpacity = useTransform(p, [0.24 * P1E, 0.5 * P1E], [0, 1]);
   const paperScale = useTransform(
     p,
@@ -163,7 +156,6 @@ export default function FullTransition() {
     ],
   );
 
-  // About subsystems
   const backendY = useTransform(edgeP, [0.36 * P1E, 0.74 * P1E], [56, 0]);
   const backendOpacity = useTransform(edgeP, [0.36 * P1E, 0.72 * P1E], [0, 1]);
   const backendScale = useTransform(edgeP, [0.36 * P1E, 0.74 * P1E], [0.94, 1]);
@@ -190,9 +182,8 @@ export default function FullTransition() {
   const footerOpacity = useTransform(edgeP, [0.54 * P1E, 0.92 * P1E], [0, 1]);
 
   // ─── PHASE 2: ABOUT → SKILLS (horizontal pan) ───────────────────────────
-  // Phase 2 occupies panP [PHASE1_RATIO → 1.0].
-  const P2_START = PHASE1_RATIO; // 0.4
-  const P2_END = 1.0;
+  const P2_START = PHASE1_END;
+  const P2_END = PHASE2_END;
 
   // Remap phase 2 range to local [0, 1]
   const phase2Local = useTransform(panP, [P2_START, P2_END], [0, 1]);
@@ -200,15 +191,12 @@ export default function FullTransition() {
   // Rail slides left: About exits, Skills enters
   const railX = useTransform(phase2Local, [0.0, 1.0], ["0vw", "-100vw"]);
 
-  // About panel: subtle exit compression
   const aboutExitScale = useTransform(phase2Local, [0.0, 0.25], [1, 0.975]);
   const aboutExitX = useTransform(phase2Local, [0.02, 0.28], [0, -6]);
 
-  // Skills panel entry
-  const skillsScale = useTransform(phase2Local, [0.12, 0.5], [0.985, 1]);
-  const skillsOpacity = useTransform(phase2Local, [0.06, 0.24], [0, 1]);
+  const skillsScale = useTransform(phase2Local, [0.05, 0.78], [0.985, 1]);
+  const skillsOpacity = useTransform(phase2Local, [0.03, 0.52], [0, 1]);
 
-  // Skills subsystems staggered boot
   const skillsShellOpacity = useTransform(phase2Local, [0.08, 0.28], [0, 1]);
   const skillsHeaderY = useTransform(phase2Local, [0.1, 0.3], [22, 0]);
   const skillsHeaderOpacity = useTransform(phase2Local, [0.1, 0.24], [0, 1]);
@@ -219,7 +207,7 @@ export default function FullTransition() {
   const skillsBottomOpacity = useTransform(phase2Local, [0.28, 0.46], [0, 1]);
   const skillsFooterY = useTransform(phase2Local, [0.44, 0.7], [16, 0]);
   const skillsFooterOpacity = useTransform(phase2Local, [0.44, 0.62], [0, 1]);
-  const skillsProgress = useTransform(phase2Local, [0.08, 1.0], [0, 1]);
+  const skillsProgress = useTransform(phase2Local, [0.0, 1.0], [0, 1]);
 
   return (
     <>
@@ -227,16 +215,15 @@ export default function FullTransition() {
       {/*
         Height = 100svh + TOTAL_EXTRA_PX creates the scrollable track.
         The sticky inner div never moves — only scroll position changes.
-        Experience is pulled up to avoid a visible dead gap.
       */}
       <section
         ref={stageRef}
-        className="relative hidden lg:block bg-[#111]"
+        className="relative hidden lg:block overflow-hidden bg-[#111]"
         style={{ height: `calc(100svh + ${TOTAL_EXTRA_PX}px)` }}
       >
-        {/* ── PINNED VIEWPORT — fills exactly 100svh, never scrolls ───── */}
+        {/* ── PINNED VIEWPORT — fills viewport below navbar, never scrolls ───── */}
         <div
-          className="sticky top-0 overflow-hidden bg-[#111]"
+          className="sticky top-0 z-20 overflow-hidden bg-[#111]"
           style={{ height: "100svh" }}
         >
           {/* ── HORIZONTAL RAIL (200vw wide) ─────────────────────────── */}
@@ -256,7 +243,6 @@ export default function FullTransition() {
                 transformOrigin: "100% 50%",
               }}
             >
-              {/* Hero layer — z-index above About, fades during phase 1 */}
               <motion.div
                 className="absolute inset-0 z-10"
                 style={{ opacity: heroOpacity, y: heroY, scale: heroScale }}
@@ -264,7 +250,6 @@ export default function FullTransition() {
                 <Hero transitionProgress={p} />
               </motion.div>
 
-              {/* About layer — builds in during phase 1, exits with rail in phase 2 */}
               <motion.div className="absolute inset-0 z-0">
                 <About
                   viewportTransition
@@ -333,10 +318,8 @@ export default function FullTransition() {
         <Skills />
       </div>
 
-      {/* ── EXPERIENCE: pulled up so it starts right after Skills ── */}
-      <div style={{ marginTop: `-${TOTAL_EXTRA_PX}px` }}>
-        <Experience />
-      </div>
+      {/* ── EXPERIENCE: flows naturally after pinned section ── */}
+      <Experience />
     </>
   );
 }

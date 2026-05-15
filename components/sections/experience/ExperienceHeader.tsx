@@ -8,7 +8,10 @@ const anton = Anton({ weight: "400", subsets: ["latin"] });
 
 export default function ExperienceHeader() {
   return (
-    <div className="relative flex flex-col justify-between" style={{ height: "100%" }}>
+    <div
+      className="relative flex flex-col justify-between"
+      style={{ height: "100%" }}
+    >
       {/* Section label */}
       <motion.div
         className="flex items-center gap-3"
@@ -49,9 +52,7 @@ export default function ExperienceHeader() {
               color: "#F0EBE0",
             }}
           >
-            EXPERI
-            <br />
-            ENCE
+            EXPERIENCE
           </div>
         </motion.div>
 
@@ -82,7 +83,14 @@ export default function ExperienceHeader() {
           transition={{ duration: 0.5, delay: 0.3, ease: easings.primary }}
           style={{ marginTop: 24 }}
         >
-          <div style={{ width: 48, height: 3, background: "#CFDE00", marginBottom: 14 }} />
+          <div
+            style={{
+              width: 48,
+              height: 3,
+              background: "#CFDE00",
+              marginBottom: 14,
+            }}
+          />
           <p
             style={{
               fontFamily: "var(--font-archivo), sans-serif",
@@ -98,8 +106,7 @@ export default function ExperienceHeader() {
             projects and people
             <br />
             that shaped the way
-            <br />
-            I build systems.
+            <br />I build systems.
           </p>
         </motion.div>
       </div>
@@ -113,15 +120,38 @@ export default function ExperienceHeader() {
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.4 }}
       >
-        <div style={{ position: "absolute", top: "50%", left: 0, right: 0, height: 1, background: "#F0EBE0" }} />
-        <div style={{ position: "absolute", left: "50%", top: 0, bottom: 0, width: 1, background: "#F0EBE0" }} />
-        <div style={{
-          position: "absolute", top: "50%", left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: 14, height: 14,
-          border: "1.5px solid #F0EBE0",
-          borderRadius: "50%",
-        }} />
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: 0,
+            right: 0,
+            height: 1,
+            background: "#F0EBE0",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: 0,
+            bottom: 0,
+            width: 1,
+            background: "#F0EBE0",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 14,
+            height: 14,
+            border: "1.5px solid #F0EBE0",
+            borderRadius: "50%",
+          }}
+        />
       </motion.div>
 
       {/* Italic handwritten text */}
@@ -149,9 +179,28 @@ export default function ExperienceHeader() {
           Shipping.
         </div>
         {/* Curved arrow */}
-        <svg width="40" height="36" viewBox="0 0 40 36" fill="none" style={{ marginTop: 8, opacity: 0.5 }}>
-          <path d="M6 4 C10 16 28 20 34 30" stroke="#C8C0B4" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-          <path d="M28 34 L34 30 L30 24" stroke="#C8C0B4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        <svg
+          width="40"
+          height="36"
+          viewBox="0 0 40 36"
+          fill="none"
+          style={{ marginTop: 8, opacity: 0.5 }}
+        >
+          <path
+            d="M6 4 C10 16 28 20 34 30"
+            stroke="#C8C0B4"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d="M28 34 L34 30 L30 24"
+            stroke="#C8C0B4"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
         </svg>
       </motion.div>
     </div>

@@ -110,7 +110,10 @@ const entries: ExperienceEntry[] = [
 
 export default function Experience() {
   return (
-    <section className="relative w-full bg-[#111] overflow-hidden" style={{ minHeight: "100svh" }}>
+    <section
+      className="relative w-full bg-[#111] overflow-hidden"
+      style={{ minHeight: "100svh" }}
+    >
       {/* Subtle grid texture */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -122,19 +125,37 @@ export default function Experience() {
       />
 
       {/* Corner + marks (brutalist decoration) */}
-      <div className="absolute top-6 left-6 text-[#333] select-none" style={{ fontFamily: "monospace", fontSize: 20 }}>+</div>
-      <div className="absolute bottom-6 left-6 text-[#333] select-none" style={{ fontFamily: "monospace", fontSize: 20 }}>+</div>
-      <div className="absolute bottom-6 right-6 text-[#333] select-none" style={{ fontFamily: "monospace", fontSize: 20 }}>+</div>
+      <div
+        className="absolute top-6 left-6 text-[#333] select-none"
+        style={{ fontFamily: "monospace", fontSize: 20 }}
+      >
+        +
+      </div>
+      <div
+        className="absolute bottom-6 left-6 text-[#333] select-none"
+        style={{ fontFamily: "monospace", fontSize: 20 }}
+      >
+        +
+      </div>
+      <div
+        className="absolute bottom-6 right-6 text-[#333] select-none"
+        style={{ fontFamily: "monospace", fontSize: 20 }}
+      >
+        +
+      </div>
 
       <div
         className="relative mx-auto"
         style={{
-          maxWidth: 1400,
-          padding: "64px 48px 80px 48px",
+          width: "min(100%, 1680px)",
+          padding: "56px 24px 64px 24px",
         }}
       >
         {/* ── TOP ROW: Header left, System Log right ─── */}
-        <div className="flex justify-between items-start" style={{ marginBottom: 48 }}>
+        <div
+          className="flex justify-between items-start"
+          style={{ marginBottom: 28 }}
+        >
           {/* Left: section label + title */}
           <div style={{ maxWidth: 340 }}>
             <ExperienceHeader />
@@ -152,17 +173,14 @@ export default function Experience() {
             Card 03 (DB Intern) — center-bottom, slight positive rotation
             Card 04 (SDI) — right, positive rotation
         */}
-        <div
-          className="relative"
-          style={{ minHeight: 680 }}
-        >
+        <div className="relative" style={{ minHeight: 560 }}>
           {/* Card 01 — Technical Head (center, prominent) */}
           <ExperienceCard
             entry={entries[0]}
             style={{
               width: 380,
-              left: "calc(50% - 230px)",
-              top: 0,
+              left: "calc(50% - 190px)",
+              top: -200,
             }}
           />
 
@@ -171,8 +189,8 @@ export default function Experience() {
             entry={entries[1]}
             style={{
               width: 320,
-              left: "2%",
-              top: 200,
+              left: "4%",
+              top: 152,
             }}
           />
 
@@ -181,8 +199,8 @@ export default function Experience() {
             entry={entries[2]}
             style={{
               width: 360,
-              left: "calc(50% - 120px)",
-              top: 320,
+              left: "calc(50% - 112px)",
+              top: 236,
             }}
           />
 
@@ -191,8 +209,8 @@ export default function Experience() {
             entry={entries[3]}
             style={{
               width: 340,
-              right: "2%",
-              top: 160,
+              right: "4%",
+              top: 146,
             }}
           />
         </div>

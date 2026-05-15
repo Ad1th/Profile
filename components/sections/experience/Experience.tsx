@@ -173,14 +173,14 @@ export default function Experience() {
             Card 03 (DB Intern) — center-bottom, slight positive rotation
             Card 04 (SDI) — right, positive rotation
         */}
-        <div className="relative" style={{ minHeight: 560 }}>
+        <div className="relative" style={{ minHeight: 1 }}>
           {/* Card 01 — Technical Head (center, prominent) */}
           <ExperienceCard
             entry={entries[0]}
             style={{
               width: 480,
               left: "calc(50% - 190px)",
-              top: -650,
+              top: -690,
             }}
           />
 
@@ -190,7 +190,7 @@ export default function Experience() {
             style={{
               width: 370,
               left: "16%",
-              top: -300,
+              top: -370,
             }}
           />
 
@@ -200,7 +200,7 @@ export default function Experience() {
             style={{
               width: 450,
               left: "calc(50% - 145px)",
-              top: -160,
+              top: -220,
             }}
           />
 

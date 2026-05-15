@@ -10,7 +10,7 @@ export default function ExperienceFooter() {
       style={{
         borderTop: "2px solid #333",
         paddingTop: 20,
-        marginTop: 60,
+        marginTop: 0,
       }}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -25,7 +25,15 @@ export default function ExperienceFooter() {
           fontFamily: "monospace",
         }}
       >
-        <div style={{ fontSize: 11, fontWeight: 700, color: "#888", letterSpacing: "0.1em", marginBottom: 10 }}>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: "#888",
+            letterSpacing: "0.1em",
+            marginBottom: 10,
+          }}
+        >
           EXPERIENCE ARCHIVE SYSTEM
         </div>
         {[
@@ -34,13 +42,27 @@ export default function ExperienceFooter() {
           ["COMPLETED", "01"],
         ].map(([label, value]) => (
           <div key={label} className="flex gap-3" style={{ marginBottom: 3 }}>
-            <span style={{ fontSize: 11, color: "#666", letterSpacing: "0.06em", minWidth: 120 }}>{label}</span>
-            <span style={{ fontSize: 11, color: "#F0EBE0", fontWeight: 700 }}>: {value}</span>
+            <span
+              style={{
+                fontSize: 11,
+                color: "#666",
+                letterSpacing: "0.06em",
+                minWidth: 120,
+              }}
+            >
+              {label}
+            </span>
+            <span style={{ fontSize: 11, color: "#F0EBE0", fontWeight: 700 }}>
+              : {value}
+            </span>
           </div>
         ))}
 
         {/* Mini bar chart */}
-        <div className="flex items-end gap-[3px]" style={{ marginTop: 10, height: 28 }}>
+        <div
+          className="flex items-end gap-[3px]"
+          style={{ marginTop: 10, height: 28 }}
+        >
           {[8, 14, 10, 20, 16, 24, 18, 28].map((h, i) => (
             <div
               key={i}
@@ -85,10 +107,27 @@ export default function ExperienceFooter() {
           }}
         >
           <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-            <circle cx="16" cy="16" r="12" stroke="#CFDE00" strokeWidth="2" fill="none"/>
-            <path d="M4 16 H28" stroke="#CFDE00" strokeWidth="1.5"/>
-            <path d="M16 4 C10 8 10 24 16 28" stroke="#CFDE00" strokeWidth="1.5" fill="none"/>
-            <path d="M16 4 C22 8 22 24 16 28" stroke="#CFDE00" strokeWidth="1.5" fill="none"/>
+            <circle
+              cx="16"
+              cy="16"
+              r="12"
+              stroke="#CFDE00"
+              strokeWidth="2"
+              fill="none"
+            />
+            <path d="M4 16 H28" stroke="#CFDE00" strokeWidth="1.5" />
+            <path
+              d="M16 4 C10 8 10 24 16 28"
+              stroke="#CFDE00"
+              strokeWidth="1.5"
+              fill="none"
+            />
+            <path
+              d="M16 4 C22 8 22 24 16 28"
+              stroke="#CFDE00"
+              strokeWidth="1.5"
+              fill="none"
+            />
           </svg>
         </div>
       </div>

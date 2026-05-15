@@ -7,11 +7,11 @@ import HeroPortrait from "./HeroPortrait";
 import {
   motion,
   type MotionValue,
-  useScroll,
+  useMotionValue,
   useTransform,
 } from "framer-motion";
 import { easings } from "@/lib/motion";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Hero({
   transitionProgress,
@@ -68,12 +68,8 @@ function HeroDesktop({
 }: {
   transitionProgress?: MotionValue<number>;
 }) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress: localProgress } = useScroll({
-    target: sectionRef,
-    offset: ["end end", "end 40%"],
-  });
-  const scrollYProgress = transitionProgress ?? localProgress;
+  const fallbackProgress = useMotionValue(0);
+  const scrollYProgress = transitionProgress ?? fallbackProgress;
 
   const backendX = useTransform(scrollYProgress, [0.05, 0.22], [0, -604]);
   const backendOpacity = useTransform(scrollYProgress, [0.05, 0.22], [1, 0.92]);
@@ -98,10 +94,7 @@ function HeroDesktop({
   );
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative h-screen min-h-[900px] w-full overflow-hidden bg-[#F0EBE0]"
-    >
+    <section className="relative h-screen min-h-[900px] w-full overflow-hidden bg-[#F0EBE0]">
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
       <motion.div

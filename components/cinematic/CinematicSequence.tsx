@@ -43,7 +43,7 @@ const PHASE1_PX = 1000;
  * This phase handles the horizontal rail movement while Skills enters.
  * Generous budget ensures smooth, non-snappy panning.
  */
-const PHASE2_PX = 1200;
+const PHASE2_PX = 10;
 
 /**
  * Total scroll height = viewport height + both animation budgets
@@ -300,7 +300,7 @@ function CinematicSequenceDesktop({ stageRef }: CinematicSequenceDesktopProps) {
       ref={stageRef}
       className="relative overflow-hidden bg-[#111]"
       style={{
-        height: `calc(100svh + ${TOTAL_SCROLL_PX}px)`,
+        height: `calc(${TOTAL_SCROLL_PX}px)`,
       }}
     >
       {/* ─────────────────────────────────────────────────────────────────── */}

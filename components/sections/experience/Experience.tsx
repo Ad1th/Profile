@@ -112,7 +112,7 @@ export default function Experience() {
   return (
     <section
       className="relative w-full bg-[#111] overflow-hidden"
-      style={{ minHeight: "100svh" }}
+      style={{ minHeight: "60svh" }}
     >
       {/* Subtle grid texture */}
       <div

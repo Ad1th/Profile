@@ -53,7 +53,7 @@ const entries: ExperienceEntry[] = [
     status: "CONTRIBUTING",
     badgeLabel: "GSSOC'26",
     bullets: [
-      "MERGED PULL REQUESTS",
+      // "MERGED PULL REQUESTS",
       "COMMUNITY CONTRIBUTIONS",
       "DOCUMENTATION",
       "BUG FIXES",
@@ -69,7 +69,7 @@ const entries: ExperienceEntry[] = [
   {
     id: "03",
     role: "INTERNSHIP",
-    title: "DATABASE INTERN",
+    title: "INTERN",
     org: "IIT Hyderabad",
     dateRange: "DEC 2025 – PRESENT",
     status: "ACTIVE",

@@ -178,9 +178,9 @@ export default function Experience() {
           <ExperienceCard
             entry={entries[0]}
             style={{
-              width: 380,
+              width: 480,
               left: "calc(50% - 190px)",
-              top: -200,
+              top: -650,
             }}
           />
 
@@ -188,19 +188,19 @@ export default function Experience() {
           <ExperienceCard
             entry={entries[1]}
             style={{
-              width: 320,
-              left: "4%",
-              top: 152,
+              width: 370,
+              left: "16%",
+              top: -300,
             }}
           />
 
-          {/* Card 03 — DB Intern (center-bottom, lower) */}
+          {/* Card 03 — Intern (center-bottom, lower) */}
           <ExperienceCard
             entry={entries[2]}
             style={{
-              width: 360,
-              left: "calc(50% - 112px)",
-              top: 236,
+              width: 450,
+              left: "calc(50% - 145px)",
+              top: -160,
             }}
           />
 
@@ -208,9 +208,9 @@ export default function Experience() {
           <ExperienceCard
             entry={entries[3]}
             style={{
-              width: 340,
-              right: "4%",
-              top: 146,
+              width: 380,
+              right: "6%",
+              top: -346,
             }}
           />
         </div>

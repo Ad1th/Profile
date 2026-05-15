@@ -23,7 +23,7 @@ import { useRef } from "react";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
 
-const TRANSITION_PX = 10;
+const TRANSITION_PX = 800;
 
 function useHeroSpring(raw: MotionValue<number>) {
   return useSpring(raw, {
@@ -188,7 +188,7 @@ function HeroAboutTransitionDesktop({ stageRef }: HeroAboutTransitionProps) {
   return (
     <section
       ref={stageRef}
-      className="relative overflow-hidden bg-[#111]"
+      className="relative overflow-hidden bg-[#EEE7DC]"
       style={{
         height: `calc(100svh + ${TRANSITION_PX}px)`,
       }}

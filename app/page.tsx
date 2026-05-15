@@ -9,7 +9,9 @@ export default function Page() {
       <HeroAboutTransition />
 
       {/* Rest of the page */}
-      <Skills />
+      <div style={{ marginTop: "-800px", position: "relative", zIndex: 10 }}>
+        <Skills />
+      </div>
       <Experience />
 
       {/* Additional sections can be added here */}

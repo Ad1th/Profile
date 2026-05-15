@@ -18,61 +18,26 @@
  * Currently, Skills always renders in standalone mode with whileInView animations.
  */
 
-import { motion, type MotionValue } from "framer-motion";
-import { easings } from "@/lib/motion";
-import SkillsHeader from "./SkillsHeader";
-import SkillsCoreGrid from "./SkillsCoreGrid";
-import SkillsLanguages from "./SkillsLanguages";
-import SkillsExploring from "./SkillsExploring";
-import SkillsFooter from "./SkillsFooter";
-import SkillsPhilosophy from "./SkillsPhilosophy";
+import SkillsHero from "./SkillsHero";
+import SkillsSystemRows from "./SkillsSystemRows";
 
-interface SkillsProps {
-  // Skills is now always rendered in standalone mode with whileInView animations
-  // No cinematic transition props needed
-}
-
-export default function Skills({}: SkillsProps) {
-  // Skills renders naturally with whileInView animations
-  // No cinematic mode, no transition props, no scroll orchestration
+export default function Skills() {
   const standalone = true;
 
   return (
-    <section className="relative w-full bg-[#EEE7DC] overflow-hidden">
-      {/* Outer border shell */}
-      <motion.div
+    <section className="relative w-full bg-[#111]">
+      <div
         className="relative mx-auto flex flex-col"
-        style={{
-          border: "5px solid #111",
-          maxWidth: "100%",
-        }}
+        style={{ border: "5px solid #111", maxWidth: "100%" }}
       >
-        {/* ── TOP HEADER ROW ────────────────────────────────────────── */}
         <div>
-          <SkillsHeader standalone={standalone} />
+          <SkillsHero standalone={standalone} />
         </div>
 
-        {/* ── CORE SKILLS GRID ──────────────────────────────────────── */}
         <div>
-          <SkillsCoreGrid standalone={standalone} />
+          <SkillsSystemRows standalone={standalone} />
         </div>
-
-        {/* ── BOTTOM ROW: Languages + Exploring ─────────────────────── */}
-        <div
-          className="grid"
-          style={{
-            gridTemplateColumns: "38% 62%",
-          }}
-        >
-          <SkillsLanguages standalone={standalone} />
-          <SkillsExploring standalone={standalone} />
-        </div>
-
-        {/* ── FOOTER ────────────────────────────────────────────────── */}
-        <div>
-          <SkillsFooter />
-        </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

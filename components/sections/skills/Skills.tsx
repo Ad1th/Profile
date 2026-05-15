@@ -18,8 +18,8 @@
  * Currently, Skills always renders in standalone mode with whileInView animations.
  */
 
-import SkillsHero from "./SkillsHero";
-import SkillsSystemRows from "./SkillsSystemRows";
+import SkillsHero from "./Skillshero";
+import SkillsSystemRows from "./Skillssystemrows";
 
 export default function Skills() {
   const standalone = true;

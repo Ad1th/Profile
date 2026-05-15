@@ -1,20 +1,21 @@
 "use client";
 
 /**
- * Skills.tsx — CINEMATIC RECEIVER (NOT ORCHESTRATOR)
+ * Skills.tsx
  *
- * CRITICAL: This component receives scroll orchestration from CinematicSequence.
+ * Flexible section component that works in two modes:
  *
- * It does NOT:
- * - Call useScroll
- * - Create fallback transforms
- * - Track scroll progress
- * - Own any viewport logic
+ * 1. **Cinematic mode** (rare, inside a hypothetical cinematic container):
+ *    - Receives MotionValue props for scroll-driven animations
+ *    - Receives viewportTransition=true flag
  *
- * It ONLY:
- * - Accepts MotionValue props from parent
- * - Renders with those transforms
- * - Uses whileInView for standalone (mobile) mode
+ * 2. **Standalone mode** (normal vertical scroll):
+ *    - No MotionValue props provided
+ *    - Uses whileInView animations triggered by viewport visibility
+ *    - Renders naturally in document flow
+ *
+ * The component automatically detects which mode it's in and uses appropriate animations.
+ * Currently, Skills always renders in standalone mode with whileInView animations.
  */
 
 import { motion, type MotionValue } from "framer-motion";
@@ -27,40 +28,14 @@ import SkillsFooter from "./SkillsFooter";
 import SkillsPhilosophy from "./SkillsPhilosophy";
 
 interface SkillsProps {
-  viewportTransition?: boolean;
-  transitionProgress?: MotionValue<number>;
-  shellOpacity?: MotionValue<number>;
-  headerY?: MotionValue<number>;
-  headerOpacity?: MotionValue<number>;
-  gridY?: MotionValue<number>;
-  gridOpacity?: MotionValue<number>;
-  gridScale?: MotionValue<number>;
-  bottomRowY?: MotionValue<number>;
-  bottomRowOpacity?: MotionValue<number>;
-  footerY?: MotionValue<number>;
-  footerOpacity?: MotionValue<number>;
+  // Skills is now always rendered in standalone mode with whileInView animations
+  // No cinematic transition props needed
 }
 
-export default function Skills({
-  viewportTransition = false,
-  transitionProgress,
-  shellOpacity: shellOpacityProp,
-  headerY: headerYProp,
-  headerOpacity: headerOpacityProp,
-  gridY: gridYProp,
-  gridOpacity: gridOpacityProp,
-  gridScale: gridScaleProp,
-  bottomRowY: bottomRowYProp,
-  bottomRowOpacity: bottomRowOpacityProp,
-  footerY: footerYProp,
-  footerOpacity: footerOpacityProp,
-}: SkillsProps) {
-  // ─── CINEMATIC MODE ─────────────────────────────────────────────────────
-  // When viewportTransition=true, use the MotionValue props from parent.
-  // When viewportTransition=false (standalone/mobile), use whileInView instead.
-  // Do NOT create fallback transforms or useScroll.
-
-  const standalone = !viewportTransition && !transitionProgress;
+export default function Skills({}: SkillsProps) {
+  // Skills renders naturally with whileInView animations
+  // No cinematic mode, no transition props, no scroll orchestration
+  const standalone = true;
 
   return (
     <section className="relative w-full bg-[#EEE7DC] overflow-hidden">
@@ -70,57 +45,33 @@ export default function Skills({
         style={{
           border: "5px solid #111",
           maxWidth: "100%",
-          opacity: shellOpacityProp,
         }}
       >
         {/* ── TOP HEADER ROW ────────────────────────────────────────── */}
-        <motion.div style={{ y: headerYProp, opacity: headerOpacityProp }}>
-          <SkillsHeader
-            standalone={standalone}
-            transitionProgress={transitionProgress}
-          />
-        </motion.div>
+        <div>
+          <SkillsHeader standalone={standalone} />
+        </div>
 
         {/* ── CORE SKILLS GRID ──────────────────────────────────────── */}
-        <motion.div
-          style={{
-            y: gridYProp,
-            opacity: gridOpacityProp,
-            scale: gridScaleProp,
-          }}
-        >
-          <SkillsCoreGrid
-            standalone={standalone}
-            transitionProgress={transitionProgress}
-          />
-        </motion.div>
+        <div>
+          <SkillsCoreGrid standalone={standalone} />
+        </div>
 
         {/* ── BOTTOM ROW: Languages + Exploring ─────────────────────── */}
-        <motion.div
+        <div
           className="grid"
           style={{
             gridTemplateColumns: "38% 62%",
-            y: bottomRowYProp,
-            opacity: bottomRowOpacityProp,
           }}
         >
-          <SkillsLanguages
-            standalone={standalone}
-            transitionProgress={transitionProgress}
-          />
-          <SkillsExploring
-            standalone={standalone}
-            transitionProgress={transitionProgress}
-          />
-        </motion.div>
+          <SkillsLanguages standalone={standalone} />
+          <SkillsExploring standalone={standalone} />
+        </div>
 
         {/* ── FOOTER ────────────────────────────────────────────────── */}
-        <motion.div style={{ y: footerYProp, opacity: footerOpacityProp }}>
-          <SkillsFooter
-            viewportTransition={viewportTransition}
-            transitionProgress={transitionProgress}
-          />
-        </motion.div>
+        <div>
+          <SkillsFooter />
+        </div>
       </motion.div>
     </section>
   );

@@ -1,20 +1,21 @@
 "use client";
 
 /**
- * About.tsx — CINEMATIC RECEIVER (NOT ORCHESTRATOR)
+ * About.tsx
  *
- * CRITICAL: This component receives scroll orchestration from CinematicSequence.
+ * Flexible section component that works in two modes:
  *
- * It does NOT:
- * - Call useScroll
- * - Create fallback transforms
- * - Track scroll progress
- * - Own any viewport logic
+ * 1. **Cinematic mode** (inside HeroAboutTransition):
+ *    - Receives MotionValue props for scroll-driven animations
+ *    - Builds in behind Hero during the cinematic transition
+ *    - Receives viewportTransition=true flag
  *
- * It ONLY:
- * - Accepts MotionValue props from parent
- * - Renders with those transforms
- * - Uses whileInView for standalone (mobile) mode
+ * 2. **Standalone mode** (normal vertical scroll):
+ *    - No MotionValue props provided
+ *    - Uses whileInView animations triggered by viewport visibility
+ *    - Renders naturally in document flow
+ *
+ * The component automatically detects which mode it's in and uses appropriate animations.
  */
 
 import { motion, type MotionValue } from "framer-motion";

@@ -7,11 +7,6 @@ export default function ExperienceFooter() {
   return (
     <motion.div
       className="flex items-end justify-between"
-      style={{
-        borderTop: "2px solid #333",
-        paddingTop: 20,
-        marginTop: 0,
-      }}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}

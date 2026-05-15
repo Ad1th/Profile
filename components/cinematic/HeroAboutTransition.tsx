@@ -23,7 +23,7 @@ import { useRef } from "react";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
 
-const TRANSITION_PX = 1000;
+const TRANSITION_PX = 10;
 
 function useHeroSpring(raw: MotionValue<number>) {
   return useSpring(raw, {

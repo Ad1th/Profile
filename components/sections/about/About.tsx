@@ -1,21 +1,18 @@
 "use client";
 
 /**
- * About.tsx
+ * About.tsx  (updated for cinematic transitions)
  *
- * Flexible section component that works in two modes:
+ * Changes from original:
+ * ─────────────────────────────────────────────────────────────────────────────
+ * 1. `data-section="about"` added to the outer <section> element so
+ *    ScrollProgressDots can observe it via IntersectionObserver.
+ *    NOTE: In cinematic (desktop) mode the data-section is applied by
+ *    HeroAboutTransition directly on its wrapper div — this attribute
+ *    here is the fallback for standalone/mobile/tablet modes.
  *
- * 1. **Cinematic mode** (inside HeroAboutTransition):
- *    - Receives MotionValue props for scroll-driven animations
- *    - Builds in behind Hero during the cinematic transition
- *    - Receives viewportTransition=true flag
- *
- * 2. **Standalone mode** (normal vertical scroll):
- *    - No MotionValue props provided
- *    - Uses whileInView animations triggered by viewport visibility
- *    - Renders naturally in document flow
- *
- * The component automatically detects which mode it's in and uses appropriate animations.
+ * 2. No other logic changes — all animation props, viewportTransition
+ *    branching, and sub-component usage remain exactly as before.
  */
 
 import { motion, type MotionValue } from "framer-motion";
@@ -29,29 +26,17 @@ import AboutHardware from "./AboutHardware";
 import AboutFooter from "./AboutFooter";
 import { Anton } from "next/font/google";
 
-const anton = Anton({
-  weight: "400",
-  subsets: ["latin"],
-});
+const anton = Anton({ weight: "400", subsets: ["latin"] });
 
-// ─── PROPS ───────────────────────────────────────────────────────────────────
 interface AboutProps {
   viewportTransition?: boolean;
-
-  // Shell
   shellOpacity?: MotionValue<number>;
-
-  // "I BUILD / BREAK / FIX"
   buildY?: MotionValue<number>;
   buildOpacity?: MotionValue<number>;
   buildScale?: MotionValue<number>;
-
-  // Bio card
   bioClip?: MotionValue<string>;
   bioOpacity?: MotionValue<number>;
   bioY?: MotionValue<number>;
-
-  // Philosophy (paper uncrumple)
   paperOpacity?: MotionValue<number>;
   paperScale?: MotionValue<number>;
   paperRotate?: MotionValue<number>;
@@ -59,31 +44,20 @@ interface AboutProps {
   paperSkewY?: MotionValue<number>;
   paperFilter?: MotionValue<string>;
   paperClip?: MotionValue<string>;
-
-  // Backend systems
   backendY?: MotionValue<number>;
   backendOpacity?: MotionValue<number>;
   backendScale?: MotionValue<number>;
-
-  // Hardware
   hardwareX?: MotionValue<number>;
   hardwareOpacity?: MotionValue<number>;
-
-  // Interests strip
   interestsY?: MotionValue<number>;
   interestsOpacity?: MotionValue<number>;
   interestsScale?: MotionValue<number>;
-
-  // Built to be used
   builtScale?: MotionValue<number>;
   builtOpacity?: MotionValue<number>;
-
-  // Footer
   footerY?: MotionValue<number>;
   footerOpacity?: MotionValue<number>;
 }
 
-// ─── COMPONENT ───────────────────────────────────────────────────────────────
 export default function About({
   viewportTransition = false,
   shellOpacity: shellOpacityProp,
@@ -113,17 +87,15 @@ export default function About({
   footerY: footerYProp,
   footerOpacity: footerOpacityProp,
 }: AboutProps) {
-  // ─── CINEMATIC MODE ─────────────────────────────────────────────────────
-  // When viewportTransition=true, use the MotionValue props from parent.
-  // When viewportTransition=false (standalone/mobile), use whileInView instead.
-  // Do NOT create fallback transforms or useScroll.
-
   const standalone = !viewportTransition;
 
-  // ─── RENDER ───────────────────────────────────────────────────────────────
   return (
-    <section className="relative w-full overflow-hidden bg-transparent">
-      {/* Outer border frame */}
+    // data-section="about" — used by ScrollProgressDots in standalone mode.
+    // In cinematic desktop mode HeroAboutTransition adds data-section to its own div.
+    <section
+      data-section="about"
+      className="relative w-full overflow-hidden bg-transparent"
+    >
       <motion.div
         className={`relative mx-auto ${
           viewportTransition ? "flex h-full flex-col" : ""
@@ -135,7 +107,7 @@ export default function About({
           opacity: shellOpacityProp,
         }}
       >
-        {/* ── MAIN GRID ──────────────────────────────────────────────────── */}
+        {/* ── MAIN GRID ───────────────────────────────────────────────── */}
         <div
           className="grid flex-1 min-h-0"
           style={{
@@ -150,9 +122,7 @@ export default function About({
             boxSizing: "border-box",
           }}
         >
-          {/* ── ROW 1 ──────────────────────────────────────────────────── */}
-
-          {/* Col 1 Row 1 — "I BUILD / BREAK / FIX" */}
+          {/* ROW 1 — Col 1: I BUILD / BREAK / FIX */}
           <motion.div
             className="bg-[#111] flex items-center"
             style={{
@@ -166,7 +136,6 @@ export default function About({
             }}
           >
             <div className="flex items-stretch gap-6 w-full h-full">
-              {/* Orange vertical bar */}
               <motion.div
                 style={{
                   width: 30,
@@ -174,19 +143,11 @@ export default function About({
                   border: "3px solid #111",
                   flexShrink: 0,
                 }}
-                // Receiver-only: no viewport-driven animation in cinematic mode.
-                // In standalone/mobile mode, preserve original whileInView behavior.
                 initial={standalone ? { scaleY: 0 } : false}
                 whileInView={standalone ? { scaleY: 1 } : undefined}
                 viewport={standalone ? { once: true } : undefined}
-                transition={
-                  standalone
-                    ? { duration: 0.4, ease: easings.primary }
-                    : undefined
-                }
+                transition={standalone ? { duration: 0.4, ease: easings.primary } : undefined}
               />
-
-              {/* Headline text */}
               <div
                 className={`${anton.className} text-[#111] uppercase select-none`}
                 style={{
@@ -207,8 +168,6 @@ export default function About({
                     style={{
                       color: line.color,
                       fontSize: "clamp(95px, 7.7vw, 260px)",
-                      // In cinematic mode, parent controls visibility via shell/bio/etc;
-                      // ensure headline does not run its own whileInView.
                       opacity: standalone ? undefined : 1,
                       transform: standalone ? undefined : "translateY(0px)",
                     }}
@@ -217,11 +176,7 @@ export default function About({
                     viewport={standalone ? { once: true } : undefined}
                     transition={
                       standalone
-                        ? {
-                            duration: 0.55,
-                            delay: i * 0.12,
-                            ease: easings.primary,
-                          }
+                        ? { duration: 0.55, delay: i * 0.12, ease: easings.primary }
                         : undefined
                     }
                   >
@@ -232,7 +187,7 @@ export default function About({
             </div>
           </motion.div>
 
-          {/* Col 2 Row 1 — Bio */}
+          {/* ROW 1 — Col 2: Bio */}
           <motion.div
             style={{
               borderRight: "4px solid #111",
@@ -245,7 +200,7 @@ export default function About({
             <AboutBio viewportTransition={viewportTransition} />
           </motion.div>
 
-          {/* Col 3 Row 1 — Philosophy (paper uncrumple) */}
+          {/* ROW 1 — Col 3: Philosophy */}
           <motion.div
             style={{
               borderBottom: "4px solid #111",
@@ -262,9 +217,7 @@ export default function About({
             <AboutPhilosophy viewportTransition={viewportTransition} />
           </motion.div>
 
-          {/* ── ROW 2 ──────────────────────────────────────────────────── */}
-
-          {/* Col 1 Row 2 — Backend Systems + Hardware */}
+          {/* ROW 2 — Col 1: Backend + Hardware */}
           <div
             className="grid h-full min-h-0"
             style={{
@@ -293,7 +246,7 @@ export default function About({
             </motion.div>
           </div>
 
-          {/* Col 2+3 Row 2 — Interests + Built to be used */}
+          {/* ROW 2 — Col 2+3: Interests + Built to be used */}
           <div
             className="grid h-full min-h-0"
             style={{
@@ -325,7 +278,7 @@ export default function About({
           </div>
         </div>
 
-        {/* ── FOOTER ─────────────────────────────────────────────────────── */}
+        {/* ── FOOTER ──────────────────────────────────────────────────── */}
         <motion.div
           className={viewportTransition ? "relative z-20" : ""}
           style={{ y: footerYProp, opacity: footerOpacityProp }}

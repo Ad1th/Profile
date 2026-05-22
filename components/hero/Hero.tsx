@@ -36,11 +36,7 @@ import type React from "react";
 import HeroHeadline from "./HeroHeadline";
 import HeroCTA from "./HeroCTA";
 import HeroPortrait from "./HeroPortrait";
-import {
-  motion,
-  type MotionValue,
-  type MotionStyle,
-} from "framer-motion";
+import { motion, type MotionValue, type MotionStyle } from "framer-motion";
 import { easings } from "@/lib/motion";
 import { useState, useEffect } from "react";
 
@@ -234,14 +230,14 @@ function HeroDesktop({
         className="absolute left-0 right-0 z-30 flex items-center"
         style={{
           bottom: 56,
-          height: 102,
+          height: 100,
           background: "#F0EBE0",
           borderTop: "5px solid #111",
           borderBottom: "5px solid #111",
           boxShadow: "0 -4px 0 #111",
         }}
         initial={{ opacity: 0, y: 18, scale: 0.985 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
+        animate={{ opacity: 1, y: 16, scale: 1 }}
         transition={{ duration: 0.65, delay: 0.35, ease: easings.primary }}
       >
         {[
@@ -253,7 +249,7 @@ function HeroDesktop({
             key={value}
             className="flex-1 flex flex-col items-start justify-center"
             style={{
-              padding: "14px 28px",
+              padding: "0px 28px",
               borderRight: i < 2 ? "5px solid #111" : undefined,
             }}
           >
@@ -577,7 +573,10 @@ function HeroMobile() {
             </div>
             <div
               className="text-[#555] text-[10px] font-bold tracking-[0.12em] uppercase"
-              style={{ fontFamily: "var(--font-archivo), monospace", marginTop: 6 }}
+              style={{
+                fontFamily: "var(--font-archivo), monospace",
+                marginTop: 6,
+              }}
             >
               {label}
             </div>
@@ -587,7 +586,11 @@ function HeroMobile() {
       {/* Mobile ticker */}
       <motion.div
         className="relative z-40 overflow-hidden flex items-center"
-        style={{ height: 40, background: "#E8420A", borderTop: "4px solid #111" }}
+        style={{
+          height: 40,
+          background: "#E8420A",
+          borderTop: "4px solid #111",
+        }}
         initial={{ y: 60 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 1.0, ease: easings.primary }}
@@ -600,7 +603,10 @@ function HeroMobile() {
             <span
               key={i}
               className="text-white text-[10px] font-black tracking-[0.2em] uppercase"
-              style={{ fontFamily: "var(--font-archivo), monospace", paddingRight: 32 }}
+              style={{
+                fontFamily: "var(--font-archivo), monospace",
+                paddingRight: 32,
+              }}
             >
               OPEN TO INTERN ■ BACKEND ■ CLEAN CODE ■
             </span>
@@ -667,7 +673,13 @@ function HeadlineTablet() {
       </motion.span>
       <motion.p
         className="font-mono text-[#E8E8E8] normal-case mt-6"
-        style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.02em", lineHeight: 1.5, maxWidth: 360 }}
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          letterSpacing: "0.02em",
+          lineHeight: 1.5,
+          maxWidth: 360,
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.4, ease: easings.primary }}
@@ -737,7 +749,13 @@ function HeadlineTabletPortrait() {
       </motion.span>
       <motion.p
         className="font-mono text-[#E8E8E8] normal-case mt-5"
-        style={{ fontSize: 14, fontWeight: 600, letterSpacing: "0.02em", lineHeight: 1.5, maxWidth: 420 }}
+        style={{
+          fontSize: 14,
+          fontWeight: 600,
+          letterSpacing: "0.02em",
+          lineHeight: 1.5,
+          maxWidth: 420,
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.4, ease: easings.primary }}
@@ -757,8 +775,12 @@ function HeadlineTabletPortrait() {
 }
 
 function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
-  const titleSize = portrait ? "clamp(44px, 18vw, 78px)" : "clamp(58px, 16vw, 98px)";
-  const outlineSize = portrait ? "clamp(40px, 12vw, 72px)" : "clamp(54px, 15vw, 92px)";
+  const titleSize = portrait
+    ? "clamp(44px, 18vw, 78px)"
+    : "clamp(58px, 16vw, 98px)";
+  const outlineSize = portrait
+    ? "clamp(40px, 12vw, 72px)"
+    : "clamp(54px, 15vw, 92px)";
   return (
     <div
       className="flex flex-col select-none uppercase"
@@ -772,7 +794,12 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
     >
       <motion.span
         className="block text-[#F0EBE0]"
-        style={{ fontSize: titleSize, lineHeight: 0.88, marginTop: portrait ? -24 : -35, whiteSpace: "nowrap" }}
+        style={{
+          fontSize: titleSize,
+          lineHeight: 0.88,
+          marginTop: portrait ? -24 : -35,
+          whiteSpace: "nowrap",
+        }}
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.15, ease: easings.primary }}
@@ -781,28 +808,61 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
       </motion.span>
       <motion.div
         className="inline-block"
-        style={{ border: "3px solid #CFDE00", padding: "3px 12px 0px 12px", marginTop: 4, marginBottom: 2, maxWidth: "fit-content" }}
+        style={{
+          border: "3px solid #CFDE00",
+          padding: "3px 12px 0px 12px",
+          marginTop: 4,
+          marginBottom: 2,
+          maxWidth: "fit-content",
+        }}
         initial={{ x: -20, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.25, ease: easings.primary }}
       >
-        <span className="block text-[#CFDE00]" style={{ fontSize: outlineSize, lineHeight: 0.85, whiteSpace: "nowrap" }}>
+        <span
+          className="block text-[#CFDE00]"
+          style={{
+            fontSize: outlineSize,
+            lineHeight: 0.85,
+            whiteSpace: "nowrap",
+          }}
+        >
           WITH
         </span>
       </motion.div>
       <motion.span
         className="block text-[#E8420A]"
-        style={{ fontSize: titleSize, lineHeight: 0.88, marginTop: 4, whiteSpace: "nowrap" }}
+        style={{
+          fontSize: titleSize,
+          lineHeight: 0.88,
+          marginTop: 4,
+          whiteSpace: "nowrap",
+        }}
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.35, ease: easings.primary }}
       >
         TASTE.
       </motion.span>
-      <div style={{ width: 48, height: 2, background: "#CFDE00", marginTop: 10, marginBottom: 10 }} />
+      <div
+        style={{
+          width: 48,
+          height: 2,
+          background: "#CFDE00",
+          marginTop: 10,
+          marginBottom: 10,
+        }}
+      />
       <motion.p
         className="font-mono text-[#E8E8E8] normal-case"
-        style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.5, opacity: 0.9, marginBottom: 18, letterSpacing: "0.01em" }}
+        style={{
+          fontSize: 13,
+          fontWeight: 500,
+          lineHeight: 1.5,
+          opacity: 0.9,
+          marginBottom: 18,
+          letterSpacing: "0.01em",
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.4, ease: easings.primary }}
@@ -821,7 +881,15 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
   );
 }
 
-function CTASmall({ width, height, fontSize }: { width: number; height: number; fontSize: number }) {
+function CTASmall({
+  width,
+  height,
+  fontSize,
+}: {
+  width: number;
+  height: number;
+  fontSize: number;
+}) {
   return (
     <div style={{ position: "relative", width, height }}>
       <div
@@ -928,7 +996,10 @@ function TickerTablet() {
           <span
             key={i}
             className="text-white text-[12px] font-black tracking-[0.24em] uppercase"
-            style={{ fontFamily: "var(--font-archivo), monospace", paddingRight: 48 }}
+            style={{
+              fontFamily: "var(--font-archivo), monospace",
+              paddingRight: 48,
+            }}
           >
             OPEN TO INTERN ■ BACKEND ■ CLEAN CODE ■ PRESSURE TESTED BUILDS ■
           </span>
@@ -958,17 +1029,39 @@ function HeroPortraitTablet() {
         <img
           src="/images/me2.jpeg"
           alt="Adith Manikonda"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 24%", filter: "grayscale(100%) contrast(1.18)", transform: "scale(1.02)" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 24%",
+            filter: "grayscale(100%) contrast(1.18)",
+            transform: "scale(1.02)",
+          }}
         />
       </motion.div>
       <motion.div
         className="absolute flex items-center justify-center gap-3 bg-[#CFDE00]"
-        style={{ width: 200, height: 40, bottom: 20, right: -10, rotate: "-5deg", border: "4px solid #111", boxShadow: "8px 8px 0 #E8420A", zIndex: 20 }}
+        style={{
+          width: 200,
+          height: 40,
+          bottom: 20,
+          right: -10,
+          rotate: "-5deg",
+          border: "4px solid #111",
+          boxShadow: "8px 8px 0 #E8420A",
+          zIndex: 20,
+        }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.42, delay: 0.7 }}
       >
-        <span className="text-[#111] text-[12px] font-black uppercase tracking-[0.04em]" style={{ fontFamily: "var(--font-archivo), sans-serif", whiteSpace: "nowrap" }}>
+        <span
+          className="text-[#111] text-[12px] font-black uppercase tracking-[0.04em]"
+          style={{
+            fontFamily: "var(--font-archivo), sans-serif",
+            whiteSpace: "nowrap",
+          }}
+        >
           OPEN TO INTERN
         </span>
       </motion.div>
@@ -980,7 +1073,15 @@ function HeroPortraitTabletPortrait() {
   return (
     <div style={{ position: "relative", width: "100%", maxWidth: 440 }}>
       <motion.div
-        style={{ width: "100%", aspectRatio: "4 / 5", border: "5px solid #111", boxShadow: "10px 10px 0 #F0EBE0", background: "#1F1F1F", position: "relative", overflow: "hidden" }}
+        style={{
+          width: "100%",
+          aspectRatio: "4 / 5",
+          border: "5px solid #111",
+          boxShadow: "10px 10px 0 #F0EBE0",
+          background: "#1F1F1F",
+          position: "relative",
+          overflow: "hidden",
+        }}
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.3, ease: easings.primary }}
@@ -988,17 +1089,39 @@ function HeroPortraitTabletPortrait() {
         <img
           src="/images/me2.jpeg"
           alt="Adith Manikonda"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 24%", filter: "grayscale(100%) contrast(1.18)", transform: "scale(1.02)" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 24%",
+            filter: "grayscale(100%) contrast(1.18)",
+            transform: "scale(1.02)",
+          }}
         />
       </motion.div>
       <motion.div
         className="absolute flex items-center justify-center gap-3 bg-[#CFDE00]"
-        style={{ width: 210, height: 42, bottom: 16, right: -10, rotate: "-5deg", border: "4px solid #111", boxShadow: "8px 8px 0 #E8420A", zIndex: 20 }}
+        style={{
+          width: 210,
+          height: 42,
+          bottom: 16,
+          right: -10,
+          rotate: "-5deg",
+          border: "4px solid #111",
+          boxShadow: "8px 8px 0 #E8420A",
+          zIndex: 20,
+        }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.42, delay: 0.7 }}
       >
-        <span className="text-[#111] text-[12px] font-black uppercase tracking-[0.04em]" style={{ fontFamily: "var(--font-archivo), sans-serif", whiteSpace: "nowrap" }}>
+        <span
+          className="text-[#111] text-[12px] font-black uppercase tracking-[0.04em]"
+          style={{
+            fontFamily: "var(--font-archivo), sans-serif",
+            whiteSpace: "nowrap",
+          }}
+        >
           OPEN TO INTERN
         </span>
       </motion.div>
@@ -1010,7 +1133,15 @@ function HeroPortraitMobile() {
   return (
     <div style={{ position: "relative", width: "90%", maxWidth: 268 }}>
       <motion.div
-        style={{ width: "100%", aspectRatio: "1 / 1", border: "4px solid #111", boxShadow: "6px 6px 0 #F0EBE0", background: "#1F1F1F", position: "relative", overflow: "hidden" }}
+        style={{
+          width: "100%",
+          aspectRatio: "1 / 1",
+          border: "4px solid #111",
+          boxShadow: "6px 6px 0 #F0EBE0",
+          background: "#1F1F1F",
+          position: "relative",
+          overflow: "hidden",
+        }}
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.25, ease: easings.primary }}
@@ -1018,17 +1149,39 @@ function HeroPortraitMobile() {
         <img
           src="/images/me2.jpeg"
           alt="Adith Manikonda"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 24%", filter: "grayscale(100%) contrast(1.18)", transform: "scale(1.02)" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 24%",
+            filter: "grayscale(100%) contrast(1.18)",
+            transform: "scale(1.02)",
+          }}
         />
       </motion.div>
       <motion.div
         className="absolute flex items-center justify-center bg-[#CFDE00]"
-        style={{ width: 140, height: 32, bottom: -6, right: -10, rotate: "-5deg", border: "3px solid #111", boxShadow: "5px 5px 0 #E8420A", zIndex: 20 }}
+        style={{
+          width: 140,
+          height: 32,
+          bottom: -6,
+          right: -10,
+          rotate: "-5deg",
+          border: "3px solid #111",
+          boxShadow: "5px 5px 0 #E8420A",
+          zIndex: 20,
+        }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.42, delay: 0.6 }}
       >
-        <span className="text-[#111] text-[9px] font-black uppercase tracking-[0.04em]" style={{ fontFamily: "var(--font-archivo), sans-serif", whiteSpace: "nowrap" }}>
+        <span
+          className="text-[#111] text-[9px] font-black uppercase tracking-[0.04em]"
+          style={{
+            fontFamily: "var(--font-archivo), sans-serif",
+            whiteSpace: "nowrap",
+          }}
+        >
           OPEN TO INTERN
         </span>
       </motion.div>

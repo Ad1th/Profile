@@ -660,34 +660,8 @@ export default function Projects() {
           "-=0.1",
         );
 
-      // Gentle, deterministic float to keep cards feeling physical without random fly-ins.
-      gsap.to(".projects-paper", {
-        y: "+=3",
-        rotation: "+=0.4",
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: 0.08,
-      });
-
-      gsap.to(".projects-clip", {
-        rotation: -2,
-        duration: 4,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-
-      gsap.to(".projects-mark", {
-        x: "+=1",
-        y: "+=1",
-        duration: 5,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: 0.15,
-      });
+      // Removed conflicting float animations — the papers now stay put after entrance
+      // CSS keyframe 'projects-paper-breathe' provides subtle breathing if needed
 
       gsap.from(".projects-archive-row", {
         scrollTrigger: {

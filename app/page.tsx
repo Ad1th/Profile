@@ -21,6 +21,7 @@ import Experience from "@/components/sections/experience/Experience";
 import Projects from "@/components/sections/projects/Projects";
 import Timeline from "@/components/sections/timeline/Timeline";
 import Patents from "@/components/sections/patents/Patents";
+import Achievements from "@/components/sections/achievements/Achievements";
 import Contact from "@/components/sections/contact/Contact";
 import ScrollProgressDots from "@/components/ui/ScrollProgressDots";
 import StickyTicker from "@/components/ui/StickyTicker";
@@ -42,8 +43,10 @@ const SECTIONS = [
   "skills",
   "experience",
   "projects",
-  "timeline",
+  // user requested menu order:
   "patents",
+  "achievements",
+  "timeline",
   "contact",
 ];
 
@@ -57,8 +60,9 @@ export default function Page() {
       {isDesktop ? (
         <>
           <DesktopCinematicTransition />
-          <Timeline />
           <Patents />
+          <Achievements />
+          <Timeline />
           <Contact />
         </>
       ) : (
@@ -70,8 +74,9 @@ export default function Page() {
           <Skills />
           <Experience />
           <Projects />
-          <Timeline />
           <Patents />
+          <Achievements />
+          <Timeline />
           <Contact />
         </>
       )}

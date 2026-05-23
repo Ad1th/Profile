@@ -559,8 +559,18 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.08), transparent 18%),
-    linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0) 15%, rgba(255,255,255,0) 85%, rgba(255,255,255,0.05));
+    radial-gradient(
+      circle at 50% 12%,
+      rgba(255, 255, 255, 0.08),
+      transparent 18%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0) 15%,
+      rgba(255, 255, 255, 0) 85%,
+      rgba(255, 255, 255, 0.05)
+    );
   mix-blend-mode: screen;
   opacity: 0.4;
 }
@@ -570,7 +580,11 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 255, 0.015));
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.02),
+    rgba(0, 255, 255, 0.015)
+  );
   mix-blend-mode: screen;
   opacity: 0.06;
 }
@@ -691,6 +705,49 @@
   background: #d8c9a6;
   padding: 10px 44px;
   transform: rotate(-2deg);
+}
+
+/* CRT column wrapper to hold the monitor and the sticky preview */
+:global(.projects-crt-column) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-end;
+}
+
+/* Sticky preview note placed below / beside the CRT */
+:global(.projects-preview-sticky) {
+  --note-bg: #f5e66b;
+  --note-border: rgba(17, 17, 17, 0.9);
+  appearance: none;
+  border: 0;
+  background: var(--note-bg);
+  padding: 14px 16px;
+  width: 170px;
+  transform: rotate(-6deg);
+  box-shadow: 6px 6px 0 var(--note-border);
+  cursor: pointer;
+  font-family: "Comic Sans MS", "Bradley Hand", cursive;
+  color: #111;
+  font-weight: 700;
+  text-align: center;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+:global(.projects-preview-sticky:hover) {
+  transform: translateY(-6px) rotate(-4deg);
+  box-shadow: 10px 10px 0 rgba(17, 17, 17, 0.78);
+}
+
+:global(.projects-preview-sticky-text) {
+  display: block;
+  font-size: 13px;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
 }
 
 @keyframes projects-scanner {

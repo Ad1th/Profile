@@ -30,11 +30,17 @@ const NAV_LINKS: { label: string; section: string }[] = [
 ];
 
 const MENU_LINKS: { label: string; section: string }[] = [
-  { label: "HERO", section: "hero" },
+  { label: "HOME", section: "hero" },
   { label: "ABOUT", section: "about" },
   { label: "SKILLS", section: "skills" },
   { label: "EXPERIENCE", section: "experience" },
   { label: "PROJECTS", section: "projects" },
+
+  // User requested order:
+  // patents -> achievements -> timeline -> contact
+  { label: "PATENTS", section: "patents" },
+  { label: "ACHIEVEMENTS", section: "achievements" },
+  { label: "TIMELINE", section: "timeline" },
   { label: "CONTACT", section: "contact" },
 ];
 
@@ -44,6 +50,9 @@ const SECTIONS = [
   "skills",
   "experience",
   "projects",
+  "patents",
+  "achievements",
+  "timeline",
   "contact",
 ];
 

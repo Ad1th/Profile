@@ -19,6 +19,9 @@ import About from "@/components/sections/about/About";
 import Skills from "@/components/sections/skills/Skills";
 import Experience from "@/components/sections/experience/Experience";
 import Projects from "@/components/sections/projects/Projects";
+import Timeline from "@/components/sections/timeline/Timeline";
+import Patents from "@/components/sections/patents/Patents";
+import Contact from "@/components/sections/contact/Contact";
 import ScrollProgressDots from "@/components/ui/ScrollProgressDots";
 import StickyTicker from "@/components/ui/StickyTicker";
 
@@ -33,7 +36,16 @@ function useIsDesktop() {
   return isDesktop;
 }
 
-const SECTIONS = ["hero", "about", "skills", "experience", "projects"];
+const SECTIONS = [
+  "hero",
+  "about",
+  "skills",
+  "experience",
+  "projects",
+  "timeline",
+  "patents",
+  "contact",
+];
 
 export default function Page() {
   const isDesktop = useIsDesktop();
@@ -43,7 +55,12 @@ export default function Page() {
       <Navbar />
 
       {isDesktop ? (
-        <DesktopCinematicTransition />
+        <>
+          <DesktopCinematicTransition />
+          <Timeline />
+          <Patents />
+          <Contact />
+        </>
       ) : (
         <>
           <div data-section="hero">
@@ -53,6 +70,9 @@ export default function Page() {
           <Skills />
           <Experience />
           <Projects />
+          <Timeline />
+          <Patents />
+          <Contact />
         </>
       )}
 

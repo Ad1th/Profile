@@ -701,18 +701,22 @@ export default function Projects() {
         ease: "power2.out",
       });
 
-      gsap.utils.toArray<HTMLElement>(".projects-archive-row").forEach((row) => {
-        const scanner = row.querySelector<HTMLElement>(".projects-row-scanner");
-        if (!scanner) return;
-
-        row.addEventListener("mouseenter", () => {
-          gsap.fromTo(
-            scanner,
-            { x: "-100%" },
-            { x: "100%", duration: 0.6, ease: "power2.out" },
+      gsap.utils
+        .toArray<HTMLElement>(".projects-archive-row")
+        .forEach((row) => {
+          const scanner = row.querySelector<HTMLElement>(
+            ".projects-row-scanner",
           );
+          if (!scanner) return;
+
+          row.addEventListener("mouseenter", () => {
+            gsap.fromTo(
+              scanner,
+              { x: "-100%" },
+              { x: "100%", duration: 0.6, ease: "power2.out" },
+            );
+          });
         });
-      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -816,18 +820,37 @@ export default function Projects() {
             </div>
           </div>
 
-          <CrtMonitor
-            project={selected}
-            mode={crtMode}
-            booting={booting}
-            onToggleMode={() => {
-              setBooting(true);
-              setCrtMode((mode) =>
-                mode === "details" ? "preview" : "details",
-              );
-              window.setTimeout(() => setBooting(false), 260);
-            }}
-          />
+          <div className="projects-crt-column">
+            <CrtMonitor
+              project={selected}
+              mode={crtMode}
+              booting={booting}
+              onToggleMode={() => {
+                setBooting(true);
+                setCrtMode((mode) =>
+                  mode === "details" ? "preview" : "details",
+                );
+                window.setTimeout(() => setBooting(false), 260);
+              }}
+            />
+
+            <button
+              type="button"
+              className="projects-preview-sticky"
+              aria-label="Toggle preview"
+              onClick={() => {
+                setBooting(true);
+                setCrtMode((mode) =>
+                  mode === "details" ? "preview" : "details",
+                );
+                window.setTimeout(() => setBooting(false), 260);
+              }}
+            >
+              <span className="projects-preview-sticky-text">
+                click again for preview
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </section>

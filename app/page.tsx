@@ -18,6 +18,7 @@ import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
 import Skills from "@/components/sections/skills/Skills";
 import Experience from "@/components/sections/experience/Experience";
+import Projects from "@/components/sections/projects/Projects";
 import ScrollProgressDots from "@/components/ui/ScrollProgressDots";
 import StickyTicker from "@/components/ui/StickyTicker";
 
@@ -32,7 +33,7 @@ function useIsDesktop() {
   return isDesktop;
 }
 
-const SECTIONS = ["hero", "about", "skills", "experience"];
+const SECTIONS = ["hero", "about", "skills", "experience", "projects"];
 
 export default function Page() {
   const isDesktop = useIsDesktop();
@@ -51,6 +52,7 @@ export default function Page() {
           <About />
           <Skills />
           <Experience />
+          <Projects />
         </>
       )}
 

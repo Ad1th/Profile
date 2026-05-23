@@ -7,6 +7,7 @@ import About from "@/components/sections/about/About";
 import SkillsHero from "@/components/sections/skills/SkillsHero";
 import SkillsSystemRows from "@/components/sections/skills/SkillsSystemRows";
 import Experience from "@/components/sections/experience/Experience";
+import Projects from "@/components/sections/projects/Projects";
 
 function SkillsLayer() {
   return (
@@ -89,72 +90,75 @@ export default function DesktopCinematicTransition() {
   } as const;
 
   return (
-    <div ref={containerRef} style={{ height: "700vh", position: "relative" }}>
-      <div data-section="hero" style={{ ...markerStyle, top: 0 }} />
-      <div data-section="about" style={{ ...markerStyle, top: "25%" }} />
-      <div data-section="skills" style={{ ...markerStyle, top: "52%" }} />
-      <div data-section="experience" style={{ ...markerStyle, top: "86%" }} />
+    <>
+      <div ref={containerRef} style={{ height: "700vh", position: "relative" }}>
+        <div data-section="hero" style={{ ...markerStyle, top: 0 }} />
+        <div data-section="about" style={{ ...markerStyle, top: "25%" }} />
+        <div data-section="skills" style={{ ...markerStyle, top: "52%" }} />
+        <div data-section="experience" style={{ ...markerStyle, top: "86%" }} />
 
-      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#111" }}>
-        <motion.div style={{ position: "absolute", inset: 0, zIndex: 10, opacity: experienceOpacity, overflow: "hidden" }}>
-          <Experience />
-        </motion.div>
+        <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#111" }}>
+          <motion.div style={{ position: "absolute", inset: 0, zIndex: 10, opacity: experienceOpacity, overflow: "hidden" }}>
+            <Experience />
+          </motion.div>
 
-        <motion.div style={{ position: "absolute", inset: 0, zIndex: 20, opacity: skillsOpacity, y: skillsY, scale: skillsScale, background: "#111", overflow: "hidden", willChange: "transform, opacity" }}>
-          <SkillsLayer />
-        </motion.div>
+          <motion.div style={{ position: "absolute", inset: 0, zIndex: 20, opacity: skillsOpacity, y: skillsY, scale: skillsScale, background: "#111", overflow: "hidden", willChange: "transform, opacity" }}>
+            <SkillsLayer />
+          </motion.div>
 
-        <motion.div style={{ position: "absolute", inset: 0, zIndex: 25, background: "#111", opacity: voidOpacity, pointerEvents: "none" }} />
+          <motion.div style={{ position: "absolute", inset: 0, zIndex: 25, background: "#111", opacity: voidOpacity, pointerEvents: "none" }} />
 
-        <motion.div style={{ position: "absolute", inset: 0, zIndex: 30, opacity: aboutShellOpacity, clipPath: aboutShellClip, overflow: "hidden", willChange: "clip-path, opacity" }}>
-          <About
-            viewportTransition={true}
-            shellOpacity={aboutShellOpacity}
-            buildY={buildY}
-            buildOpacity={buildOpacity}
-            buildScale={buildScale}
-            bioClip={bioClip}
-            bioOpacity={bioOpacity}
-            bioY={bioY}
-            paperOpacity={paperOpacity}
-            paperScale={paperScale}
-            paperRotate={paperRotate}
-            paperSkewX={paperSkewX}
-            paperSkewY={paperSkewY}
-            paperFilter={paperFilter}
-            paperClip={paperClip}
-            backendY={backendAboutY}
-            backendOpacity={backendAboutOpacity}
-            backendScale={backendAboutScale}
-            hardwareX={hardwareX}
-            hardwareOpacity={hardwareOpacity}
-            interestsY={interestsY}
-            interestsOpacity={interestsOpacity}
-            interestsScale={interestsScale}
-            builtScale={builtScale}
-            builtOpacity={builtOpacity}
-            footerY={footerY}
-            footerOpacity={footerOpacity}
-          />
-        </motion.div>
+          <motion.div style={{ position: "absolute", inset: 0, zIndex: 30, opacity: aboutShellOpacity, clipPath: aboutShellClip, overflow: "hidden", willChange: "clip-path, opacity" }}>
+            <About
+              viewportTransition={true}
+              shellOpacity={aboutShellOpacity}
+              buildY={buildY}
+              buildOpacity={buildOpacity}
+              buildScale={buildScale}
+              bioClip={bioClip}
+              bioOpacity={bioOpacity}
+              bioY={bioY}
+              paperOpacity={paperOpacity}
+              paperScale={paperScale}
+              paperRotate={paperRotate}
+              paperSkewX={paperSkewX}
+              paperSkewY={paperSkewY}
+              paperFilter={paperFilter}
+              paperClip={paperClip}
+              backendY={backendAboutY}
+              backendOpacity={backendAboutOpacity}
+              backendScale={backendAboutScale}
+              hardwareX={hardwareX}
+              hardwareOpacity={hardwareOpacity}
+              interestsY={interestsY}
+              interestsOpacity={interestsOpacity}
+              interestsScale={interestsScale}
+              builtScale={builtScale}
+              builtOpacity={builtOpacity}
+              footerY={footerY}
+              footerOpacity={footerOpacity}
+            />
+          </motion.div>
 
-        <motion.div style={{ position: "absolute", inset: 0, zIndex: 40, clipPath: heroShellClip, opacity: heroShellOpacity, willChange: "clip-path, opacity" }}>
-          <Hero
-            transitionProgress={scrollYProgress}
-            suppressTicker={true}
-            backendStyle={{ x: backendX, opacity: backendOpacity }}
-            withStyle={{ x: withX, scale: withScale }}
-            tasteStyle={{ y: tasteY, rotate: tasteRotate }}
-            imageScale={imageScale}
-            imageY={imageY}
-            stickerRotate={stickerRotate}
-            stickerX={stickerX}
-            marqueeOpacity={marqueeOpacity}
-            marqueeFilter={marqueeFilter}
-            marqueeDuration={marqueeDuration}
-          />
-        </motion.div>
+          <motion.div style={{ position: "absolute", inset: 0, zIndex: 40, clipPath: heroShellClip, opacity: heroShellOpacity, willChange: "clip-path, opacity" }}>
+            <Hero
+              transitionProgress={scrollYProgress}
+              suppressTicker={true}
+              backendStyle={{ x: backendX, opacity: backendOpacity }}
+              withStyle={{ x: withX, scale: withScale }}
+              tasteStyle={{ y: tasteY, rotate: tasteRotate }}
+              imageScale={imageScale}
+              imageY={imageY}
+              stickerRotate={stickerRotate}
+              stickerX={stickerX}
+              marqueeOpacity={marqueeOpacity}
+              marqueeFilter={marqueeFilter}
+              marqueeDuration={marqueeDuration}
+            />
+          </motion.div>
+        </div>
       </div>
-    </div>
+      <Projects />
+    </>
   );
 }

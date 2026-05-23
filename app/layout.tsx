@@ -1,4 +1,5 @@
 import type React from "react";
+// @ts-expect-error -- Global CSS side-effect import is handled by Next.js
 import "./globals.css";
 import { Anton, Archivo_Black } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";

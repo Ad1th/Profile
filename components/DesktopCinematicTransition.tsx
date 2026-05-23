@@ -11,7 +11,6 @@ import Experience from "@/components/sections/experience/Experience";
 function SkillsLayer() {
   return (
     <section
-      data-section="skills"
       className="w-full bg-[#111]"
       style={{ position: "absolute", inset: 0, overflow: "hidden" }}
     >
@@ -82,11 +81,22 @@ export default function DesktopCinematicTransition() {
   const skillsScale = useTransform(scrollYProgress, [0.78, 0.9], [1, 0.96]);
   const voidOpacity = useTransform(scrollYProgress, [0.76, 0.84, 0.9, 0.98], [0, 1, 1, 0]);
   const experienceOpacity = useTransform(scrollYProgress, [0.9, 0.98], [0, 1]);
+  const markerStyle = {
+    position: "absolute",
+    width: 1,
+    height: "100vh",
+    pointerEvents: "none",
+  } as const;
 
   return (
     <div ref={containerRef} style={{ height: "700vh", position: "relative" }}>
+      <div data-section="hero" style={{ ...markerStyle, top: 0 }} />
+      <div data-section="about" style={{ ...markerStyle, top: "25%" }} />
+      <div data-section="skills" style={{ ...markerStyle, top: "52%" }} />
+      <div data-section="experience" style={{ ...markerStyle, top: "86%" }} />
+
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#111" }}>
-        <motion.div data-section="experience" style={{ position: "absolute", inset: 0, zIndex: 10, opacity: experienceOpacity, overflow: "hidden" }}>
+        <motion.div style={{ position: "absolute", inset: 0, zIndex: 10, opacity: experienceOpacity, overflow: "hidden" }}>
           <Experience />
         </motion.div>
 
@@ -96,7 +106,7 @@ export default function DesktopCinematicTransition() {
 
         <motion.div style={{ position: "absolute", inset: 0, zIndex: 25, background: "#111", opacity: voidOpacity, pointerEvents: "none" }} />
 
-        <motion.div data-section="about" style={{ position: "absolute", inset: 0, zIndex: 30, opacity: aboutShellOpacity, clipPath: aboutShellClip, overflow: "hidden", willChange: "clip-path, opacity" }}>
+        <motion.div style={{ position: "absolute", inset: 0, zIndex: 30, opacity: aboutShellOpacity, clipPath: aboutShellClip, overflow: "hidden", willChange: "clip-path, opacity" }}>
           <About
             viewportTransition={true}
             shellOpacity={aboutShellOpacity}
@@ -128,7 +138,7 @@ export default function DesktopCinematicTransition() {
           />
         </motion.div>
 
-        <motion.div data-section="hero" style={{ position: "absolute", inset: 0, zIndex: 40, clipPath: heroShellClip, opacity: heroShellOpacity, willChange: "clip-path, opacity" }}>
+        <motion.div style={{ position: "absolute", inset: 0, zIndex: 40, clipPath: heroShellClip, opacity: heroShellOpacity, willChange: "clip-path, opacity" }}>
           <Hero
             transitionProgress={scrollYProgress}
             suppressTicker={true}

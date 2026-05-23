@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import { easings } from "@/lib/motion";
 
@@ -290,21 +291,25 @@ function ProgressBar({ value }: { value: number }) {
   );
 }
 
-export default function ExperienceCard({
-  entry,
-  style,
-  className,
-  density = "regular",
-  shadow,
-  positioned = true,
-}: {
-  entry: ExperienceEntry;
-  style?: React.CSSProperties;
-  className?: string;
-  density?: "regular" | "compact";
-  shadow?: string;
-  positioned?: boolean;
-}) {
+export default function ExperienceCard(
+  props: {
+    entry: ExperienceEntry;
+    style?: React.CSSProperties;
+    className?: string;
+    density?: "regular" | "compact";
+    shadow?: string;
+    positioned?: boolean;
+  } & React.HTMLAttributes<HTMLDivElement>,
+) {
+  const {
+    entry,
+    style,
+    className,
+    density = "regular",
+    shadow,
+    positioned = true,
+    ...rest
+  } = props;
   const compact = density === "compact";
   const isContributor = entry.id === "02";
   const hasPushPin = entry.id === "01";
@@ -321,9 +326,9 @@ export default function ExperienceCard({
 
   return (
     <motion.div
+      {...rest}
       className={`${positioned ? "absolute" : "relative"} ${className ?? ""}`.trim()}
       style={{
-        rotate: entry.rotate,
         zIndex: entry.zIndex,
         ...style,
       }}

@@ -98,20 +98,26 @@ export default function Experience() {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
+      // Initial: hide/compact the timeline rail and scramble cards into a heap
       gsap.set(".experience-rail", {
         scaleX: 0,
         transformOrigin: "left center",
+        autoAlpha: 0,
       });
-      gsap.set(".experience-node", { y: 18, opacity: 0, scale: 0.9 });
-      gsap.set(".experience-card-once", { y: 38, rotate: -2, opacity: 0 });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-          once: true,
-        },
-      });
+      gsap.set(".experience-node", { y: 18, autoAlpha: 0, scale: 0.9 });
+
+      gsap.set(".experience-card-once", (i) => ({
+        x: gsap.utils.random(-160, 160),
+        y: gsap.utils.random(-120, 120),
+        rotation: gsap.utils.random(-32, 32),
+        scale: gsap.utils.random(0.9, 1.05),
+        autoAlpha: 0,
+        transformOrigin: "50% 50%",
+      }));
+
+      // Build a paused timeline; we'll trigger it when the section scrolls into view.
+      const tl = gsap.timeline({ paused: true });
 
       tl.from(
         ".experience-kicker",
@@ -120,33 +126,49 @@ export default function Experience() {
       )
         .to(
           ".experience-rail",
-          { scaleX: 1, duration: 0.42, ease: "power2.inOut" },
+          { autoAlpha: 1, scaleX: 1, duration: 0.6, ease: "power2.inOut" },
           0.08,
+        )
+        .to(
+          ".experience-card-once",
+          {
+            x: 0,
+            y: 0,
+            rotation: (i, el) => {
+              const v = el.getAttribute("data-final-rotate");
+              return v ? parseFloat(v) : 0;
+            },
+            scale: 1,
+            autoAlpha: 1,
+            stagger: { each: 0.12, from: "random" },
+            duration: 0.9,
+            ease: "back.out(1.6)",
+          },
+          0.24,
         )
         .to(
           ".experience-node",
           {
             y: 0,
-            opacity: 1,
+            autoAlpha: 1,
             scale: 1,
             stagger: 0.12,
-            duration: 0.3,
+            duration: 0.36,
             ease: "back.out(1.7)",
           },
-          0.16,
-        )
-        .to(
-          ".experience-card-once",
-          {
-            y: 0,
-            rotate: 0,
-            opacity: 1,
-            stagger: 0.08,
-            duration: 0.48,
-            ease: "power3.out",
-          },
-          0.24,
+          0.42,
         );
+
+      // ScrollTrigger: play the prepared timeline when section enters view.
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 75%",
+        onEnter: () => {
+          // small cooked delay so the heap lingers briefly
+          gsap.delayedCall(0.35, () => tl.play());
+        },
+        once: true,
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -210,6 +232,7 @@ export default function Experience() {
 
                 <ExperienceCard
                   entry={entry}
+                  data-final-rotate={entry.rotate}
                   density="regular"
                   positioned={false}
                   className="experience-card-once"

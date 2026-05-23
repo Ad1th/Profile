@@ -33,6 +33,7 @@ type ArchiveProject = {
   preview: string[];
 };
 
+// Data
 const featuredProjects: FeaturedProject[] = [
   {
     id: "01",

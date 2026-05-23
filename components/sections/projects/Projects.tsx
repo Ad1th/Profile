@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Anton } from "next/font/google";
+import { BlurIn, Magnetic } from "@/components/ui/react-bits";
 import "./Projects.module.css";
 
 const anton = Anton({ weight: "400", subsets: ["latin"] });
@@ -653,9 +654,9 @@ export default function Projects() {
           <div className="projects-title-block">
             <span>[ 01 / 04 ]</span>
             <h1 className={anton.className}>
-              PROJECT
+              <BlurIn>PROJECT</BlurIn>
               <br />
-              ARCHIVE.
+              <BlurIn delay={0.08}>ARCHIVE.</BlurIn>
             </h1>
             <i />
             <p>
@@ -666,7 +667,9 @@ export default function Projects() {
             <div className="projects-title-meta">
               <span>2026</span>
               <span>TOTAL PROJECTS / 22</span>
-              <span>// SHIP HARD. BUILD IMPACT.</span>
+              <Magnetic strength={0.12}>
+                <span>// SHIP HARD. BUILD IMPACT.</span>
+              </Magnetic>
             </div>
           </div>
 

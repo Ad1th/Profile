@@ -77,11 +77,9 @@ export default function DesktopCinematicTransition() {
   const footerOpacity = useTransform(scrollYProgress, [0.28, 0.33, 0.42, 0.48], [0, 1, 1, 0]);
 
   // Skills lives underneath About and is revealed by About's clip, then exits to Experience.
-  const skillsOpacity = useTransform(scrollYProgress, [0.44, 0.5, 0.78, 0.9], [0, 1, 1, 0]);
-  const skillsY = useTransform(scrollYProgress, [0.44, 0.52, 0.78, 0.9], [30, 0, 0, -80]);
-  const skillsScale = useTransform(scrollYProgress, [0.78, 0.9], [1, 0.96]);
-  const voidOpacity = useTransform(scrollYProgress, [0.76, 0.84, 0.9, 0.98], [0, 1, 1, 0]);
-  const experienceOpacity = useTransform(scrollYProgress, [0.9, 0.98], [0, 1]);
+  const skillsOpacity = useTransform(scrollYProgress, [0.44, 0.5, 1], [0, 1, 1]);
+  const skillsY = useTransform(scrollYProgress, [0.44, 0.52, 1], [30, 0, 0]);
+  const skillsScale = useTransform(scrollYProgress, [0.78, 1], [1, 1]);
   const markerStyle = {
     position: "absolute",
     width: 1,
@@ -91,22 +89,15 @@ export default function DesktopCinematicTransition() {
 
   return (
     <>
-      <div ref={containerRef} style={{ height: "700vh", position: "relative" }}>
+      <div ref={containerRef} style={{ height: "600vh", position: "relative" }}>
         <div data-section="hero" style={{ ...markerStyle, top: 0 }} />
         <div data-section="about" style={{ ...markerStyle, top: "25%" }} />
         <div data-section="skills" style={{ ...markerStyle, top: "52%" }} />
-        <div data-section="experience" style={{ ...markerStyle, top: "86%" }} />
 
         <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#111" }}>
-          <motion.div style={{ position: "absolute", inset: 0, zIndex: 10, opacity: experienceOpacity, overflow: "hidden" }}>
-            <Experience />
-          </motion.div>
-
           <motion.div style={{ position: "absolute", inset: 0, zIndex: 20, opacity: skillsOpacity, y: skillsY, scale: skillsScale, background: "#111", overflow: "hidden", willChange: "transform, opacity" }}>
             <SkillsLayer />
           </motion.div>
-
-          <motion.div style={{ position: "absolute", inset: 0, zIndex: 25, background: "#111", opacity: voidOpacity, pointerEvents: "none" }} />
 
           <motion.div style={{ position: "absolute", inset: 0, zIndex: 30, opacity: aboutShellOpacity, clipPath: aboutShellClip, overflow: "hidden", willChange: "clip-path, opacity" }}>
             <About
@@ -158,6 +149,7 @@ export default function DesktopCinematicTransition() {
           </motion.div>
         </div>
       </div>
+      <Experience />
       <Projects />
     </>
   );

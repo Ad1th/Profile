@@ -1,7 +1,7 @@
 :global(.projects-archive-section) {
   position: relative;
-  min-height: 100vh;
-  height: 100vh;
+  min-height: 200vh;
+  height: 200vh;
   overflow: clip;
   background:
     radial-gradient(
@@ -40,7 +40,7 @@
   z-index: 1;
   min-width: 0;
   height: 100%;
-  padding: 46px 38px 32px;
+  padding: 46px 38px 44px;
 }
 
 :global(.projects-grid-lines) {
@@ -88,10 +88,10 @@
   display: grid;
   grid-template-columns: 300px minmax(720px, 1fr);
   gap: 22px;
-  min-height: 440px;
-  height: 54vh;
+  min-height: 760px;
+  height: calc(100vh - 72px);
   border-bottom: 3px solid rgba(17, 17, 17, 0.56);
-  padding-bottom: 18px;
+  padding-bottom: 34px;
 }
 
 :global(.projects-title-block) {
@@ -331,9 +331,9 @@
   display: grid;
   grid-template-columns: minmax(520px, 1fr) minmax(420px, 520px);
   gap: 34px;
-  height: calc(46vh - 32px);
-  min-height: 310px;
-  padding-top: 56px;
+  height: calc(100vh - 72px);
+  min-height: 620px;
+  padding-top: 38px;
   align-items: start;
 }
 
@@ -367,8 +367,8 @@
 :global(.projects-table) {
   border: 2px solid rgba(17, 17, 17, 0.58);
   background: rgba(246, 241, 232, 0.72);
-  max-height: calc(46vh - 96px);
-  min-height: 210px;
+  max-height: calc(100vh - 194px);
+  min-height: 420px;
   overflow-y: auto;
   scrollbar-color: #111 #d8d0c4;
   scrollbar-width: thin;
@@ -469,8 +469,8 @@
 
 :global(.projects-crt) {
   width: 100%;
-  height: calc(46vh - 46px);
-  min-height: 286px;
+  height: min(610px, calc(100vh - 120px));
+  min-height: 460px;
   border: 0;
   background: #252525;
   padding: 24px 24px 62px;
@@ -490,7 +490,7 @@
 :global(.projects-crt-screen) {
   position: relative;
   height: 100%;
-  min-height: 190px;
+  min-height: 310px;
   overflow: hidden;
   border: 8px solid #0b0b0b;
   border-radius: 18px;

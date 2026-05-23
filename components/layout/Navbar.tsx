@@ -11,19 +11,15 @@
  * 2. ACTIVE STATE: lime underline animates scaleX 0→1 on the active link.
  *    Driven by IntersectionObserver on data-section elements (same as dots).
  *
- * 3. HIDE ON SCROLL DOWN / SHOW ON SCROLL UP:
- *    Navbar translates Y 0 → -100% when scrolling down > 50px/frame,
- *    snaps back on any upward scroll. Uses requestAnimationFrame velocity.
- *
- * 4. BACKGROUND SNAP: transparent for first 60px of scroll, then snaps to
+ * 3. BACKGROUND SNAP: transparent for first 60px of scroll, then snaps to
  *    #F0EBE0 + border. No transition — brutalist snap.
  *
- * 5. Logo click scrolls to top smoothly.
+ * 4. Logo click scrolls to top smoothly.
  *
- * 6. Mobile hamburger opens a full-screen overlay nav (matches brutalist style).
+ * 5. Mobile hamburger opens a full-screen overlay nav (matches brutalist style).
  */
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { easings } from "@/lib/motion";
 
@@ -37,42 +33,19 @@ const SECTIONS = ["hero", "about", "skills", "experience", "contact"];
 
 export default function Navbar() {
   // ── State ──────────────────────────────────────────────────────────────
-  const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const lastScrollY = useRef(0);
-  const rafRef = useRef<number | null>(null);
-
-  // ── Scroll velocity: hide/show + bg snap ──────────────────────────────
+  // ── Scroll state: background snap only ────────────────────────────────
   useEffect(() => {
     const onScroll = () => {
-      if (rafRef.current) return; // throttle to rAF
-      rafRef.current = requestAnimationFrame(() => {
-        const y = window.scrollY;
-        const delta = y - lastScrollY.current;
-
-        // Hide on scroll down (only after 120px so hero entry is clean)
-        if (y > 120) {
-          if (delta > 6) setHidden(true);
-          else if (delta < -2) setHidden(false);
-        } else {
-          setHidden(false);
-        }
-
-        // Background snap at 60px
-        setScrolled(y > 60);
-
-        lastScrollY.current = y;
-        rafRef.current = null;
-      });
+      setScrolled(window.scrollY > 60);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
@@ -136,8 +109,6 @@ export default function Navbar() {
           pointerEvents: "none",
           // No CSS transition on bg — brutalist snap
         }}
-        animate={{ y: hidden ? "-100%" : "0%" }}
-        transition={{ duration: 0.22, ease: easings.editorial }}
       >
         {/* ── Logo ──────────────────────────────────────────────────────── */}
         <motion.button

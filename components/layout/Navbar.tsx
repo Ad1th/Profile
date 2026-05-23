@@ -1,38 +1,378 @@
 "use client";
 
+/**
+ * Navbar.tsx  (fully wired)
+ *
+ * Features added:
+ * ─────────────────────────────────────────────────────────────────────────────
+ * 1. SCROLL-TO-SECTION: each link scrolls to [data-section] element smoothly.
+ *    Map: WORK → skills, ABOUT → about, CONTACT → contact
+ *
+ * 2. ACTIVE STATE: lime underline animates scaleX 0→1 on the active link.
+ *    Driven by IntersectionObserver on data-section elements (same as dots).
+ *
+ * 3. HIDE ON SCROLL DOWN / SHOW ON SCROLL UP:
+ *    Navbar translates Y 0 → -100% when scrolling down > 50px/frame,
+ *    snaps back on any upward scroll. Uses requestAnimationFrame velocity.
+ *
+ * 4. BACKGROUND SNAP: transparent for first 60px of scroll, then snaps to
+ *    #F0EBE0 + border. No transition — brutalist snap.
+ *
+ * 5. Logo click scrolls to top smoothly.
+ *
+ * 6. Mobile hamburger opens a full-screen overlay nav (matches brutalist style).
+ */
+
+import { useEffect, useRef, useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { easings } from "@/lib/motion";
+
+const NAV_LINKS: { label: string; section: string }[] = [
+  { label: "WORK", section: "skills" },
+  { label: "ABOUT", section: "about" },
+  { label: "CONTACT", section: "contact" },
+];
+
+const SECTIONS = ["hero", "about", "skills", "experience", "contact"];
+
 export default function Navbar() {
-  const links = ["WORK", "ABOUT", "CONTACT"];
+  // ── State ──────────────────────────────────────────────────────────────
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("hero");
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const lastScrollY = useRef(0);
+  const rafRef = useRef<number | null>(null);
+
+  // ── Scroll velocity: hide/show + bg snap ──────────────────────────────
+  useEffect(() => {
+    const onScroll = () => {
+      if (rafRef.current) return; // throttle to rAF
+      rafRef.current = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const delta = y - lastScrollY.current;
+
+        // Hide on scroll down (only after 120px so hero entry is clean)
+        if (y > 120) {
+          if (delta > 6) setHidden(true);
+          else if (delta < -2) setHidden(false);
+        } else {
+          setHidden(false);
+        }
+
+        // Background snap at 60px
+        setScrolled(y > 60);
+
+        lastScrollY.current = y;
+        rafRef.current = null;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  // ── Active section via IntersectionObserver ────────────────────────────
+  useEffect(() => {
+    const els = SECTIONS.map((id) =>
+      document.querySelector(`[data-section="${id}"]`),
+    ).filter(Boolean) as Element[];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("data-section");
+            if (id) setActiveSection(id);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -40% 0px", threshold: 0 },
+    );
+
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // ── Scroll to section ──────────────────────────────────────────────────
+  const scrollTo = useCallback((section: string) => {
+    const el = document.querySelector(`[data-section="${section}"]`);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      setMobileOpen(false);
+    }
+  }, []);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setMobileOpen(false);
+  }, []);
+
+  // ── Derived: which nav link is "active" ───────────────────────────────
+  const getActiveLinkSection = () => {
+    if (activeSection === "skills") return "skills";
+    if (activeSection === "about") return "about";
+    if (activeSection === "contact") return "contact";
+    return null;
+  };
+  const activeLinkSection = getActiveLinkSection();
+
+  // ── Background style (brutalist snap — no transition) ─────────────────
+  const navBg = scrolled ? "#F0EBE0" : "transparent";
+  const navBorder = scrolled ? "3px solid #111" : "3px solid transparent";
 
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 flex h-[56px] items-center justify-between border-b-[3px] border-[#111] bg-[#F0EBE0] px-[12px] pointer-events-none md:px-[16px]">
-      <div className="pointer-events-auto flex items-center gap-[12px]">
-        <div className="flex h-[36px] w-[36px] items-center justify-center border-[3px] border-[#111] bg-[#F45113] shadow-[3px_3px_0_#111] md:h-[40px] md:w-[40px]">
-          <span className="pt-[1px] font-archivo text-[20px] font-[900] leading-none tracking-[-0.08em] text-[#111] md:text-[22px]">
-            A.
-          </span>
-        </div>
-      </div>
-
-      <div className="pointer-events-auto hidden items-center gap-[20px] md:flex">
-        {links.map((link) => (
-          <a
-            key={link}
-            href={`#${link.toLowerCase()}`}
-            className="font-archivo text-[14px] font-[900] uppercase leading-none tracking-[-0.04em] text-[#111] transition-opacity duration-200 hover:opacity-50"
+    <>
+      {/* ── MAIN NAVBAR ─────────────────────────────────────────────────── */}
+      <motion.nav
+        className="fixed left-0 right-0 top-0 z-[100] flex h-[56px] items-center justify-between px-[12px] md:px-[16px]"
+        style={{
+          background: navBg,
+          borderBottom: navBorder,
+          pointerEvents: "none",
+          // No CSS transition on bg — brutalist snap
+        }}
+        animate={{ y: hidden ? "-100%" : "0%" }}
+        transition={{ duration: 0.22, ease: easings.editorial }}
+      >
+        {/* ── Logo ──────────────────────────────────────────────────────── */}
+        <motion.button
+          className="pointer-events-auto flex items-center gap-[12px] outline-none cursor-pointer"
+          onClick={scrollToTop}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.96 }}
+          transition={{ duration: 0.14 }}
+          aria-label="Scroll to top"
+        >
+          <div
+            className="flex h-[36px] w-[36px] items-center justify-center border-[3px] border-[#111] bg-[#F45113] md:h-[40px] md:w-[40px]"
+            style={{ boxShadow: "3px 3px 0 #111" }}
           >
-            {link}
-          </a>
-        ))}
-        <span className="h-[18px] w-[2px] bg-[#111]" />
-        <div className="grid h-[28px] w-[28px] grid-cols-3 place-items-center bg-[#111] p-[5px]">
-          {Array.from({ length: 9 }).map((_, i) => (
             <span
-              key={i}
-              className="h-[2px] w-[2px] rounded-full bg-[#EEE7DC]"
-            />
-          ))}
+              className="pt-[1px] font-archivo text-[20px] font-[900] leading-none tracking-[-0.08em] text-[#111] md:text-[22px]"
+              style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+            >
+              A.
+            </span>
+          </div>
+        </motion.button>
+
+        {/* ── Desktop links ─────────────────────────────────────────────── */}
+        <div className="pointer-events-auto hidden items-center gap-[28px] md:flex">
+          {NAV_LINKS.map(({ label, section }) => {
+            const isActive = activeLinkSection === section;
+            return (
+              <button
+                key={label}
+                onClick={() => scrollTo(section)}
+                className="relative outline-none cursor-pointer"
+                aria-current={isActive ? "page" : undefined}
+                style={{
+                  fontFamily: "var(--font-archivo), sans-serif",
+                  fontSize: 14,
+                  fontWeight: 900,
+                  letterSpacing: "-0.04em",
+                  textTransform: "uppercase",
+                  color: "#111",
+                  background: "none",
+                  border: "none",
+                  padding: "4px 0",
+                  lineHeight: 1,
+                }}
+              >
+                <span
+                  style={{
+                    opacity: isActive ? 1 : 0.72,
+                    transition: "opacity 0.18s",
+                  }}
+                >
+                  {label}
+                </span>
+
+                {/* Lime underline — draws in on active */}
+                <motion.div
+                  style={{
+                    position: "absolute",
+                    bottom: -2,
+                    left: 0,
+                    right: 0,
+                    height: 2,
+                    background: "#CFDE00",
+                    originX: 0,
+                  }}
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: isActive ? 1 : 0 }}
+                  transition={{ duration: 0.24, ease: easings.primary }}
+                />
+              </button>
+            );
+          })}
+
+          <span className="h-[18px] w-[2px] bg-[#111]" />
+
+          {/* Grid icon — acts as hamburger hint on desktop */}
+          <button
+            className="outline-none cursor-pointer"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label="Open menu"
+            style={{ background: "none", border: "none", padding: 0 }}
+          >
+            <div
+              className="grid h-[28px] w-[28px] grid-cols-3 place-items-center bg-[#111] p-[5px]"
+              style={{ transition: "opacity 0.15s" }}
+            >
+              {Array.from({ length: 9 }).map((_, i) => (
+                <span
+                  key={i}
+                  className="h-[2px] w-[2px] rounded-full bg-[#EEE7DC]"
+                />
+              ))}
+            </div>
+          </button>
         </div>
-      </div>
-    </nav>
+
+        {/* ── Mobile hamburger ──────────────────────────────────────────── */}
+        <button
+          className="pointer-events-auto flex md:hidden items-center justify-center outline-none cursor-pointer"
+          onClick={() => setMobileOpen((o) => !o)}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          style={{ background: "none", border: "none", padding: 4 }}
+        >
+          <div
+            style={{
+              width: 28,
+              display: "flex",
+              flexDirection: "column",
+              gap: 5,
+            }}
+          >
+            <motion.div
+              style={{
+                height: 2.5,
+                background: "#111",
+                transformOrigin: "center",
+              }}
+              animate={
+                mobileOpen ? { rotate: 45, y: 7.5 } : { rotate: 0, y: 0 }
+              }
+              transition={{ duration: 0.2 }}
+            />
+            <motion.div
+              style={{ height: 2.5, background: "#111" }}
+              animate={
+                mobileOpen
+                  ? { opacity: 0, scaleX: 0 }
+                  : { opacity: 1, scaleX: 1 }
+              }
+              transition={{ duration: 0.15 }}
+            />
+            <motion.div
+              style={{
+                height: 2.5,
+                background: "#111",
+                transformOrigin: "center",
+              }}
+              animate={
+                mobileOpen ? { rotate: -45, y: -7.5 } : { rotate: 0, y: 0 }
+              }
+              transition={{ duration: 0.2 }}
+            />
+          </div>
+        </button>
+      </motion.nav>
+
+      {/* ── MOBILE / FULL-SCREEN OVERLAY MENU ──────────────────────────── */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            className="fixed inset-0 z-[99] flex flex-col"
+            style={{
+              background: "#111",
+              paddingTop: 80,
+              paddingLeft: 32,
+              paddingRight: 32,
+            }}
+            initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
+            animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+            exit={{ clipPath: "inset(0% 0% 100% 0%)" }}
+            transition={{ duration: 0.38, ease: easings.primary }}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="absolute top-4 right-4 outline-none cursor-pointer"
+              style={{
+                background: "none",
+                border: "none",
+                fontFamily: "var(--font-archivo), sans-serif",
+                fontSize: 28,
+                fontWeight: 900,
+                color: "#F0EBE0",
+                lineHeight: 1,
+                padding: 8,
+              }}
+              aria-label="Close menu"
+            >
+              ✕
+            </button>
+
+            {/* Links */}
+            <nav className="flex flex-col" style={{ gap: 4 }}>
+              {NAV_LINKS.map(({ label, section }, i) => (
+                <motion.button
+                  key={label}
+                  onClick={() => scrollTo(section)}
+                  className="outline-none cursor-pointer text-left"
+                  style={{
+                    background: "none",
+                    border: "none",
+                    borderBottom: "2px solid #222",
+                    paddingTop: 28,
+                    paddingBottom: 28,
+                    fontFamily: "var(--font-anton), 'Arial Black', sans-serif",
+                    fontSize: "clamp(52px, 14vw, 88px)",
+                    fontWeight: 400,
+                    letterSpacing: "-0.03em",
+                    lineHeight: 0.9,
+                    textTransform: "uppercase",
+                    color:
+                      activeLinkSection === section ? "#CFDE00" : "#F0EBE0",
+                  }}
+                  initial={{ x: -40, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{
+                    duration: 0.3,
+                    delay: i * 0.08,
+                    ease: easings.primary,
+                  }}
+                  whileHover={{ x: 12, color: "#CFDE00" } as any}
+                >
+                  {label}
+                </motion.button>
+              ))}
+            </nav>
+
+            {/* Footer */}
+            <div
+              style={{
+                marginTop: "auto",
+                paddingBottom: 40,
+                fontFamily: "monospace",
+                fontSize: 11,
+                fontWeight: 700,
+                color: "#555",
+                letterSpacing: "0.1em",
+              }}
+            >
+              VIT VELLORE — BACKEND SYSTEMS — 2026
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

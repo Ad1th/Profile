@@ -148,7 +148,7 @@ export default function Experience() {
         className="relative mx-auto"
         style={{
           width: "min(100%, 1680px)",
-          padding: "56px 24px 64px 24px",
+          padding: "75px 24px 64px 24px",
         }}
       >
         {/* ── TOP ROW: Header left, System Log right ─── */}
@@ -180,7 +180,7 @@ export default function Experience() {
             style={{
               width: 480,
               left: "calc(50% - 190px)",
-              top: -690,
+              top: -660,
             }}
           />
 
@@ -200,7 +200,7 @@ export default function Experience() {
             style={{
               width: 450,
               left: "calc(50% - 145px)",
-              top: -220,
+              top: -200,
             }}
           />
 

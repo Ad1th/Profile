@@ -107,12 +107,15 @@ export default function Experience() {
 
       gsap.set(".experience-node", { y: 18, autoAlpha: 0, scale: 0.9 });
 
+      const heapX = Math.min(window.innerWidth * 0.42, 540);
+      const heapY = Math.min(window.innerHeight * 0.34, 340);
+
       gsap.set(".experience-card-once", (i) => ({
-        x: gsap.utils.random(-160, 160),
-        y: gsap.utils.random(-120, 120),
-        rotation: gsap.utils.random(-32, 32),
-        scale: gsap.utils.random(0.9, 1.05),
-        autoAlpha: 0,
+        x: gsap.utils.random(-heapX, heapX),
+        y: gsap.utils.random(-heapY, heapY),
+        rotation: gsap.utils.random(-42, 42),
+        scale: gsap.utils.random(0.86, 1.06),
+        autoAlpha: 1,
         transformOrigin: "50% 50%",
       }));
 
@@ -126,8 +129,8 @@ export default function Experience() {
       )
         .to(
           ".experience-rail",
-          { autoAlpha: 1, scaleX: 1, duration: 0.6, ease: "power2.inOut" },
-          0.08,
+          { autoAlpha: 1, scaleX: 1, duration: 1.05, ease: "power2.inOut" },
+          0.1,
         )
         .to(
           ".experience-card-once",
@@ -140,11 +143,11 @@ export default function Experience() {
             },
             scale: 1,
             autoAlpha: 1,
-            stagger: { each: 0.12, from: "random" },
-            duration: 0.9,
-            ease: "back.out(1.6)",
+            stagger: { each: 0.22, from: "random" },
+            duration: 1.15,
+            ease: "back.out(1.4)",
           },
-          0.24,
+          0.42,
         )
         .to(
           ".experience-node",
@@ -152,20 +155,20 @@ export default function Experience() {
             y: 0,
             autoAlpha: 1,
             scale: 1,
-            stagger: 0.12,
-            duration: 0.36,
-            ease: "back.out(1.7)",
+            stagger: 0.18,
+            duration: 0.56,
+            ease: "back.out(1.6)",
           },
-          0.42,
+          0.7,
         );
 
       // ScrollTrigger: play the prepared timeline when section enters view.
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: "top 65%",
+        start: "top 55%",
         onEnter: () => {
-          // a longer delay so the animation starts after the section settles in
-          gsap.delayedCall(0.85, () => tl.play());
+          // hold the scrambled heap on screen longer before the transition starts
+          gsap.delayedCall(1.6, () => tl.play());
         },
         once: true,
       });

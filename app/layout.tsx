@@ -18,8 +18,7 @@ const anton = Anton({
 export const metadata = {
   title: "Adith Manikonda",
   description:
-    "Personal portfolio website of Adith Manikonda, an Engineering Freshman at VIT",
-  generator: "v0.dev",
+    "Personal portfolio website of Adith Manikonda, a pre-final CS major at VIT",
 };
 
 export default function RootLayout({

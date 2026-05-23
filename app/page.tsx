@@ -3,16 +3,9 @@
 /**
  * app/page.tsx
  *
- * DESKTOP (>1180px) — 3 chained sticky containers, zero gaps:
- *
- *   HeroAboutTransition       (300vh) — Hero clips away upward, About enters
- *   AboutSkillsTransition     (300vh) — About collapses, shutter, Skills boots
- *   SkillsExperienceTransition(300vh) — Skills rows scatter, void fades out
- *   <Experience />            (normal flow) — revealed as void fades
- *
- * Each container is 300vh. The sticky inside locks to 100vh.
- * When a container's scroll space is exhausted the sticky releases immediately
- * and the next container's sticky locks — ZERO gap between sections.
+ * DESKTOP (>1180px):
+ *   One pinned cinematic timeline owns Hero → About → Skills → Experience.
+ *   Each section is rendered once, as a layer in the same sticky viewport.
  *
  * MOBILE/TABLET (<= 1180px):
  *   All sections render independently with whileInView animations.
@@ -20,9 +13,7 @@
 
 import { useEffect, useState } from "react";
 import Navbar from "@/components/layout/Navbar";
-import HeroAboutTransition from "@/components/HeroAboutTransition";
-import AboutSkillsTransition from "@/components/AboutSkillsTransition";
-import SkillsExperienceTransition from "@/components/SkillsExperienceTransition";
+import DesktopCinematicTransition from "@/components/DesktopCinematicTransition";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
 import Skills from "@/components/sections/skills/Skills";
@@ -51,23 +42,7 @@ export default function Page() {
       <Navbar />
 
       {isDesktop ? (
-        <>
-          {/* 1. Hero → About (300vh) */}
-          <HeroAboutTransition />
-
-          {/* 2. About → Skills (300vh)
-              About layer starts fully visible (continuing from above).
-              Skills layer underneath boots up as shutter lifts. */}
-          <AboutSkillsTransition />
-
-          {/* 3. Skills → Experience (300vh)
-              Skills rows scatter to corners. Void fades in then out.
-              Experience is in normal flow below — revealed as void fades. */}
-          <SkillsExperienceTransition />
-
-          {/* Experience is rendered inside SkillsExperienceTransition on desktop
-              so the reveal happens in the same pinned viewport with no flow gap. */}
-        </>
+        <DesktopCinematicTransition />
       ) : (
         <>
           <div data-section="hero">

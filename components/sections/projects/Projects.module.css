@@ -6,15 +6,15 @@
   background:
     radial-gradient(
       circle at 20% 14%,
-      rgba(232, 66, 10, 0.08),
+      rgba(214, 200, 223, 0.02),
       transparent 22%
     ),
     radial-gradient(
       circle at 78% 20%,
-      rgba(108, 142, 173, 0.12),
+      rgba(137, 184, 224, 0.02),
       transparent 24%
     ),
-    #f6f1e8;
+    #f2ede5;
   color: #111;
   border-top: 5px solid #111;
 }
@@ -61,7 +61,7 @@
 :global(.projects-mark) {
   position: absolute;
   z-index: 2;
-  color: rgba(17, 17, 17, 0.68);
+  color: rgba(85, 56, 50, 0.7); /* chocolate plum */
   font-family: "Comic Sans MS", "Bradley Hand", cursive;
   font-size: 16px;
   line-height: 1.15;
@@ -203,7 +203,10 @@
   color: #111;
   text-align: left;
   cursor: pointer;
-  box-shadow: 10px 12px 0 rgba(17, 17, 17, 0.68);
+  box-shadow:
+    0 6px 0 #000,
+    0 12px 0 rgba(0, 0, 0, 0.25),
+    0 18px 20px rgba(0, 0, 0, 0.15);
   transform-origin: 50% 80%;
   transition: box-shadow 180ms ease;
   animation: projects-paper-breathe 4.5s ease-in-out infinite;
@@ -219,16 +222,16 @@
 }
 
 :global(.projects-paper--orange) {
-  background: #e85a1a;
+  background: #d66a3b; /* Burnt Orange */
 }
 :global(.projects-paper--blue) {
-  background: #4a83d9;
+  background: #89b8e0; /* Muted Blueprint Blue */
 }
 :global(.projects-paper--white) {
   background: #f0ebe0;
 }
 :global(.projects-paper--yellow) {
-  background: #cfde00;
+  background: #c8d45a; /* Muted Chartreuse */
 }
 
 :global(.projects-paper--scotland) {
@@ -349,7 +352,7 @@
   left: 92px;
   width: 90px;
   height: 24px;
-  background: rgba(195, 178, 133, 0.62);
+  background: #d8c9a6; /* paper tape */
   border-left: 1px solid rgba(17, 17, 17, 0.16);
   border-right: 1px solid rgba(17, 17, 17, 0.16);
   transform: rotate(3deg);

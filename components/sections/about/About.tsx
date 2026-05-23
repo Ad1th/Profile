@@ -8,7 +8,7 @@
  * 1. `data-section="about"` added to the outer <section> element so
  *    ScrollProgressDots can observe it via IntersectionObserver.
  *    NOTE: In cinematic (desktop) mode the data-section is applied by
- *    HeroAboutTransition directly on its wrapper div — this attribute
+ *    DesktopCinematicTransition directly on its timeline markers — this attribute
  *    here is the fallback for standalone/mobile/tablet modes.
  *
  * 2. No other logic changes — all animation props, viewportTransition
@@ -91,7 +91,7 @@ export default function About({
 
   return (
     // data-section="about" — used by ScrollProgressDots in standalone mode.
-    // In cinematic desktop mode HeroAboutTransition adds data-section to its own div.
+    // In cinematic desktop mode DesktopCinematicTransition owns the timeline markers.
     <section
       data-section="about"
       className="relative w-full overflow-hidden bg-transparent"

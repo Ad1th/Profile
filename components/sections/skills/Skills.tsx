@@ -4,8 +4,8 @@
  * Skills.tsx
  *
  * Standalone version — used on mobile/tablet only.
- * On desktop, Skills is rendered inside AboutSkillsTransition and
- * SkillsExperienceTransition directly. This component is NOT used on desktop.
+ * On desktop, Skills is rendered inside DesktopCinematicTransition directly.
+ * This component is NOT used on desktop.
  *
  * Uses whileInView for all animations (works correctly in normal document flow).
  */

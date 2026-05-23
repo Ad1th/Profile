@@ -6,10 +6,10 @@
  * Changes from original:
  * ─────────────────────────────────────────────────────────────────────────────
  * 1. `transitionProgress` MotionValue removed from internal usage —
- *    HeroAboutTransition drives all scroll-linked values externally now.
+ *    DesktopCinematicTransition drives all scroll-linked values externally now.
  *
  * 2. New props surface for the headline words, portrait, and ticker so
- *    HeroAboutTransition can pass pre-derived MotionValues directly:
+ *    DesktopCinematicTransition can pass pre-derived MotionValues directly:
  *      • backendStyle, withStyle, tasteStyle   → HeroHeadline
  *      • imageScale, imageY                    → HeroPortrait (panelStyle)
  *      • stickerRotate, stickerX               → HeroPortrait (stickerStyle)
@@ -18,15 +18,15 @@
  *      • suppressTicker                        → hides internal ticker
  *        (used when StickyTicker is global)
  *
- * 3. data-section="hero" moved to HeroAboutTransition wrapper — this file
+ * 3. data-section="hero" moved to the desktop timeline wrapper — this file
  *    no longer needs it.
  *
  * 4. Tablet / Mobile variants are UNCHANGED and still self-animate on mount.
- *    They are never wrapped by HeroAboutTransition.
+ *    They are never wrapped by DesktopCinematicTransition.
  *
  * 5. Internal `useScroll` + `useTransform` on `transitionProgress` removed
  *    from HeroDesktop — the fallback values it produced are now replaced by
- *    the real external props flowing in from HeroAboutTransition.
+ *    the real external props flowing in from DesktopCinematicTransition.
  *    When no external props are provided (standalone usage) the component
  *    falls back gracefully: all MotionStyle props are simply undefined, which
  *    Framer Motion ignores cleanly.
@@ -45,18 +45,18 @@ interface HeroDesktopExternalProps {
   /** Suppress the internal orange ticker (use StickyTicker globally instead). */
   suppressTicker?: boolean;
 
-  // Headline word-level MotionStyle overrides (from HeroAboutTransition)
+  // Headline word-level MotionStyle overrides (from DesktopCinematicTransition)
   backendStyle?: MotionStyle;
   withStyle?: MotionStyle;
   tasteStyle?: MotionStyle;
 
-  // Portrait panel transforms (from HeroAboutTransition)
+  // Portrait panel transforms (from DesktopCinematicTransition)
   imageScale?: MotionValue<number>;
   imageY?: MotionValue<number>;
   stickerRotate?: MotionValue<number>;
   stickerX?: MotionValue<number>;
 
-  // Marquee ticker controls (from HeroAboutTransition)
+  // Marquee ticker controls (from DesktopCinematicTransition)
   marqueeOpacity?: MotionValue<number>;
   marqueeFilter?: MotionValue<string>;
   marqueeDuration?: MotionValue<string>;

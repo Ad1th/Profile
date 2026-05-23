@@ -162,10 +162,10 @@ export default function Experience() {
       // ScrollTrigger: play the prepared timeline when section enters view.
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: "top 75%",
+        start: "top 58%",
         onEnter: () => {
-          // small cooked delay so the heap lingers briefly
-          gsap.delayedCall(0.35, () => tl.play());
+          // a longer delay so the animation starts after the section settles in
+          gsap.delayedCall(0.85, () => tl.play());
         },
         once: true,
       });

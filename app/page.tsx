@@ -1,61 +1,35 @@
-/**
- * app/page.tsx  — integration snippet
- *
- * This shows exactly how to wire HeroAboutTransition, Skills,
- * ScrollProgressDots, and StickyTicker together in your root page.
- *
- * ─────────────────────────────────────────────────────────────────────────────
- * STRUCTURE
- * ─────────────────────────────────────────────────────────────────────────────
- *
- *  <Navbar />                          ← existing, unchanged
- *
- *  [Desktop only: HeroAboutTransition] ← renders Hero + About as one cinematic
- *  [Tablet/Mobile: <Hero /> + <About>] ← standalone fallback
- *
- *  <Skills />                          ← updated with scan-line + stagger
- *  <Experience />                      ← unchanged (add data-section="experience")
- *  <Contact />                         ← unchanged
- *
- *  <ScrollProgressDots />              ← fixed right-edge 4-dot indicator
- *  <StickyTicker />                    ← fixed bottom orange ticker
- *
- * ─────────────────────────────────────────────────────────────────────────────
- * NOTES
- * ─────────────────────────────────────────────────────────────────────────────
- * • The `pb-[48px]` on the main wrapper ensures the last section's content
- *   is not hidden behind the sticky ticker (44px height + 4px border).
- *
- * • HeroAboutTransition is conditionally rendered only on desktop (>1180px).
- *   The useIsDesktop hook is a simple window.innerWidth check (SSR-safe).
- *
- * • On tablet/portrait/mobile, Hero and About render independently with their
- *   own whileInView animations — no cinematic wipe.
- *
- * • data-section attributes on each section are required for ScrollProgressDots.
- *   HeroAboutTransition already adds data-section="hero" and data-section="about"
- *   on its own wrapper divs. On mobile/tablet you need them on <Hero> and <About>.
- *   The updated About.tsx adds data-section="about" to its <section>.
- *   For Hero on mobile/tablet wrap it: <div data-section="hero"><Hero /></div>
- *
- * • Experience.tsx needs data-section="experience" on its outer <section>
- *   (one-line change, not included in this diff).
- */
-
 "use client";
+
+/**
+ * app/page.tsx
+ *
+ * DESKTOP (>1180px) — 3 chained sticky containers, zero gaps:
+ *
+ *   HeroAboutTransition       (300vh) — Hero clips away upward, About enters
+ *   AboutSkillsTransition     (300vh) — About collapses, shutter, Skills boots
+ *   SkillsExperienceTransition(300vh) — Skills rows scatter, void fades out
+ *   <Experience />            (normal flow) — revealed as void fades
+ *
+ * Each container is 300vh. The sticky inside locks to 100vh.
+ * When a container's scroll space is exhausted the sticky releases immediately
+ * and the next container's sticky locks — ZERO gap between sections.
+ *
+ * MOBILE/TABLET (<= 1180px):
+ *   All sections render independently with whileInView animations.
+ */
 
 import { useEffect, useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import HeroAboutTransition from "@/components/HeroAboutTransition";
+import AboutSkillsTransition from "@/components/AboutSkillsTransition";
+import SkillsExperienceTransition from "@/components/SkillsExperienceTransition";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
 import Skills from "@/components/sections/skills/Skills";
 import Experience from "@/components/sections/experience/Experience";
-// import Contact from "@/components/Contact";
 import ScrollProgressDots from "@/components/ui/ScrollProgressDots";
 import StickyTicker from "@/components/ui/StickyTicker";
 
-// SSR-safe desktop check — runs only on client after hydration
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
@@ -76,41 +50,39 @@ export default function Page() {
     <>
       <Navbar />
 
-      {/* ── HERO + ABOUT ───────────────────────────────────────────────── */}
       {isDesktop ? (
-        // Desktop: cinematic scroll-driven wipe between Hero and About
-        <HeroAboutTransition />
+        <>
+          {/* 1. Hero → About (300vh) */}
+          <HeroAboutTransition />
+
+          {/* 2. About → Skills (300vh)
+              About layer starts fully visible (continuing from above).
+              Skills layer underneath boots up as shutter lifts. */}
+          <AboutSkillsTransition />
+
+          {/* 3. Skills → Experience (300vh)
+              Skills rows scatter to corners. Void fades in then out.
+              Experience is in normal flow below — revealed as void fades. */}
+          <SkillsExperienceTransition />
+
+          {/* Experience is rendered inside SkillsExperienceTransition on desktop
+              so the reveal happens in the same pinned viewport with no flow gap. */}
+        </>
       ) : (
-        // Tablet / Mobile: independent sections with their own mount animations
         <>
           <div data-section="hero">
             <Hero />
           </div>
           <About />
-          {/* About.tsx already has data-section="about" on its <section> */}
+          <Skills />
+          <Experience />
         </>
       )}
 
-      {/* ── SKILLS ─────────────────────────────────────────────────────── */}
-      {/* Skills.tsx has data-section="skills" on its <section> */}
-      <Skills />
+      {/* Spacer so last section clears StickyTicker (44px + 4px border) */}
+      <div style={{ paddingBottom: 48 }} />
 
-      {/* ── EXPERIENCE ─────────────────────────────────────────────────── */}
-      {/* Add data-section="experience" to Experience's outer <section> tag */}
-      <Experience />
-
-      {/* ── CONTACT ────────────────────────────────────────────────────── */}
-      {/* pb-[48px] pads away from StickyTicker (44px + 4px border) */}
-      {/* <div className="pb-[48px]">
-        <Contact />
-      </div> */}
-
-      {/* ── GLOBAL OVERLAY COMPONENTS ──────────────────────────────────── */}
-
-      {/* Fixed 4-dot right-edge section progress indicator */}
       <ScrollProgressDots sections={SECTIONS} />
-
-      {/* Fixed bottom orange brand ticker — always visible, dims when idle */}
       <StickyTicker />
     </>
   );

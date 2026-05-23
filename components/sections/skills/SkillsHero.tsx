@@ -102,9 +102,15 @@ interface SkillsHeroProps {
   transitionProgress?: MotionValue<number>;
   /** When true, animate language dots in one-by-one. */
   animateDots?: boolean;
+  /** When standalone=false, drives animations directly instead of whileInView. */
+  isVisible?: boolean;
 }
 
-export default function SkillsHero({ standalone, animateDots = false }: SkillsHeroProps) {
+export default function SkillsHero({
+  standalone,
+  animateDots = false,
+  isVisible = true,
+}: SkillsHeroProps) {
   return (
     <div
       className="relative grid"
@@ -129,8 +135,12 @@ export default function SkillsHero({ standalone, animateDots = false }: SkillsHe
           className="flex items-center gap-2"
           style={{ marginBottom: 20 }}
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-10%" }}
+          {...(standalone
+            ? {
+                whileInView: { opacity: 1 },
+                viewport: { once: true, margin: "-10%" },
+              }
+            : { animate: isVisible ? { opacity: 1 } : { opacity: 0 } })}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
           <span
@@ -160,8 +170,16 @@ export default function SkillsHero({ standalone, animateDots = false }: SkillsHe
                   marginBottom: i === headlineLines.length - 1 ? 20 : 0,
                 }}
                 initial={{ y: 48, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true, margin: "-10%" }}
+                {...(standalone
+                  ? {
+                      whileInView: { y: 0, opacity: 1 },
+                      viewport: { once: true, margin: "-10%" },
+                    }
+                  : {
+                      animate: isVisible
+                        ? { y: 0, opacity: 1 }
+                        : { y: 48, opacity: 0 },
+                    })}
                 transition={{
                   duration: 0.6,
                   delay: 0.22 + i * 0.12,
@@ -177,8 +195,12 @@ export default function SkillsHero({ standalone, animateDots = false }: SkillsHe
         <motion.div
           style={{ width: 40, height: 3, background: "#CFDE00", marginTop: 8 }}
           initial={{ scaleX: 0, originX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true, margin: "-10%" }}
+          {...(standalone
+            ? {
+                whileInView: { scaleX: 1 },
+                viewport: { once: true, margin: "-10%" },
+              }
+            : { animate: isVisible ? { scaleX: 1 } : { scaleX: 0 } })}
           transition={{ duration: 0.4, delay: 0.58 }}
         />
       </div>
@@ -204,8 +226,16 @@ export default function SkillsHero({ standalone, animateDots = false }: SkillsHe
             maxWidth: 280,
           }}
           initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
+          {...(standalone
+            ? {
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true, margin: "-10%" },
+              }
+            : {
+                animate: isVisible
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 0, y: 16 },
+              })}
           transition={{ duration: 0.55, delay: 0.36, ease: easings.primary }}
         >
           I work across the stack
@@ -220,16 +250,33 @@ export default function SkillsHero({ standalone, animateDots = false }: SkillsHe
         <motion.div
           style={{ width: 48, height: 3, background: "#CFDE00", marginTop: 32 }}
           initial={{ scaleX: 0, originX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true, margin: "-10%" }}
+          {...(standalone
+            ? {
+                whileInView: { scaleX: 1 },
+                viewport: { once: true, margin: "-10%" },
+              }
+            : { animate: isVisible ? { scaleX: 1 } : { scaleX: 0 } })}
           transition={{ duration: 0.35, delay: 0.54 }}
         />
 
         <motion.div
-          style={{ width: 12, height: 12, background: "#E8420A", marginTop: 20 }}
+          style={{
+            width: 12,
+            height: 12,
+            background: "#E8420A",
+            marginTop: 20,
+          }}
           initial={{ opacity: 0, scale: 0 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-10%" }}
+          {...(standalone
+            ? {
+                whileInView: { opacity: 1, scale: 1 },
+                viewport: { once: true, margin: "-10%" },
+              }
+            : {
+                animate: isVisible
+                  ? { opacity: 1, scale: 1 }
+                  : { opacity: 0, scale: 0 },
+              })}
           transition={{ duration: 0.2, delay: 0.62 }}
         />
       </div>
@@ -246,12 +293,48 @@ export default function SkillsHero({ standalone, animateDots = false }: SkillsHe
       >
         {/* Corner brackets */}
         <div className="absolute" style={{ top: 20, left: 20 }}>
-          <div style={{ width: 20, height: 3, background: "#555", position: "absolute", top: 0, left: 0 }} />
-          <div style={{ width: 3, height: 20, background: "#555", position: "absolute", top: 0, left: 0 }} />
+          <div
+            style={{
+              width: 20,
+              height: 3,
+              background: "#555",
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
+          />
+          <div
+            style={{
+              width: 3,
+              height: 20,
+              background: "#555",
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
+          />
         </div>
         <div className="absolute" style={{ bottom: 20, left: 20 }}>
-          <div style={{ width: 20, height: 3, background: "#555", position: "absolute", bottom: 0, left: 0 }} />
-          <div style={{ width: 3, height: 20, background: "#555", position: "absolute", bottom: 0, left: 0 }} />
+          <div
+            style={{
+              width: 20,
+              height: 3,
+              background: "#555",
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+            }}
+          />
+          <div
+            style={{
+              width: 3,
+              height: 20,
+              background: "#555",
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+            }}
+          />
         </div>
 
         <motion.div
@@ -264,8 +347,12 @@ export default function SkillsHero({ standalone, animateDots = false }: SkillsHe
             marginBottom: 20,
           }}
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-10%" }}
+          {...(standalone
+            ? {
+                whileInView: { opacity: 1 },
+                viewport: { once: true, margin: "-10%" },
+              }
+            : { animate: isVisible ? { opacity: 1 } : { opacity: 0 } })}
           transition={{ duration: 0.3, delay: 0.2 }}
         >
           LANGUAGES
@@ -278,8 +365,16 @@ export default function SkillsHero({ standalone, animateDots = false }: SkillsHe
               className="flex items-center"
               style={{ gap: 24 }}
               initial={{ opacity: 0, x: -8 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
+              {...(standalone
+                ? {
+                    whileInView: { opacity: 1, x: 0 },
+                    viewport: { once: true, margin: "-10%" },
+                  }
+                : {
+                    animate: isVisible
+                      ? { opacity: 1, x: 0 }
+                      : { opacity: 0, x: -8 },
+                  })}
               transition={{
                 duration: 0.35,
                 delay: 0.28 + rowIdx * 0.08,

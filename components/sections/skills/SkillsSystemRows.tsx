@@ -411,19 +411,31 @@ const rows = [
 interface SkillsSystemRowsProps {
   standalone: boolean;
   transitionProgress?: MotionValue<number>;
+  /** When standalone=false, drives row animations directly instead of useInView */
+  isVisible?: boolean;
 }
 
 export default function SkillsSystemRows({
   standalone,
+  isVisible = true,
 }: SkillsSystemRowsProps) {
   return (
-    <div className="flex flex-col" style={{ borderBottom: "3px solid #333" }}>
+    <div
+      className="flex flex-col"
+      style={{
+        borderBottom: "3px solid #333",
+        flex: standalone ? undefined : 1,
+        minHeight: standalone ? undefined : 0,
+      }}
+    >
       {rows.map((row, idx) => (
         <SystemRow
           key={row.num}
           row={row}
           idx={idx}
           isLast={idx === rows.length - 1}
+          standalone={standalone}
+          externalVisible={isVisible}
         />
       ))}
     </div>
@@ -437,13 +449,20 @@ function SystemRow({
   row,
   idx,
   isLast,
+  standalone = true,
+  externalVisible = true,
 }: {
   row: (typeof rows)[0];
   idx: number;
   isLast: boolean;
+  standalone?: boolean;
+  externalVisible?: boolean;
 }) {
   const rowRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(rowRef, { once: true, margin: "-50px" });
+  const inViewHook = useInView(rowRef, { once: true, margin: "-50px" });
+  // When inside a sticky container (standalone=false), useInView never fires.
+  // Use the externally-driven isVisible flag instead.
+  const inView = standalone ? inViewHook : externalVisible;
 
   return (
     <motion.div
@@ -454,6 +473,7 @@ function SystemRow({
         alignItems: "center",
         borderBottom: !isLast ? "2px solid #2a2a2a" : "none",
         minHeight: 88,
+        flex: standalone ? undefined : 1,
       }}
       initial={{ opacity: 0, x: -24 }}
       animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -24 }}

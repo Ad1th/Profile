@@ -115,6 +115,43 @@
   letter-spacing: 0;
 }
 
+/* Handmade hollow display title */
+:global(.projects-display-title) {
+  margin-top: 14px;
+  font-size: clamp(72px, 6.3vw, 118px);
+  line-height: 0.86;
+  font-weight: 900;
+  font-family:
+    Grobold, "Genty", "Titan One", "Bowlby One SC", Anton, sans-serif;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 3px #111; /* hollow outline */
+  text-stroke: 3px #111;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+  display: inline-block;
+}
+
+:global(.projects-display-title .projects-display-word) {
+  font-weight: 900;
+  display: inline-block;
+  will-change: transform;
+  text-transform: uppercase;
+  vertical-align: top;
+}
+
+:global(.projects-display-title .projects-display-word) {
+  margin-right: 4px;
+}
+
+/* Slightly reduce stroke on small screens for legibility */
+@media (max-width: 640px) {
+  :global(.projects-display-title) {
+    -webkit-text-stroke: 2px #111;
+    text-stroke: 2px #111;
+    font-size: clamp(46px, 10.5vw, 72px);
+  }
+}
+
 :global(.projects-title-block i) {
   display: block;
   width: 54px;

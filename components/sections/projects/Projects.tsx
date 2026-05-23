@@ -10,6 +10,67 @@ import "./Projects.module.css";
 
 const anton = Anton({ weight: "400", subsets: ["latin"] });
 
+// Deterministic pseudo-random from string (stable across renders)
+function seededRandom(str: string) {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(h ^ str.charCodeAt(i), 16777619) >>> 0;
+  }
+  return (h >>> 0) / 4294967295;
+}
+
+function ProjectHeadline({ layout = "B" }: { layout?: "A" | "B" | "C" }) {
+  // Define line/word splits for the three layout options
+  const lines: string[][] =
+    layout === "B"
+      ? [
+          ["PRO", "JECT"],
+          ["ARCHI", "VE."],
+        ]
+      : layout === "C"
+        ? [["PROJECT"], ["ARCHIVE."]]
+        : [["PROJECT"], ["ARCHIVE"]];
+
+  return (
+    <h1 className="projects-display-title" aria-label="Project Archive">
+      {lines.map((line, li) => (
+        <div
+          key={li}
+          style={{ display: "block", lineHeight: 0.86, whiteSpace: "nowrap" }}
+        >
+          {line.map((word, wi) => {
+            const seed = `${word}-${li}-${wi}`;
+            const r = seededRandom(seed);
+            const rotate = r * 3 - 1; // -1 .. +2 deg
+            const translateY = Math.round(r * 12 - 6); // -6 .. +6 px
+            const scale = 0.98 + r * 0.05; // 0.98 .. 1.03
+            const letterSpacing = `${-(0.03 + r * 0.03).toFixed(3)}em`; // -0.03 .. -0.06em
+
+            const style = {
+              display: "inline-block",
+              transform: `translateY(${translateY}px) rotate(${rotate}deg) scale(${scale})`,
+              transformOrigin: "left top",
+              marginRight: 6,
+              letterSpacing,
+            };
+
+            return (
+              <span
+                key={wi}
+                className="projects-display-word"
+                style={style}
+                aria-hidden={false}
+              >
+                <BlurIn delay={0.02 * wi}>{word}</BlurIn>
+              </span>
+            );
+          })}
+        </div>
+      ))}
+    </h1>
+  );
+}
+
 type FeaturedProject = {
   id: string;
   name: string;
@@ -654,11 +715,7 @@ export default function Projects() {
         <div className="projects-hero">
           <div className="projects-title-block">
             <span>[ 01 / 04 ]</span>
-            <h1 className={anton.className}>
-              <BlurIn>PROJECT</BlurIn>
-              <br />
-              <BlurIn delay={0.08}>ARCHIVE.</BlurIn>
-            </h1>
+            <ProjectHeadline layout={"B"} />
             <i />
             <p>
               Selected projects.

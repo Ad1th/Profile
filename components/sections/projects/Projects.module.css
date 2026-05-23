@@ -457,7 +457,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(207, 222, 0, 0.45),
+    rgba(168, 211, 168, 0.2),
     transparent
   );
   transform: skewX(-18deg);

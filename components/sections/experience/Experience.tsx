@@ -12,6 +12,44 @@ import { BlurIn } from "@/components/ui/react-bits";
 const anton = Anton({ weight: "400", subsets: ["latin"] });
 
 const entries: ExperienceEntry[] = [
+  // Reordered: Matrix (SDI), IIT Hyderabad (Intern), Technical Head, Open Source Contributor
+  {
+    id: "04",
+    role: "INTERNSHIP",
+    title: "SOFTWARE DEVELOPMENT INTERN",
+    org: "Matrix Capital",
+    dateRange: "MAY 2025 – JUN 2025",
+    status: "COMPLETE",
+    bullets: [
+      "Built and maintained web applications.",
+      "Worked on frontend and backend modules.",
+      "Collaborated with cross-functional teams.",
+    ],
+    tags: ["WEB DEVELOPMENT", "FULL STACK", "APIs"],
+    archiveId: "EXP-04",
+    rotate: 2,
+    zIndex: 12,
+    delay: 0.34,
+  },
+  {
+    id: "03",
+    role: "INTERNSHIP",
+    title: "INTERN",
+    org: "IIT Hyderabad",
+    dateRange: "DEC 2025 – PRESENT",
+    status: "ACTIVE",
+    bullets: [
+      "Working on research systems and data infrastructure.",
+      "Database design, optimization and scaling.",
+      "Building reliable data pipelines and tools.",
+    ],
+    tags: ["DATABASES", "DATA SYSTEMS", "RESEARCH"],
+    archiveId: "EXP-03",
+    stamp: "research",
+    rotate: 1,
+    zIndex: 15,
+    delay: 0.26,
+  },
   {
     id: "01",
     role: "PRIMARY ROLE",
@@ -51,43 +89,6 @@ const entries: ExperienceEntry[] = [
     zIndex: 10,
     delay: 0.18,
   },
-  {
-    id: "03",
-    role: "INTERNSHIP",
-    title: "INTERN",
-    org: "IIT Hyderabad",
-    dateRange: "DEC 2025 – PRESENT",
-    status: "ACTIVE",
-    bullets: [
-      "Working on research systems and data infrastructure.",
-      "Database design, optimization and scaling.",
-      "Building reliable data pipelines and tools.",
-    ],
-    tags: ["DATABASES", "DATA SYSTEMS", "RESEARCH"],
-    archiveId: "EXP-03",
-    stamp: "research",
-    rotate: 1,
-    zIndex: 15,
-    delay: 0.26,
-  },
-  {
-    id: "04",
-    role: "INTERNSHIP",
-    title: "SOFTWARE DEVELOPMENT INTERN",
-    org: "Matrix Capital",
-    dateRange: "MAY 2025 – JUN 2025",
-    status: "COMPLETE",
-    bullets: [
-      "Built and maintained web applications.",
-      "Worked on frontend and backend modules.",
-      "Collaborated with cross-functional teams.",
-    ],
-    tags: ["WEB DEVELOPMENT", "FULL STACK", "APIs"],
-    archiveId: "EXP-04",
-    rotate: 2,
-    zIndex: 12,
-    delay: 0.34,
-  },
 ];
 
 export default function Experience() {
@@ -112,7 +113,11 @@ export default function Experience() {
         },
       });
 
-      tl.from(".experience-kicker", { y: 18, duration: 0.32, ease: "power2.out" }, 0)
+      tl.from(
+        ".experience-kicker",
+        { y: 18, duration: 0.32, ease: "power2.out" },
+        0,
+      )
         .to(
           ".experience-rail",
           { scaleX: 1, duration: 0.42, ease: "power2.inOut" },
@@ -169,16 +174,18 @@ export default function Experience() {
       <div className="relative z-10 flex min-h-screen flex-col px-8 pb-8 pt-16 lg:px-14">
         <div className="experience-kicker grid grid-cols-[minmax(0,1fr)_260px] items-start gap-8">
           <div>
-            <span className="font-mono text-[12px] font-black tracking-[0.18em] text-[#E8420A]">+ EXPERIENCE</span>
+            <span className="font-mono text-[12px] font-black tracking-[0.18em] text-[#E8420A]">
+              + EXPERIENCE
+            </span>
             <h2
               className={`${anton.className} mt-4 whitespace-nowrap uppercase`}
-              style={{ fontSize: "clamp(56px, 7.2vw, 126px)", lineHeight: 0.88 }}
+              style={{
+                fontSize: "clamp(56px, 7.2vw, 126px)",
+                lineHeight: 0.88,
+              }}
             >
               <BlurIn>EXPERIENCE JOURNEY</BlurIn>
             </h2>
-            <p className="mt-6 max-w-[520px] font-[var(--font-archivo),sans-serif] text-[18px] font-black leading-[1.35] text-[#C8C0B4]">
-              Papers settle into one clean journey line.
-            </p>
           </div>
           <ExperienceSystemLog />
         </div>
@@ -187,7 +194,11 @@ export default function Experience() {
           <div className="experience-rail absolute left-0 right-0 top-[52px] h-[3px] bg-[#CFDE00]" />
           <div className="grid grid-cols-4 gap-5">
             {entries.map((entry, index) => (
-              <div key={entry.id} className="relative pt-24">
+              <div
+                key={entry.id}
+                className="relative"
+                style={{ paddingTop: "calc(6rem + 10px)" }}
+              >
                 <div className="experience-node absolute left-1/2 top-0 z-20 flex -translate-x-1/2 flex-col items-center">
                   <span className="flex h-10 w-10 items-center justify-center border-[3px] border-[#111] bg-[#F0EBE0] shadow-[5px_5px_0_rgba(0,0,0,0.55)]">
                     <i className="h-3 w-3 rounded-full bg-[#E8420A]" />
@@ -199,7 +210,7 @@ export default function Experience() {
 
                 <ExperienceCard
                   entry={entry}
-                  density="compact"
+                  density="regular"
                   positioned={false}
                   className="experience-card-once"
                   style={{ width: "100%", marginTop: 0 }}

@@ -2,30 +2,28 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { easings } from "@/lib/motion";
 
 export type ExperienceEntry = {
-  id: string; // "01", "02", etc.
-  role: string; // "PRIMARY ROLE" | "CONTRIBUTOR" | "INTERNSHIP"
-  title: string; // "TECHNICAL HEAD"
-  org: string; // "Mozilla Firefox Club"
-  location?: string; // "VIT Vellore"
-  dateRange: string; // "JAN 2026 – PRESENT"
+  id: string;
+  role: string;
+  title: string;
+  org: string;
+  location?: string;
+  dateRange: string;
   status: "ACTIVE" | "COMPLETE" | "CONTRIBUTING";
-  accessLevel?: string; // "INTERNAL / ACCESS LEVEL / INT-04"
+  accessLevel?: string;
   bullets: string[];
   tags: string[];
-  archiveId: string; // "EXP-01"
-  lastUpdated?: string; // "MAY 2026"
-  badgeLabel?: string; // "GSSOC'26"
+  archiveId: string;
+  lastUpdated?: string;
+  badgeLabel?: string;
   stamp?: "code" | "research" | null;
-  accent?: "lime" | "tape" | "paperclip-top" | "paperclip-left";
-  rotate: number; // CSS rotate degrees
+  accent?: "lime" | "tape" | "paperclip-top" | "paperclip-left" | "barcode";
+  rotate: number;
   zIndex: number;
   delay: number;
 };
 
-// Paper clip SVG
 function PaperClip({ side = "top" }: { side?: "top" | "left" }) {
   if (side === "left") {
     return (
@@ -57,7 +55,6 @@ function PaperClip({ side = "top" }: { side?: "top" | "left" }) {
   );
 }
 
-// Tape strip
 function Tape() {
   return (
     <div
@@ -72,7 +69,6 @@ function Tape() {
   );
 }
 
-// Push pin / tack
 function PushPin() {
   return (
     <div className="experience-pin absolute -top-3 left-1/2 -translate-x-1/2 z-20">
@@ -90,7 +86,6 @@ function PushPin() {
   );
 }
 
-// Code stamp
 function CodeStamp() {
   return (
     <div
@@ -110,21 +105,19 @@ function CodeStamp() {
     >
       <span
         style={{
-          fontFamily: "monospace",
+          fontFamily: "IBM Plex Mono, monospace",
           fontSize: 18,
-          fontWeight: 900,
-          lineHeight: 1,
+          fontWeight: 800,
         }}
       >
         &lt;/&gt;
       </span>
       <span
         style={{
-          fontFamily: "monospace",
-          fontSize: 7,
+          fontFamily: "IBM Plex Mono, monospace",
+          fontSize: 8,
           fontWeight: 700,
-          letterSpacing: "0.08em",
-          marginTop: 2,
+          marginTop: 4,
         }}
       >
         OPEN SOURCE
@@ -133,7 +126,6 @@ function CodeStamp() {
   );
 }
 
-// Research stamp
 function ResearchStamp() {
   return (
     <div
@@ -176,36 +168,24 @@ function ResearchStamp() {
       </svg>
       <span
         style={{
-          fontFamily: "monospace",
-          fontSize: 7,
+          fontFamily: "IBM Plex Mono, monospace",
+          fontSize: 8,
           fontWeight: 700,
-          letterSpacing: "0.07em",
-          marginTop: 3,
+          marginTop: 6,
         }}
       >
-        RESEARCH
-      </span>
-      <span
-        style={{
-          fontFamily: "monospace",
-          fontSize: 7,
-          fontWeight: 700,
-          letterSpacing: "0.07em",
-        }}
-      >
-        SYSTEMS
+        RESEARCH SYSTEMS
       </span>
     </div>
   );
 }
 
-// Status badge
 function StatusBadge({ status }: { status: ExperienceEntry["status"] }) {
   const colors = {
-    ACTIVE: { bg: "#E8420A", text: "#fff" },
-    COMPLETE: { bg: "#333", text: "#ccc" },
-    CONTRIBUTING: { bg: "#111", text: "#CFDE00" },
-  };
+    ACTIVE: { bg: "#D7FF00", text: "#111" },
+    COMPLETE: { bg: "#222", text: "#ccc" },
+    CONTRIBUTING: { bg: "#111", text: "#D7FF00" },
+  } as const;
   const c = colors[status];
   return (
     <div
@@ -213,12 +193,12 @@ function StatusBadge({ status }: { status: ExperienceEntry["status"] }) {
         display: "inline-flex",
         alignItems: "center",
         background: c.bg,
-        border: `2px solid ${status === "CONTRIBUTING" ? "#CFDE00" : "#111"}`,
+        border: `2px solid ${status === "CONTRIBUTING" ? "#D7FF00" : "#111"}`,
         padding: "3px 10px",
-        fontFamily: "monospace",
+        fontFamily: "IBM Plex Mono, monospace",
         fontSize: 11,
         fontWeight: 700,
-        letterSpacing: "0.1em",
+        letterSpacing: "0.08em",
         color: c.text,
       }}
     >
@@ -227,19 +207,18 @@ function StatusBadge({ status }: { status: ExperienceEntry["status"] }) {
   );
 }
 
-// Access level badge (top right, red border)
 function AccessBadge({ label }: { label: string }) {
   const lines = label.split("/");
   return (
     <div
       style={{
-        border: "2px solid #E8420A",
+        border: "2px solid #FF5A1F",
         padding: "6px 10px",
-        fontFamily: "monospace",
+        fontFamily: "IBM Plex Mono, monospace",
         fontSize: 10,
         fontWeight: 700,
-        letterSpacing: "0.08em",
-        color: "#E8420A",
+        letterSpacing: "0.06em",
+        color: "#FF5A1F",
         textAlign: "center",
         lineHeight: 1.5,
       }}
@@ -251,11 +230,8 @@ function AccessBadge({ label }: { label: string }) {
   );
 }
 
-// Barcode decoration
 function Barcode() {
-  const bars = [
-    3, 1, 2, 1, 3, 2, 1, 2, 1, 3, 1, 2, 3, 1, 2, 1, 1, 3, 2, 1, 3, 1, 2,
-  ];
+  const bars = [3, 1, 2, 1, 3, 2, 1, 2, 1, 3, 1, 2];
   return (
     <div className="flex items-end gap-[1.5px]" style={{ height: 28 }}>
       {bars.map((w, i) => (
@@ -263,7 +239,7 @@ function Barcode() {
           key={i}
           style={{
             width: w,
-            height: `${60 + (i % 3) * 13}%`,
+            height: `${60 + (i % 3) * 12}%`,
             background: "#555",
           }}
         />
@@ -272,7 +248,6 @@ function Barcode() {
   );
 }
 
-// Progress bar (for CONTRIBUTING card)
 function ProgressBar({ value }: { value: number }) {
   const blocks = Math.round(value / 5);
   return (
@@ -283,7 +258,7 @@ function ProgressBar({ value }: { value: number }) {
           style={{
             width: 8,
             height: 10,
-            background: i < blocks ? "#CFDE00" : "#333",
+            background: i < blocks ? "#D7FF00" : "#333",
           }}
         />
       ))}
@@ -311,11 +286,13 @@ export default function ExperienceCard(
     ...rest
   } = props;
   const compact = density === "compact";
-  const isContributor = entry.id === "02";
-  const hasPushPin = entry.id === "01";
-  const hasTape = entry.id === "03";
-  const hasClipLeft = entry.id === "02";
-  const hasClipTop = entry.id === "04";
+  const isContributor = entry.status === "CONTRIBUTING";
+  const hasPushPin =
+    entry.accent === "paperclip-top" || entry.accent === "paperclip-left";
+  const hasTape = entry.accent === "tape";
+  const hasClipLeft = entry.accent === "paperclip-left";
+  const hasClipTop = entry.accent === "paperclip-top";
+  const showBarcode = entry.accent === "barcode";
   const visibleBullets = compact ? entry.bullets.slice(0, 2) : entry.bullets;
   const visibleTags = compact ? entry.tags.slice(0, 3) : entry.tags;
   const outerShadow =
@@ -328,10 +305,7 @@ export default function ExperienceCard(
     <motion.div
       {...rest}
       className={`${positioned ? "absolute" : "relative"} ${className ?? ""}`.trim()}
-      style={{
-        zIndex: entry.zIndex,
-        ...style,
-      }}
+      style={{ zIndex: entry.zIndex, ...style }}
       whileHover={{
         zIndex: 50,
         scale: 1.03,
@@ -340,58 +314,55 @@ export default function ExperienceCard(
         transition: { duration: 0.2 },
       }}
     >
-      {/* Decorative accessories */}
       {hasPushPin && <PushPin />}
       {hasTape && <Tape />}
       {hasClipLeft && <PaperClip side="left" />}
       {hasClipTop && <PaperClip side="top" />}
 
-      {/* Card body */}
       <div
         style={{
-          background: isContributor ? "#111" : "#F0EBE0",
-          border: "3px solid #111",
+          background: isContributor ? "#111" : "#ECE7DF",
+          border: "2px solid #111",
           boxShadow: outerShadow,
-          padding: compact
-            ? isContributor
-              ? "18px 18px 16px 22px"
-              : "18px 18px 18px 20px"
-            : isContributor
-              ? "24px 22px 20px 28px"
-              : "24px 22px 22px 24px",
+          padding: compact ? 18 : 28,
           width: "100%",
           position: "relative",
           overflow: "hidden",
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.035) 1px, transparent 1px)",
+          backgroundBlendMode: "multiply",
+          backgroundSize: "24px 24px",
         }}
       >
-        {/* Diagonal stripe accent (top-right corner) */}
-        <div
-          className="absolute top-0 right-0"
-          style={{
-            width: 52,
-            height: "100%",
-            background:
-              "repeating-linear-gradient(135deg, transparent, transparent 4px, rgba(232,66,10,0.18) 4px, rgba(232,66,10,0.18) 8px)",
-            pointerEvents: "none",
-          }}
-        />
+        {/* subtle corner accent only when intentionally set */}
+        {entry.accent === "lime" && (
+          <div
+            className="absolute top-0 right-0"
+            style={{
+              width: 44,
+              height: "100%",
+              background:
+                "linear-gradient(135deg, transparent, rgba(215,255,0,0.08))",
+              pointerEvents: "none",
+            }}
+          />
+        )}
 
-        {/* Header row: ID + role label + date + status */}
         <div
           className="flex items-start justify-between"
-          style={{ marginBottom: 10 }}
+          style={{ marginBottom: 12 }}
         >
           <div>
             <div
               className="flex items-center gap-2"
-              style={{ marginBottom: 2 }}
+              style={{ marginBottom: 4 }}
             >
               <span
                 style={{
-                  fontFamily: "var(--font-archivo), sans-serif",
-                  fontSize: compact ? 16 : 20,
-                  fontWeight: 900,
-                  color: "#E8420A",
+                  fontFamily: "IBM Plex Mono, monospace",
+                  fontSize: compact ? 14 : 16,
+                  fontWeight: 700,
+                  color: "#FF5A1F",
                   lineHeight: 1,
                 }}
               >
@@ -400,12 +371,11 @@ export default function ExperienceCard(
             </div>
             <span
               style={{
-                fontFamily: "monospace",
-                fontSize: 10,
+                fontFamily: "IBM Plex Mono, monospace",
+                fontSize: 11,
                 fontWeight: 700,
-                letterSpacing: "0.1em",
-                color: "#E8420A",
-                textTransform: "uppercase",
+                letterSpacing: "0.04em",
+                color: "#FF5A1F",
               }}
             >
               {entry.role}
@@ -414,11 +384,10 @@ export default function ExperienceCard(
           <div className="flex flex-col items-end gap-1">
             <span
               style={{
-                fontFamily: "monospace",
-                fontSize: 10,
-                fontWeight: 700,
+                fontFamily: "IBM Plex Mono, monospace",
+                fontSize: 11,
+                fontWeight: 600,
                 color: isContributor ? "#888" : "#555",
-                letterSpacing: "0.06em",
               }}
             >
               {entry.dateRange}
@@ -427,40 +396,28 @@ export default function ExperienceCard(
           </div>
         </div>
 
-        {/* Title */}
         <h3
           style={{
-            fontFamily: "var(--font-archivo), sans-serif",
-            fontSize: compact
-              ? isContributor
-                ? 20
-                : 22
-              : isContributor
-                ? 26
-                : 28,
-            fontWeight: 900,
+            fontFamily: "Space Grotesk, sans-serif",
+            fontSize: compact ? 18 : 24,
+            fontWeight: 700,
             letterSpacing: "-0.01em",
-            lineHeight: 1.05,
-            color: isContributor ? "#F0EBE0" : "#111",
-            textTransform: "uppercase",
-            marginBottom: 6,
-            textDecoration: "underline",
-            textDecorationColor: "#CFDE00",
-            textDecorationThickness: 3,
-            textUnderlineOffset: 4,
+            lineHeight: 1.06,
+            color: isContributor ? "#ECE7DF" : "#111111",
+            textTransform: "none",
+            marginBottom: 10,
           }}
         >
           {entry.title}
         </h3>
 
-        {/* Org + location */}
-        <div style={{ marginBottom: 10 }}>
+        <div style={{ marginBottom: 12 }}>
           <div
             style={{
-              fontFamily: "var(--font-archivo), sans-serif",
+              fontFamily: "Space Grotesk, sans-serif",
               fontSize: compact ? 12 : 14,
               fontWeight: 600,
-              color: isContributor ? "#C8C0B4" : "#333",
+              color: isContributor ? "#C8C0B4" : "#111",
             }}
           >
             {entry.org}
@@ -468,7 +425,7 @@ export default function ExperienceCard(
           {entry.location && (
             <div
               style={{
-                fontFamily: "var(--font-archivo), sans-serif",
+                fontFamily: "Space Grotesk, sans-serif",
                 fontSize: compact ? 11 : 13,
                 fontWeight: 500,
                 color: isContributor ? "#888" : "#555",
@@ -479,27 +436,24 @@ export default function ExperienceCard(
           )}
         </div>
 
-        {/* Access badge (card 01 only) */}
         {entry.accessLevel && !compact && (
           <div style={{ marginBottom: 12 }}>
             <AccessBadge label={entry.accessLevel} />
           </div>
         )}
 
-        {/* Badge label (card 02 only) */}
         {entry.badgeLabel && !compact && (
           <div style={{ marginBottom: 12 }}>
             <div
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                background: "#CFDE00",
-                border: "2px solid #CFDE00",
-                padding: "3px 12px",
-                fontFamily: "var(--font-archivo), sans-serif",
-                fontSize: 13,
-                fontWeight: 900,
-                letterSpacing: "0.05em",
+                background: "#FF5A1F",
+                border: "2px solid #FF5A1F",
+                padding: "4px 12px",
+                fontFamily: "IBM Plex Mono, monospace",
+                fontSize: 12,
+                fontWeight: 700,
                 color: "#111",
               }}
             >
@@ -508,41 +462,39 @@ export default function ExperienceCard(
           </div>
         )}
 
-        {/* Divider */}
         <div
           style={{
             width: "100%",
             height: 2,
-            background: isContributor ? "#333" : "#ccc",
-            marginBottom: compact ? 10 : 12,
+            background: isContributor ? "#333" : "#ddd",
+            marginBottom: compact ? 10 : 14,
           }}
         />
 
-        {/* Bullets */}
         <ul
           className="flex flex-col"
-          style={{ gap: compact ? 4 : 6, marginBottom: compact ? 10 : 14 }}
+          style={{ gap: compact ? 6 : 8, marginBottom: compact ? 12 : 18 }}
         >
           {visibleBullets.map((b, i) => (
-            <li key={i} className="flex items-start gap-2">
+            <li key={i} className="flex items-start gap-3">
               <span
                 style={{
-                  color: "#E8420A",
-                  fontWeight: 900,
-                  fontFamily: "monospace",
+                  color: "#FF5A1F",
+                  fontWeight: 700,
+                  fontFamily: "IBM Plex Mono, monospace",
                   fontSize: compact ? 11 : 13,
                   flexShrink: 0,
-                  marginTop: 1,
+                  marginTop: 2,
                 }}
               >
-                {">"}
+                •
               </span>
               <span
                 style={{
-                  fontFamily: "var(--font-archivo), sans-serif",
-                  fontSize: compact ? 11 : 13,
-                  lineHeight: compact ? 1.35 : 1.45,
-                  color: isContributor ? "#C8C0B4" : "#333",
+                  fontFamily: "Space Grotesk, sans-serif",
+                  fontSize: compact ? 12 : 14,
+                  lineHeight: compact ? 1.4 : 1.6,
+                  color: isContributor ? "#C8C0B4" : "#111111",
                 }}
               >
                 {b}
@@ -551,96 +503,67 @@ export default function ExperienceCard(
           ))}
         </ul>
 
-        {/* Contributing-specific: progress bars */}
         {isContributor && !compact && (
           <div style={{ marginBottom: 14 }}>
             <div
-              className="flex items-center gap-2"
-              style={{ marginBottom: 4 }}
+              style={{
+                display: "flex",
+                gap: 8,
+                alignItems: "center",
+                marginBottom: 6,
+              }}
             >
               <span
                 style={{
-                  fontFamily: "monospace",
+                  fontFamily: "IBM Plex Mono, monospace",
                   fontSize: 11,
                   fontWeight: 700,
                   color: "#888",
-                  letterSpacing: "0.08em",
                 }}
               >
                 STATUS:
               </span>
               <span
                 style={{
-                  fontFamily: "monospace",
+                  fontFamily: "IBM Plex Mono, monospace",
                   fontSize: 11,
                   fontWeight: 700,
-                  color: "#CFDE00",
-                  letterSpacing: "0.08em",
+                  color: "#D7FF00",
                 }}
               >
                 CONTRIBUTING
               </span>
               <span
                 style={{
-                  fontFamily: "monospace",
+                  marginLeft: "auto",
+                  fontFamily: "IBM Plex Mono, monospace",
                   fontSize: 11,
                   fontWeight: 700,
                   color: "#888",
-                  marginLeft: "auto",
                 }}
               >
                 100%
               </span>
             </div>
             <ProgressBar value={100} />
-            <div className="flex items-center gap-2" style={{ marginTop: 4 }}>
-              <span
-                style={{
-                  fontFamily: "monospace",
-                  fontSize: 10,
-                  fontWeight: 700,
-                  color: "#888",
-                  letterSpacing: "0.06em",
-                }}
-              >
-                LEVEL
-              </span>
-              <ProgressBar value={80} />
-            </div>
-            <div className="flex items-center gap-2" style={{ marginTop: 4 }}>
-              <span
-                style={{
-                  fontFamily: "monospace",
-                  fontSize: 10,
-                  fontWeight: 700,
-                  color: "#888",
-                  letterSpacing: "0.06em",
-                }}
-              >
-                DEVEL:
-              </span>
-              <ProgressBar value={75} />
-            </div>
           </div>
         )}
 
-        {/* Tags */}
         <div
-          className="flex flex-wrap gap-[6px]"
-          style={{ marginBottom: compact ? 10 : 14 }}
+          className="flex flex-wrap gap-[8px]"
+          style={{ marginBottom: compact ? 12 : 18 }}
         >
           {visibleTags.map((tag) => (
             <span
               key={tag}
               style={{
-                fontFamily: "monospace",
+                fontFamily: "IBM Plex Mono, monospace",
                 fontSize: compact ? 10 : 11,
                 fontWeight: 700,
-                letterSpacing: "0.07em",
-                color: isContributor ? "#CFDE00" : "#111",
-                border: `2px solid ${isContributor ? "#CFDE00" : "#111"}`,
-                padding: compact ? "2px 8px" : "3px 10px",
-                textTransform: "uppercase",
+                letterSpacing: "0.04em",
+                color: isContributor ? "#D7FF00" : "#111",
+                border: `1px solid ${isContributor ? "#D7FF00" : "#111"}`,
+                padding: compact ? "3px 8px" : "4px 10px",
                 background: "transparent",
               }}
             >
@@ -649,19 +572,18 @@ export default function ExperienceCard(
           ))}
         </div>
 
-        {/* Footer: archive ID + last updated / barcode */}
         <div
           className="flex items-end justify-between"
-          style={{ marginTop: compact ? 2 : 4 }}
+          style={{ marginTop: compact ? 4 : 6 }}
         >
           <div>
             {entry.lastUpdated && (
               <div
                 style={{
-                  fontFamily: "monospace",
-                  fontSize: compact ? 8 : 9,
+                  fontFamily: "IBM Plex Mono, monospace",
+                  fontSize: compact ? 9 : 10,
                   color: "#888",
-                  marginBottom: 2,
+                  marginBottom: 4,
                 }}
               >
                 LAST UPDATED: {entry.lastUpdated}
@@ -669,19 +591,18 @@ export default function ExperienceCard(
             )}
             <div
               style={{
-                fontFamily: "monospace",
-                fontSize: compact ? 8 : 9,
+                fontFamily: "IBM Plex Mono, monospace",
+                fontSize: compact ? 9 : 10,
                 color: isContributor ? "#666" : "#888",
-                letterSpacing: "0.08em",
+                letterSpacing: "0.06em",
               }}
             >
               ARCHIVE ID: {entry.archiveId}
             </div>
           </div>
-          {!compact && <Barcode />}
+          {!compact && showBarcode && <Barcode />}
         </div>
 
-        {/* Stamps */}
         {!compact && entry.stamp === "code" && <CodeStamp />}
         {!compact && entry.stamp === "research" && <ResearchStamp />}
       </div>

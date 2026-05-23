@@ -12,38 +12,34 @@ import { BlurIn } from "@/components/ui/react-bits";
 const anton = Anton({ weight: "400", subsets: ["latin"] });
 
 const entries: ExperienceEntry[] = [
-  // Reordered: Matrix (SDI), IIT Hyderabad (Intern), Technical Head, Open Source Contributor
   {
     id: "04",
     role: "INTERNSHIP",
-    title: "SOFTWARE DEVELOPMENT INTERN",
+    title: "Software development intern",
     org: "Matrix Capital",
     dateRange: "MAY 2025 – JUN 2025",
     status: "COMPLETE",
     bullets: [
-      "Built and maintained web applications.",
-      "Worked on frontend and backend modules.",
-      "Collaborated with cross-functional teams.",
+      "Built research infrastructure for scalable systems.",
+      "Web and API improvements.",
+      "Cross-team delivery.",
     ],
-    tags: ["WEB DEVELOPMENT", "FULL STACK", "APIs"],
+    tags: ["Web", "APIs"],
     archiveId: "EXP-04",
-    rotate: 2,
+    rotate: -2,
     zIndex: 12,
     delay: 0.34,
+    accent: "barcode",
   },
   {
     id: "03",
     role: "INTERNSHIP",
-    title: "INTERN",
+    title: "Research systems",
     org: "IIT Hyderabad",
     dateRange: "DEC 2025 – PRESENT",
     status: "ACTIVE",
-    bullets: [
-      "Working on research systems and data infrastructure.",
-      "Database design, optimization and scaling.",
-      "Building reliable data pipelines and tools.",
-    ],
-    tags: ["DATABASES", "DATA SYSTEMS", "RESEARCH"],
+    bullets: ["Database optimization.", "Data pipelines.", "System tooling."],
+    tags: ["Databases", "Data Systems"],
     archiveId: "EXP-03",
     stamp: "research",
     rotate: 1,
@@ -52,40 +48,36 @@ const entries: ExperienceEntry[] = [
   },
   {
     id: "01",
-    role: "PRIMARY ROLE",
-    title: "TECHNICAL HEAD",
+    role: "Primary role",
+    title: "Technical head",
     org: "Mozilla Firefox Club",
     location: "VIT Vellore",
     dateRange: "JAN 2026 – PRESENT",
     status: "ACTIVE",
     bullets: [
-      "Leading technical initiatives at the Mozilla Firefox Club.",
-      "Previously served as Technical Core, promoting open-source technologies and collaborative development.",
+      "Lead technical initiatives and open-source programs.",
+      "Mentor teams and design resilient systems.",
     ],
-    tags: ["OPEN SOURCE", "SYSTEMS", "BACKEND"],
+    tags: ["Open Source", "Systems"],
     archiveId: "EXP-01",
     rotate: -1,
     zIndex: 20,
     delay: 0.1,
+    accent: "tape",
   },
   {
     id: "02",
     role: "CONTRIBUTOR",
-    title: "OPEN SOURCE CONTRIBUTOR",
+    title: "Open source contributor",
     org: "GirlScript Summer of Code",
     dateRange: "2026",
     status: "CONTRIBUTING",
     badgeLabel: "GSSOC'26",
-    bullets: [
-      "COMMUNITY CONTRIBUTIONS",
-      "DOCUMENTATION",
-      "BUG FIXES",
-      "CODE QUALITY",
-    ],
+    bullets: ["Community, docs, and fixes."],
     tags: [],
     archiveId: "EXP-02",
     stamp: "code",
-    rotate: -2,
+    rotate: 2,
     zIndex: 10,
     delay: 0.18,
   },
@@ -100,9 +92,13 @@ export default function Experience() {
     const ctx = gsap.context(() => {
       // Initial: hide/compact the timeline rail and scramble cards into a heap
       gsap.set(".experience-rail", {
+        autoAlpha: 1,
+      });
+
+      gsap.set(".experience-rail-fill", {
         scaleX: 0,
         transformOrigin: "left center",
-        autoAlpha: 0,
+        autoAlpha: 1,
       });
 
       gsap.set(".experience-node", { y: 18, autoAlpha: 0, scale: 0.9 });
@@ -128,8 +124,8 @@ export default function Experience() {
         0,
       )
         .to(
-          ".experience-rail",
-          { autoAlpha: 1, scaleX: 1, duration: 1.05, ease: "power2.inOut" },
+          ".experience-rail-fill",
+          { scaleX: 1, duration: 1.05, ease: "power2.inOut" },
           0.1,
         )
         .to(
@@ -162,6 +158,18 @@ export default function Experience() {
           0.7,
         );
 
+      // subtle glow on nodes when they appear
+      tl.to(
+        ".experience-node i",
+        {
+          boxShadow: "0 0 12px rgba(255,90,31,0.14)",
+          duration: 0.6,
+          ease: "power2.out",
+          stagger: 0.18,
+        },
+        0.9,
+      );
+
       // ScrollTrigger: play the prepared timeline when section enters view.
       ScrollTrigger.create({
         trigger: sectionRef.current,
@@ -181,8 +189,8 @@ export default function Experience() {
     <section
       ref={sectionRef}
       data-section="experience"
-      className="relative w-full overflow-hidden bg-[#111] text-[#F0EBE0]"
-      style={{ minHeight: "100vh", isolation: "isolate" }}
+      className="relative w-full overflow-hidden bg-[#080808] text-[#ECE7DF]"
+      style={{ minHeight: "92vh", isolation: "isolate" }}
     >
       <motion.div
         className="pointer-events-none absolute inset-0 opacity-70"
@@ -199,24 +207,89 @@ export default function Experience() {
       <div className="relative z-10 flex min-h-screen flex-col px-8 pb-8 pt-16 lg:px-14">
         <div className="experience-kicker grid grid-cols-[minmax(0,1fr)_260px] items-start gap-8">
           <div>
-            <span className="font-mono text-[12px] font-black tracking-[0.18em] text-[#E8420A]">
+            <span className="font-mono text-[12px] font-black tracking-[0.12em] text-[#FF5A1F]">
               + EXPERIENCE
             </span>
             <h2
-              className={`${anton.className} mt-4 whitespace-nowrap uppercase`}
-              style={{
-                fontSize: "clamp(56px, 7.2vw, 126px)",
-                lineHeight: 0.88,
-              }}
+              className={`mt-4`}
+              style={{ fontSize: "clamp(4.3rem,8vw,8rem)", lineHeight: 0.92 }}
             >
-              <BlurIn>EXPERIENCE JOURNEY</BlurIn>
+              <BlurIn>
+                <span
+                  style={{
+                    display: "inline-block",
+                    transform: "rotate(-0.6deg) scaleY(0.96)",
+                    transformOrigin: "left top",
+                    fontFamily:
+                      "'Luckiest Guy', Genty, Grobold, 'Bowlby One SC', Anton, sans-serif",
+                    letterSpacing: "-0.06em",
+                    textTransform: "uppercase",
+                    lineHeight: 0.9,
+                    fontWeight: 800,
+                    letterSpacing: "0.005em",
+                    WebkitFontSmoothing: "antialiased",
+                    textRendering: "optimizeLegibility",
+                    display: "block",
+                    textShadow: "0 0 0.8px rgba(0,0,0,0.02)",
+                  }}
+                >
+                  EXPERIENCE
+                </span>
+                <span
+                  style={{
+                    display: "inline-block",
+                    transform: "rotate(-0.6deg) scaleY(0.96)",
+                    transformOrigin: "left top",
+                    fontFamily:
+                      "'Luckiest Guy', Genty, Grobold, 'Bowlby One SC', Anton, sans-serif",
+                    letterSpacing: "-0.06em",
+                    textTransform: "uppercase",
+                    lineHeight: 0.9,
+                    fontWeight: 800,
+                    letterSpacing: "0.175em",
+                    WebkitFontSmoothing: "antialiased",
+                    textRendering: "optimizeLegibility",
+                    display: "block",
+                    marginTop: 6,
+                    textShadow: "0 0 0.8px rgba(0,0,0,0.02)",
+                  }}
+                >
+                  JOURNEY
+                </span>
+              </BlurIn>
             </h2>
+
+            <div style={{ marginTop: 12 }}>
+              <p
+                style={{
+                  color: "#C8C0B4",
+                  fontSize: 15,
+                  lineHeight: 1.5,
+                  maxWidth: 420,
+                }}
+              >
+                Building products, communities, and systems.{" "}
+                <span style={{ color: "#D7FF00", marginLeft: 8 }}>
+                  2025 → Present
+                </span>
+              </p>
+            </div>
           </div>
           <ExperienceSystemLog />
         </div>
 
         <div className="relative mt-8">
-          <div className="experience-rail absolute left-0 right-0 top-[52px] h-[3px] bg-[#CFDE00]" />
+          <div className="experience-rail absolute left-0 right-0 top-[52px] h-[3px] bg-[#333]">
+            <div
+              className="experience-rail-fill absolute left-0 top-0 bottom-0 origin-left"
+              style={{
+                background: "#D7FF00",
+                transformOrigin: "left center",
+                width: "100%",
+                height: "100%",
+              }}
+            />
+          </div>
           <div className="grid grid-cols-4 gap-5">
             {entries.map((entry, index) => (
               <div
@@ -225,13 +298,19 @@ export default function Experience() {
                 style={{ paddingTop: "calc(6rem + 10px)" }}
               >
                 <div className="experience-node absolute left-1/2 top-0 z-20 flex -translate-x-1/2 flex-col items-center">
-                  <span className="flex h-10 w-10 items-center justify-center border-[3px] border-[#111] bg-[#F0EBE0] shadow-[5px_5px_0_rgba(0,0,0,0.55)]">
-                    <i className="h-3 w-3 rounded-full bg-[#E8420A]" />
+                  <span className="flex h-10 w-10 items-center justify-center border-[3px] border-[#111] bg-[#ECE7DF] shadow-[5px_5px_0_rgba(0,0,0,0.55)]">
+                    <i className="h-3 w-3 rounded-full bg-[#FF5A1F]" />
                   </span>
-                  <b className="mt-[-2px] font-mono text-[10px] tracking-[0.14em] text-[#CFDE00]">
+                  <b className="mt-[-2px] font-mono text-[10px] tracking-[0.14em] text-[#D7FF00]">
                     {index < 2 ? "2025" : "2026"}
                   </b>
                 </div>
+
+                {/* vertical connector from node to card */}
+                <div
+                  className="experience-connector absolute left-1/2 top-[48px] -translate-x-1/2"
+                  style={{ width: 2, height: "6rem", background: "#333" }}
+                />
 
                 <ExperienceCard
                   entry={entry}

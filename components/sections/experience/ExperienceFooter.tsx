@@ -17,7 +17,7 @@ export default function ExperienceFooter() {
         style={{
           border: "2px solid #333",
           padding: "14px 20px",
-          fontFamily: "monospace",
+          fontFamily: "IBM Plex Mono, monospace",
         }}
       >
         <div
@@ -47,7 +47,7 @@ export default function ExperienceFooter() {
             >
               {label}
             </span>
-            <span style={{ fontSize: 11, color: "#F0EBE0", fontWeight: 700 }}>
+            <span style={{ fontSize: 11, color: "#ECE7DF", fontWeight: 700 }}>
               : {value}
             </span>
           </div>
@@ -64,7 +64,7 @@ export default function ExperienceFooter() {
               style={{
                 width: 6,
                 height: h,
-                background: i % 2 === 0 ? "#CFDE00" : "#E8420A",
+                background: i % 2 === 0 ? "#D7FF00" : "#FF5A1F",
                 opacity: 0.85,
               }}
             />
@@ -76,11 +76,11 @@ export default function ExperienceFooter() {
       <div className="flex items-center gap-4">
         <div
           style={{
-            fontFamily: "monospace",
+            fontFamily: "IBM Plex Mono, monospace",
             fontSize: 11,
             fontWeight: 700,
             letterSpacing: "0.09em",
-            color: "#CFDE00",
+            color: "#D7FF00",
             textAlign: "right",
             lineHeight: 1.7,
           }}
@@ -93,7 +93,7 @@ export default function ExperienceFooter() {
         </div>
         <div
           style={{
-            border: "2px solid #CFDE00",
+            border: "2px solid #D7FF00",
             width: 48,
             height: 48,
             display: "flex",
@@ -106,20 +106,20 @@ export default function ExperienceFooter() {
               cx="16"
               cy="16"
               r="12"
-              stroke="#CFDE00"
+              stroke="#D7FF00"
               strokeWidth="2"
               fill="none"
             />
-            <path d="M4 16 H28" stroke="#CFDE00" strokeWidth="1.5" />
+            <path d="M4 16 H28" stroke="#D7FF00" strokeWidth="1.5" />
             <path
               d="M16 4 C10 8 10 24 16 28"
-              stroke="#CFDE00"
+              stroke="#D7FF00"
               strokeWidth="1.5"
               fill="none"
             />
             <path
               d="M16 4 C22 8 22 24 16 28"
-              stroke="#CFDE00"
+              stroke="#D7FF00"
               strokeWidth="1.5"
               fill="none"
             />

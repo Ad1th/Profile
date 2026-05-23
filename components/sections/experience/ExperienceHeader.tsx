@@ -20,14 +20,14 @@ export default function ExperienceHeader() {
         viewport={{ once: true }}
         transition={{ duration: 0.5, ease: easings.primary }}
       >
-        <div style={{ width: 32, height: 3, background: "#E8420A" }} />
+        <div style={{ width: 32, height: 3, background: "#FF5A1F" }} />
         <span
           style={{
-            fontFamily: "monospace",
+            fontFamily: "IBM Plex Mono, monospace",
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "0.14em",
-            color: "#E8420A",
+            color: "#FF5A1F",
             textTransform: "uppercase",
           }}
         >
@@ -48,8 +48,8 @@ export default function ExperienceHeader() {
             style={{
               fontSize: "clamp(64px, 8vw, 110px)",
               lineHeight: 0.9,
-              letterSpacing: "-0.01em",
-              color: "#F0EBE0",
+              letterSpacing: "4em",
+              color: "#ECE7DF",
             }}
           >
             EXPERIENCE
@@ -67,8 +67,8 @@ export default function ExperienceHeader() {
             style={{
               fontSize: "clamp(64px, 8vw, 110px)",
               lineHeight: 0.9,
-              letterSpacing: "-0.01em",
-              color: "#E8420A",
+              letterSpacing: "4em",
+              color: "#FF5A1F",
             }}
           >
             ARCHIVE.
@@ -87,13 +87,13 @@ export default function ExperienceHeader() {
             style={{
               width: 48,
               height: 3,
-              background: "#CFDE00",
+              background: "#D7FF00",
               marginBottom: 14,
             }}
           />
           <p
             style={{
-              fontFamily: "var(--font-archivo), sans-serif",
+              fontFamily: "Space Grotesk, sans-serif",
               fontSize: 15,
               fontWeight: 500,
               lineHeight: 1.55,
@@ -127,7 +127,7 @@ export default function ExperienceHeader() {
             left: 0,
             right: 0,
             height: 1,
-            background: "#F0EBE0",
+            background: "#ECE7DF",
           }}
         />
         <div
@@ -137,7 +137,7 @@ export default function ExperienceHeader() {
             top: 0,
             bottom: 0,
             width: 1,
-            background: "#F0EBE0",
+            background: "#ECE7DF",
           }}
         />
         <div
@@ -148,7 +148,7 @@ export default function ExperienceHeader() {
             transform: "translate(-50%, -50%)",
             width: 14,
             height: 14,
-            border: "1.5px solid #F0EBE0",
+            border: "1.5px solid #ECE7DF",
             borderRadius: "50%",
           }}
         />

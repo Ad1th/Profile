@@ -29,8 +29,8 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import SkillsHero from "./Skillshero";
-import SkillsSystemRows from "./Skillssystemrows";
+import SkillsHero from "@/components/sections/skills/SkillsHero";
+import SkillsSystemRows from "@/components/sections/skills/SkillsSystemRows";
 import { easings } from "@/lib/motion";
 
 export default function Skills() {

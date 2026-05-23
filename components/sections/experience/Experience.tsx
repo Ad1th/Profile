@@ -228,7 +228,7 @@ export default function Experience() {
                   <span className="flex h-10 w-10 items-center justify-center border-[3px] border-[#111] bg-[#F0EBE0] shadow-[5px_5px_0_rgba(0,0,0,0.55)]">
                     <i className="h-3 w-3 rounded-full bg-[#E8420A]" />
                   </span>
-                  <b className="mt-2 font-mono text-[10px] tracking-[0.14em] text-[#CFDE00]">
+                  <b className="mt-[-2px] font-mono text-[10px] tracking-[0.14em] text-[#CFDE00]">
                     {index < 2 ? "2025" : "2026"}
                   </b>
                 </div>

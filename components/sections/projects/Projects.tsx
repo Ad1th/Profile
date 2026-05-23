@@ -660,17 +660,58 @@ export default function Projects() {
           "-=0.1",
         );
 
+      // Gentle, deterministic float to keep cards feeling physical without random fly-ins.
+      gsap.to(".projects-paper", {
+        y: "+=3",
+        rotation: "+=0.4",
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: 0.08,
+      });
+
+      gsap.to(".projects-clip", {
+        rotation: -2,
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      gsap.to(".projects-mark", {
+        x: "+=1",
+        y: "+=1",
+        duration: 5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: 0.15,
+      });
+
       gsap.from(".projects-archive-row", {
         scrollTrigger: {
           trigger: ".projects-archive",
           start: "top 82%",
           once: true,
         },
-        y: 22,
-        rotate: -0.4,
-        stagger: { each: 0.05, from: "end" },
-        duration: 0.42,
+        clipPath: "inset(0 100% 0 0)",
+        stagger: 0.03,
+        duration: 0.5,
         ease: "power2.out",
+      });
+
+      gsap.utils.toArray<HTMLElement>(".projects-archive-row").forEach((row) => {
+        const scanner = row.querySelector<HTMLElement>(".projects-row-scanner");
+        if (!scanner) return;
+
+        row.addEventListener("mouseenter", () => {
+          gsap.fromTo(
+            scanner,
+            { x: "-100%" },
+            { x: "100%", duration: 0.6, ease: "power2.out" },
+          );
+        });
       });
     }, sectionRef);
 

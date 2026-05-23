@@ -24,12 +24,28 @@ import { motion, AnimatePresence } from "framer-motion";
 import { easings } from "@/lib/motion";
 
 const NAV_LINKS: { label: string; section: string }[] = [
-  { label: "WORK", section: "skills" },
+  { label: "WORK", section: "projects" },
   { label: "ABOUT", section: "about" },
   { label: "CONTACT", section: "contact" },
 ];
 
-const SECTIONS = ["hero", "about", "skills", "experience", "contact"];
+const MENU_LINKS: { label: string; section: string }[] = [
+  { label: "HERO", section: "hero" },
+  { label: "ABOUT", section: "about" },
+  { label: "SKILLS", section: "skills" },
+  { label: "EXPERIENCE", section: "experience" },
+  { label: "PROJECTS", section: "projects" },
+  { label: "CONTACT", section: "contact" },
+];
+
+const SECTIONS = [
+  "hero",
+  "about",
+  "skills",
+  "experience",
+  "projects",
+  "contact",
+];
 
 export default function Navbar() {
   // ── State ──────────────────────────────────────────────────────────────
@@ -86,6 +102,8 @@ export default function Navbar() {
   }, []);
 
   // ── Derived: which nav link is "active" ───────────────────────────────
+  // Only desktop links use a reduced "active" set (WORK/ABOUT/CONTACT)
+  // to match the existing design and requested behavior.
   const getActiveLinkSection = () => {
     if (activeSection === "skills") return "skills";
     if (activeSection === "about") return "about";
@@ -293,38 +311,41 @@ export default function Navbar() {
 
             {/* Links */}
             <nav className="flex flex-col" style={{ gap: 4 }}>
-              {NAV_LINKS.map(({ label, section }, i) => (
-                <motion.button
-                  key={label}
-                  onClick={() => scrollTo(section)}
-                  className="outline-none cursor-pointer text-left"
-                  style={{
-                    background: "none",
-                    border: "none",
-                    borderBottom: "2px solid #222",
-                    paddingTop: 28,
-                    paddingBottom: 28,
-                    fontFamily: "var(--font-anton), 'Arial Black', sans-serif",
-                    fontSize: "clamp(52px, 14vw, 88px)",
-                    fontWeight: 400,
-                    letterSpacing: "-0.03em",
-                    lineHeight: 0.9,
-                    textTransform: "uppercase",
-                    color:
-                      activeLinkSection === section ? "#CFDE00" : "#F0EBE0",
-                  }}
-                  initial={{ x: -40, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{
-                    duration: 0.3,
-                    delay: i * 0.08,
-                    ease: easings.primary,
-                  }}
-                  whileHover={{ x: 12, color: "#CFDE00" } as any}
-                >
-                  {label}
-                </motion.button>
-              ))}
+              {MENU_LINKS.map(({ label, section }, i) => {
+                const isActive = activeSection === section;
+                return (
+                  <motion.button
+                    key={label}
+                    onClick={() => scrollTo(section)}
+                    className="outline-none cursor-pointer text-left"
+                    style={{
+                      background: "none",
+                      border: "none",
+                      borderBottom: "2px solid #222",
+                      paddingTop: 28,
+                      paddingBottom: 28,
+                      fontFamily:
+                        "var(--font-anton), 'Arial Black', sans-serif",
+                      fontSize: "clamp(52px, 14vw, 88px)",
+                      fontWeight: 400,
+                      letterSpacing: "-0.03em",
+                      lineHeight: 0.9,
+                      textTransform: "uppercase",
+                      color: isActive ? "#CFDE00" : "#F0EBE0",
+                    }}
+                    initial={{ x: -40, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: i * 0.08,
+                      ease: easings.primary,
+                    }}
+                    whileHover={{ x: 12, color: "#CFDE00" } as any}
+                  >
+                    {label}
+                  </motion.button>
+                );
+              })}
             </nav>
 
             {/* Footer */}

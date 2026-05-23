@@ -112,7 +112,7 @@ export default function Experience() {
   return (
     <section
       className="relative w-full bg-[#111] overflow-hidden"
-      style={{ minHeight: "60svh" }}
+      style={{ minHeight: "calc(60svh - 60px)" }}
     >
       {/* Subtle grid texture */}
       <div
@@ -148,7 +148,7 @@ export default function Experience() {
         className="relative mx-auto"
         style={{
           width: "min(100%, 1680px)",
-          padding: "75px 24px 64px 24px",
+          padding: "75px 24px 54px 24px",
         }}
       >
         {/* ── TOP ROW: Header left, System Log right ─── */}

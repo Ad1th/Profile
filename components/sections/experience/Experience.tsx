@@ -215,7 +215,7 @@ export default function Experience() {
           <ExperienceSystemLog />
         </div>
 
-        <div className="relative mt-8 flex-1">
+        <div className="relative mt-8">
           <div className="experience-rail absolute left-0 right-0 top-[52px] h-[3px] bg-[#CFDE00]" />
           <div className="grid grid-cols-4 gap-5">
             {entries.map((entry, index) => (
@@ -247,7 +247,7 @@ export default function Experience() {
           </div>
         </div>
 
-        <div className="mt-auto grid grid-cols-4 border-y-[3px] border-[#333] font-mono text-[11px] font-black tracking-[0.12em] text-[#777]">
+        <div className="mt-10 grid grid-cols-4 border-y-[3px] border-[#333] font-mono text-[11px] font-black tracking-[0.12em] text-[#777]">
           {["BUILDING.", "SHIPPING.", "LEADING.", "LEARNING."].map((item) => (
             <span
               key={item}

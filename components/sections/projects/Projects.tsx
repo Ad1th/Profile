@@ -570,7 +570,6 @@ function CrtMonitor({
           </div>
         )}
       </div>
-      <span className="projects-crt-note">click again for preview</span>
       <span className="projects-crt-tape">ship &gt; iterate &gt; repeat</span>
     </button>
   );
@@ -691,6 +690,46 @@ export default function Projects() {
             );
           });
         });
+
+      const driftScroll = {
+        trigger: sectionRef.current,
+        start: "top 80%",
+        end: "bottom top",
+        scrub: 0.7,
+      };
+
+      gsap.to(".projects-paper--scotland", {
+        x: -16,
+        y: 10,
+        rotation: -1,
+        scrollTrigger: driftScroll,
+      });
+      gsap.to(".projects-paper--aether", {
+        x: 10,
+        y: -14,
+        rotation: 1,
+        scrollTrigger: driftScroll,
+      });
+      gsap.to(".projects-paper--archaic", {
+        x: -8,
+        y: 18,
+        rotation: -1,
+        scrollTrigger: driftScroll,
+      });
+      gsap.to(".projects-paper--wave", {
+        x: 14,
+        y: -8,
+        rotation: 1,
+        scrollTrigger: driftScroll,
+      });
+      gsap.to(".projects-table", {
+        y: -22,
+        scrollTrigger: driftScroll,
+      });
+      gsap.to(".projects-crt-column", {
+        y: -68,
+        scrollTrigger: driftScroll,
+      });
     }, sectionRef);
 
     return () => ctx.revert();

@@ -34,12 +34,67 @@ const COLORS = {
   blue: "#89B8E0",
 };
 
+type PathNumbers = [number, number, number, number, number, number, number, number, number, number, number, number, number, number];
+
 function hexToRgba(hex: string, alpha: number) {
   const value = hex.replace("#", "");
   const r = Number.parseInt(value.slice(0, 2), 16);
   const g = Number.parseInt(value.slice(2, 4), 16);
   const b = Number.parseInt(value.slice(4, 6), 16);
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function pathFromNumbers(values: PathNumbers) {
+  return `M ${values[0]} ${values[1]} C ${values[2]} ${values[3]} ${values[4]} ${values[5]} ${values[6]} ${values[7]} C ${values[8]} ${values[9]} ${values[10]} ${values[11]} ${values[12]} ${values[13]}`;
+}
+
+function lerpPath(from: PathNumbers, to: PathNumbers, progress: number): PathNumbers {
+  return from.map((value, index) => value + (to[index] - value) * progress) as PathNumbers;
+}
+
+function humanTracePath(line: number, width: number, height: number): PathNumbers {
+  const cx = width * 0.53;
+  const cy = height * 0.52;
+  const spread = (line - 3) * width * 0.018;
+  const lift = Math.sin(line * 1.7) * height * 0.035;
+  return [
+    cx - width * 0.07 + spread,
+    cy - height * 0.18 + lift,
+    cx - width * 0.03 + spread,
+    cy - height * 0.08 - lift,
+    cx + width * 0.035 + spread,
+    cy + height * 0.04 + lift,
+    cx + width * 0.015 + spread,
+    cy + height * 0.16 - lift,
+    cx - width * 0.03 + spread,
+    cy + height * 0.25 + lift,
+    cx + width * 0.06 + spread,
+    cy + height * 0.26 - lift,
+    cx + width * 0.09 + spread,
+    cy + height * 0.34 + lift,
+  ];
+}
+
+function waveTracePath(line: number, width: number, height: number): PathNumbers {
+  const y = height * (0.2 + line * 0.09);
+  const amp = height * (0.025 + (line % 3) * 0.006);
+  const phase = line % 2 === 0 ? 1 : -1;
+  return [
+    width * 0.04,
+    y,
+    width * 0.2,
+    y - amp * phase,
+    width * 0.31,
+    y + amp * 1.7 * phase,
+    width * 0.45,
+    y - amp * 0.7 * phase,
+    width * 0.6,
+    y - amp * 2.1 * phase,
+    width * 0.78,
+    y + amp * 1.3 * phase,
+    width * 0.96,
+    y - amp * 0.45 * phase,
+  ];
 }
 
 const PATENT_LABELS: LabelAnchor[] = [
@@ -113,14 +168,16 @@ export default function Patents() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
   const modeRef = useRef<"human" | "wave">("human");
-  const progressRef = useRef({ labels: 0, rings: 0, waves: 0, assemble: 0 });
+  const progressRef = useRef({ labels: 0, rings: 0, waves: 0, assemble: 0, transitionLines: 0, nodes: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    const svg = svgRef.current;
     const section = sectionRef.current;
     const stage = stageRef.current;
-    if (!canvas || !section || !stage) return;
+    if (!canvas || !svg || !section || !stage) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -130,6 +187,7 @@ export default function Patents() {
     let dpr = 1;
     let raf = 0;
     const pointer = { x: -9999, y: -9999, active: false };
+    const wavePaths = Array.from(svg.querySelectorAll<SVGPathElement>("[data-wave-path]"));
     const particles: Particle[] = Array.from({ length: 2400 }, (_, index) => ({
       x: Math.random() * 1200,
       y: Math.random() * 800,
@@ -150,8 +208,12 @@ export default function Patents() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
+      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       setTargets(particles, modeRef.current, width, height);
+      wavePaths.forEach((path, index) => {
+        path.setAttribute("d", pathFromNumbers(modeRef.current === "wave" ? waveTracePath(index, width, height) : humanTracePath(index, width, height)));
+      });
       particles.forEach((particle, index) => {
         if (!particle.ox && !particle.oy) {
           particle.x = Math.random() * width;
@@ -226,20 +288,21 @@ export default function Patents() {
       const waveAlpha = progressRef.current.waves;
       const palette = [COLORS.celadon, COLORS.chartreuse, COLORS.blue];
       const cursorPull = pointer.active ? 1 : 0;
-      for (let line = 0; line < 7; line += 1) {
+      const nodeSpeed = pointer.active ? 1.9 : 1;
+      for (let line = 0; line < 8; line += 1) {
         ctx.beginPath();
         for (let i = 0; i <= 190; i += 1) {
           const t = i / 190;
-          const x = width * (0.29 + t * 0.65);
-          const base = height * (0.29 + line * 0.073);
+          const x = width * (0.04 + t * 0.92);
+          const base = height * (0.2 + line * 0.09);
           let y =
             base +
-            Math.sin(t * Math.PI * (2.35 + line * 0.16) + line + time * 0.006) * height * 0.026 +
-            Math.sin(t * Math.PI * (7.4 + line * 0.25) - time * 0.004) * height * 0.01;
+            Math.sin(t * Math.PI * (2.15 + line * 0.19) + line + time * 0.006) * height * 0.03 +
+            Math.sin(t * Math.PI * (8.4 + line * 0.25) - time * 0.004) * height * 0.012;
           const dx = pointer.x - x;
           const dy = pointer.y - y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 170 && cursorPull) y += dy * 0.09 * (1 - dist / 170);
+          if (dist < 190 && cursorPull) y += dy * 0.11 * (1 - dist / 190);
           if (i === 0) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
@@ -248,19 +311,33 @@ export default function Patents() {
         ctx.stroke();
 
         const nodeTexts = ["V", "I", "P", "η"];
-        const numberTexts = ["48.2", "164", "92%"];
-        const t = (time * (0.00008 + line * 0.000008) + line * 0.16) % 1;
-        const nx = width * (0.29 + t * 0.65);
+        const numberTexts = ["48.2V", "164W", "92%"];
+        const t = (time * (0.00008 + line * 0.000008) * nodeSpeed + line * 0.16) % 1;
+        const nx = width * (0.04 + t * 0.92);
         const ny =
-          height * (0.29 + line * 0.073) +
-          Math.sin(t * Math.PI * (2.35 + line * 0.16) + line + time * 0.006) * height * 0.026;
-        ctx.fillStyle = `rgba(51, 41, 39, ${0.72 * waveAlpha})`;
+          height * (0.2 + line * 0.09) +
+          Math.sin(t * Math.PI * (2.15 + line * 0.19) + line + time * 0.006) * height * 0.03;
+        ctx.fillStyle = `rgba(51, 41, 39, ${0.72 * waveAlpha * progressRef.current.nodes})`;
         ctx.font = "10px 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
         ctx.fillText(nodeTexts[line % nodeTexts.length], nx + 5, ny - 5);
+
+        ctx.strokeStyle = hexToRgba(palette[(line + 1) % palette.length], 0.34 * waveAlpha);
+        ctx.beginPath();
+        ctx.arc(nx - 5, ny, 2.3 + Math.sin(time * 0.006 + line) * 0.7, 0, Math.PI * 2);
+        ctx.stroke();
+
         if (line % 2 === 0 && Math.sin(time * 0.0012 + line) > 0.74) {
           ctx.fillStyle = `rgba(51, 41, 39, ${0.32 * waveAlpha})`;
           ctx.fillText(numberTexts[line % numberTexts.length], nx + 18, ny + 14);
         }
+
+        const pulseT = (time * 0.00016 * nodeSpeed + line * 0.21) % 1;
+        const px = width * (0.04 + pulseT * 0.92);
+        const py =
+          height * (0.2 + line * 0.09) +
+          Math.sin(pulseT * Math.PI * (2.15 + line * 0.19) + line + time * 0.006) * height * 0.03;
+        ctx.fillStyle = hexToRgba(palette[(line + 2) % palette.length], 0.52 * waveAlpha);
+        ctx.fillRect(px, py - 0.5, 8, 1);
       }
     };
 
@@ -307,21 +384,26 @@ export default function Patents() {
         particle.x += particle.vx;
         particle.y += particle.vy;
 
-        ctx.fillStyle =
-          modeRef.current === "human" ? "rgba(51, 41, 39, 0.58)" : "rgba(51, 41, 39, 0.36)";
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fill();
+        if (modeRef.current === "human" || progressRef.current.transitionLines > 0.01) {
+          ctx.fillStyle =
+            modeRef.current === "human" ? "rgba(51, 41, 39, 0.58)" : "rgba(51, 41, 39, 0.16)";
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, modeRef.current === "human" ? particle.size : 0.35, 0, Math.PI * 2);
+          ctx.fill();
+        }
 
-        if (modeRef.current === "human" && index % 54 === 0) {
+        if ((modeRef.current === "human" || progressRef.current.transitionLines > 0.01) && index % 54 === 0) {
           const next = particles[index + 11];
           if (next) {
             const dx = next.x - particle.x;
             const dy = next.y - particle.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < 42) {
-              ctx.strokeStyle = "rgba(51, 41, 39, 0.055)";
-              ctx.lineWidth = 0.45;
+              ctx.strokeStyle =
+                modeRef.current === "human"
+                  ? "rgba(51, 41, 39, 0.055)"
+                  : `rgba(51, 41, 39, ${0.12 * progressRef.current.transitionLines})`;
+              ctx.lineWidth = modeRef.current === "human" ? 0.45 : 0.65;
               ctx.beginPath();
               ctx.moveTo(particle.x, particle.y);
               ctx.lineTo(next.x, next.y);
@@ -354,33 +436,74 @@ export default function Patents() {
     const activate = (mode: "human" | "wave") => {
       if (modeRef.current === mode) return;
       const state = Flip.getState(stage.querySelectorAll("[data-flip-patent]"));
+      const fromMode = modeRef.current;
+      const pathTweens = wavePaths.map((path, index) => {
+        const state = { p: 0 };
+        const from = fromMode === "wave" ? waveTracePath(index, width, height) : humanTracePath(index, width, height);
+        const to = mode === "wave" ? waveTracePath(index, width, height) : humanTracePath(index, width, height);
+        return gsap.to(state, {
+          p: 1,
+          duration: 1.2,
+          ease: "power3.inOut",
+          onUpdate: () => {
+            path.setAttribute("d", pathFromNumbers(lerpPath(from, to, state.p)));
+          },
+        });
+      });
       modeRef.current = mode;
       stage.dataset.mode = mode;
       setTargets(particles, mode, width, height);
       progressRef.current.labels = mode === "human" ? 0 : progressRef.current.labels;
       progressRef.current.rings = mode === "human" ? 0 : progressRef.current.rings;
       progressRef.current.waves = mode === "wave" ? 0 : progressRef.current.waves;
+      progressRef.current.nodes = 0;
       Flip.from(state, { duration: 0.8, ease: "power3.inOut", absolute: true });
 
       gsap.timeline()
+        .to(
+          progressRef.current,
+          {
+            transitionLines: 1,
+            duration: 0.42,
+            ease: "power3.out",
+          },
+          0,
+        )
+        .to(
+          progressRef.current,
+          {
+            transitionLines: 0,
+            duration: 0.7,
+            ease: "power2.inOut",
+          },
+          0.58,
+        )
         .to(progressRef.current, {
           labels: mode === "human" ? 1 : 0,
           rings: mode === "human" ? 1 : 0,
           waves: mode === "wave" ? 1 : 0,
-          duration: 0.9,
-          ease: "power2.inOut",
-        })
+          assemble: mode === "human" ? 1 : progressRef.current.assemble,
+          duration: 1.15,
+          ease: "power3.inOut",
+        }, 0)
+        .to(progressRef.current, { nodes: mode === "wave" ? 1 : 0, duration: 0.35, ease: "power2.out" }, 0.88)
         .to(
           particles,
           {
-            vx: () => (Math.random() - 0.5) * 8,
-            vy: () => (Math.random() - 0.5) * 8,
-            duration: 0.24,
+            vx: () => (Math.random() - 0.5) * 18,
+            vy: () => (Math.random() - 0.5) * 18,
+            duration: 0.28,
             stagger: { each: 0.00018, from: "random" },
             ease: "power3.out",
           },
           0,
-        );
+        )
+        .eventCallback("onComplete", () => {
+          pathTweens.forEach((tween) => tween.kill());
+          wavePaths.forEach((path, index) => {
+            path.setAttribute("d", pathFromNumbers(mode === "wave" ? waveTracePath(index, width, height) : humanTracePath(index, width, height)));
+          });
+        });
     };
 
     const buttons = Array.from(section.querySelectorAll<HTMLButtonElement>("[data-patent-mode]"));
@@ -389,6 +512,7 @@ export default function Patents() {
       const handler = () => activate(mode);
       button.addEventListener("mouseenter", handler);
       button.addEventListener("focus", handler);
+      button.addEventListener("click", handler);
       return { button, handler };
     });
 
@@ -403,6 +527,7 @@ export default function Patents() {
       listeners.forEach(({ button, handler }) => {
         button.removeEventListener("mouseenter", handler);
         button.removeEventListener("focus", handler);
+        button.removeEventListener("click", handler);
       });
     };
   }, []);
@@ -427,50 +552,72 @@ export default function Patents() {
           className="absolute inset-0 h-full w-full cursor-crosshair"
           aria-label="Interactive patent particle systems"
         />
+        <svg
+          ref={svgRef}
+          className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
+          aria-hidden="true"
+        >
+          {Array.from({ length: 8 }, (_, index) => (
+            <path
+              key={index}
+              data-wave-path
+              vectorEffect="non-scaling-stroke"
+              fill="none"
+              stroke={index % 3 === 0 ? COLORS.celadon : index % 3 === 1 ? COLORS.chartreuse : COLORS.blue}
+              strokeWidth={index % 3 === 0 ? 0.7 : 0.5}
+              strokeOpacity={0.22}
+            />
+          ))}
+        </svg>
 
-        <div className="pointer-events-none relative z-10 grid min-h-[calc(100vh-10rem)] grid-cols-1 gap-10 lg:grid-cols-[minmax(290px,0.38fr)_1fr]">
+        <div className="pointer-events-none relative z-10 grid min-h-[calc(100vh-10rem)] grid-cols-1 gap-10 lg:grid-cols-[minmax(340px,0.4fr)_1fr]">
           <div className="flex flex-col justify-between">
             <div>
               <h2 className="patents-hand text-[clamp(6.4rem,18vw,17.5rem)] leading-[0.72] text-[#332927]">
                 <span>PAT</span>
                 <span>ENTS</span>
               </h2>
-              <div className="mt-10 space-y-1 font-mono text-[10px] font-medium uppercase tracking-[0.13em] text-[#332927] sm:text-[11px]">
-                <p>02 RECORDS</p>
-                <p>2026</p>
-                <p>
-                  STATUS: <span className="text-[#9CA83F]">PUBLISHED</span>
-                </p>
+              <div className="pointer-events-auto mt-12 space-y-7 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-[#332927] sm:text-[11px]">
+                <Magnetic strength={0.18}>
+                  <button
+                    data-flip-patent
+                    data-patent-mode="human"
+                    className="patent-entry grid grid-cols-[2.4ch_1fr] gap-x-4 text-left transition-colors hover:text-[#9CA83F] focus:outline-none"
+                    type="button"
+                    aria-label="Activate real-time environmental perception"
+                  >
+                    <span>01</span>
+                    <span>
+                      REAL-TIME ENVIRONMENTAL PERCEPTION
+                      <span className="mt-1 block text-[#9CA83F]">PUBLISHED</span>
+                    </span>
+                  </button>
+                </Magnetic>
+                <Magnetic strength={0.18}>
+                  <button
+                    data-flip-patent
+                    data-patent-mode="wave"
+                    className="patent-entry grid grid-cols-[2.4ch_1fr] gap-x-4 text-left transition-colors hover:text-[#9CA83F] focus:outline-none"
+                    type="button"
+                    aria-label="Activate wave energy harvester"
+                  >
+                    <span>02</span>
+                    <span>
+                      WAVE ENERGY HARVESTER
+                      <span className="mt-1 block text-[#9CA83F]">PUBLISHED</span>
+                    </span>
+                  </button>
+                </Magnetic>
               </div>
             </div>
           </div>
 
-          <div className="relative min-h-[52vh] lg:min-h-0" />
-        </div>
-
-        <div className="pointer-events-auto absolute right-8 top-[42%] z-30 flex -translate-y-1/2 flex-col gap-10 font-mono text-[11px] tracking-[0.2em] sm:right-12 lg:right-[9vw]">
-          <Magnetic strength={0.35}>
-            <button
-              data-flip-patent
-              data-patent-mode="human"
-              className="patent-mode text-[#332927] transition-colors hover:text-[#9CA83F] focus:outline-none"
-              type="button"
-              aria-label="Activate blind assistance system"
-            >
-              01
-            </button>
-          </Magnetic>
-          <Magnetic strength={0.35}>
-            <button
-              data-flip-patent
-              data-patent-mode="wave"
-              className="patent-mode text-[#332927] transition-colors hover:text-[#9CA83F] focus:outline-none"
-              type="button"
-              aria-label="Activate wave energy harvester"
-            >
-              02
-            </button>
-          </Magnetic>
+          <div className="relative min-h-[58vh] lg:min-h-0">
+            <div className="pointer-events-none absolute left-0 top-0 font-mono text-[10px] uppercase tracking-[0.14em] text-[#332927]">
+              <span className="patent-title patent-title-human">REAL-TIME ENVIRONMENTAL PERCEPTION</span>
+              <span className="patent-title patent-title-wave">WAVE ENERGY HARVESTER</span>
+            </div>
+          </div>
         </div>
 
         <div className="pointer-events-none absolute right-5 top-7 z-20 font-mono text-[9px] uppercase tracking-[0.16em] text-[#332927] sm:right-8 lg:right-12">
@@ -509,19 +656,34 @@ export default function Patents() {
           margin-left: 0.06em;
         }
 
-        .patent-mode {
+        .patent-entry {
           font-variant-numeric: tabular-nums;
+          max-width: 34ch;
         }
 
         [data-mode="human"] [data-patent-mode="human"],
         [data-mode="wave"] [data-patent-mode="wave"] {
-          transform: translateX(11px);
           color: #9ca83f;
         }
 
-        [data-mode="wave"] [data-patent-mode="human"],
-        [data-mode="human"] [data-patent-mode="wave"] {
-          transform: translateX(0);
+        .patent-title {
+          position: absolute;
+          left: 0;
+          top: 0;
+          white-space: nowrap;
+          transform: translateY(0);
+        }
+
+        .patent-title-wave {
+          visibility: hidden;
+        }
+
+        [data-mode="wave"] .patent-title-human {
+          visibility: hidden;
+        }
+
+        [data-mode="wave"] .patent-title-wave {
+          visibility: visible;
         }
 
         .patents-pulse {

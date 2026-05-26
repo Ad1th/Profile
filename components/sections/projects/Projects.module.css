@@ -572,12 +572,12 @@
       rgba(168, 211, 168, 0.14),
       transparent 58%
     ),
-    #012641;
+    #06260a;
   background-size:
     100% 4px,
     100% 100%,
     100% 100%;
-  color: #a8d3a8;
+  color: #7fe08a;
   padding: 22px 28px;
   box-shadow:
     inset 0 0 26px rgba(0, 0, 0, 0.7),
@@ -608,7 +608,7 @@
   background:
     radial-gradient(
       circle at 50% 12%,
-      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.06),
       transparent 18%
     ),
     linear-gradient(
@@ -619,7 +619,7 @@
       rgba(255, 255, 255, 0.05)
     );
   mix-blend-mode: screen;
-  opacity: 0.4;
+  opacity: 0.35;
 }
 
 :global(.projects-crt-screen::after) {
@@ -629,8 +629,8 @@
   pointer-events: none;
   background: linear-gradient(
     90deg,
-    rgba(255, 0, 0, 0.02),
-    rgba(0, 255, 255, 0.015)
+    rgba(127, 224, 138, 0.02),
+    rgba(127, 224, 138, 0.012)
   );
   mix-blend-mode: screen;
   opacity: 0.06;
@@ -642,7 +642,7 @@
   right: 0;
   top: -10%;
   height: 18px;
-  background: rgba(168, 211, 168, 0.15);
+  background: rgba(127, 224, 138, 0.16);
   animation: projects-crt-scan 2.6s linear infinite;
 }
 
@@ -699,7 +699,7 @@
 }
 
 :global(.projects-crt-actions span) {
-  border: 2px solid #a8d3a8;
+  border: 2px solid #7fe08a;
   padding: 7px 16px;
 }
 
@@ -712,9 +712,9 @@
 
 :global(.projects-preview-mode span) {
   display: block;
-  border: 2px solid #a8d3a8;
+  border: 2px solid #7fe08a;
   padding: 16px;
-  background: rgba(168, 211, 168, 0.08);
+  background: rgba(127, 224, 138, 0.08);
 }
 
 :global(.projects-crt-power) {
@@ -725,8 +725,8 @@
   height: 24px;
   border: 4px solid #111;
   border-radius: 50%;
-  background: #a8d3a8;
-  box-shadow: 0 0 12px rgba(168, 211, 168, 0.55);
+  background: #7fe08a;
+  box-shadow: 0 0 12px rgba(127, 224, 138, 0.55);
 }
 
 :global(.projects-crt-note),

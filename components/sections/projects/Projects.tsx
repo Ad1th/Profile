@@ -772,7 +772,6 @@ export default function Projects() {
 
         <div className="projects-hero">
           <div className="projects-title-block">
-            <span>[ 01 / 04 ]</span>
             <ProjectHeadline layout={"B"} />
             <i />
             <p>

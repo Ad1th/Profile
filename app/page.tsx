@@ -21,8 +21,7 @@ import Experience from "@/components/sections/experience/Experience";
 import Projects from "@/components/sections/projects/Projects";
 import Timeline from "@/components/sections/timeline/Timeline";
 import Patents from "@/components/sections/patents/Patents";
-import Achievements from "@/components/sections/achievements/Achievements";
-import Hackathons from "@/components/sections/hackathons/Hackathons";
+import HackathonsAchievements from "@/components/sections/hackathons-achievements/HackathonsAchievements";
 import Contact from "@/components/sections/contact/Contact";
 import ScrollProgressDots from "@/components/ui/ScrollProgressDots";
 import StickyTicker from "@/components/ui/StickyTicker";
@@ -62,8 +61,7 @@ export default function Page() {
         <>
           <DesktopCinematicTransition />
           <Patents />
-          <Hackathons />
-          <Achievements />
+          <HackathonsAchievements />
           <Timeline />
           <Contact />
         </>
@@ -77,8 +75,7 @@ export default function Page() {
           <Experience />
           <Projects />
           <Patents />
-          <Hackathons />
-          <Achievements />
+          <HackathonsAchievements />
           <Timeline />
           <Contact />
         </>

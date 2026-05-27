@@ -36,9 +36,8 @@ const MENU_LINKS: { label: string; section: string }[] = [
   { label: "EXPERIENCE", section: "experience" },
   { label: "PROJECTS", section: "projects" },
 
-  // User requested order:
-  // patents -> achievements -> timeline -> contact
   { label: "PATENTS", section: "patents" },
+  { label: "HACKATHONS", section: "hackathons" },
   { label: "ACHIEVEMENTS", section: "achievements" },
   { label: "TIMELINE", section: "timeline" },
   { label: "CONTACT", section: "contact" },
@@ -51,6 +50,7 @@ const SECTIONS = [
   "experience",
   "projects",
   "patents",
+  "hackathons",
   "achievements",
   "timeline",
   "contact",

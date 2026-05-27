@@ -22,13 +22,16 @@ export function ScrollProgress() {
 export function ScrollIndicator() {
   const [activeSection, setActiveSection] = useState("");
   const sections = [
+    "hero",
     "about",
-    "experience",
     "skills",
+    "experience",
     "projects",
-    "achievements",
+    "patents",
     "hackathons",
-    "hobbies",
+    "achievements",
+    "timeline",
+    "contact",
   ];
 
   useEffect(() => {
@@ -36,7 +39,8 @@ export function ScrollIndicator() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+            const id = entry.target.getAttribute("data-section");
+            if (id) setActiveSection(id);
           }
         });
       },
@@ -44,7 +48,7 @@ export function ScrollIndicator() {
     );
 
     sections.forEach((section) => {
-      const element = document.getElementById(section);
+      const element = document.querySelector(`[data-section="${section}"]`);
       if (element) observer.observe(element);
     });
 
@@ -56,8 +60,13 @@ export function ScrollIndicator() {
       {sections.map((section) => (
         <motion.a
           key={section}
-          href={`#${section}`}
           className="group flex items-center gap-3"
+          onClick={(event) => {
+            event.preventDefault();
+            document
+              .querySelector(`[data-section="${section}"]`)
+              ?.scrollIntoView({ behavior: "smooth" });
+          }}
           whileHover={{ x: -5 }}
         >
           <span

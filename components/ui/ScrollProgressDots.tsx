@@ -3,7 +3,7 @@
 /**
  * ScrollProgressDots.tsx
  *
- * Fixed vertical dot column — 4 dots, one per section.
+ * Fixed vertical dot column — one dot per page section.
  * Dots fill lime-yellow as the user scrolls into each section.
  * Uses IntersectionObserver on section[data-section] elements.
  * Sits fixed on the right edge, vertically centred.
@@ -27,6 +27,12 @@ const SECTION_LABELS: Record<string, string> = {
   about: "ABOUT",
   skills: "SKILLS",
   experience: "EXPERIENCE",
+  projects: "PROJECTS",
+  patents: "PATENTS",
+  hackathons: "HACKATHONS",
+  achievements: "ACHIEVEMENTS",
+  timeline: "TIMELINE",
+  contact: "CONTACT",
 };
 
 export default function ScrollProgressDots({

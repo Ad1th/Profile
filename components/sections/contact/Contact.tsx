@@ -61,32 +61,32 @@ export default function Contact() {
               {/* hover fill */}
               <div
                 className="
-                  absolute inset-0
-                  origin-left scale-x-0
-                  bg-[#7C5C73]
-                  transition-transform
-                  duration-700
-                  ease-[cubic-bezier(0.22,1,0.36,1)]
-                  group-hover:scale-x-100
-                "
+      absolute bottom-0 left-0
+      h-0 w-full
+      bg-[#7C5C73]
+      transition-all
+      duration-700
+      ease-in-out
+      group-hover:h-full
+    "
               />
 
               {/* text */}
               <h2
                 className="
-                  relative z-10
-                  select-none
-                  font-serif
-                  text-[clamp(6rem,10vw,15rem)]
-                  font-light
-                  uppercase
-                  leading-[0.84]
-                  tracking-[-0.08em]
-                  text-[#E8DDD0]
-                  transition-colors
-                  duration-700
-                  group-hover:text-[#F4ECE4]
-                "
+      relative z-10
+      select-none
+      font-serif
+      text-[clamp(6rem,10vw,15rem)]
+      font-light
+      uppercase
+      leading-[0.84]
+      tracking-[-0.08em]
+      text-[#E8DDD0]
+      transition-colors
+      duration-700
+      group-hover:text-[#F4ECE4]
+    "
                 style={{
                   fontFamily: '"Bodoni Moda","Didot","Times New Roman",serif',
                 }}

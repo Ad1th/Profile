@@ -22,6 +22,7 @@ import Projects from "@/components/sections/projects/Projects";
 import Timeline from "@/components/sections/timeline/Timeline";
 import Patents from "@/components/sections/patents/Patents";
 import Achievements from "@/components/sections/achievements/Achievements";
+import Hackathons from "@/components/sections/hackathons/Hackathons";
 import Contact from "@/components/sections/contact/Contact";
 import ScrollProgressDots from "@/components/ui/ScrollProgressDots";
 import StickyTicker from "@/components/ui/StickyTicker";
@@ -43,9 +44,9 @@ const SECTIONS = [
   "skills",
   "experience",
   "projects",
-  // user requested menu order:
   "patents",
-  "achievements",
+  // implemented till above
+  "hackathons",
   "timeline",
   "contact",
 ];
@@ -75,6 +76,7 @@ export default function Page() {
           <Experience />
           <Projects />
           <Patents />
+          <Hackathons />
           <Achievements />
           <Timeline />
           <Contact />

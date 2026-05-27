@@ -18,7 +18,7 @@ export default function ExperienceSystemLog() {
       transition={{ duration: 0.5, delay: 0.25, ease: easings.primary }}
       style={{
         background: "transparent",
-        border: "2px solid #D7FF00",
+        border: "2px solid #8A8B6D",
         padding: "12px 16px",
         fontFamily: "IBM Plex Mono, monospace",
         minWidth: 210,
@@ -33,8 +33,8 @@ export default function ExperienceSystemLog() {
           right: -2,
           width: 12,
           height: 12,
-          borderTop: "2px solid #D7FF00",
-          borderRight: "2px solid #D7FF00",
+          borderTop: "2px solid #8A8B6D",
+          borderRight: "2px solid #8A8B6D",
         }}
       />
       <div
@@ -44,15 +44,15 @@ export default function ExperienceSystemLog() {
           left: -2,
           width: 12,
           height: 12,
-          borderBottom: "2px solid #D7FF00",
-          borderLeft: "2px solid #D7FF00",
+          borderBottom: "2px solid #8A8B6D",
+          borderLeft: "2px solid #8A8B6D",
         }}
       />
 
       {/* Label */}
       <div
         style={{
-          background: "#FF5A1F",
+          background: "#A14A32",
           color: "#111",
           fontSize: 11,
           fontWeight: 800,

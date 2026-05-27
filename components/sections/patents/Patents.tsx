@@ -37,7 +37,15 @@ type PathNumbers = [
 ];
 
 /* ─────────────── colours ─────────────── */
-const COLORS = { celadon: "#A8D3A8", chartreuse: "#C8D45A", blue: "#89B8E0" };
+const COLORS = {
+  humanInk: "#6B5B53",
+  humanText: "#2A2624",
+  humanAccent: "#A58D8D",
+  waveA: "#4F6B67",
+  waveB: "#6E7F68",
+  waveC: "#2D4B4A",
+  waveAccent: "#8B6A52",
+};
 
 /* ─────────────── patent data ─────────────── */
 const PATENTS = [
@@ -291,7 +299,7 @@ export default function Patents() {
       const rings = prog.current.rings,
         cx = W * 0.53,
         cy = H * 0.52;
-      ctx.strokeStyle = `rgba(51,41,39,${0.14 * rings})`;
+      ctx.strokeStyle = hexToRgba(COLORS.humanInk, 0.18 * rings);
       ctx.lineWidth = 0.55;
       for (let i = 0; i < 5; i++) {
         const r = (((t * 0.035 + i * 62) % 310) + 36) * rings;
@@ -307,8 +315,8 @@ export default function Patents() {
           y = label.y * H,
           ax = label.ax * W,
           ay = label.ay * H;
-        ctx.strokeStyle = `rgba(51,41,39,${0.2 * a})`;
-        ctx.fillStyle = `rgba(51,41,39,${0.72 * a})`;
+        ctx.strokeStyle = hexToRgba(COLORS.humanInk, 0.24 * a);
+        ctx.fillStyle = hexToRgba(COLORS.humanText, 0.72 * a);
         ctx.beginPath();
         ctx.moveTo(ax, ay);
         ctx.lineTo(x - 10, y);
@@ -320,7 +328,7 @@ export default function Patents() {
     /* ── draw wave system ── */
     const drawWave = (t: number) => {
       const wa = prog.current.waves,
-        pal = [COLORS.celadon, COLORS.chartreuse, COLORS.blue];
+        pal = [COLORS.waveA, COLORS.waveB, COLORS.waveAccent];
       const cursorPull = ptr.active ? 1 : 0,
         nodeSpeed = ptr.active ? 1.9 : 1;
       for (let line = 0; line < 8; line++) {
@@ -355,7 +363,7 @@ export default function Patents() {
             Math.sin(s * Math.PI * (2.15 + line * 0.19) + line + t * 0.006) *
               H *
               0.03;
-        ctx.fillStyle = `rgba(51,41,39,${0.72 * wa * prog.current.nodes})`;
+        ctx.fillStyle = `rgba(232,221,208,${0.72 * wa * prog.current.nodes})`;
         ctx.font = "10px 'JetBrains Mono',ui-monospace,monospace";
         ctx.fillText(nTxt[line % nTxt.length], nx + 5, ny - 5);
         ctx.strokeStyle = hexToRgba(pal[(line + 1) % pal.length], 0.34 * wa);
@@ -369,7 +377,7 @@ export default function Patents() {
         );
         ctx.stroke();
         if (line % 2 === 0 && Math.sin(t * 0.0012 + line) > 0.74) {
-          ctx.fillStyle = `rgba(51,41,39,${0.32 * wa})`;
+          ctx.fillStyle = `rgba(232,221,208,${0.42 * wa})`;
           ctx.fillText(numTxt[line % numTxt.length], nx + 18, ny + 14);
         }
         const ps = (t * 0.00016 * nodeSpeed + line * 0.21) % 1;
@@ -425,8 +433,8 @@ export default function Patents() {
         if (modeRef.current === "human" || prog.current.tLines > 0.01) {
           ctx.fillStyle =
             modeRef.current === "human"
-              ? "rgba(51,41,39,0.58)"
-              : "rgba(51,41,39,0.16)";
+              ? hexToRgba(COLORS.humanInk, 0.58)
+              : "rgba(232,221,208,0.18)";
           ctx.beginPath();
           ctx.arc(
             p.x,
@@ -449,8 +457,8 @@ export default function Patents() {
             if (dist < 42) {
               ctx.strokeStyle =
                 modeRef.current === "human"
-                  ? "rgba(51,41,39,0.055)"
-                  : `rgba(51,41,39,${0.12 * prog.current.tLines})`;
+                  ? hexToRgba(COLORS.humanInk, 0.08)
+                  : `rgba(232,221,208,${0.14 * prog.current.tLines})`;
               ctx.lineWidth = modeRef.current === "human" ? 0.45 : 0.65;
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
@@ -501,6 +509,17 @@ export default function Patents() {
         });
       });
       modeRef.current = mode;
+      stickyEl.dataset.mode = mode;
+      gsap.to(".patent-bg--human", {
+        opacity: mode === "human" ? 1 : 0,
+        duration: 0.9,
+        ease: "power2.inOut",
+      });
+      gsap.to(".patent-bg--wave", {
+        opacity: mode === "wave" ? 1 : 0,
+        duration: 0.9,
+        ease: "power2.inOut",
+      });
       setTargets(particles, mode, W, H);
       prog.current.labels = mode === "human" ? 0 : prog.current.labels;
       prog.current.rings = mode === "human" ? 0 : prog.current.rings;
@@ -735,11 +754,13 @@ export default function Patents() {
           top: 0,
           height: "100vh",
           overflow: "hidden",
-          background: "#F2EDE5",
+          background: "#D9E1E8",
         }}
       >
+        <div className="patent-bg patent-bg--human" />
+        <div className="patent-bg patent-bg--wave" />
         {/* grain */}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(51,41,39,.55)_1px,transparent_1px),linear-gradient(90deg,rgba(51,41,39,.55)_1px,transparent_1px)] [background-size:64px_64px]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:linear-gradient(var(--patent-muted)_1px,transparent_1px),linear-gradient(90deg,var(--patent-muted)_1px,transparent_1px)] [background-size:72px_72px]" />
 
         {/* canvas */}
         <canvas
@@ -760,10 +781,10 @@ export default function Patents() {
               fill="none"
               stroke={
                 i % 3 === 0
-                  ? COLORS.celadon
+                  ? COLORS.waveA
                   : i % 3 === 1
-                    ? COLORS.chartreuse
-                    : COLORS.blue
+                    ? COLORS.waveB
+                    : COLORS.waveAccent
               }
               strokeWidth={i % 3 === 0 ? 0.7 : 0.5}
               strokeOpacity={0.22}
@@ -789,10 +810,10 @@ export default function Patents() {
           {/* patent content — both patents, absolutely stacked */}
           <div className="relative mt-auto mb-16 flex-1">
             {/* ── PATENT 1 ── */}
-            <div className="absolute bottom-0 left-0 w-full max-w-2xl space-y-7">
+            <div className="patent-copy patent-copy--human absolute bottom-0 left-0 w-full max-w-2xl space-y-7">
               <div
                 ref={p1IndexRef}
-                className="font-mono text-[10px] tracking-[0.22em] text-[#332927]/35 uppercase"
+                className="patent-meta font-mono text-[10px] tracking-[0.22em] uppercase"
               >
                 01 / 02
               </div>
@@ -801,13 +822,13 @@ export default function Patents() {
               </div>
               <div
                 ref={p1AppRef}
-                className="font-mono text-[11px] tracking-[0.14em] text-[#332927]/50 uppercase"
+                className="patent-meta font-mono text-[11px] tracking-[0.14em] uppercase"
               >
                 {PATENTS[0].application}
               </div>
               <div
                 ref={p1PubRef}
-                className="font-mono text-[11px] tracking-[0.14em] text-[#332927]/50 uppercase"
+                className="patent-meta font-mono text-[11px] tracking-[0.14em] uppercase"
               >
                 Published &nbsp;{PATENTS[0].published}
               </div>
@@ -815,15 +836,16 @@ export default function Patents() {
                 <StatusLine
                   filed={PATENTS[0].filed}
                   status={PATENTS[0].status}
+                  tone="human"
                 />
               </div>
             </div>
 
             {/* ── PATENT 2 ── */}
-            <div className="absolute bottom-0 left-0 w-full max-w-2xl space-y-7">
+            <div className="patent-copy patent-copy--wave absolute bottom-0 left-0 w-full max-w-2xl space-y-7">
               <div
                 ref={p2IndexRef}
-                className="font-mono text-[10px] tracking-[0.22em] text-[#332927]/35 uppercase"
+                className="patent-meta font-mono text-[10px] tracking-[0.22em] uppercase"
               >
                 02 / 02
               </div>
@@ -832,13 +854,13 @@ export default function Patents() {
               </div>
               <div
                 ref={p2AppRef}
-                className="font-mono text-[11px] tracking-[0.14em] text-[#332927]/50 uppercase"
+                className="patent-meta font-mono text-[11px] tracking-[0.14em] uppercase"
               >
                 {PATENTS[1].application}
               </div>
               <div
                 ref={p2PubRef}
-                className="font-mono text-[11px] tracking-[0.14em] text-[#332927]/50 uppercase"
+                className="patent-meta font-mono text-[11px] tracking-[0.14em] uppercase"
               >
                 Published &nbsp;{PATENTS[1].published}
               </div>
@@ -846,6 +868,7 @@ export default function Patents() {
                 <StatusLine
                   filed={PATENTS[1].filed}
                   status={PATENTS[1].status}
+                  tone="wave"
                 />
               </div>
             </div>
@@ -870,6 +893,41 @@ export default function Patents() {
       </div>
 
       <style jsx>{`
+        .patent-bg {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          transition: opacity 0.9s ease;
+        }
+        .patent-bg--human {
+          background:
+            radial-gradient(
+              circle at 70% 22%,
+              rgba(165, 141, 141, 0.18),
+              transparent 28%
+            ),
+            radial-gradient(
+              circle at 18% 78%,
+              rgba(107, 91, 83, 0.08),
+              transparent 30%
+            ),
+            #d9e1e8;
+          opacity: 1;
+        }
+        .patent-bg--wave {
+          background:
+            linear-gradient(
+              135deg,
+              rgba(79, 107, 103, 0.96),
+              rgba(45, 75, 74, 0.98)
+            ),
+            radial-gradient(
+              circle at 78% 68%,
+              rgba(139, 106, 82, 0.22),
+              transparent 30%
+            );
+          opacity: 0;
+        }
         .patents-head {
           font-family:
             var(--font-handdrawn), "Bradley Hand", "Segoe Print", cursive;
@@ -877,7 +935,7 @@ export default function Patents() {
           font-size: clamp(7rem, 19vw, 18rem);
           line-height: 0.76;
           letter-spacing: -0.01em;
-          color: #332927;
+          color: #2a2624;
           width: max-content;
           transform: rotate(-0.9deg) scaleX(0.78) scaleY(1.16);
           transform-origin: left top;
@@ -892,11 +950,25 @@ export default function Patents() {
         }
         .patent-title {
           font-family: "Georgia", "Times New Roman", serif;
-          font-size: clamp(1.1rem, 2.2vw, 1.55rem);
-          line-height: 1.55;
-          color: #332927;
+          font-size: clamp(1.5rem, 3.8vw, 3.8rem);
+          line-height: 1.08;
+          color: currentColor;
           font-weight: 400;
-          max-width: 52ch;
+          max-width: 18ch;
+          transition: color 0.8s ease;
+        }
+        .patent-meta {
+          color: inherit;
+          opacity: 0.62;
+        }
+        .patent-copy {
+          color: #2a2624;
+        }
+        .patent-copy--human {
+          color: #2a2624;
+        }
+        .patent-copy--wave {
+          color: #e8ddd0;
         }
       `}</style>
     </div>
@@ -907,9 +979,11 @@ export default function Patents() {
 function StatusLine({
   filed,
   status,
+  tone = "human",
 }: {
   filed: string;
   status: "published" | "granted";
+  tone?: "human" | "wave";
 }) {
   const steps = [
     { key: "filed", label: "Filed", date: filed },
@@ -917,6 +991,10 @@ function StatusLine({
     { key: "granted", label: "Granted", date: "" },
   ];
   const active = status === "granted" ? 2 : status === "published" ? 1 : 0;
+  const ink = tone === "wave" ? "#E8DDD0" : "#2A2624";
+  const muted =
+    tone === "wave" ? "rgba(232,221,208,0.36)" : "rgba(42,38,36,0.34)";
+  const accent = tone === "wave" ? "#8B6A52" : "#A58D8D";
 
   return (
     <div className="flex items-center gap-0">
@@ -936,8 +1014,8 @@ function StatusLine({
                 width: i <= active ? 7 : 6,
                 height: i <= active ? 7 : 6,
                 borderRadius: "50%",
-                background: i <= active ? "#332927" : "transparent",
-                border: `1px solid ${i <= active ? "#332927" : "rgba(51,41,39,0.3)"}`,
+                background: i <= active ? ink : "transparent",
+                border: `1px solid ${i <= active ? ink : muted}`,
                 transition: "all 0.4s ease",
               }}
             />
@@ -947,8 +1025,7 @@ function StatusLine({
                 fontSize: 8,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color:
-                  i <= active ? "rgba(51,41,39,0.7)" : "rgba(51,41,39,0.25)",
+                color: i <= active ? ink : muted,
                 whiteSpace: "nowrap",
               }}
             >
@@ -962,8 +1039,7 @@ function StatusLine({
                 width: 48,
                 height: 1,
                 marginBottom: 14,
-                background:
-                  i < active ? "rgba(51,41,39,0.5)" : "rgba(51,41,39,0.15)",
+                background: i < active ? accent : muted,
                 transition: "background 0.4s ease",
               }}
             />

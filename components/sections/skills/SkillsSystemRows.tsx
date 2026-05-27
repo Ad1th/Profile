@@ -205,13 +205,13 @@ function ObservabilityDiagram({ animate }: { animate?: boolean }) {
         <polyline
           className="obs-line"
           points="0,38 28,38 36,44 44,20 52,44 60,36 80,36 90,48 100,14 108,42 120,36 140,36 150,46 160,22 168,42 180,36 200,36 208,14 216,44 224,36 260,36"
-          stroke="#E8420A"
+          stroke="#913831"
           strokeWidth="1.8"
           fill="none"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <circle cx="100" cy="14" r="4" fill="#E8420A" className="obs-dot" />
+        <circle cx="100" cy="14" r="4" fill="#913831" className="obs-dot" />
       </svg>
       {animate && (
         <style>{`
@@ -362,7 +362,7 @@ const rows = [
     num: "01",
     title: "BACKEND",
     sub: "SYSTEMS",
-    subColor: "#E8420A",
+    subColor: "#913831",
     desc: "Building modular services and robust APIs with clean architecture, authentication and performance in mind.",
     tech: [
       ["NODE.JS", "FASTAPI", "POSTGRES"],
@@ -374,7 +374,7 @@ const rows = [
     num: "02",
     title: "DATA",
     sub: "SYSTEMS",
-    subColor: "#E8420A",
+    subColor: "#913831",
     desc: "Designing data models, optimizing queries and building reliable pipelines that scale with your product.",
     tech: [
       ["POSTGRESQL", "MYSQL", "MONGODB"],
@@ -386,7 +386,7 @@ const rows = [
     num: "03",
     title: "OBSERVABILITY",
     sub: "SYSTEMS",
-    subColor: "#E8420A",
+    subColor: "#913831",
     desc: "Instrumenting systems to see everything, understand anomalies and resolve issues before users feel them.",
     tech: [
       ["PROMETHEUS", "GRAFANA", "LOKI"],
@@ -493,7 +493,7 @@ function SystemRow({
           top: 0,
           bottom: 0,
           width: 2,
-          background: "#CFDE00",
+          background: "#8A8B6D",
           transformOrigin: "top",
         }}
         initial={{ scaleY: 0, opacity: 0 }}
@@ -521,7 +521,7 @@ function SystemRow({
               fontFamily: "monospace",
               fontSize: 18,
               fontWeight: 700,
-              color: "#E8420A",
+              color: "#913831",
               lineHeight: 1,
             }}
           >
@@ -531,7 +531,7 @@ function SystemRow({
           <motion.div
             style={{
               height: 2,
-              background: "#CFDE00",
+              background: "#8A8B6D",
               marginTop: 6,
               transformOrigin: "left",
             }}
@@ -562,7 +562,7 @@ function SystemRow({
               fontFamily: "var(--font-archivo), sans-serif",
               fontSize: "clamp(22px, 1.9vw, 32px)",
               fontWeight: 900,
-              color: "#F0EBE0",
+              color: "#E5DED2",
               letterSpacing: "-0.01em",
               lineHeight: 1,
               textTransform: "uppercase",
@@ -614,7 +614,7 @@ function SystemRow({
           {/* Orange chevron — pulses once when row enters */}
           <motion.span
             style={{
-              color: "#E8420A",
+              color: "#913831",
               fontFamily: "monospace",
               fontSize: 14,
               fontWeight: 900,

@@ -207,7 +207,7 @@ export default function Experience() {
       <div className="relative z-10 flex min-h-screen flex-col px-8 pb-8 pt-16 lg:px-14">
         <div className="experience-kicker grid grid-cols-[minmax(0,1fr)_260px] items-start gap-8">
           <div>
-            <span className="font-mono text-[12px] font-black tracking-[0.12em] text-[#FF5A1F]">
+            <span className="font-mono text-[12px] font-black tracking-[0.12em] text-[#A14A32]">
               + EXPERIENCE
             </span>
             <h2
@@ -269,7 +269,7 @@ export default function Experience() {
                 }}
               >
                 Building products, communities, and systems.{" "}
-                <span style={{ color: "#D7FF00", marginLeft: 8 }}>
+                <span style={{ color: "#8A8B6D", marginLeft: 8 }}>
                   2025 → Present
                 </span>
               </p>
@@ -283,7 +283,7 @@ export default function Experience() {
             <div
               className="experience-rail-fill absolute left-0 top-0 bottom-0 origin-left"
               style={{
-                background: "#D7FF00",
+                background: "#8A8B6D",
                 transformOrigin: "left center",
                 width: "100%",
                 height: "100%",
@@ -299,9 +299,9 @@ export default function Experience() {
               >
                 <div className="experience-node absolute left-1/2 top-0 z-20 flex -translate-x-1/2 flex-col items-center">
                   <span className="flex h-10 w-10 items-center justify-center border-[3px] border-[#111] bg-[#ECE7DF] shadow-[5px_5px_0_rgba(0,0,0,0.55)]">
-                    <i className="h-3 w-3 rounded-full bg-[#FF5A1F]" />
+                    <i className="h-3 w-3 rounded-full bg-[#A14A32]" />
                   </span>
-                  <b className="mt-[-2px] font-mono text-[10px] tracking-[0.14em] text-[#D7FF00]">
+                  <b className="mt-[-2px] font-mono text-[10px] tracking-[0.14em] text-[#8A8B6D]">
                     {index < 2 ? "2025" : "2026"}
                   </b>
                 </div>

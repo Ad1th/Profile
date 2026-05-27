@@ -194,7 +194,7 @@ export default function Navbar() {
                     left: 0,
                     right: 0,
                     height: 2,
-                    background: "#CFDE00",
+                    background: "#8A8B6D",
                     originX: 0,
                   }}
                   initial={{ scaleX: 0 }}
@@ -335,7 +335,7 @@ export default function Navbar() {
                       letterSpacing: "-0.03em",
                       lineHeight: 0.9,
                       textTransform: "uppercase",
-                      color: isActive ? "#CFDE00" : "#F0EBE0",
+                      color: isActive ? "#8A8B6D" : "#F0EBE0",
                     }}
                     initial={{ x: -40, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
@@ -344,7 +344,7 @@ export default function Navbar() {
                       delay: i * 0.08,
                       ease: easings.primary,
                     }}
-                    whileHover={{ x: 12, color: "#CFDE00" } as any}
+                    whileHover={{ x: 12, color: "#8A8B6D" } as any}
                   >
                     {label}
                   </motion.button>

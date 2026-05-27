@@ -44,9 +44,7 @@ const SECTIONS = [
   "experience",
   "projects",
   "patents",
-  // implemented till above
-  "hackathons",
-  "timeline",
+  "hackathons/achievements",
   "contact",
 ];
 
@@ -62,7 +60,6 @@ export default function Page() {
           <DesktopCinematicTransition />
           <Patents />
           <HackathonsAchievements />
-          <Timeline />
           <Contact />
         </>
       ) : (
@@ -76,7 +73,6 @@ export default function Page() {
           <Projects />
           <Patents />
           <HackathonsAchievements />
-          <Timeline />
           <Contact />
         </>
       )}

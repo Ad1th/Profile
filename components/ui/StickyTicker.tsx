@@ -51,7 +51,7 @@ export default function StickyTicker() {
       className="fixed bottom-0 left-0 right-0 z-[300] overflow-hidden flex items-center pointer-events-none"
       style={{
         height: 44,
-        background: "#E8420A",
+        background: "#A14A32",
         borderTop: "4px solid #111",
       }}
       animate={{ opacity: idle ? 0.38 : 1 }}

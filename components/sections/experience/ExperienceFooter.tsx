@@ -64,7 +64,7 @@ export default function ExperienceFooter() {
               style={{
                 width: 6,
                 height: h,
-                background: i % 2 === 0 ? "#D7FF00" : "#FF5A1F",
+                background: i % 2 === 0 ? "#8A8B6D" : "#A14A32",
                 opacity: 0.85,
               }}
             />
@@ -80,7 +80,7 @@ export default function ExperienceFooter() {
             fontSize: 11,
             fontWeight: 700,
             letterSpacing: "0.09em",
-            color: "#D7FF00",
+            color: "#8A8B6D",
             textAlign: "right",
             lineHeight: 1.7,
           }}
@@ -93,7 +93,7 @@ export default function ExperienceFooter() {
         </div>
         <div
           style={{
-            border: "2px solid #D7FF00",
+            border: "2px solid #8A8B6D",
             width: 48,
             height: 48,
             display: "flex",
@@ -106,20 +106,20 @@ export default function ExperienceFooter() {
               cx="16"
               cy="16"
               r="12"
-              stroke="#D7FF00"
+              stroke="#8A8B6D"
               strokeWidth="2"
               fill="none"
             />
-            <path d="M4 16 H28" stroke="#D7FF00" strokeWidth="1.5" />
+            <path d="M4 16 H28" stroke="#8A8B6D" strokeWidth="1.5" />
             <path
               d="M16 4 C10 8 10 24 16 28"
-              stroke="#D7FF00"
+              stroke="#8A8B6D"
               strokeWidth="1.5"
               fill="none"
             />
             <path
               d="M16 4 C22 8 22 24 16 28"
-              stroke="#D7FF00"
+              stroke="#8A8B6D"
               strokeWidth="1.5"
               fill="none"
             />

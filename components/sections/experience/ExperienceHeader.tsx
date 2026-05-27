@@ -20,14 +20,14 @@ export default function ExperienceHeader() {
         viewport={{ once: true }}
         transition={{ duration: 0.5, ease: easings.primary }}
       >
-        <div style={{ width: 32, height: 3, background: "#FF5A1F" }} />
+        <div style={{ width: 32, height: 3, background: "#A14A32" }} />
         <span
           style={{
             fontFamily: "IBM Plex Mono, monospace",
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "0.14em",
-            color: "#FF5A1F",
+            color: "#A14A32",
             textTransform: "uppercase",
           }}
         >
@@ -68,7 +68,7 @@ export default function ExperienceHeader() {
               fontSize: "clamp(64px, 8vw, 110px)",
               lineHeight: 0.9,
               letterSpacing: "4em",
-              color: "#FF5A1F",
+              color: "#A14A32",
             }}
           >
             ARCHIVE.
@@ -87,7 +87,7 @@ export default function ExperienceHeader() {
             style={{
               width: 48,
               height: 3,
-              background: "#D7FF00",
+              background: "#8A8B6D",
               marginBottom: 14,
             }}
           />

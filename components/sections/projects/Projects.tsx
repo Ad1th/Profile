@@ -320,7 +320,7 @@ function DoodleVisual({ type }: { type: FeaturedProject["visual"] }) {
               cx={x}
               cy={y}
               r={i % 4 === 0 ? 5 : 3}
-              fill="#e8420a"
+              fill="#913831"
             />
           );
         })}
@@ -331,7 +331,7 @@ function DoodleVisual({ type }: { type: FeaturedProject["visual"] }) {
             y1={22 + ((i * 29) % 125)}
             x2={34 + ((i * 61) % 260)}
             y2={18 + ((i * 43) % 130)}
-            stroke="#c88f4d"
+            stroke="#8B6A52"
             strokeWidth="1.4"
             opacity="0.65"
           />
@@ -351,14 +351,14 @@ function DoodleVisual({ type }: { type: FeaturedProject["visual"] }) {
             y={132 - ((i * 19) % 98)}
             width="7"
             height={20 + ((i * 17) % 118)}
-            fill={i % 3 === 0 ? "#f0ebe0" : "#6c8ead"}
+            fill={i % 3 === 0 ? "#D8D1C7" : "#6E8CA6"}
             opacity="0.72"
           />
         ))}
         <polyline
           points="0,130 38,112 72,124 106,82 148,95 184,46 230,66 276,35 320,54"
           fill="none"
-          stroke="#f0ebe0"
+          stroke="#D8D1C7"
           strokeWidth="2"
         />
       </svg>
@@ -387,14 +387,14 @@ function DoodleVisual({ type }: { type: FeaturedProject["visual"] }) {
               width="78"
               height="24"
               fill="none"
-              stroke="#f0ebe0"
+              stroke="#D8D1C7"
               strokeWidth="1.5"
             />
             <text
               x="39"
               y="16"
               textAnchor="middle"
-              fill="#f0ebe0"
+              fill="#D8D1C7"
               fontSize="9"
               fontFamily="monospace"
             >
@@ -413,7 +413,7 @@ function DoodleVisual({ type }: { type: FeaturedProject["visual"] }) {
 
   return (
     <svg viewBox="0 0 320 170" className="projects-visual" aria-hidden="true">
-      <rect width="320" height="170" fill="#cfde00" opacity="0.12" />
+      <rect width="320" height="170" fill="#9FA76B" opacity="0.18" />
       <circle
         cx="86"
         cy="70"
@@ -485,8 +485,8 @@ function FeaturedPaper({
       className={`projects-paper projects-paper--${project.paper} ${project.className} ${selected ? "is-selected" : ""}`}
       style={{ y }}
       onClick={() => onSelect(project)}
-      whileHover={{ y: -12, rotate: project.id === "03" ? 1 : -1 }}
-      whileTap={{ y: -18, rotate: 0, scale: 0.99 }}
+      whileHover={{ y: -6, rotate: project.id === "03" ? 0.6 : -0.6 }}
+      whileTap={{ y: -8, rotate: 0, scale: 0.995 }}
     >
       <span className="projects-clip" />
       <span className="projects-tape projects-tape--top" />
@@ -604,7 +604,7 @@ export default function Projects() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
+          start: "top 84%",
           once: true,
         },
       });

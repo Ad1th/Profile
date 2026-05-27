@@ -57,12 +57,12 @@ function LangDots({
             animate={
               shouldAnimate
                 ? {
-                    background: isFilled ? "#CFDE00" : "#444",
+                    background: isFilled ? "#8A8B6D" : "#444",
                     scale: 1,
                     opacity: 1,
                   }
                 : {
-                    background: isFilled ? "#CFDE00" : "#444",
+                    background: isFilled ? "#8A8B6D" : "#444",
                     scale: 1,
                     opacity: 1,
                   }
@@ -92,9 +92,9 @@ const languages = [
 ];
 
 const headlineLines = [
-  { text: "The stack", color: "#F0EBE0" },
-  { text: "behind the", color: "#CFDE00" },
-  { text: "things I build.", color: "#E8420A" },
+  { text: "The stack", color: "#E5DED2" },
+  { text: "behind the", color: "#8A8B6D" },
+  { text: "things I build.", color: "#913831" },
 ];
 
 interface SkillsHeroProps {
@@ -193,7 +193,7 @@ export default function SkillsHero({
         </div>
 
         <motion.div
-          style={{ width: 40, height: 3, background: "#CFDE00", marginTop: 8 }}
+          style={{ width: 40, height: 3, background: "#8A8B6D", marginTop: 8 }}
           initial={{ scaleX: 0, originX: 0 }}
           {...(standalone
             ? {
@@ -248,7 +248,7 @@ export default function SkillsHero({
         </motion.p>
 
         <motion.div
-          style={{ width: 48, height: 3, background: "#CFDE00", marginTop: 32 }}
+          style={{ width: 48, height: 3, background: "#8A8B6D", marginTop: 32 }}
           initial={{ scaleX: 0, originX: 0 }}
           {...(standalone
             ? {
@@ -263,7 +263,7 @@ export default function SkillsHero({
           style={{
             width: 12,
             height: 12,
-            background: "#E8420A",
+            background: "#913831",
             marginTop: 20,
           }}
           initial={{ opacity: 0, scale: 0 }}
@@ -343,7 +343,7 @@ export default function SkillsHero({
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "0.14em",
-            color: "#CFDE00",
+            color: "#8A8B6D",
             marginBottom: 20,
           }}
           initial={{ opacity: 0 }}
@@ -386,7 +386,7 @@ export default function SkillsHero({
                   fontFamily: "monospace",
                   fontSize: 13,
                   fontWeight: 700,
-                  color: "#F0EBE0",
+                  color: "#E5DED2",
                   letterSpacing: "0.06em",
                   minWidth: 76,
                 }}

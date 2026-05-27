@@ -182,9 +182,9 @@ function ResearchStamp() {
 
 function StatusBadge({ status }: { status: ExperienceEntry["status"] }) {
   const colors = {
-    ACTIVE: { bg: "#D7FF00", text: "#111" },
+    ACTIVE: { bg: "#8A8B6D", text: "#111" },
     COMPLETE: { bg: "#222", text: "#ccc" },
-    CONTRIBUTING: { bg: "#111", text: "#D7FF00" },
+    CONTRIBUTING: { bg: "#111", text: "#8A8B6D" },
   } as const;
   const c = colors[status];
   return (
@@ -193,7 +193,7 @@ function StatusBadge({ status }: { status: ExperienceEntry["status"] }) {
         display: "inline-flex",
         alignItems: "center",
         background: c.bg,
-        border: `2px solid ${status === "CONTRIBUTING" ? "#D7FF00" : "#111"}`,
+        border: `2px solid ${status === "CONTRIBUTING" ? "#8A8B6D" : "#111"}`,
         padding: "3px 10px",
         fontFamily: "IBM Plex Mono, monospace",
         fontSize: 11,
@@ -212,13 +212,13 @@ function AccessBadge({ label }: { label: string }) {
   return (
     <div
       style={{
-        border: "2px solid #FF5A1F",
+        border: "2px solid #A14A32",
         padding: "6px 10px",
         fontFamily: "IBM Plex Mono, monospace",
         fontSize: 10,
         fontWeight: 700,
         letterSpacing: "0.06em",
-        color: "#FF5A1F",
+        color: "#A14A32",
         textAlign: "center",
         lineHeight: 1.5,
       }}
@@ -258,7 +258,7 @@ function ProgressBar({ value }: { value: number }) {
           style={{
             width: 8,
             height: 10,
-            background: i < blocks ? "#D7FF00" : "#333",
+            background: i < blocks ? "#8A8B6D" : "#333",
           }}
         />
       ))}
@@ -362,7 +362,7 @@ export default function ExperienceCard(
                   fontFamily: "IBM Plex Mono, monospace",
                   fontSize: compact ? 14 : 16,
                   fontWeight: 700,
-                  color: "#FF5A1F",
+                  color: "#A14A32",
                   lineHeight: 1,
                 }}
               >
@@ -375,7 +375,7 @@ export default function ExperienceCard(
                 fontSize: 11,
                 fontWeight: 700,
                 letterSpacing: "0.04em",
-                color: "#FF5A1F",
+                color: "#A14A32",
               }}
             >
               {entry.role}
@@ -448,8 +448,8 @@ export default function ExperienceCard(
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                background: "#FF5A1F",
-                border: "2px solid #FF5A1F",
+                background: "#A14A32",
+                border: "2px solid #A14A32",
                 padding: "4px 12px",
                 fontFamily: "IBM Plex Mono, monospace",
                 fontSize: 12,
@@ -479,7 +479,7 @@ export default function ExperienceCard(
             <li key={i} className="flex items-start gap-3">
               <span
                 style={{
-                  color: "#FF5A1F",
+                  color: "#A14A32",
                   fontWeight: 700,
                   fontFamily: "IBM Plex Mono, monospace",
                   fontSize: compact ? 11 : 13,
@@ -528,7 +528,7 @@ export default function ExperienceCard(
                   fontFamily: "IBM Plex Mono, monospace",
                   fontSize: 11,
                   fontWeight: 700,
-                  color: "#D7FF00",
+                  color: "#8A8B6D",
                 }}
               >
                 CONTRIBUTING
@@ -561,8 +561,8 @@ export default function ExperienceCard(
                 fontSize: compact ? 10 : 11,
                 fontWeight: 700,
                 letterSpacing: "0.04em",
-                color: isContributor ? "#D7FF00" : "#111",
-                border: `1px solid ${isContributor ? "#D7FF00" : "#111"}`,
+                color: isContributor ? "#8A8B6D" : "#111",
+                border: `1px solid ${isContributor ? "#8A8B6D" : "#111"}`,
                 padding: compact ? "3px 8px" : "4px 10px",
                 background: "transparent",
               }}

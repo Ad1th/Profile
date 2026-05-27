@@ -30,9 +30,9 @@ export default function DesktopCinematicTransition() {
     offset: ["start start", "end end"],
   });
 
-  const totalScrollVh = 450;
-  const skillsStart = 430 / totalScrollVh;
-  const skillsRevealStart = 400 / totalScrollVh;
+  const totalScrollVh = 320;
+  const skillsStart = 300 / totalScrollVh;
+  const skillsRevealStart = 220 / totalScrollVh;
 
   // Hero exits during the first third, revealing the single About instance.
   const backendX = useTransform(scrollYProgress, [0.02, 0.1], [0, -700]);

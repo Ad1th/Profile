@@ -248,32 +248,6 @@ const archiveProjects: ArchiveProject[] = [
   },
   {
     id: "16",
-    name: "Google Drive Clone",
-    stack: "NEXT.JS / T3 / S3",
-    year: "2025",
-    description:
-      "File storage interface with folder navigation and upload flows.",
-    preview: ["file grid", "upload flow", "folder detail"],
-  },
-  {
-    id: "17",
-    name: "Admin Portal",
-    stack: "NEXT.JS / CHART.JS",
-    year: "2025",
-    description:
-      "Administrative web app for internal data review and operations.",
-    preview: ["records table", "detail drawer", "export flow"],
-  },
-  {
-    id: "18",
-    name: "Forum / Groups Web App",
-    stack: "NODE.JS / REDIS",
-    year: "2024",
-    description: "Groups and forum app with fast server-backed discussions.",
-    preview: ["groups list", "topic page", "moderation view"],
-  },
-  {
-    id: "19",
     name: "CaughtIn4K",
     stack: "GOLANG / FIBER / SQLITE",
     year: "2024",
@@ -281,7 +255,7 @@ const archiveProjects: ArchiveProject[] = [
     preview: ["capture log", "review page", "local db"],
   },
   {
-    id: "20",
+    id: "17",
     name: "WhoHitMe",
     stack: "GOLANG / CLI",
     year: "2024",
@@ -289,7 +263,7 @@ const archiveProjects: ArchiveProject[] = [
     preview: ["terminal view", "request trace", "output format"],
   },
   {
-    id: "21",
+    id: "18",
     name: "WhatDidYouSend",
     stack: "GOLANG / FIBER / POSTGRES",
     year: "2024",
@@ -297,7 +271,7 @@ const archiveProjects: ArchiveProject[] = [
     preview: ["message list", "payload view", "storage path"],
   },
   {
-    id: "22",
+    id: "19",
     name: "Snek",
     stack: "JS / CANVAS",
     year: "2024",

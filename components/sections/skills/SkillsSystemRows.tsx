@@ -470,7 +470,7 @@ function SystemRow({
       className="relative grid"
       style={{
         gridTemplateColumns:
-          "80px clamp(250px, 15vw, 310px) minmax(220px, 1fr) clamp(260px, 16vw, 320px) clamp(220px, 14vw, 280px)",
+          "80px clamp(250px, 21vw, 350px) minmax(200px, 37vw) clamp(240px, 16vw, 320px) clamp(220px, 14vw, 280px)",
         alignItems: "center",
         borderBottom: !isLast ? "2px solid #2a2a2a" : "none",
         minHeight: 88,

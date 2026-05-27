@@ -131,7 +131,7 @@ export default function Contact() {
 
           {/* RIGHT */}
           <div className="relative flex flex-col justify-center border-l border-[#E8DDD0]/10 pl-0 lg:pl-16">
-            <div className="space-y-8">
+            <div className="space-y-5">
               {/* EMAIL 1 */}
               <a
                 href="mailto:hello@adith.xyz"

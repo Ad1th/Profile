@@ -2,7 +2,7 @@ export default function Contact() {
   return (
     <section
       data-section="contact"
-      className="relative w-full overflow-hidden bg-[#2E2230] px-6 py-24 text-[#E8DDD0] sm:px-10 lg:px-16"
+      className="relative w-full overflow-hidden bg-[#2E2230] px-6 py-12 text-[#E8DDD0] sm:px-10 lg:px-16"
       style={{ isolation: "isolate" }}
     >
       {/* grain */}
@@ -17,8 +17,8 @@ export default function Contact() {
 
       <div className="relative mx-auto flex max-w-7xl flex-col">
         {/* top bar */}
-        <div className="flex items-start justify-between border-b border-[#E8DDD0]/10 pb-8">
-          <div className="flex items-center gap-8">
+        <div className="flex items-start justify-between border-b border-[#E8DDD0]/10 pb-5">
+          <div className="flex items-center gap-6">
             <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-[#E8DDD0]/82">
               ADITH
             </span>

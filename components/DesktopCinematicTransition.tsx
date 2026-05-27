@@ -30,6 +30,10 @@ export default function DesktopCinematicTransition() {
     offset: ["start start", "end end"],
   });
 
+  const totalScrollVh = 450;
+  const skillsStart = 400 / totalScrollVh;
+  const skillsRevealStart = 360 / totalScrollVh;
+
   // Hero exits during the first third, revealing the single About instance.
   const backendX = useTransform(scrollYProgress, [0.02, 0.1], [0, -700]);
   const backendOpacity = useTransform(scrollYProgress, [0.02, 0.09], [1, 0]);
@@ -62,32 +66,32 @@ export default function DesktopCinematicTransition() {
   // About enters once, then exits directly over Skills. No second About render.
   const aboutShellOpacity = useTransform(
     scrollYProgress,
-    [0.13, 0.2, 0.42, 0.5],
+    [0.13, 0.2, skillsRevealStart, skillsStart],
     [0, 1, 1, 0],
   );
   const aboutShellClip = useTransform(
     scrollYProgress,
-    [0.44, 0.56],
+    [skillsRevealStart, skillsStart],
     ["inset(0% 0% 0% 0%)", "inset(0% 0% 100% 0%)"],
   );
   const buildY = useTransform(
     scrollYProgress,
-    [0.15, 0.23, 0.43, 0.5],
+    [0.15, 0.24, skillsRevealStart, skillsStart],
     [80, 0, 0, 40],
   );
   const buildOpacity = useTransform(
     scrollYProgress,
-    [0.15, 0.22, 0.43, 0.49],
+    [0.15, 0.21, skillsRevealStart, skillsStart],
     [0, 1, 1, 0],
   );
   const buildScale = useTransform(
     scrollYProgress,
-    [0.15, 0.23, 0.43, 0.5],
+    [0.15, 0.23, skillsRevealStart, skillsStart],
     [0.96, 1, 1, 0.96],
   );
   const bioClip = useTransform(
     scrollYProgress,
-    [0.17, 0.24, 0.44, 0.51],
+    [0.17, 0.24, skillsRevealStart, skillsStart],
     [
       "inset(100% 0% 0% 0%)",
       "inset(0% 0% 0% 0%)",
@@ -97,43 +101,43 @@ export default function DesktopCinematicTransition() {
   );
   const bioOpacity = useTransform(
     scrollYProgress,
-    [0.16, 0.23, 0.44, 0.5],
+    [0.16, 0.23, skillsRevealStart, skillsStart],
     [0, 1, 1, 0],
   );
   const bioY = useTransform(
     scrollYProgress,
-    [0.17, 0.24, 0.44, 0.5],
+    [0.17, 0.24, skillsRevealStart, skillsStart],
     [32, 0, 0, 28],
   );
   const paperOpacity = useTransform(
     scrollYProgress,
-    [0.18, 0.25, 0.44, 0.5],
+    [0.18, 0.25, skillsRevealStart, skillsStart],
     [0, 1, 1, 0],
   );
   const paperScale = useTransform(
     scrollYProgress,
-    [0.18, 0.25, 0.44, 0.51],
+    [0.18, 0.25, skillsRevealStart, skillsStart],
     [0.82, 1, 1, 0.82],
   );
   const paperRotate = useTransform(
     scrollYProgress,
-    [0.18, 0.25, 0.44, 0.51],
+    [0.18, 0.25, skillsRevealStart, skillsStart],
     [-6, 0, 0, 6],
   );
   const paperSkewX = useTransform(
     scrollYProgress,
-    [0.18, 0.25, 0.44, 0.51],
+    [0.18, 0.25, skillsRevealStart, skillsStart],
     [-8, 0, 0, 8],
   );
   const paperSkewY = useTransform(scrollYProgress, [0.18, 0.25], [4, 0]);
   const paperFilter = useTransform(
     scrollYProgress,
-    [0.18, 0.25, 0.44, 0.51],
+    [0.18, 0.25, skillsRevealStart, skillsStart],
     ["blur(6px)", "blur(0px)", "blur(0px)", "blur(6px)"],
   );
   const paperClip = useTransform(
     scrollYProgress,
-    [0.18, 0.25, 0.44, 0.51],
+    [0.18, 0.25, skillsRevealStart, skillsStart],
     [
       "inset(0% 0% 40% 0%)",
       "inset(0% 0% 0% 0%)",
@@ -143,12 +147,12 @@ export default function DesktopCinematicTransition() {
   );
   const backendAboutY = useTransform(
     scrollYProgress,
-    [0.2, 0.27, 0.45, 0.51],
+    [0.2, 0.27, skillsRevealStart, skillsStart],
     [48, 0, 0, 48],
   );
   const backendAboutOpacity = useTransform(
     scrollYProgress,
-    [0.2, 0.26, 0.45, 0.5],
+    [0.2, 0.26, skillsRevealStart, skillsStart],
     [0, 1, 1, 0],
   );
   const backendAboutScale = useTransform(
@@ -158,53 +162,57 @@ export default function DesktopCinematicTransition() {
   );
   const hardwareX = useTransform(
     scrollYProgress,
-    [0.21, 0.28, 0.45, 0.51],
+    [0.21, 0.28, skillsRevealStart, skillsStart],
     [60, 0, 0, 60],
   );
   const hardwareOpacity = useTransform(
     scrollYProgress,
-    [0.21, 0.27, 0.45, 0.5],
+    [0.21, 0.27, skillsRevealStart, skillsStart],
     [0, 1, 1, 0],
   );
   const interestsY = useTransform(
     scrollYProgress,
-    [0.22, 0.29, 0.45, 0.51],
+    [0.22, 0.29, skillsRevealStart, skillsStart],
     [-40, 0, 0, -36],
   );
   const interestsOpacity = useTransform(
     scrollYProgress,
-    [0.22, 0.28, 0.45, 0.5],
+    [0.22, 0.28, skillsRevealStart, skillsStart],
     [0, 1, 1, 0],
   );
   const interestsScale = useTransform(scrollYProgress, [0.22, 0.29], [0.96, 1]);
   const builtScale = useTransform(
     scrollYProgress,
-    [0.24, 0.31, 0.46, 0.52],
+    [0.24, 0.31, skillsRevealStart, skillsStart],
     [0.88, 1, 1, 0.88],
   );
   const builtOpacity = useTransform(
     scrollYProgress,
-    [0.24, 0.3, 0.46, 0.51],
+    [0.24, 0.3, skillsRevealStart, skillsStart],
     [0, 1, 1, 0],
   );
   const footerY = useTransform(
     scrollYProgress,
-    [0.28, 0.34, 0.42, 0.48],
+    [0.28, 0.34, skillsRevealStart, skillsStart],
     [24, 0, 0, 24],
   );
   const footerOpacity = useTransform(
     scrollYProgress,
-    [0.28, 0.33, 0.42, 0.48],
+    [0.28, 0.33, skillsRevealStart, skillsStart],
     [0, 1, 1, 0],
   );
 
   // Skills lives underneath About and is revealed by About's clip, then exits to Experience.
   const skillsOpacity = useTransform(
     scrollYProgress,
-    [0.44, 0.5, 1],
+    [skillsRevealStart, skillsStart, 1],
     [0, 1, 1],
   );
-  const skillsY = useTransform(scrollYProgress, [0.44, 0.52, 1], [30, 0, 0]);
+  const skillsY = useTransform(
+    scrollYProgress,
+    [skillsRevealStart, skillsStart, 1],
+    [30, 0, 0],
+  );
   const skillsScale = useTransform(scrollYProgress, [0.78, 1], [1, 1]);
   const markerStyle = {
     position: "absolute",
@@ -215,10 +223,16 @@ export default function DesktopCinematicTransition() {
 
   return (
     <>
-      <div ref={containerRef} style={{ height: "400vh", position: "relative" }}>
+      <div
+        ref={containerRef}
+        style={{ height: `${totalScrollVh}vh`, position: "relative" }}
+      >
         <div data-section="hero" style={{ ...markerStyle, top: 0 }} />
         <div data-section="about" style={{ ...markerStyle, top: "25%" }} />
-        <div data-section="skills" style={{ ...markerStyle, top: "52%" }} />
+        <div
+          data-section="skills"
+          style={{ ...markerStyle, top: `${skillsStart * 100}%` }}
+        />
 
         <div
           style={{

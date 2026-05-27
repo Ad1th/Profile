@@ -1,7 +1,7 @@
 import type React from "react";
 // @ts-expect-error -- Global CSS side-effect import is handled by Next.js
 import "./globals.css";
-import { Anton, Archivo_Black } from "next/font/google";
+import { Amatic_SC, Anton, Archivo_Black } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 
 const archivo = Archivo_Black({
@@ -14,6 +14,12 @@ const anton = Anton({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-anton",
+});
+
+const amatic = Amatic_SC({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-handdrawn",
 });
 
 export const metadata = {
@@ -31,7 +37,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${archivo.variable} ${anton.variable}`}
+      className={`${archivo.variable} ${anton.variable} ${amatic.variable}`}
     >
       <body>
         <Navbar />

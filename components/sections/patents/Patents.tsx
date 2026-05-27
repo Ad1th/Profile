@@ -872,14 +872,14 @@ export default function Patents() {
       <style jsx>{`
         .patents-head {
           font-family:
-            "April 10", "Amatic SC", "Bradley Hand", "Segoe Print", cursive;
+            var(--font-handdrawn), "Bradley Hand", "Segoe Print", cursive;
           font-weight: 300;
-          font-size: clamp(6rem, 17vw, 16rem);
-          line-height: 0.82;
+          font-size: clamp(7rem, 19vw, 18rem);
+          line-height: 0.76;
           letter-spacing: -0.01em;
           color: #332927;
           width: max-content;
-          transform: rotate(-0.9deg) scaleX(0.72) scaleY(1.07);
+          transform: rotate(-0.9deg) scaleX(0.78) scaleY(1.16);
           transform-origin: left top;
           filter: url("#rough-head");
           text-shadow:

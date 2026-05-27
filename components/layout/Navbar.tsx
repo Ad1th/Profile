@@ -35,11 +35,8 @@ const MENU_LINKS: { label: string; section: string }[] = [
   { label: "SKILLS", section: "skills" },
   { label: "EXPERIENCE", section: "experience" },
   { label: "PROJECTS", section: "projects" },
-
   { label: "PATENTS", section: "patents" },
-  { label: "HACKATHONS", section: "hackathons" },
-  { label: "ACHIEVEMENTS", section: "achievements" },
-  { label: "TIMELINE", section: "timeline" },
+  { label: "HACKATHONS/ACHIEVEMENTS", section: "hackathons" },
   { label: "CONTACT", section: "contact" },
 ];
 
@@ -50,9 +47,7 @@ const SECTIONS = [
   "experience",
   "projects",
   "patents",
-  "hackathons",
-  "achievements",
-  "timeline",
+  "hackathons/achievements",
   "contact",
 ];
 
@@ -332,10 +327,10 @@ export default function Navbar() {
                       border: "none",
                       borderBottom: "2px solid #222",
                       paddingTop: 16,
-                      paddingBottom: 16,
+                      paddingBottom: 18,
                       fontFamily:
                         "var(--font-anton), 'Arial Black', sans-serif",
-                      fontSize: "clamp(50px, 8vw, 60px)",
+                      fontSize: "clamp(54px, 9vw, 68px)",
                       fontWeight: 400,
                       letterSpacing: "-0.03em",
                       lineHeight: 0.9,
@@ -361,7 +356,7 @@ export default function Navbar() {
             <div
               style={{
                 marginTop: "auto",
-                paddingBottom: 40,
+                paddingBottom: 45,
                 fontFamily: "monospace",
                 fontSize: 11,
                 fontWeight: 700,
@@ -369,7 +364,7 @@ export default function Navbar() {
                 letterSpacing: "0.1em",
               }}
             >
-              VIT VELLORE — BACKEND SYSTEMS — 2026
+              ADITH MANIKONDA | 2026
             </div>
           </motion.div>
         )}

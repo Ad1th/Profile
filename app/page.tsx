@@ -62,6 +62,7 @@ export default function Page() {
         <>
           <DesktopCinematicTransition />
           <Patents />
+          <Hackathons />
           <Achievements />
           <Timeline />
           <Contact />

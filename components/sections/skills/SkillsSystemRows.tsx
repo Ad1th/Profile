@@ -469,7 +469,8 @@ function SystemRow({
       ref={rowRef}
       className="relative grid"
       style={{
-        gridTemplateColumns: "80px 180px 1fr 320px 280px",
+        gridTemplateColumns:
+          "80px clamp(250px, 15vw, 310px) minmax(220px, 1fr) clamp(260px, 16vw, 320px) clamp(220px, 14vw, 280px)",
         alignItems: "center",
         borderBottom: !isLast ? "2px solid #2a2a2a" : "none",
         minHeight: 88,
@@ -559,7 +560,7 @@ function SystemRow({
           <div
             style={{
               fontFamily: "var(--font-archivo), sans-serif",
-              fontSize: "clamp(22px, 2.2vw, 34px)",
+              fontSize: "clamp(22px, 1.9vw, 32px)",
               fontWeight: 900,
               color: "#F0EBE0",
               letterSpacing: "-0.01em",

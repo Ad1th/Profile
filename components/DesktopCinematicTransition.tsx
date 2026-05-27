@@ -89,7 +89,7 @@ export default function DesktopCinematicTransition() {
 
   return (
     <>
-      <div ref={containerRef} style={{ height: "600vh", position: "relative" }}>
+      <div ref={containerRef} style={{ height: "480vh", position: "relative" }}>
         <div data-section="hero" style={{ ...markerStyle, top: 0 }} />
         <div data-section="about" style={{ ...markerStyle, top: "25%" }} />
         <div data-section="skills" style={{ ...markerStyle, top: "52%" }} />

@@ -464,17 +464,20 @@ export default function Patents() {
     };
     raf = requestAnimationFrame(render);
 
-    canvas.addEventListener("pointermove", (e) => {
+    const stickyEl = stickyRef.current!;
+    const onMove = (e: PointerEvent) => {
       const r = canvas.getBoundingClientRect();
       ptr.x = e.clientX - r.left;
       ptr.y = e.clientY - r.top;
       ptr.active = true;
-    });
-    canvas.addEventListener("pointerleave", () => {
+    };
+    const onLeave = () => {
       ptr.active = false;
       ptr.x = -9999;
       ptr.y = -9999;
-    });
+    };
+    stickyEl.addEventListener("pointermove", onMove as EventListener);
+    stickyEl.addEventListener("pointerleave", onLeave);
 
     /* ── transition between modes ── */
     const switchMode = (mode: "human" | "wave") => {
@@ -653,15 +656,6 @@ export default function Patents() {
       1.8,
     );
 
-    /* canvas mode switch at 50% through timeline */
-    tl.call(
-      () => {
-        switchMode("wave");
-      },
-      [],
-      2.05,
-    );
-
     /* — patent 2 in — */
     tl.to(p2.idx, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 2.2);
     tl.to(
@@ -705,10 +699,24 @@ export default function Patents() {
       animation: tl,
     });
 
+    /* canvas mode switch — bidirectional so scroll-back reverses it */
+    ScrollTrigger.create({
+      trigger: wrap,
+      start: "48% top",
+      end: "52% top",
+      onEnter: () => switchMode("wave"),
+      onLeaveBack: () => switchMode("human"),
+    });
+
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
       ScrollTrigger.getAll().forEach((s) => s.kill());
+      stickyEl.removeEventListener(
+        "pointermove",
+        onMove as unknown as EventListener,
+      );
+      stickyEl.removeEventListener("pointerleave", onLeave);
     };
   }, []);
 
@@ -736,7 +744,7 @@ export default function Patents() {
         {/* canvas */}
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full"
+          className="pointer-events-none absolute inset-0 h-full w-full"
           aria-hidden="true"
         />
         <svg
@@ -764,7 +772,7 @@ export default function Patents() {
         </svg>
 
         {/* ── UI layer ── */}
-        <div className="relative z-10 flex h-full flex-col px-8 py-10 sm:px-14 lg:px-20">
+        <div className="pointer-events-none relative z-10 flex h-full flex-col px-8 py-10 sm:px-14 lg:px-20">
           {/* heading */}
           <h2
             ref={headRef}

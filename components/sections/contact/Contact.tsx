@@ -57,24 +57,10 @@ export default function Contact() {
             </p>
 
             {/* CONTACT */}
-            <div className="group relative mt-10 overflow-hidden">
-              {/* hover fill */}
-              <div
-                className="
-      absolute bottom-0 left-0
-      h-0 w-full
-      bg-[#7C5C73]
-      transition-all
-      duration-700
-      ease-in-out
-      group-hover:h-full
-    "
-              />
-
-              {/* text */}
+            <div className="group relative mt-10 inline-block">
               <h2
                 className="
-      relative z-10
+      relative
       select-none
       font-serif
       text-[clamp(6rem,10vw,15rem)]
@@ -82,13 +68,48 @@ export default function Contact() {
       uppercase
       leading-[0.84]
       tracking-[-0.08em]
-      text-[#E8DDD0]
-      transition-colors
-      duration-700
-      group-hover:text-[#F4ECE4]
+
+      text-transparent
+      bg-clip-text
+      transition-[background-image]
+      duration-75
     "
                 style={{
                   fontFamily: '"Bodoni Moda","Didot","Times New Roman",serif',
+
+                  backgroundImage: `
+        linear-gradient(
+          to top,
+          #B9827E 0%,
+          #B9827E 0%,
+          #E8DDD0 0%,
+          #E8DDD0 100%
+        )
+      `,
+                }}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+
+                  const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                  e.currentTarget.style.backgroundImage = `
+        linear-gradient(
+          to top,
+          #B9827E 0%,
+          #B9827E ${100 - y}%,
+          #E8DDD0 ${100 - y}%,
+          #E8DDD0 100%
+        )
+      `;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundImage = `
+        linear-gradient(
+          to top,
+          #E8DDD0 0%,
+          #E8DDD0 100%
+        )
+      `;
                 }}
               >
                 CONTACT

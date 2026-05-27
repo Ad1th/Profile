@@ -11,7 +11,7 @@ export default function Contact() {
       {/* grid */}
       <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(232,221,208,.12)_1px,transparent_1px),linear-gradient(90deg,rgba(232,221,208,.08)_1px,transparent_1px)] [background-size:88px_88px]" />
 
-      {/* soft glows */}
+      {/* ambient glows */}
       <div className="pointer-events-none absolute left-[-12rem] top-[-8rem] h-[28rem] w-[28rem] rounded-full bg-[#B9827E]/10 blur-3xl" />
       <div className="pointer-events-none absolute bottom-[-10rem] right-[-6rem] h-[24rem] w-[24rem] rounded-full bg-[#8B9278]/10 blur-3xl" />
 
@@ -32,18 +32,16 @@ export default function Contact() {
             </span>
           </div>
 
-          <div className="hidden items-center gap-5 md:flex">
+          <div className="hidden md:block">
             <span className="font-mono text-[11px] uppercase leading-[1.6] tracking-[0.16em] text-[#E8DDD0]/62">
               BUILDING SYSTEMS
               <br />
               AND EXPERIMENTS
             </span>
-
-            <div className="h-2.5 w-2.5 rounded-full bg-[#8B9278] animate-pulse" />
           </div>
         </div>
 
-        {/* main layout */}
+        {/* main */}
         <div className="grid gap-16 py-20 lg:grid-cols-[1.05fr_0.95fr]">
           {/* LEFT */}
           <div className="relative">
@@ -58,17 +56,36 @@ export default function Contact() {
               SOMETHING <span className="italic">REAL.</span>
             </p>
 
-            <div className="mt-10 overflow-hidden">
+            {/* CONTACT */}
+            <div className="group relative mt-10 overflow-hidden">
+              {/* hover fill */}
+              <div
+                className="
+                  absolute inset-0
+                  origin-left scale-x-0
+                  bg-[#7C5C73]
+                  transition-transform
+                  duration-700
+                  ease-[cubic-bezier(0.22,1,0.36,1)]
+                  group-hover:scale-x-100
+                "
+              />
+
+              {/* text */}
               <h2
                 className="
+                  relative z-10
                   select-none
                   font-serif
-                  text-[clamp(6rem,18vw,10rem)]
+                  text-[clamp(6rem,10vw,15rem)]
                   font-light
                   uppercase
                   leading-[0.84]
                   tracking-[-0.08em]
                   text-[#E8DDD0]
+                  transition-colors
+                  duration-700
+                  group-hover:text-[#F4ECE4]
                 "
                 style={{
                   fontFamily: '"Bodoni Moda","Didot","Times New Roman",serif',
@@ -94,7 +111,7 @@ export default function Contact() {
           {/* RIGHT */}
           <div className="relative flex flex-col justify-center border-l border-[#E8DDD0]/10 pl-0 lg:pl-16">
             <div className="space-y-8">
-              {/* EMAIL */}
+              {/* EMAIL 1 */}
               <a
                 href="mailto:hello@adith.xyz"
                 className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-7 transition-all duration-500 hover:border-[#B9827E]/35"
@@ -106,7 +123,7 @@ export default function Contact() {
 
                   <div>
                     <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8B9278]">
-                      EMAIL
+                      PRIMARY EMAIL
                     </div>
 
                     <div
@@ -127,9 +144,46 @@ export default function Contact() {
                     >
                       hello@adith.xyz
                     </div>
+                  </div>
+                </div>
 
-                    <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[#E8DDD0]/34">
-                      Primary contact
+                <span className="translate-x-0 text-3xl text-[#B9827E] transition-all duration-500 group-hover:translate-x-2">
+                  →
+                </span>
+              </a>
+
+              {/* EMAIL 2 */}
+              <a
+                href="mailto:madith2505@gmail.com"
+                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-7 transition-all duration-500 hover:border-[#B9827E]/35"
+              >
+                <div className="flex items-start gap-8">
+                  <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
+                    02
+                  </span>
+
+                  <div>
+                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8B9278]">
+                      SECONDARY EMAIL
+                    </div>
+
+                    <div
+                      className="
+                        mt-4
+                        text-[clamp(1.6rem,2vw,2.5rem)]
+                        tracking-[-0.04em]
+                        text-[#E8DDD0]
+                        transition-all
+                        duration-500
+                        group-hover:translate-x-1
+                        group-hover:text-white
+                      "
+                      style={{
+                        fontFamily:
+                          '"Cormorant Garamond","Times New Roman",serif',
+                      }}
+                    >
+                      madith2505@gmail.com
                     </div>
                   </div>
                 </div>
@@ -148,7 +202,7 @@ export default function Contact() {
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
-                    02
+                    03
                   </span>
 
                   <div>
@@ -174,10 +228,6 @@ export default function Contact() {
                     >
                       github.com/Ad1th
                     </div>
-
-                    <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[#E8DDD0]/34">
-                      Open source & experiments
-                    </div>
                   </div>
                 </div>
 
@@ -195,7 +245,7 @@ export default function Contact() {
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
-                    03
+                    04
                   </span>
 
                   <div>
@@ -221,10 +271,6 @@ export default function Contact() {
                     >
                       linkedin.com/in/adith-manikonda
                     </div>
-
-                    <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[#E8DDD0]/34">
-                      Research, projects & writing
-                    </div>
                   </div>
                 </div>
 
@@ -232,42 +278,6 @@ export default function Contact() {
                   →
                 </span>
               </a>
-
-              {/* LOCATION */}
-              <div className="group flex items-center justify-between pb-2">
-                <div className="flex items-start gap-8">
-                  <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
-                    04
-                  </span>
-
-                  <div>
-                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8B9278]">
-                      LOCATION
-                    </div>
-
-                    <div
-                      className="
-                        mt-4
-                        text-[clamp(1.6rem,2vw,2.5rem)]
-                        tracking-[-0.04em]
-                        text-[#E8DDD0]
-                      "
-                      style={{
-                        fontFamily:
-                          '"Cormorant Garamond","Times New Roman",serif',
-                      }}
-                    >
-                      VIT Vellore, India
-                    </div>
-
-                    <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[#E8DDD0]/34">
-                      Currently online
-                    </div>
-                  </div>
-                </div>
-
-                <div className="h-2.5 w-2.5 rounded-full bg-[#8B9278] animate-pulse" />
-              </div>
             </div>
           </div>
         </div>
@@ -278,13 +288,9 @@ export default function Contact() {
             LAST UPDATED — MAY 2026
           </span>
 
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#E8DDD0]/52">
-              CURRENTLY ONLINE
-            </span>
-
-            <div className="h-2.5 w-2.5 rounded-full bg-[#8B9278] animate-pulse" />
-          </div>
+          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#E8DDD0]/42">
+            DESIGNING INTERFACES WITH FEELING
+          </span>
         </div>
       </div>
     </section>

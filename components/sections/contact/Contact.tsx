@@ -2,7 +2,7 @@ export default function Contact() {
   return (
     <section
       data-section="contact"
-      className="relative w-full overflow-hidden bg-[#2E2230] px-6 py-16 text-[#E8DDD0] sm:px-10 lg:px-16"
+      className="relative w-full overflow-hidden bg-[#2E2230] px-6 pt-14 pb-10 text-[#E8DDD0] sm:px-10 lg:px-16"
       style={{ isolation: "isolate" }}
     >
       {/* grain */}
@@ -42,7 +42,7 @@ export default function Contact() {
         </div>
 
         {/* main */}
-        <div className="grid gap-16 py-20 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid gap-16 py-14 lg:grid-cols-[1.05fr_0.95fr]">
           {/* LEFT */}
           <div className="relative">
             <div className="absolute left-0 top-0 h-12 w-px bg-[#E8DDD0]/10" />
@@ -140,7 +140,7 @@ export default function Contact() {
           </div>
 
           {/* RIGHT */}
-          <div className="relative flex flex-col justify-center border-l border-[#E8DDD0]/10 pl-0 lg:pl-16">
+          <div className="relative flex flex-col justify-start border-l border-[#E8DDD0]/10 pl-0 pt-2 lg:pl-16 lg:pt-4">
             <div className="space-y-5">
               {/* EMAIL 1 */}
               <a
@@ -314,7 +314,7 @@ export default function Contact() {
         </div>
 
         {/* footer */}
-        <div className="flex items-center justify-between border-t border-[#E8DDD0]/10 pt-8">
+        <div className="flex items-center justify-between border-t border-[#E8DDD0]/10 pt-6">
           <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#E8DDD0]/52">
             LAST UPDATED — MAY 2026
           </span>

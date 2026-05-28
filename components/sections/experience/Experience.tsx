@@ -180,6 +180,14 @@ export default function Experience() {
         },
         once: true,
       });
+
+      // If the section is already in view (client navigation landed here), play the timeline immediately.
+      if (sectionRef.current) {
+        const top = sectionRef.current.getBoundingClientRect().top;
+        if (top < window.innerHeight * 0.55) {
+          gsap.delayedCall(1.6, () => tl.play());
+        }
+      }
     }, sectionRef);
 
     return () => ctx.revert();

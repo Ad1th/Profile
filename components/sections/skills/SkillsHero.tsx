@@ -347,6 +347,7 @@ export default function SkillsHero({
             letterSpacing: "0.14em",
             color: "#8A8B6D",
             marginBottom: 20,
+            marginTop: 20,
           }}
           initial={{ opacity: 0 }}
           {...(standalone

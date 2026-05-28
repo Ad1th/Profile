@@ -798,6 +798,7 @@ export default function Patents() {
           <h2
             ref={headRef}
             className="patents-head select-none"
+            style={{ marginTop: "2rem" }}
             aria-label="Patents"
           >
             {"PATENTS".split("").map((ch, i) => (

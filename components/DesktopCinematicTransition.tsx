@@ -313,7 +313,7 @@ export default function DesktopCinematicTransition() {
           >
             <Hero
               transitionProgress={scrollYProgress}
-              suppressTicker={true}
+              suppressTicker={false}
               backendStyle={{ x: backendX, opacity: backendOpacity }}
               withStyle={{ x: withX, scale: withScale }}
               tasteStyle={{ y: tasteY, rotate: tasteRotate }}

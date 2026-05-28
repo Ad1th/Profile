@@ -295,14 +295,14 @@ function HeroDesktop({
         <motion.div
           className="absolute bottom-0 left-0 right-0 z-40 overflow-hidden flex items-center"
           style={{
-            height: 56,
+            height: 43,
             background: "#E8420A",
-            borderTop: "5px solid #111",
+            borderTop: "2px solid #111",
             boxShadow: "0 -3px 0 #111",
             opacity: marqueeOpacity,
             filter: marqueeFilter,
           }}
-          initial={{ y: 60 }}
+          initial={{ y: 40 }}
           animate={{ y: 0 }}
           transition={{ duration: 0.5, delay: 1.0, ease: easings.primary }}
         >
@@ -311,9 +311,9 @@ function HeroDesktop({
             style={{
               animation: "ticker linear infinite",
               animationDuration: marqueeDuration ?? "22s",
-              paddingLeft: 18,
-              paddingTop: 5,
-              paddingBottom: 5,
+              paddingLeft: 12,
+              paddingTop: 1,
+              paddingBottom: 3,
             }}
           >
             {[...Array(4)].map((_, i) => (

@@ -95,7 +95,7 @@ export default function HackathonsAchievements() {
                   <h3 className="font-serif text-[18px] font-bold leading-snug text-[#1E1E1B] transition-transform duration-300 group-hover:translate-x-2">
                     {item.title}
                   </h3>
-                  {index % 3 === 0 && (
+                  {[0, 2, 6].includes(index) && (
                     <motion.div
                       className="absolute -bottom-1 left-0 h-0.5 bg-[#A14A32]"
                       initial={{ width: 0 }}
@@ -143,15 +143,6 @@ export default function HackathonsAchievements() {
                   <h3 className="mt-2 text-[17px] font-bold leading-snug text-[#1E1E1B] transition-transform duration-300 group-hover:translate-x-2">
                     {item.title}
                   </h3>
-                  {index % 2 === 0 && (
-                    <motion.div
-                      className="absolute -bottom-1 left-0 h-0.5 bg-[#A14A32]/60"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "75%" }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.55, delay: index * 0.045 + 0.15 }}
-                    />
-                  )}
                 </div>
                 {item.detail && (
                   <p className="mt-2 text-[13px] text-[#1E1E1B]/52">

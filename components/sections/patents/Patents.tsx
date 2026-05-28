@@ -346,7 +346,7 @@ export default function Patents() {
           const dx = ptr.x - x,
             dy = ptr.y - y,
             dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 190 && cursorPull) y += dy * 0.11 * (1 - dist / 190);
+          if (dist < 190 && cursorPull) y += dy * 0.18 * (1 - dist / 190);
           if (i === 0) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }

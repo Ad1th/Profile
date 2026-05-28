@@ -297,7 +297,7 @@ export default function Patents() {
     /* ── draw human system ── */
     const drawHuman = (t: number) => {
       const rings = prog.current.rings,
-        cx = W * 0.53,
+        cx = W * 0.66,
         cy = H * 0.52;
       ctx.strokeStyle = hexToRgba(COLORS.humanInk, 0.18 * rings);
       ctx.lineWidth = 0.55;

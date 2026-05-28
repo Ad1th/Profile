@@ -492,7 +492,7 @@ function SystemRow({
           "80px clamp(250px, 21vw, 350px) minmax(220px, 42vw) clamp(240px, 16vw, 320px) clamp(220px, 14vw, 280px)",
         alignItems: "center",
         borderBottom: !isLast ? "2px solid #2a2a2a" : "none",
-        minHeight: 70,
+        minHeight: 60,
         flex: standalone ? undefined : 1,
       }}
       initial={{ opacity: 0, x: -24 }}
@@ -552,7 +552,7 @@ function SystemRow({
             style={{
               height: 2,
               background: "#8A8B6D",
-              marginTop: 6,
+              marginTop: 1,
               transformOrigin: "left",
             }}
             initial={{ scaleX: 0, width: 28 }}
@@ -598,7 +598,7 @@ function SystemRow({
               color: row.subColor,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginTop: -1,
+              marginTop: -6,
             }}
           >
             {row.sub}
@@ -635,7 +635,7 @@ function SystemRow({
       {/* ── Description ──────────────────────────── */}
       <div
         style={{
-          padding: "15px 24px",
+          padding: "5px 24px",
           borderRight: "2px solid #2a2a2a",
           height: "100%",
           display: "flex",

@@ -133,7 +133,7 @@ export default function SkillsHero({
       >
         <motion.div
           className="flex items-center gap-2"
-          style={{ marginBottom: 12 }}
+          style={{ marginBottom: 7 }}
           initial={{ opacity: 0 }}
           {...(standalone
             ? {
@@ -167,7 +167,7 @@ export default function SkillsHero({
                   lineHeight: 0.92,
                   letterSpacing: "-0.01em",
                   color: line.color,
-                  marginBottom: i === headlineLines.length - 1 ? 15 : 0,
+                  marginBottom: i === headlineLines.length - 1 ? 10 : 0,
                 }}
                 initial={{ y: 48, opacity: 0 }}
                 {...(standalone
@@ -193,7 +193,7 @@ export default function SkillsHero({
         </div>
 
         <motion.div
-          style={{ width: 40, height: 3, background: "#8A8B6D", marginTop: 3 }}
+          style={{ width: 40, height: 3, background: "#8A8B6D", marginTop: -2 }}
           initial={{ scaleX: 0, originX: 0 }}
           {...(standalone
             ? {
@@ -224,6 +224,8 @@ export default function SkillsHero({
             lineHeight: 1.7,
             color: "#C8C0B4",
             maxWidth: 280,
+            marginTop: 35,
+            marginBottom: -15,
           }}
           initial={{ opacity: 0, y: 16 }}
           {...(standalone
@@ -264,7 +266,7 @@ export default function SkillsHero({
             width: 12,
             height: 12,
             background: "#913831",
-            marginTop: 12,
+            marginTop: 40,
           }}
           initial={{ opacity: 0, scale: 0 }}
           {...(standalone

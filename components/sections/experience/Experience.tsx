@@ -170,10 +170,10 @@ export default function Experience() {
         0.9,
       );
 
-      // ScrollTrigger: play the prepared timeline when section enters view.
+      // ScrollTrigger: play the prepared timeline slightly before the section fully enters view.
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: "top 55%",
+        start: "top 40%",
         onEnter: () => {
           // hold the scrambled heap on screen longer before the transition starts
           gsap.delayedCall(1.6, () => tl.play());
@@ -184,7 +184,7 @@ export default function Experience() {
       // If the section is already in view (client navigation landed here), play the timeline immediately.
       if (sectionRef.current) {
         const top = sectionRef.current.getBoundingClientRect().top;
-        if (top < window.innerHeight * 0.55) {
+        if (top < window.innerHeight * 0.4) {
           gsap.delayedCall(1.6, () => tl.play());
         }
       }

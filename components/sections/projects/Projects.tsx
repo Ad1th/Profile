@@ -781,37 +781,83 @@ export default function Projects() {
         scrub: 0.7,
       };
 
-      gsap.to(".projects-paper--scotland", {
-        x: -16,
-        y: 10,
-        rotation: -1,
-        scrollTrigger: driftScroll,
+      // Create drift tweens and keep references so we can disable their ScrollTriggers
+      const driftTweens: any[] = [];
+
+      driftTweens.push(
+        gsap.to(".projects-paper--scotland", {
+          x: -16,
+          y: 10,
+          rotation: -1,
+          scrollTrigger: driftScroll,
+        }),
+      );
+
+      driftTweens.push(
+        gsap.to(".projects-paper--aether", {
+          x: 10,
+          y: -14,
+          rotation: 1,
+          scrollTrigger: driftScroll,
+        }),
+      );
+
+      driftTweens.push(
+        gsap.to(".projects-paper--archaic", {
+          x: -8,
+          y: 18,
+          rotation: -1,
+          scrollTrigger: driftScroll,
+        }),
+      );
+
+      driftTweens.push(
+        gsap.to(".projects-paper--wave", {
+          x: 14,
+          y: -8,
+          rotation: 1,
+          scrollTrigger: driftScroll,
+        }),
+      );
+
+      driftTweens.push(
+        gsap.to(".projects-table", {
+          y: -22,
+          scrollTrigger: driftScroll,
+        }),
+      );
+
+      driftTweens.push(
+        gsap.to(".projects-crt-column", {
+          y: -68,
+          scrollTrigger: driftScroll,
+        }),
+      );
+
+      // After the entry timeline finishes, disable the drift ScrollTriggers so elements stay put.
+      tl.eventCallback("onComplete", () => {
+        driftTweens.forEach((t) => {
+          try {
+            t.scrollTrigger && t.scrollTrigger.disable();
+          } catch (e) {
+            // ignore
+          }
+        });
       });
-      gsap.to(".projects-paper--aether", {
-        x: 10,
-        y: -14,
-        rotation: 1,
-        scrollTrigger: driftScroll,
-      });
-      gsap.to(".projects-paper--archaic", {
-        x: -8,
-        y: 18,
-        rotation: -1,
-        scrollTrigger: driftScroll,
-      });
-      gsap.to(".projects-paper--wave", {
-        x: 14,
-        y: -8,
-        rotation: 1,
-        scrollTrigger: driftScroll,
-      });
-      gsap.to(".projects-table", {
-        y: -22,
-        scrollTrigger: driftScroll,
-      });
-      gsap.to(".projects-crt-column", {
-        y: -68,
-        scrollTrigger: driftScroll,
+
+      // Re-enable drift when scrolling back up into the section
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top bottom",
+        onEnterBack: () => {
+          driftTweens.forEach((t) => {
+            try {
+              t.scrollTrigger && t.scrollTrigger.enable();
+            } catch (e) {
+              // ignore
+            }
+          });
+        },
       });
     }, sectionRef);
 

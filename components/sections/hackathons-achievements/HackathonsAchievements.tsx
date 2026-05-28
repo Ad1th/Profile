@@ -73,11 +73,11 @@ export default function HackathonsAchievements() {
             </h2>
           </div>
 
-          <div className="space-y-7">
+          <div className="space-y-10">
             {HACKATHONS.map((item, index) => (
               <motion.article
                 key={`${item.date}-${item.title}`}
-                className="group grid gap-2 border-t border-[rgba(30,30,27,.12)] pt-5 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/55 hover:px-4 sm:grid-cols-[150px_1fr] sm:gap-8"
+                className="group grid gap-2 border-t border-[rgba(30,30,27,.12)] pt-6 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/55 hover:px-4 sm:grid-cols-[150px_1fr] sm:gap-8 relative"
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-8%" }}
@@ -91,9 +91,23 @@ export default function HackathonsAchievements() {
                     {item.location}
                   </p>
                 </div>
-                <h3 className="font-serif text-[18px] font-bold leading-snug text-[#1E1E1B] transition-transform duration-300 group-hover:translate-x-2">
-                  {item.title}
-                </h3>
+                <div className="relative">
+                  <h3 className="font-serif text-[18px] font-bold leading-snug text-[#1E1E1B] transition-transform duration-300 group-hover:translate-x-2">
+                    {item.title}
+                  </h3>
+                  {index % 3 === 0 && (
+                    <motion.div
+                      className="absolute -bottom-1 left-0 h-0.5 bg-[#A14A32]"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "80%" }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.55,
+                        delay: index * 0.035 + 0.15,
+                      }}
+                    />
+                  )}
+                </div>
               </motion.article>
             ))}
           </div>
@@ -107,16 +121,16 @@ export default function HackathonsAchievements() {
             <span className="font-mono text-[11px] font-black uppercase tracking-[0.18em] text-[#A14A32]">
               - Achievements
             </span>
-            <h2 className="mt-5 text-[clamp(34px,3.4vw,56px)] font-black uppercase leading-[0.92] tracking-[-0.04em]">
+            <h2 className="mt-5 text-[clamp(34px,3.4vw,56px)] font-bold uppercase leading-[0.92] tracking-[-0.04em]">
               Selected milestones and certifications.
             </h2>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-8">
             {ACHIEVEMENTS.map((item, index) => (
               <motion.article
                 key={`${item.year}-${item.title}`}
-                className="group border-t border-[rgba(30,30,27,.12)] pt-5 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/50 hover:px-4"
+                className="group border-t border-[rgba(30,30,27,.12)] pt-6 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/50 hover:px-4 relative"
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-8%" }}
@@ -125,11 +139,22 @@ export default function HackathonsAchievements() {
                 <p className="font-mono text-[11px] font-black uppercase tracking-[0.16em] text-[#A14A32]">
                   {item.year}
                 </p>
-                <h3 className="mt-2 text-[17px] font-black leading-snug text-[#1E1E1B] transition-transform duration-300 group-hover:translate-x-2">
-                  {item.title}
-                </h3>
+                <div className="relative">
+                  <h3 className="mt-2 text-[17px] font-bold leading-snug text-[#1E1E1B] transition-transform duration-300 group-hover:translate-x-2">
+                    {item.title}
+                  </h3>
+                  {index % 2 === 0 && (
+                    <motion.div
+                      className="absolute -bottom-1 left-0 h-0.5 bg-[#A14A32]/60"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "75%" }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.55, delay: index * 0.045 + 0.15 }}
+                    />
+                  )}
+                </div>
                 {item.detail && (
-                  <p className="mt-1 text-[13px] text-[#1E1E1B]/52">
+                  <p className="mt-2 text-[13px] text-[#1E1E1B]/52">
                     {item.detail}
                   </p>
                 )}

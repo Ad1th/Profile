@@ -32,23 +32,42 @@ import { easings } from "@/lib/motion";
 // ── Arrow connector SVG ───────────────────────────────────────────────────
 function Arrow() {
   return (
-    <svg
+    <motion.svg
       width="32"
       height="16"
       viewBox="0 0 32 16"
       fill="none"
       style={{ flexShrink: 0 }}
+      initial={{ opacity: 0.6 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4 }}
     >
-      <line x1="0" y1="8" x2="24" y2="8" stroke="#555" strokeWidth="1.5" />
-      <path
+      <motion.line
+        x1="0"
+        y1="8"
+        x2="24"
+        y2="8"
+        stroke="#555"
+        strokeWidth="1.5"
+        initial={{ strokeDasharray: "24 0", strokeDashoffset: 24 }}
+        whileInView={{ strokeDashoffset: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      />
+      <motion.path
         d="M20 4 L26 8 L20 12"
         stroke="#555"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
+        initial={{ pathLength: 0, opacity: 0 }}
+        whileInView={{ pathLength: 1, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
       />
-    </svg>
+    </motion.svg>
   );
 }
 
@@ -470,7 +489,7 @@ function SystemRow({
       className="relative grid"
       style={{
         gridTemplateColumns:
-          "80px clamp(250px, 21vw, 350px) minmax(200px, 37vw) clamp(240px, 16vw, 320px) clamp(220px, 14vw, 280px)",
+          "80px clamp(250px, 21vw, 350px) minmax(220px, 42vw) clamp(240px, 16vw, 320px) clamp(220px, 14vw, 280px)",
         alignItems: "center",
         borderBottom: !isLast ? "2px solid #2a2a2a" : "none",
         minHeight: 88,
@@ -492,9 +511,10 @@ function SystemRow({
           left: 0,
           top: 0,
           bottom: 0,
-          width: 2,
+          width: 3,
           background: "#8A8B6D",
           transformOrigin: "top",
+          boxShadow: "0 0 8px rgba(138, 139, 109, 0.4)",
         }}
         initial={{ scaleY: 0, opacity: 0 }}
         animate={inView ? { scaleY: 1, opacity: 1 } : { scaleY: 0, opacity: 0 }}
@@ -589,15 +609,25 @@ function SystemRow({
       {/* ── Diagram ──────────────────────────────── */}
       <div
         style={{
-          padding: "0 28px",
+          padding: "0 36px",
           borderRight: "2px solid #2a2a2a",
           height: "100%",
           display: "flex",
           alignItems: "center",
-          overflow: "hidden",
+          overflow: "visible",
         }}
       >
-        {row.diagram(inView)}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+          transition={{
+            duration: 0.42,
+            delay: idx * 0.08 + 0.28,
+            ease: "easeOut",
+          }}
+        >
+          {row.diagram(inView)}
+        </motion.div>
       </div>
 
       {/* ── Description ──────────────────────────── */}
@@ -623,8 +653,8 @@ function SystemRow({
             }}
             animate={
               inView
-                ? { x: [0, 4, 0], opacity: [0, 1, 1] }
-                : { x: 0, opacity: 0 }
+                ? { x: [0, 4, 0], opacity: [0.6, 1, 1] }
+                : { x: 0, opacity: 0.4 }
             }
             transition={{
               duration: 0.4,
@@ -639,7 +669,8 @@ function SystemRow({
               fontFamily: "monospace",
               fontSize: 13,
               lineHeight: 1.6,
-              color: "#888",
+              color: "#777",
+              opacity: 0.75,
             }}
           >
             {row.desc}
@@ -650,50 +681,41 @@ function SystemRow({
       {/* ── Tech stack ───────────────────────────── */}
       <div
         style={{
-          padding: "0 28px",
+          padding: "0 32px",
           height: "100%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          gap: 6,
+          gap: 8,
         }}
       >
         {row.tech.map((techRow, ri) => (
-          <div key={ri} className="flex items-center" style={{ gap: 0 }}>
+          <div key={ri} className="flex items-center flex-wrap" style={{ gap: 8 }}>
             {techRow.map((t, ti) => (
               <motion.span
                 key={t}
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : { opacity: 0 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                 transition={{
-                  duration: 0.2,
-                  delay: idx * 0.08 + 0.48 + ri * 0.06 + ti * 0.04,
+                  duration: 0.28,
+                  delay: idx * 0.08 + 0.48 + ri * 0.06 + ti * 0.05,
+                  ease: "easeOut",
+                }}
+                style={{
+                  display: "inline-block",
+                  border: "1.5px solid #555",
+                  padding: "6px 12px",
+                  borderRadius: "3px",
+                  background: "rgba(255, 255, 255, 0.02)",
+                  fontFamily: "monospace",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: "#C8C0B4",
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
                 }}
               >
-                <span
-                  style={{
-                    fontFamily: "monospace",
-                    fontSize: 12,
-                    fontWeight: 700,
-                    color: "#C8C0B4",
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {t}
-                </span>
-                {ti < techRow.length - 1 && (
-                  <span
-                    style={{
-                      color: "#444",
-                      fontFamily: "monospace",
-                      fontSize: 13,
-                      margin: "0 8px",
-                    }}
-                  >
-                    /
-                  </span>
-                )}
+                {t}
               </motion.span>
             ))}
           </div>

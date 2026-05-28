@@ -21,7 +21,7 @@ export default function HeroHeadline({
         fontFamily: "var(--font-anton), 'Arial Black', Impact, sans-serif",
         fontWeight: 900,
         letterSpacing: "-0.06em",
-        lineHeight: 0.88,
+        lineHeight: 0.86,
         marginTop: -70,
         textRendering: "geometricPrecision",
         WebkitFontSmoothing: "antialiased",
@@ -46,15 +46,15 @@ export default function HeroHeadline({
         </motion.span>
       </motion.div>
 
-      {/* WITH — acid yellow outline box with cleaner styling */}
+      {/* WITH — acid yellow outline box, more intentional spacing */}
       <motion.div style={withStyle}>
         <motion.div
           className="inline-block"
           style={{
             border: "4px solid #CFDE00",
-            padding: "10px 24px 8px 24px",
-            marginTop: 8,
-            marginBottom: 8,
+            padding: "12px 28px 10px 28px",
+            marginTop: 12,
+            marginBottom: 12,
             maxWidth: "fit-content",
             backgroundColor: "transparent",
           }}
@@ -67,6 +67,7 @@ export default function HeroHeadline({
             style={{
               fontSize: "clamp(98px, 10.8vw, 164px)",
               lineHeight: 0.82,
+              letterSpacing: "-0.04em",
             }}
           >
             WITH
@@ -74,7 +75,7 @@ export default function HeroHeadline({
         </motion.div>
       </motion.div>
 
-      {/* TASTE. — orange, solid, bold */}
+      {/* TASTE. — orange, solid, bold, poster-like rhythm */}
       <motion.div
         style={{
           clipPath: "inset(0 -40% 0 0)",
@@ -84,7 +85,10 @@ export default function HeroHeadline({
       >
         <motion.span
           className="block text-[#E8420A]"
-          style={{ fontSize: "clamp(100px, 11vw, 168px)" }}
+          style={{
+            fontSize: "clamp(100px, 11vw, 168px)",
+            letterSpacing: "-0.04em",
+          }}
           initial={{ y: 90, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.65, delay: 0.32, ease: easings.primary }}
@@ -93,34 +97,34 @@ export default function HeroHeadline({
         </motion.span>
       </motion.div>
 
-      {/* Subtext */}
-      <div className="mt-[20px]">
-        {/* Thick rule in acid yellow */}
+      {/* Subtext with more breathing space */}
+      <div className="mt-[28px]">
+        {/* Thick rule in acid yellow, slightly wider */}
         <motion.div
           style={{
-            width: 64,
-            height: 4,
+            width: 72,
+            height: 5,
             background: "#CFDE00",
             originX: 0,
-            marginBottom: 14,
+            marginBottom: 18,
           }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
+          transition={{ duration: 0.4, delay: 0.5, ease: "easeOut" }}
         />
         <motion.p
           className="font-mono text-[#E8E8E8] normal-case"
           style={{
             fontSize: 16,
             fontWeight: 700,
-            letterSpacing: "0.02em",
-            lineHeight: 1.46,
-            maxWidth: 380,
+            letterSpacing: "0.01em",
+            lineHeight: 1.52,
+            maxWidth: 400,
             opacity: 1,
           }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.56 }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.56, ease: "easeOut" }}
         >
           Pressure tested builds
           <br />

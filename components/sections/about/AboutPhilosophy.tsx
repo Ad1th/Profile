@@ -416,6 +416,38 @@ export default function AboutPhilosophy({
             </div>
           ))}
         </div>
+
+        {/* =====================================================
+            ROTATED LABEL STAMP
+            ===================================================== */}
+        <motion.div
+          className="absolute bottom-6 right-6"
+          style={{
+            transform: "rotate(-12deg)",
+          }}
+          initial={standalone ? { opacity: 0, scale: 0.8 } : false}
+          whileInView={standalone ? { opacity: 1, scale: 1 } : undefined}
+          viewport={standalone ? { once: true } : undefined}
+          transition={
+            standalone
+              ? { duration: 0.4, delay: 0.35, ease: easings.primary }
+              : undefined
+          }
+        >
+          <span
+            className="uppercase font-mono tracking-[0.08em]"
+            style={{
+              color: "#E8420A",
+              fontSize: 11,
+              fontWeight: 800,
+              border: "2px solid #E8420A",
+              padding: "4px 8px",
+              display: "inline-block",
+            }}
+          >
+            PHILOSOPHY
+          </span>
+        </motion.div>
       </motion.div>
     </motion.div>
   );

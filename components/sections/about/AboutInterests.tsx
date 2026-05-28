@@ -405,13 +405,21 @@ export default function AboutInterests({
       }
     >
       {interests.map((item, i) => (
-        <div
+        <motion.div
           key={item.label}
           className="flex-1 flex flex-col items-center justify-center gap-2"
           style={{
-            padding: "14px 6px",
+            padding: "18px 8px",
             borderLeft: i > 0 ? "3px solid #111" : "none",
           }}
+          initial={standalone ? { opacity: 0, y: 12 } : false}
+          whileInView={standalone ? { opacity: 1, y: 0 } : undefined}
+          viewport={standalone ? { once: true } : undefined}
+          transition={
+            standalone
+              ? { duration: 0.4, delay: 0.2 + i * 0.08, ease: easings.primary }
+              : undefined
+          }
         >
           {React.cloneElement(item.icon as any, {
             width: 36,
@@ -429,7 +437,7 @@ export default function AboutInterests({
           >
             {item.label}
           </span>
-        </div>
+        </motion.div>
       ))}
     </motion.div>
   );

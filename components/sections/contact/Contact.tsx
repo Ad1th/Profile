@@ -2,7 +2,7 @@ export default function Contact() {
   return (
     <section
       data-section="contact"
-      className="relative w-full overflow-hidden bg-[#2E2230] px-6 py-12 text-[#E8DDD0] sm:px-10 lg:px-16"
+      className="relative w-full overflow-hidden bg-[#2E2230] px-6 py-16 text-[#E8DDD0] sm:px-10 lg:px-16"
       style={{ isolation: "isolate" }}
     >
       {/* grain */}
@@ -72,7 +72,7 @@ export default function Contact() {
       text-transparent
       bg-clip-text
       transition-[background-image]
-      duration-75
+      duration-100
     "
                 style={{
                   fontFamily: '"Bodoni Moda","Didot","Times New Roman",serif',
@@ -114,6 +114,16 @@ export default function Contact() {
               >
                 CONTACT
               </h2>
+
+              {/* Paper grain overlay on text fill */}
+              <div
+                className="pointer-events-none absolute inset-0 opacity-[0.08] mix-blend-multiply"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(rgba(0,0,0,.15)_0.5px,transparent_0.5px)",
+                  backgroundSize: "14px 14px",
+                }}
+              />
             </div>
 
             <div className="mt-8 flex items-end gap-6">

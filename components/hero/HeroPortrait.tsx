@@ -6,6 +6,10 @@ import { useMotionValue, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import HeroBadge from "./HeroBadge";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const FRAME_W = 460;
 const FRAME_H = 488;
@@ -18,12 +22,14 @@ export default function HeroPortrait({
   stickerStyle?: MotionStyle;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const photoRef = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const rx = useTransform(my, [-0.5, 0.5], [2, -2]);
   const ry = useTransform(mx, [-0.5, 0.5], [-3, 3]);
   const [mobile, setMobile] = useState(false);
 
+  // GSAP vertical drift animation + noise flicker
   useEffect(() => {
     setMobile(window.innerWidth < 768);
     const onResize = () => setMobile(window.innerWidth < 768);
@@ -35,6 +41,20 @@ export default function HeroPortrait({
     };
     window.addEventListener("resize", onResize);
     window.addEventListener("mousemove", onMove);
+
+    // GSAP drift animation
+    if (photoRef.current && !mobile) {
+      gsap.context(() => {
+        gsap.to(photoRef.current, {
+          y: 16,
+          duration: 4.2,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+      });
+    }
+
     return () => {
       window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMove);
@@ -105,6 +125,7 @@ export default function HeroPortrait({
           }}
         />
         <motion.div
+          ref={photoRef}
           className="relative z-10"
           style={{
             width: FRAME_W,
@@ -138,6 +159,49 @@ export default function HeroPortrait({
               priority
             />
           </div>
+
+          {/* CRT noise flicker overlay — image frame only */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.08] mix-blend-screen"
+            style={{
+              backgroundImage:
+                "radial-gradient(rgba(255,255,255,.24)_0.7px,transparent_0.7px)",
+              backgroundSize: "18px 18px",
+              animation: "hero-crt-flicker 0.15s steps(2) infinite",
+            }}
+          />
+
+          {/* Scanline effect — subtle horizontal lines */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.04]"
+            style={{
+              backgroundImage:
+                "linear-gradient(0deg, transparent 0%, transparent 48%, rgba(0,0,0,.5) 49%, rgba(0,0,0,.5) 50%)",
+              backgroundSize: "100% 4px",
+              animation: "hero-scanline 8s linear infinite",
+            }}
+          />
+
+          <style jsx>{`
+            @keyframes hero-crt-flicker {
+              0%,
+              100% {
+                opacity: 0.08;
+              }
+              50% {
+                opacity: 0.12;
+              }
+            }
+
+            @keyframes hero-scanline {
+              0% {
+                transform: translateY(0);
+              }
+              100% {
+                transform: translateY(4px);
+              }
+            }
+          `}</style>
         </motion.div>
 
         {/* Badge */}

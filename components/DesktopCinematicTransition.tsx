@@ -15,7 +15,10 @@ function SkillsLayer() {
       className="w-full bg-[#111]"
       style={{ position: "absolute", inset: 0, overflow: "hidden" }}
     >
-      <div className="relative mx-auto flex h-full min-h-0 flex-col">
+      <div
+        className="relative mx-auto flex h-full min-h-0 flex-col"
+        style={{ marginTop: "-20px" }}
+      >
         <SkillsHero standalone={false} animateDots={true} isVisible={true} />
         <SkillsSystemRows standalone={false} isVisible={true} />
       </div>

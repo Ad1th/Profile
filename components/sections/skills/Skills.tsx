@@ -22,7 +22,7 @@ export default function Skills() {
     >
       <div
         className="relative mx-auto flex flex-col"
-        style={{ maxWidth: "100%" }}
+        style={{ maxWidth: "100%", marginTop: "-20px" }}
       >
         <SkillsHero standalone={true} animateDots={true} isVisible={true} />
         <SkillsSystemRows standalone={true} isVisible={true} />

@@ -117,7 +117,7 @@ export default function SkillsHero({
       style={{
         gridTemplateColumns: "1fr 1fr 1fr",
         borderBottom: "3px solid #333",
-        minHeight: "42svh",
+        minHeight: "calc(42svh - 20px)",
         alignItems: "stretch",
       }}
     >
@@ -125,7 +125,7 @@ export default function SkillsHero({
       <div
         style={{
           borderRight: "3px solid #333",
-          padding: "36px 36px 40px 40px",
+          padding: "16px 36px 40px 40px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
@@ -209,7 +209,7 @@ export default function SkillsHero({
       <div
         style={{
           borderRight: "3px solid #333",
-          padding: "40px 40px",
+          padding: "20px 40px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -286,7 +286,7 @@ export default function SkillsHero({
       {/* ── Col 3: Language dots ─────────────────────────────────────────── */}
       <div
         style={{
-          padding: "36px 40px 40px 40px",
+          padding: "16px 40px 40px 40px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",

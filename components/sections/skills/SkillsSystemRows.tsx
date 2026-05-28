@@ -552,7 +552,7 @@ function SystemRow({
             style={{
               height: 2,
               background: "#8A8B6D",
-              marginTop: 1,
+              marginTop: -4,
               transformOrigin: "left",
             }}
             initial={{ scaleX: 0, width: 28 }}

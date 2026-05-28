@@ -24,7 +24,6 @@ import Patents from "@/components/sections/patents/Patents";
 import HackathonsAchievements from "@/components/sections/hackathons-achievements/HackathonsAchievements";
 import Contact from "@/components/sections/contact/Contact";
 import ScrollProgressDots from "@/components/ui/ScrollProgressDots";
-import StickyTicker from "@/components/ui/StickyTicker";
 
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -77,11 +76,7 @@ export default function Page() {
         </>
       )}
 
-      {/* Spacer so last section clears StickyTicker (44px + 4px border) */}
-      <div style={{ paddingBottom: 48 }} />
-
       <ScrollProgressDots sections={SECTIONS} />
-      <StickyTicker />
     </>
   );
 }

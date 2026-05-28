@@ -297,8 +297,8 @@ export default function Patents() {
     /* ── draw human system ── */
     const drawHuman = (t: number) => {
       const rings = prog.current.rings,
-        cx = W * 0.56,
-        cy = H * 0.55;
+        cx = W * 0.62,
+        cy = H * 0.52;
       ctx.strokeStyle = hexToRgba(COLORS.humanInk, 0.18 * rings);
       ctx.lineWidth = 0.55;
       for (let i = 0; i < 5; i++) {
@@ -798,6 +798,7 @@ export default function Patents() {
           <h2
             ref={headRef}
             className="patents-head select-none"
+            style={{ marginTop: "3rem" }}
             aria-label="Patents"
           >
             {"PATENTS".split("").map((ch, i) => (

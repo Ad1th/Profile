@@ -503,6 +503,27 @@ function CrtMonitor({
       ? project.preview
       : ["architecture sheet", "desktop view", "flow sketch"];
 
+  // Line-by-line content for loading animation
+  const contentLines = [
+    { type: "title", text: title },
+    { type: "header", text: project.name },
+    { type: "desc", text: project.description },
+    { type: "stackLabel", text: "STACK:" },
+    ...stack.map((item) => ({ type: "stackItem", text: item })),
+    { type: "actions", text: "□ FILE    □ PREVIEW    □ LINKS" },
+  ];
+
+  const previewLines = [
+    { type: "title", text: "IMAGE PREVIEW MODE" },
+    { type: "header", text: project.name },
+    ...previews.map((item, i) => ({
+      type: "preview",
+      text: `${String(i + 1).padStart(2, "0")} / ${item}`,
+    })),
+  ];
+
+  const displayLines = mode === "details" ? contentLines : previewLines;
+
   return (
     <button
       type="button"
@@ -514,32 +535,121 @@ function CrtMonitor({
         <span className="projects-scanline" />
         {mode === "details" ? (
           <div className="projects-crt-copy">
-            <p>{title}</p>
-            <h3>{project.name}</h3>
-            <span>{project.description}</span>
-            <strong>STACK:</strong>
-            <ul>
-              {stack.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <div className="projects-crt-actions">
-              <span>□ FILE</span>
-              <span>□ PREVIEW</span>
-              <span>□ LINKS</span>
-            </div>
+            {displayLines.map((line, idx) =>
+              line.type === "stackLabel" ? (
+                <motion.strong
+                  key={idx}
+                  className="projects-crt-line"
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.08 + idx * 0.04,
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                >
+                  {line.text}
+                </motion.strong>
+              ) : line.type === "stackItem" ? (
+                <motion.li
+                  key={idx}
+                  className="projects-crt-line"
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.08 + idx * 0.04,
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                >
+                  {line.text}
+                </motion.li>
+              ) : line.type === "actions" ? (
+                <motion.div
+                  key={idx}
+                  className="projects-crt-actions"
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.08 + idx * 0.04,
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                >
+                  {line.text
+                    .split(/(\s{2,})/)
+                    .map((part, i) =>
+                      /\s{2,}/.test(part) ? (
+                        <span key={i}>{part}</span>
+                      ) : (
+                        <span key={i}>{part}</span>
+                      ),
+                    )}
+                </motion.div>
+              ) : line.type === "header" ? (
+                <motion.h3
+                  key={idx}
+                  className="projects-crt-line"
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.08 + idx * 0.04,
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                >
+                  {line.text}
+                </motion.h3>
+              ) : line.type === "desc" ? (
+                <motion.span
+                  key={idx}
+                  className="projects-crt-line"
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.08 + idx * 0.04,
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                >
+                  {line.text}
+                </motion.span>
+              ) : (
+                <motion.p
+                  key={idx}
+                  className="projects-crt-line"
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.08 + idx * 0.04,
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                >
+                  {line.text}
+                </motion.p>
+              ),
+            )}
           </div>
         ) : (
           <div className="projects-preview-mode">
-            <p>IMAGE PREVIEW MODE</p>
-            <h3>{project.name}</h3>
-            <div>
-              {previews.map((item, index) => (
-                <span key={item}>
-                  {String(index + 1).padStart(2, "0")} / {item}
-                </span>
-              ))}
-            </div>
+            {displayLines.map((line, idx) => (
+              <motion.div
+                key={idx}
+                className="projects-crt-line"
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  delay: 0.08 + idx * 0.04,
+                  duration: 0.3,
+                  ease: "easeOut",
+                }}
+              >
+                {line.type === "header" && <h3>{line.text}</h3>}
+                {line.type === "title" && <p>{line.text}</p>}
+                {line.type === "preview" && <span>{line.text}</span>}
+              </motion.div>
+            ))}
           </div>
         )}
       </div>

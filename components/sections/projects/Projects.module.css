@@ -88,10 +88,10 @@
   display: grid;
   grid-template-columns: 300px minmax(720px, 1fr);
   gap: 40px;
-  min-height: 620px;
+  min-height: 560px;
   height: auto;
   border-bottom: 1px solid rgba(17, 17, 17, 0.42);
-  padding-bottom: 42px;
+  padding-bottom: 28px;
 }
 
 :global(.projects-title-block) {
@@ -211,17 +211,6 @@
   transition:
     box-shadow 220ms ease,
     filter 220ms ease;
-  animation: projects-card-float 4.2s ease-in-out infinite;
-}
-
-@keyframes projects-card-float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
 }
 
 :global(.projects-paper:hover) {
@@ -252,25 +241,25 @@
 }
 
 :global(.projects-paper--scotland) {
-  left: -4%;
-  top: 72px;
-  transform: translateY(15px) rotate(-4deg);
+  left: 3%;
+  top: 48px;
+  rotate: -4deg;
 }
 :global(.projects-paper--aether) {
-  left: 28%;
-  top: 8px;
-  transform: translateY(-25px) rotate(2deg);
+  left: 30%;
+  top: -14px;
+  rotate: 2deg;
 }
 :global(.projects-paper--archaic) {
-  left: 50%;
-  top: 98px;
-  transform: translateY(40px) rotate(-2deg);
+  left: 52%;
+  top: 78px;
+  rotate: -2deg;
   z-index: 1;
 }
 :global(.projects-paper--wave) {
-  right: -6%;
-  top: 34px;
-  transform: translateY(-15px) rotate(5deg);
+  right: 2%;
+  top: 12px;
+  rotate: 5deg;
 }
 
 :global(.projects-paper-meta) {
@@ -390,7 +379,7 @@
   gap: 34px;
   height: auto;
   min-height: 0;
-  padding-top: 24px;
+  padding-top: 14px;
   align-items: start;
 }
 
@@ -866,7 +855,8 @@
 }
 
 @keyframes projects-crt-wobble {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(0deg);
   }
   25% {

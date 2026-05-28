@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import gsap from "gsap";
 
 export type ExperienceEntry = {
   id: string;
@@ -56,14 +57,30 @@ function PaperClip({ side = "top" }: { side?: "top" | "left" }) {
 }
 
 function Tape() {
+  const tapeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (tapeRef.current) {
+      gsap.to(tapeRef.current, {
+        rotation: -1.5,
+        duration: 2,
+        yoyo: true,
+        repeat: -1,
+        ease: "sine.inOut",
+      });
+    }
+  }, []);
+
   return (
-    <div
+    <motion.div
+      ref={tapeRef}
       className="experience-tape absolute -top-4 left-1/2 -translate-x-1/2 z-20"
       style={{
         width: 72,
         height: 28,
         background: "rgba(180,170,120,0.45)",
         border: "1px solid rgba(160,150,100,0.3)",
+        boxShadow: "2px 2px 4px rgba(0,0,0,0.15)",
       }}
     />
   );
@@ -285,6 +302,7 @@ export default function ExperienceCard(
     positioned = true,
     ...rest
   } = props;
+  const cardRef = useRef<HTMLDivElement>(null);
   const compact = density === "compact";
   const isContributor = entry.status === "CONTRIBUTING";
   const hasPushPin =
@@ -301,8 +319,26 @@ export default function ExperienceCard(
       ? "8px 8px 0 rgba(0,0,0,0.68)"
       : "6px 6px 0 rgba(0,0,0,0.5)");
 
+  // Paper-shadow movement animation
+  useEffect(() => {
+    if (cardRef.current) {
+      gsap.to(cardRef.current, {
+        boxShadow: [
+          "6px 6px 0 rgba(0,0,0,0.5)",
+          "7px 8px 0 rgba(0,0,0,0.58)",
+          "6px 6px 0 rgba(0,0,0,0.5)",
+        ],
+        duration: 3.2,
+        yoyo: true,
+        repeat: -1,
+        ease: "sine.inOut",
+      });
+    }
+  }, []);
+
   return (
     <motion.div
+      ref={cardRef}
       {...rest}
       className={`${positioned ? "absolute" : "relative"} ${className ?? ""}`.trim()}
       style={{ zIndex: entry.zIndex, ...style }}
@@ -312,6 +348,14 @@ export default function ExperienceCard(
         rotate: entry.rotate + (entry.rotate >= 0 ? 1 : -1),
         y: -4,
         transition: { duration: 0.2 },
+      }}
+      initial={{ opacity: 0, y: 20, rotate: entry.rotate }}
+      whileInView={{ opacity: 1, y: 0, rotate: entry.rotate }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{
+        duration: 0.5,
+        delay: entry.delay,
+        ease: "easeOut",
       }}
     >
       {hasPushPin && <PushPin />}

@@ -492,7 +492,7 @@ function SystemRow({
           "80px clamp(250px, 21vw, 350px) minmax(220px, 42vw) clamp(240px, 16vw, 320px) clamp(220px, 14vw, 280px)",
         alignItems: "center",
         borderBottom: !isLast ? "2px solid #2a2a2a" : "none",
-        minHeight: 88,
+        minHeight: 70,
         flex: standalone ? undefined : 1,
       }}
       initial={{ opacity: 0, x: -24 }}
@@ -598,7 +598,7 @@ function SystemRow({
               color: row.subColor,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginTop: 4,
+              marginTop: -1,
             }}
           >
             {row.sub}
@@ -619,7 +619,9 @@ function SystemRow({
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
-          animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+          animate={
+            inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
+          }
           transition={{
             duration: 0.42,
             delay: idx * 0.08 + 0.28,
@@ -633,7 +635,7 @@ function SystemRow({
       {/* ── Description ──────────────────────────── */}
       <div
         style={{
-          padding: "20px 24px",
+          padding: "15px 24px",
           borderRight: "2px solid #2a2a2a",
           height: "100%",
           display: "flex",
@@ -690,12 +692,18 @@ function SystemRow({
         }}
       >
         {row.tech.map((techRow, ri) => (
-          <div key={ri} className="flex items-center flex-wrap" style={{ gap: 8 }}>
+          <div
+            key={ri}
+            className="flex items-center flex-wrap"
+            style={{ gap: 8 }}
+          >
             {techRow.map((t, ti) => (
               <motion.span
                 key={t}
                 initial={{ opacity: 0, scale: 0.8 }}
-                animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                animate={
+                  inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }
+                }
                 transition={{
                   duration: 0.28,
                   delay: idx * 0.08 + 0.48 + ri * 0.06 + ti * 0.05,

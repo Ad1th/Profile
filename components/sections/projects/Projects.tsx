@@ -490,7 +490,7 @@ function CrtMonitor({
   onToggleMode,
 }: {
   project: FeaturedProject | ArchiveProject;
-  mode: "details" | "preview";
+  mode: "details" | "preview" | "links";
   booting: boolean;
   onToggleMode: () => void;
 }) {
@@ -524,6 +524,28 @@ function CrtMonitor({
 
   const displayLines = mode === "details" ? contentLines : previewLines;
 
+  // Preview images — prefer public/images/projects/{id}/preview-{n}.jpg
+  const [imageIndex, setImageIndex] = useState(0);
+  const images =
+    "preview" in project && Array.isArray(project.preview)
+      ? project.preview.map(
+          (_, i) => `/images/projects/${project.id}/preview-${i + 1}.jpg`,
+        )
+      : [];
+
+  // Boot sequence lines (typewriter style) — vary by mode
+  const bootLines =
+    mode === "preview"
+      ? [
+          "INITIALIZING PREVIEW MODE...",
+          "LOCATING ASSETS...",
+          `${images.length} FILES FOUND`,
+          "READY",
+        ]
+      : mode === "links"
+        ? ["LOADING LINKS MODULE...", "RESOLVING HOSTS...", "READY"]
+        : ["LOADING PROJECT DATA...", "INDEXING FILES...", "READY"];
+
   return (
     <button
       type="button"
@@ -533,7 +555,21 @@ function CrtMonitor({
       <span className="projects-crt-power" />
       <div className="projects-crt-screen">
         <span className="projects-scanline" />
-        {mode === "details" ? (
+
+        {booting ? (
+          <div className="projects-crt-boot">
+            {bootLines.map((l, i) => (
+              <div
+                key={i}
+                className="projects-boot-line"
+                style={{ ["--i" as any]: i }}
+              >
+                {l}
+                <span className="projects-crt-cursor" />
+              </div>
+            ))}
+          </div>
+        ) : mode === "details" ? (
           <div className="projects-crt-copy">
             {displayLines.map((line, idx) =>
               line.type === "stackLabel" ? (
@@ -576,15 +612,7 @@ function CrtMonitor({
                     ease: "easeOut",
                   }}
                 >
-                  {line.text
-                    .split(/(\s{2,})/)
-                    .map((part, i) =>
-                      /\s{2,}/.test(part) ? (
-                        <span key={i}>{part}</span>
-                      ) : (
-                        <span key={i}>{part}</span>
-                      ),
-                    )}
+                  {line.text}
                 </motion.div>
               ) : line.type === "header" ? (
                 <motion.h3
@@ -631,27 +659,82 @@ function CrtMonitor({
               ),
             )}
           </div>
-        ) : (
+        ) : mode === "preview" ? (
           <div className="projects-preview-mode">
-            {displayLines.map((line, idx) => (
-              <motion.div
-                key={idx}
-                className="projects-crt-line"
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{
-                  delay: 0.08 + idx * 0.04,
-                  duration: 0.3,
-                  ease: "easeOut",
+            {images.length > 0 ? (
+              <div className="projects-image-wrap">
+                <button
+                  type="button"
+                  className="projects-image-nav prev"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setImageIndex(
+                      (i) => (i - 1 + images.length) % images.length,
+                    );
+                  }}
+                >
+                  PREV
+                </button>
+                <img
+                  src={images[imageIndex]}
+                  alt={`${project.name} preview ${imageIndex + 1}`}
+                />
+                <button
+                  type="button"
+                  className="projects-image-nav next"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setImageIndex((i) => (i + 1) % images.length);
+                  }}
+                >
+                  NEXT
+                </button>
+              </div>
+            ) : (
+              displayLines.map((line, idx) => (
+                <motion.div
+                  key={idx}
+                  className="projects-crt-line"
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.08 + idx * 0.04,
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                >
+                  {line.type === "header" && <h3>{line.text}</h3>}
+                  {line.type === "title" && <p>{line.text}</p>}
+                  {line.type === "preview" && <span>{line.text}</span>}
+                </motion.div>
+              ))
+            )}
+          </div>
+        ) : (
+          // LINKS mode — simplified
+          <div className="projects-crt-copy">
+            <motion.h3 className="projects-crt-line">EXTERNAL LINKS</motion.h3>
+            <motion.div className="projects-crt-line projects-crt-links">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const q = encodeURIComponent(project.name);
+                  window.open(`https://github.com/search?q=${q}`, "_blank");
                 }}
               >
-                {line.type === "header" && <h3>{line.text}</h3>}
-                {line.type === "title" && <p>{line.text}</p>}
-                {line.type === "preview" && <span>{line.text}</span>}
-              </motion.div>
-            ))}
+                &gt; GITHUB
+              </button>
+            </motion.div>
           </div>
         )}
+
+        {/* Status bar */}
+        <div className="projects-crt-status">
+          <span>{`PROJECT: ${project.name.split(" ")[0] || project.name}`}</span>
+          <span>{`MODE: ${mode.toUpperCase()}`}</span>
+          <span>{`FILES: ${"preview" in project ? project.preview.length : images.length}`}</span>
+        </div>
       </div>
       <span className="projects-crt-tape">ship &gt; iterate &gt; repeat</span>
     </button>
@@ -680,6 +763,59 @@ export default function Projects() {
     ],
     [],
   );
+
+  // Console easter-eggs and helper functions
+  useEffect(() => {
+    try {
+      console.log("ADITH.EXE READY");
+      console.log("Type help()");
+
+      const projectCount = featuredProjects.length + archiveProjects.length;
+
+      (window as any).help = function help() {
+        console.log(
+          "Available commands: help(), about(), projects(), skills(), sudo(), showSecrets()",
+        );
+      };
+      (window as any).about = function about() {
+        console.log(
+          "Adith — builder, systems engineer, & tinkerer. I build things that feel real.",
+        );
+      };
+      (window as any).projects = function projects() {
+        console.log(`${projectCount} projects available.`);
+      };
+      (window as any).skills = function skills() {
+        console.log(
+          "Tech: Node.js, Python, DuckDB, PostgreSQL, Kubernetes, Framer Motion, GSAP, Tailwind",
+        );
+      };
+      (window as any).sudo = function sudo(cmd: string) {
+        if (
+          String(cmd).toLowerCase().includes("hire") &&
+          String(cmd).toLowerCase().includes("adith")
+        ) {
+          console.log("Permission granted.\nWelcome aboard.");
+        } else {
+          console.log("Permission denied.");
+        }
+      };
+      (window as any).showSecrets = function showSecrets() {
+        console.log("No secrets. Just Prisma schemas.");
+      };
+
+      return () => {
+        delete (window as any).help;
+        delete (window as any).about;
+        delete (window as any).projects;
+        delete (window as any).skills;
+        delete (window as any).sudo;
+        delete (window as any).showSecrets;
+      };
+    } catch (e) {
+      // ignore in non-browser environments
+    }
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -969,9 +1105,14 @@ export default function Projects() {
               onToggleMode={() => {
                 setBooting(true);
                 setCrtMode((mode) =>
-                  mode === "details" ? "preview" : "details",
+                  mode === "details"
+                    ? "preview"
+                    : mode === "preview"
+                      ? "links"
+                      : "details",
                 );
-                window.setTimeout(() => setBooting(false), 260);
+                // show boot sequence for a short mechanical delay
+                window.setTimeout(() => setBooting(false), 420);
               }}
             />
 
@@ -982,9 +1123,13 @@ export default function Projects() {
               onClick={() => {
                 setBooting(true);
                 setCrtMode((mode) =>
-                  mode === "details" ? "preview" : "details",
+                  mode === "details"
+                    ? "preview"
+                    : mode === "preview"
+                      ? "links"
+                      : "details",
                 );
-                window.setTimeout(() => setBooting(false), 260);
+                window.setTimeout(() => setBooting(false), 420);
               }}
             >
               <span className="projects-preview-sticky-text">

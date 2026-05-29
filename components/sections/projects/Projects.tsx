@@ -184,7 +184,7 @@ const archiveProjects: ArchiveProject[] = [
     stack: "NEXT.JS / postgresql / Storage buckets",
     year: "2025",
     description: "Cloud storage platform.",
-    preview: ["deploy cards", "resource map", "activity view"],
+    preview: ["cloudify.png"],
   },
   {
     id: "09",
@@ -201,7 +201,7 @@ const archiveProjects: ArchiveProject[] = [
     year: "2024",
     description:
       "Chrome extension to boost productivity with non intrusive nudges",
-    preview: ["feed view", "thread detail", "profile sheet"],
+    preview: ["threddit.png"],
   },
   {
     id: "11",
@@ -209,7 +209,7 @@ const archiveProjects: ArchiveProject[] = [
     stack: "JS",
     year: "2024",
     description: "Anonymous chat forum",
-    preview: ["waveform post", "library", "creator page"],
+    preview: ["echochamber.png"],
   },
   {
     id: "12",
@@ -218,7 +218,7 @@ const archiveProjects: ArchiveProject[] = [
     year: "2025",
     description:
       "Community coordination platform for local service initiatives.",
-    preview: ["campaign board", "volunteer flow", "impact page"],
+    preview: ["sevaverse.png"],
   },
   {
     id: "13",
@@ -226,7 +226,7 @@ const archiveProjects: ArchiveProject[] = [
     stack: "ML / JS / SQL",
     year: "2025",
     description: "AI based sustainability solution for textile industries",
-    preview: ["sensor list", "map view", "field report"],
+    preview: ["EcoSync.png"],
   },
   {
     id: "14",
@@ -234,7 +234,7 @@ const archiveProjects: ArchiveProject[] = [
     stack: "Python / SQL",
     year: "2025",
     description: "Clinic management system",
-    preview: ["patient queue", "resource board", "staff panel"],
+    preview: ["lhospital.png"],
   },
   {
     id: "15",
@@ -243,7 +243,7 @@ const archiveProjects: ArchiveProject[] = [
     year: "2025",
     description:
       "Real-time social networking platform that connects communities with purpose.",
-    preview: ["network view", "community room", "member graph"],
+    preview: ["konectus.png"],
   },
   {
     id: "16",
@@ -275,7 +275,7 @@ const archiveProjects: ArchiveProject[] = [
     stack: "Python",
     year: "2023",
     description: "Compact pythin game with simple arcade mechanics.",
-    preview: ["game board", "score state", "restart loop"],
+    preview: ["snek.png"],
   },
 ];
 
@@ -431,6 +431,44 @@ function DoodleVisual({ type }: { type: FeaturedProject["visual"] }) {
   );
 }
 
+function PreviewImage({
+  folder,
+  index,
+  srcBase,
+  alt,
+}: {
+  folder: string;
+  index: number;
+  srcBase?: string;
+  alt?: string;
+}) {
+  const [attempt, setAttempt] = useState(0);
+  const candidates = srcBase?.startsWith("/")
+    ? [srcBase]
+    : srcBase && /\.[a-z]{2,4}$/i.test(srcBase)
+      ? [`/images/projects/${folder}/${srcBase}`]
+      : [
+          `/images/projects/${folder}/${srcBase ?? `preview-${index + 1}`}.png`,
+          `/images/projects/${folder}/${srcBase ?? `preview-${index + 1}`}.jpg`,
+          `/images/projects/${folder}/preview-${index + 1}.png`,
+          `/images/projects/${folder}/preview-${index + 1}.jpg`,
+          `/images/projects/${folder}/${folder}.png`,
+          `/images/projects/${folder}/${folder}.jpg`,
+        ];
+
+  const src = candidates[attempt % candidates.length];
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt={alt ?? "project preview"}
+      onError={() => setAttempt((a) => a + 1)}
+      style={{ width: "100%", maxHeight: 360, objectFit: "contain" }}
+    />
+  );
+}
+
 function FeaturedPaper({
   project,
   selected,
@@ -535,9 +573,15 @@ function CrtMonitor({
     ? (project as any).preview.length
     : 1;
 
-  const images = Array.from({ length: previewsCount }).map(
-    (_, i) => `/images/projects/${folderName}/preview-${i + 1}.svg`,
-  );
+  // Build image bases: if preview entries are explicit filenames, use them;
+  // otherwise fallback to preview-{n} bases. PreviewImage will try extensions.
+  const imageBases = Array.from({ length: previewsCount }).map((_, i) => {
+    const p = Array.isArray((project as any).preview)
+      ? (project as any).preview[i]
+      : null;
+    if (typeof p === "string" && /\.[a-z]{2,4}$/i.test(p)) return p;
+    return "/images/projects/_placeholder.svg";
+  });
 
   // Boot sequence lines (typewriter style) — vary by mode
   const bootLines =
@@ -545,7 +589,7 @@ function CrtMonitor({
       ? [
           "INITIALIZING PREVIEW MODE...",
           "LOCATING ASSETS...",
-          `${images.length} FILES FOUND`,
+          `${imageBases.length} FILES FOUND`,
           "READY",
         ]
       : mode === "links"
@@ -553,10 +597,17 @@ function CrtMonitor({
         : ["LOADING PROJECT DATA...", "INDEXING FILES...", "READY"];
 
   return (
-    <button
-      type="button"
+    <div
       className={`projects-crt ${booting ? "is-booting" : ""}`}
+      role="button"
+      tabIndex={0}
       onClick={onToggleMode}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onToggleMode();
+        }
+      }}
     >
       <span className="projects-crt-power" />
       <div className="projects-crt-screen">
@@ -667,7 +718,7 @@ function CrtMonitor({
           </div>
         ) : mode === "preview" ? (
           <div className="projects-preview-mode">
-            {images.length > 0 ? (
+            {imageBases.length > 0 ? (
               <div className="projects-image-wrap">
                 <button
                   type="button"
@@ -675,14 +726,16 @@ function CrtMonitor({
                   onClick={(e) => {
                     e.stopPropagation();
                     setImageIndex(
-                      (i) => (i - 1 + images.length) % images.length,
+                      (i) => (i - 1 + imageBases.length) % imageBases.length,
                     );
                   }}
                 >
                   PREV
                 </button>
-                <img
-                  src={images[imageIndex]}
+                <PreviewImage
+                  folder={folderName}
+                  index={imageIndex}
+                  srcBase={imageBases[imageIndex]}
                   alt={`${project.name} preview ${imageIndex + 1}`}
                 />
                 <button
@@ -690,7 +743,7 @@ function CrtMonitor({
                   className="projects-image-nav next"
                   onClick={(e) => {
                     e.stopPropagation();
-                    setImageIndex((i) => (i + 1) % images.length);
+                    setImageIndex((i) => (i + 1) % imageBases.length);
                   }}
                 >
                   NEXT
@@ -741,11 +794,11 @@ function CrtMonitor({
         <div className="projects-crt-status">
           <span>{`PROJECT: ${project.name.split(" ")[0] || project.name}`}</span>
           <span>{`MODE: ${mode.toUpperCase()}`}</span>
-          <span>{`FILES: ${"preview" in project ? project.preview.length : images.length}`}</span>
+          <span>{`FILES: ${"preview" in project ? project.preview.length : imageBases.length}`}</span>
         </div>
       </div>
       <span className="projects-crt-tape">ship &gt; iterate &gt; repeat</span>
-    </button>
+    </div>
   );
 }
 

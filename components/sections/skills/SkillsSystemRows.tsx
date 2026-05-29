@@ -494,6 +494,7 @@ function SystemRow({
         borderBottom: !isLast ? "2px solid #2a2a2a" : "none",
         minHeight: 60,
         flex: standalone ? undefined : 1,
+        marginTop: isLast ? -6 : 0,
       }}
       initial={{ opacity: 0, x: -24 }}
       animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -24 }}

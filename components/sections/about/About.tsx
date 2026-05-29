@@ -95,6 +95,7 @@ export default function About({
     <section
       data-section="about"
       className="relative w-full overflow-hidden bg-transparent"
+      style={{ marginTop: viewportTransition ? -24 : 0 }}
     >
       <motion.div
         className={`relative mx-auto ${
@@ -146,7 +147,11 @@ export default function About({
                 initial={standalone ? { scaleY: 0 } : false}
                 whileInView={standalone ? { scaleY: 1 } : undefined}
                 viewport={standalone ? { once: true } : undefined}
-                transition={standalone ? { duration: 0.4, ease: easings.primary } : undefined}
+                transition={
+                  standalone
+                    ? { duration: 0.4, ease: easings.primary }
+                    : undefined
+                }
               />
               <div
                 className={`${anton.className} text-[#111] uppercase select-none`}
@@ -176,7 +181,11 @@ export default function About({
                     viewport={standalone ? { once: true } : undefined}
                     transition={
                       standalone
-                        ? { duration: 0.55, delay: i * 0.12, ease: easings.primary }
+                        ? {
+                            duration: 0.55,
+                            delay: i * 0.12,
+                            ease: easings.primary,
+                          }
                         : undefined
                     }
                   >

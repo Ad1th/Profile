@@ -81,7 +81,7 @@ function lerpPath(a: PathNumbers, b: PathNumbers, p: number): PathNumbers {
   return a.map((val, i) => val + (b[i] - val) * p) as PathNumbers;
 }
 function humanTracePath(line: number, w: number, h: number): PathNumbers {
-  const cx = w * 0.53,
+  const cx = w * 0.66,
     cy = h * 0.52,
     spread = (line - 3) * w * 0.018,
     lift = Math.sin(line * 1.7) * h * 0.035;
@@ -131,7 +131,7 @@ const LABELS_HUMAN = [
 ];
 function humanPoint(i: number, count: number, w: number, h: number) {
   const t = i / count,
-    cx = w * 0.53,
+    cx = w * 0.66,
     cy = h * 0.53,
     jitter = (Math.sin(i * 12.9898) * 43758.5453) % 1;
   if (t < 0.18) {
@@ -191,7 +191,9 @@ function setTargets(
       mode === "human"
         ? humanPoint(i, particles.length, w, h)
         : wavePoint(i, particles.length, w, h);
-    p.tx = t.x;
+    // Apply a small rightward offset for the human assembly so the person aligns with labels/background.
+    const humanOffset = mode === "human" ? w * 0.08 : 0;
+    p.tx = t.x + humanOffset;
     p.ty = t.y;
   });
 }
@@ -286,7 +288,9 @@ export default function Patents() {
           p.x = Math.random() * W;
           p.y = Math.random() * H;
         }
-        p.ox = p.tx + Math.sin(i) * 160;
+        // Apply same human offset used in setTargets so original offsets align with ripple
+        const humanOffset = modeRef.current === "human" ? W * 0.08 : 0;
+        p.ox = p.tx + humanOffset + Math.sin(i) * 160;
         p.oy = p.ty + Math.cos(i * 0.7) * 110;
       });
     };

@@ -524,14 +524,20 @@ function CrtMonitor({
 
   const displayLines = mode === "details" ? contentLines : previewLines;
 
-  // Preview images — prefer public/images/projects/{id}/preview-{n}.jpg
+  // Preview images — prefer public/images/projects/{project-name}/preview-{n}.svg|jpg|png
   const [imageIndex, setImageIndex] = useState(0);
-  const images =
-    "preview" in project && Array.isArray(project.preview)
-      ? project.preview.map(
-          (_, i) => `/images/projects/${project.id}/preview-${i + 1}.jpg`,
-        )
-      : [];
+  const folderName = project.name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  const previewsCount = Array.isArray((project as any).preview)
+    ? (project as any).preview.length
+    : 1;
+
+  const images = Array.from({ length: previewsCount }).map(
+    (_, i) => `/images/projects/${folderName}/preview-${i + 1}.svg`,
+  );
 
   // Boot sequence lines (typewriter style) — vary by mode
   const bootLines =
@@ -719,8 +725,10 @@ function CrtMonitor({
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  const q = encodeURIComponent(project.name);
-                  window.open(`https://github.com/search?q=${q}`, "_blank");
+                  const repo =
+                    folderName ||
+                    project.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                  window.open(`https://github.com/Ad1th/${repo}`, "_blank");
                 }}
               >
                 &gt; GITHUB

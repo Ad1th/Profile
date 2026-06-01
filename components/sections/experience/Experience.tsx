@@ -2,8 +2,6 @@
 
 import { useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Anton } from "next/font/google";
 import ExperienceCard, { type ExperienceEntry } from "./ExperienceCard";
 import ExperienceSystemLog from "./ExperienceSystemLog";
@@ -97,111 +95,11 @@ export default function Experience() {
     return () => window.removeEventListener("resize", sync);
   }, []);
 
+  // No GSAP timeline — render the experience section statically to avoid
+  // SPA timing/layout issues.
   useLayoutEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      // Initial: hide/compact the timeline rail and scramble cards into a heap
-      gsap.set(".experience-rail", {
-        autoAlpha: 1,
-      });
-
-      gsap.set(".experience-rail-fill", {
-        scaleX: 0,
-        transformOrigin: "left center",
-        autoAlpha: 1,
-      });
-
-      gsap.set(".experience-node", { y: 18, autoAlpha: 0, scale: 0.9 });
-
-      const heapX = Math.min(window.innerWidth * 0.42, 540);
-      const heapY = Math.min(window.innerHeight * 0.34, 340);
-
-      gsap.set(".experience-card-once", (i) => ({
-        x: gsap.utils.random(-heapX, heapX),
-        y: gsap.utils.random(-heapY, heapY),
-        rotation: gsap.utils.random(-42, 42),
-        scale: gsap.utils.random(0.86, 1.06),
-        autoAlpha: 1,
-        transformOrigin: "50% 50%",
-      }));
-
-      // Build a paused timeline; we'll trigger it when the section scrolls into view.
-      const tl = gsap.timeline({ paused: true });
-
-      tl.from(
-        ".experience-kicker",
-        { y: 18, duration: 0.32, ease: "power2.out" },
-        0,
-      )
-        .to(
-          ".experience-rail-fill",
-          { scaleX: 1, duration: 1.05, ease: "power2.inOut" },
-          0.1,
-        )
-        .to(
-          ".experience-card-once",
-          {
-            x: 0,
-            y: 0,
-            rotation: (i, el) => {
-              const v = el.getAttribute("data-final-rotate");
-              return v ? parseFloat(v) : 0;
-            },
-            scale: 1,
-            autoAlpha: 1,
-            stagger: { each: 0.22, from: "random" },
-            duration: 1.15,
-            ease: "back.out(1.4)",
-          },
-          0.42,
-        )
-        .to(
-          ".experience-node",
-          {
-            y: 0,
-            autoAlpha: 1,
-            scale: 1,
-            stagger: 0.18,
-            duration: 0.56,
-            ease: "back.out(1.6)",
-          },
-          0.7,
-        );
-
-      // subtle glow on nodes when they appear
-      tl.to(
-        ".experience-node i",
-        {
-          boxShadow: "0 0 12px rgba(255,90,31,0.14)",
-          duration: 0.6,
-          ease: "power2.out",
-          stagger: 0.18,
-        },
-        0.9,
-      );
-
-      // ScrollTrigger: play the prepared timeline slightly before the section fully enters view.
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 40%",
-        onEnter: () => {
-          // hold the scrambled heap on screen longer before the transition starts
-          gsap.delayedCall(1.6, () => tl.play());
-        },
-        once: true,
-      });
-
-      // If the section is already in view (client navigation landed here), play the timeline immediately.
-      if (sectionRef.current) {
-        const top = sectionRef.current.getBoundingClientRect().top;
-        if (top < window.innerHeight * 0.4) {
-          gsap.delayedCall(1.6, () => tl.play());
-        }
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
+    // Intentionally empty: we avoid running any GSAP/ScrollTrigger code here.
+    return () => {};
   }, []);
 
   return (
@@ -236,7 +134,6 @@ export default function Experience() {
               <BlurIn>
                 <span
                   style={{
-                    display: "inline-block",
                     transform: "rotate(-0.6deg) scaleY(0.96)",
                     transformOrigin: "left top",
                     fontFamily:
@@ -245,7 +142,6 @@ export default function Experience() {
                     textTransform: "uppercase",
                     lineHeight: 0.9,
                     fontWeight: 800,
-                    letterSpacing: "0.005em",
                     WebkitFontSmoothing: "antialiased",
                     textRendering: "optimizeLegibility",
                     display: "block",
@@ -256,12 +152,10 @@ export default function Experience() {
                 </span>
                 <span
                   style={{
-                    display: "inline-block",
                     transform: "rotate(-0.6deg) scaleY(0.96)",
                     transformOrigin: "left top",
                     fontFamily:
                       "'Luckiest Guy', Genty, Grobold, 'Bowlby One SC', Anton, sans-serif",
-                    letterSpacing: "-0.06em",
                     textTransform: "uppercase",
                     lineHeight: 0.9,
                     fontWeight: 800,

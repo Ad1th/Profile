@@ -778,9 +778,10 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
   const titleSize = portrait
     ? "clamp(52px, 20vw, 90px)"
     : "clamp(58px, 16vw, 98px)";
+  // Increase only the "WITH" text + its yellow box (outline) on mobile.
   const outlineSize = portrait
-    ? "clamp(48px, 13.5vw, 84px)"
-    : "clamp(54px, 15vw, 92px)";
+    ? "clamp(52px, 20vw, 102px)"
+    : "clamp(58px, 16vw, 98px)";
   return (
     <div
       className="flex flex-col select-none uppercase"
@@ -810,7 +811,8 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
         className="inline-block"
         style={{
           border: "3px solid #CFDE00",
-          padding: "3px 12px 0px 12px",
+          // Slightly larger box only for "WITH"
+          padding: portrait ? "6px 12px 2px 12px" : "3px 12px 0px 12px",
           marginTop: 4,
           marginBottom: 2,
           maxWidth: "fit-content",

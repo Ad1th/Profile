@@ -32,7 +32,7 @@ const entries: ExperienceEntry[] = [
   {
     id: "03",
     role: "INTERNSHIP",
-    title: "Research systems",
+    title: "Intern",
     org: "IIT Hyderabad",
     dateRange: "DEC 2025 – PRESENT",
     status: "ACTIVE",

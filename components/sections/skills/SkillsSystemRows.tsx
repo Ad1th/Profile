@@ -432,12 +432,18 @@ interface SkillsSystemRowsProps {
   transitionProgress?: MotionValue<number>;
   /** When standalone=false, drives row animations directly instead of useInView */
   isVisible?: boolean;
+  /** Portrait orientation for standalone mode. */
+  isPortrait?: boolean;
 }
 
 export default function SkillsSystemRows({
   standalone,
   isVisible = true,
+  isPortrait = false,
 }: SkillsSystemRowsProps) {
+  const compactStandalone = standalone;
+  const showDiagrams = !isPortrait;
+
   return (
     <div
       className="flex flex-col"
@@ -455,6 +461,8 @@ export default function SkillsSystemRows({
           isLast={idx === rows.length - 1}
           standalone={standalone}
           externalVisible={isVisible}
+          compact={compactStandalone}
+          showDiagrams={showDiagrams}
         />
       ))}
     </div>
@@ -470,12 +478,16 @@ function SystemRow({
   isLast,
   standalone = true,
   externalVisible = true,
+  compact = false,
+  showDiagrams = true,
 }: {
   row: (typeof rows)[0];
   idx: number;
   isLast: boolean;
   standalone?: boolean;
   externalVisible?: boolean;
+  compact?: boolean;
+  showDiagrams?: boolean;
 }) {
   const rowRef = useRef<HTMLDivElement>(null);
   const inViewHook = useInView(rowRef, { once: true, margin: "-50px" });
@@ -488,8 +500,14 @@ function SystemRow({
       ref={rowRef}
       className="relative grid"
       style={{
-        gridTemplateColumns:
-          "80px clamp(250px, 21vw, 350px) minmax(220px, 42vw) clamp(240px, 16vw, 320px) clamp(220px, 14vw, 280px)",
+        gridTemplateColumns: compact
+          ? "56px minmax(0, 1fr)"
+          : "80px clamp(250px, 21vw, 350px) minmax(220px, 42vw) clamp(240px, 16vw, 320px) clamp(220px, 14vw, 280px)",
+        gridTemplateRows: compact
+          ? showDiagrams
+            ? "auto auto auto auto"
+            : "auto auto auto"
+          : undefined,
         alignItems: "center",
         borderBottom: !isLast ? "2px solid #2a2a2a" : "none",
         minHeight: 60,
@@ -529,11 +547,12 @@ function SystemRow({
       {/* ── Number ──────────────────────────────── */}
       <div
         style={{
-          padding: "0 0 0 32px",
+          padding: compact ? "16px 0 0 18px" : "0 0 0 32px",
           borderRight: "2px solid #2a2a2a",
           height: "100%",
           display: "flex",
-          alignItems: "center",
+          alignItems: compact ? "flex-start" : "center",
+          gridRow: compact ? "1 / -1" : undefined,
         }}
       >
         <div>
@@ -570,18 +589,20 @@ function SystemRow({
       {/* ── Title + subtitle ─────────────────────── */}
       <div
         style={{
-          padding: "0 24px",
-          borderRight: "2px solid #2a2a2a",
+          padding: compact ? "14px 14px 10px 14px" : "0 24px",
+          borderRight: compact ? undefined : "2px solid #2a2a2a",
           height: "100%",
           display: "flex",
           alignItems: "center",
+          gridColumn: compact ? "2" : undefined,
+          gridRow: compact ? "1" : undefined,
         }}
       >
         <div>
           <div
             style={{
               fontFamily: "var(--font-archivo), sans-serif",
-              fontSize: "clamp(22px, 1.9vw, 32px)",
+              fontSize: compact ? "clamp(24px, 6vw, 32px)" : "clamp(22px, 1.9vw, 32px)",
               fontWeight: 900,
               color: "#E5DED2",
               letterSpacing: "-0.01em",
@@ -608,6 +629,7 @@ function SystemRow({
       </div>
 
       {/* ── Diagram ──────────────────────────────── */}
+      {!compact && (
       <div
         style={{
           padding: "0 36px",
@@ -632,15 +654,48 @@ function SystemRow({
           {row.diagram(inView)}
         </motion.div>
       </div>
+      )}
+
+      {compact && showDiagrams && (
+        <div
+          style={{
+            padding: "8px 14px 8px 14px",
+            borderTop: "1px solid #2a2a2a",
+            borderBottom: "1px solid #2a2a2a",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            overflowX: "auto",
+            gridColumn: "2",
+            gridRow: "2",
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={
+              inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
+            }
+            transition={{
+              duration: 0.42,
+              delay: idx * 0.08 + 0.28,
+              ease: "easeOut",
+            }}
+          >
+            {row.diagram(inView)}
+          </motion.div>
+        </div>
+      )}
 
       {/* ── Description ──────────────────────────── */}
       <div
         style={{
-          padding: "5px 24px",
-          borderRight: "2px solid #2a2a2a",
+          padding: compact ? "10px 14px" : "5px 24px",
+          borderRight: compact ? undefined : "2px solid #2a2a2a",
           height: "100%",
           display: "flex",
           alignItems: "center",
+          gridColumn: compact ? "2" : undefined,
+          gridRow: compact ? (showDiagrams ? "3" : "2") : undefined,
         }}
       >
         <div className="flex items-start gap-2">
@@ -684,12 +739,14 @@ function SystemRow({
       {/* ── Tech stack ───────────────────────────── */}
       <div
         style={{
-          padding: "0 32px",
+          padding: compact ? "8px 14px 14px 14px" : "0 32px",
           height: "100%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           gap: 8,
+          gridColumn: compact ? "2" : undefined,
+          gridRow: compact ? (showDiagrams ? "4" : "3") : undefined,
         }}
       >
         {row.tech.map((techRow, ri) => (

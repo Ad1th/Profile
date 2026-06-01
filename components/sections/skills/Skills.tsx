@@ -12,8 +12,23 @@
 
 import SkillsHero from "@/components/sections/skills/SkillsHero";
 import SkillsSystemRows from "@/components/sections/skills/SkillsSystemRows";
+import { useEffect, useState } from "react";
 
 export default function Skills() {
+  const [isPortrait, setIsPortrait] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(orientation: portrait)");
+    const sync = () => setIsPortrait(media.matches);
+    sync();
+    media.addEventListener("change", sync);
+    window.addEventListener("resize", sync);
+    return () => {
+      media.removeEventListener("change", sync);
+      window.removeEventListener("resize", sync);
+    };
+  }, []);
+
   return (
     <section
       data-section="skills"
@@ -24,8 +39,17 @@ export default function Skills() {
         className="relative mx-auto flex flex-col"
         style={{ maxWidth: "100%" }}
       >
-        <SkillsHero standalone={true} animateDots={true} isVisible={true} />
-        <SkillsSystemRows standalone={true} isVisible={true} />
+        <SkillsHero
+          standalone={true}
+          animateDots={true}
+          isVisible={true}
+          isPortrait={isPortrait}
+        />
+        <SkillsSystemRows
+          standalone={true}
+          isVisible={true}
+          isPortrait={isPortrait}
+        />
       </div>
     </section>
   );

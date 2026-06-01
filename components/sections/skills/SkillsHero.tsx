@@ -104,20 +104,25 @@ interface SkillsHeroProps {
   animateDots?: boolean;
   /** When standalone=false, drives animations directly instead of whileInView. */
   isVisible?: boolean;
+  /** Hide right-side language graph panel in portrait standalone mode. */
+  isPortrait?: boolean;
 }
 
 export default function SkillsHero({
   standalone,
   animateDots = false,
   isVisible = true,
+  isPortrait = false,
 }: SkillsHeroProps) {
+  const hideLanguagePanel = standalone && isPortrait;
+
   return (
     <div
       className="relative grid"
       style={{
-        gridTemplateColumns: "1fr 1fr 1fr",
+        gridTemplateColumns: hideLanguagePanel ? "1fr 1fr" : "1fr 1fr 1fr",
         borderBottom: "3px solid #333",
-        minHeight: "calc(42svh - 20px)",
+        minHeight: hideLanguagePanel ? "auto" : "calc(42svh - 20px)",
         alignItems: "stretch",
       }}
     >
@@ -125,7 +130,7 @@ export default function SkillsHero({
       <div
         style={{
           borderRight: "3px solid #333",
-          padding: "16px 36px 40px 40px",
+          padding: hideLanguagePanel ? "16px 16px 24px 18px" : "16px 36px 40px 40px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
@@ -163,7 +168,9 @@ export default function SkillsHero({
               <motion.div
                 className={`${anton.className} uppercase select-none`}
                 style={{
-                  fontSize: "clamp(52px, 5.2vw, 80px)",
+                  fontSize: hideLanguagePanel
+                    ? "clamp(40px, 10.2vw, 66px)"
+                    : "clamp(52px, 5.2vw, 80px)",
                   lineHeight: 0.92,
                   letterSpacing: "-0.01em",
                   color: line.color,
@@ -209,7 +216,7 @@ export default function SkillsHero({
       <div
         style={{
           borderRight: "3px solid #333",
-          padding: "20px 40px",
+          padding: hideLanguagePanel ? "16px 16px" : "20px 40px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -219,13 +226,13 @@ export default function SkillsHero({
         <motion.p
           style={{
             fontFamily: "monospace",
-            fontSize: 16,
+            fontSize: hideLanguagePanel ? 13 : 16,
             fontWeight: 400,
             lineHeight: 1.7,
             color: "#C8C0B4",
             maxWidth: 280,
             marginTop: 35,
-            marginBottom: -15,
+            marginBottom: hideLanguagePanel ? 0 : -15,
           }}
           initial={{ opacity: 0, y: 16 }}
           {...(standalone
@@ -284,6 +291,7 @@ export default function SkillsHero({
       </div>
 
       {/* ── Col 3: Language dots ─────────────────────────────────────────── */}
+      {!hideLanguagePanel && (
       <div
         style={{
           padding: "16px 40px 40px 40px",
@@ -405,6 +413,7 @@ export default function SkillsHero({
           ))}
         </div>
       </div>
+      )}
     </div>
   );
 }

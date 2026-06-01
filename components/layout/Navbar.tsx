@@ -56,7 +56,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   // ── Scroll state: background snap only ────────────────────────────────
   useEffect(() => {
@@ -68,13 +67,6 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, []);
-
-  useEffect(() => {
-    const sync = () => setIsMobile(window.innerWidth < 768);
-    sync();
-    window.addEventListener("resize", sync);
-    return () => window.removeEventListener("resize", sync);
   }, []);
 
   // ── Active section via IntersectionObserver ────────────────────────────
@@ -125,15 +117,14 @@ export default function Navbar() {
   const activeLinkSection = getActiveLinkSection();
 
   // ── Background style (brutalist snap — no transition) ─────────────────
-  const navBg = scrolled || isMobile ? "#F0EBE0" : "transparent";
-  const navBorder =
-    scrolled || isMobile ? "3px solid #111" : "3px solid transparent";
+  const navBg = scrolled ? "#F0EBE0" : "transparent";
+  const navBorder = scrolled ? "3px solid #111" : "3px solid transparent";
 
   return (
     <>
       {/* ── MAIN NAVBAR ─────────────────────────────────────────────────── */}
       <motion.nav
-        className="fixed left-0 right-0 top-0 z-[100] flex h-[56px] w-full max-w-full items-center justify-between overflow-x-clip px-[12px] md:px-[16px]"
+        className="fixed left-0 right-0 top-0 z-[100] flex h-[56px] items-center justify-between px-[12px] md:px-[16px]"
         style={{
           background: navBg,
           borderBottom: navBorder,

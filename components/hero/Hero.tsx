@@ -890,11 +890,6 @@ function CTASmall({
   height: number;
   fontSize: number;
 }) {
-  const scrollToProjects = () => {
-    const el = document.querySelector('[data-section="projects"]');
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <div style={{ position: "relative", width, height }}>
       <div
@@ -908,7 +903,6 @@ function CTASmall({
         }}
       />
       <motion.button
-        onClick={scrollToProjects}
         style={{
           position: "absolute",
           inset: 0,

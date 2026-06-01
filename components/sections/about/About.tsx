@@ -144,7 +144,7 @@ export default function About({
                   border: "3px solid #111",
                   flexShrink: 0,
                   /* Mobile: prevent the orange bar from stretching a bit too far */
-                  maxHeight: standalone ? "86%" : undefined,
+                  maxHeight: standalone ? "76%" : undefined,
                 }}
                 initial={standalone ? { scaleY: 0 } : false}
                 whileInView={standalone ? { scaleY: 1 } : undefined}
@@ -177,7 +177,7 @@ export default function About({
                     style={{
                       color: line.color,
                       fontSize: standalone
-                        ? "clamp(80px, 6.5vw, 210px)"
+                        ? "clamp(70px, 6.5vw, 210px)"
                         : "var(--aboutBuildLineFont)",
                       opacity: standalone ? undefined : 1,
                       transform: standalone ? undefined : "translateY(0px)",

@@ -2,7 +2,7 @@ export default function Contact() {
   return (
     <section
       data-section="contact"
-      className="relative w-full min-h-screen overflow-hidden bg-[#2E2230] px-6 pt-8 pb-8 text-[#E8DDD0] sm:px-10 lg:px-16"
+      className="relative w-full min-h-screen overflow-hidden bg-[#2E2230] px-6 pt-8 pb-8 text-[#E8DDD0] sm:px-10 lg:px-16 sm:min-h-0 sm:pt-14 sm:pb-10"
       style={{ isolation: "isolate" }}
     >
       {/* grain */}
@@ -42,7 +42,7 @@ export default function Contact() {
         </div>
 
         {/* main */}
-        <div className="grid gap-8 py-8 sm:gap-12 sm:py-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid gap-8 py-8 sm:gap-16 sm:py-14 lg:grid-cols-[1.05fr_0.95fr]">
           {/* LEFT */}
           <div className="relative">
             <div className="absolute left-0 top-0 h-12 w-px bg-[#E8DDD0]/10" />
@@ -57,7 +57,7 @@ export default function Contact() {
             </p>
 
             {/* CONTACT */}
-            <div className="group relative mt-10 w-full sm:inline-block overflow-hidden">
+            <div className="group relative mt-10 w-full overflow-hidden sm:inline-block sm:w-auto sm:overflow-visible">
               <h2
                 className="
       relative
@@ -127,7 +127,7 @@ export default function Contact() {
               />
             </div>
 
-            <div className="mt-6 flex items-end gap-6">
+            <div className="mt-6 sm:mt-8 flex items-end gap-6">
               <div className="h-12 w-px bg-[#E8DDD0]/10" />
 
               <div className="rotate-[-4deg] font-mono text-[13px] leading-[1.8] tracking-[0.04em] text-[#8B9278]">
@@ -142,11 +142,11 @@ export default function Contact() {
 
           {/* RIGHT */}
           <div className="relative flex flex-col justify-start border-l border-[#E8DDD0]/10 pl-0 pt-2 lg:pl-16 lg:pt-4">
-            <div className="space-y-3">
+            <div className="space-y-3 sm:space-y-5">
               {/* EMAIL 1 */}
               <a
                 href="mailto:hello@adith.xyz"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 transition-all duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-all duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -187,7 +187,7 @@ export default function Contact() {
               {/* EMAIL 2 */}
               <a
                 href="mailto:madith2505@gmail.com"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 transition-all duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-all duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -230,7 +230,7 @@ export default function Contact() {
                 href="https://github.com/Ad1th"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 transition-all duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-all duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -273,7 +273,7 @@ export default function Contact() {
                 href="https://www.linkedin.com/in/adith-manikonda/"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 transition-all duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-all duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -315,7 +315,7 @@ export default function Contact() {
         </div>
 
         {/* footer */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-[#E8DDD0]/10 pt-4 gap-2 sm:gap-0">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-[#E8DDD0]/10 pt-4 sm:pt-6 gap-2 sm:gap-0">
           <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#E8DDD0]/52">
             LAST UPDATED — MAY 2026
           </span>

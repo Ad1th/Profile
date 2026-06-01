@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -85,6 +85,17 @@ const entries: ExperienceEntry[] = [
 
 export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  // track small screens to adjust card density and spacing
+  const [isSmall, setIsSmall] = useState(false);
+
+  // client-only viewport sync — used to choose compact card density on small screens
+  useLayoutEffect(() => {
+    const sync = () => setIsSmall(window.innerWidth < 768);
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
+  }, []);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -213,7 +224,7 @@ export default function Experience() {
       />
 
       <div className="relative z-10 flex min-h-screen flex-col px-8 pb-8 pt-16 lg:px-14">
-        <div className="experience-kicker grid grid-cols-[minmax(0,1fr)_260px] items-start gap-8">
+        <div className="experience-kicker grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_260px] items-start gap-8">
           <div>
             <span className="font-mono text-[12px] font-black tracking-[0.12em] text-[#A14A32]">
               + EXPERIENCE
@@ -269,11 +280,11 @@ export default function Experience() {
 
             <div style={{ marginTop: 12 }}>
               <p
+                className="max-w-[320px] md:max-w-[420px]"
                 style={{
                   color: "#C8C0B4",
                   fontSize: 15,
                   lineHeight: 1.5,
-                  maxWidth: 420,
                 }}
               >
                 Building products, communities, and systems.{" "}
@@ -283,11 +294,13 @@ export default function Experience() {
               </p>
             </div>
           </div>
-          <ExperienceSystemLog />
+          <div className="hidden md:block">
+            <ExperienceSystemLog />
+          </div>
         </div>
 
         <div className="relative mt-8">
-          <div className="experience-rail absolute left-0 right-0 top-[52px] h-[3px] bg-[#333]">
+          <div className="experience-rail absolute left-0 right-0 top-[40px] md:top-[52px] h-[3px] bg-[#333]">
             <div
               className="experience-rail-fill absolute left-0 top-0 bottom-0 origin-left"
               style={{
@@ -298,12 +311,11 @@ export default function Experience() {
               }}
             />
           </div>
-          <div className="grid grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {entries.map((entry, index) => (
               <div
                 key={entry.id}
-                className="relative"
-                style={{ paddingTop: "calc(6rem + 10px)" }}
+                className="relative pt-16 md:pt-[calc(6rem+10px)]"
               >
                 <div className="experience-node absolute left-1/2 top-0 z-20 flex -translate-x-1/2 flex-col items-center">
                   <span className="flex h-10 w-10 items-center justify-center border-[3px] border-[#111] bg-[#ECE7DF] shadow-[5px_5px_0_rgba(0,0,0,0.55)]">
@@ -316,14 +328,14 @@ export default function Experience() {
 
                 {/* vertical connector from node to card */}
                 <div
-                  className="experience-connector absolute left-1/2 top-[48px] -translate-x-1/2"
+                  className="experience-connector absolute left-1/2 top-[36px] md:top-[48px] -translate-x-1/2"
                   style={{ width: 2, height: "6rem", background: "#333" }}
                 />
 
                 <ExperienceCard
                   entry={entry}
                   data-final-rotate={entry.rotate}
-                  density="regular"
+                  density={isSmall ? "compact" : "regular"}
                   positioned={false}
                   className="experience-card-once"
                   style={{ width: "100%", marginTop: 0 }}

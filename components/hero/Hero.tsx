@@ -535,7 +535,7 @@ function HeroMobile() {
       </motion.div>
       {/* Mobile stats */}
       <motion.div
-        className="relative z-30 grid gap-0"
+        className="relative z-30 grid gap-0 heroMobileStats"
         style={{
           background: "#F0EBE0",
           borderBottom: "4px solid #111",
@@ -552,10 +552,11 @@ function HeroMobile() {
         ].map(({ value, label }, i) => (
           <div
             key={value}
+            className="heroMobileStatsCell"
             style={{
               borderRight: i < 2 ? "4px solid #111" : undefined,
               borderBottom: "4px solid #111",
-              padding: "16px 12px",
+              padding: "16px 10px",
               minHeight: 85,
               display: "flex",
               flexDirection: "column",
@@ -564,22 +565,34 @@ function HeroMobile() {
             }}
           >
             <div
-              className="text-[#111] text-[28px] font-black leading-none"
-              style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+              className="heroMobileStatsValue text-[#111] font-black leading-none"
+              style={{
+                fontFamily: "var(--font-archivo), sans-serif",
+                fontSize: "clamp(24px, 7.3vw, 28px)",
+              }}
             >
               {value}
             </div>
             <div
-              className="text-[#555] text-[10px] font-bold tracking-[0.12em] uppercase"
+              className="heroMobileStatsLabel text-[#555] font-bold tracking-[0.12em] uppercase"
               style={{
                 fontFamily: "var(--font-archivo), monospace",
                 marginTop: 6,
+                fontSize: "clamp(9px, 2.6vw, 10px)",
               }}
             >
               {label}
             </div>
           </div>
         ))}
+        <style>{`
+          /* iPhone 14 Pro-ish / <= 420px width: keep 3 metrics from wrapping/clipping */
+          @media (max-width: 420px) {
+            .heroMobileStatsCell { padding: 14px 8px !important; min-height: 78px !important; }
+            .heroMobileStatsValue { font-size: 24px !important; }
+            .heroMobileStatsLabel { margin-top: 5px !important; font-size: 9px !important; letter-spacing: 0.10em !important; }
+          }
+        `}</style>
       </motion.div>
       {/* Mobile ticker */}
       <motion.div

@@ -130,7 +130,9 @@ export default function SkillsHero({
       <div
         style={{
           borderRight: "3px solid #333",
-          padding: hideLanguagePanel ? "16px 16px 24px 18px" : "16px 36px 40px 40px",
+          padding: hideLanguagePanel
+            ? "16px 16px 24px 18px"
+            : "16px 36px 40px 40px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
@@ -292,127 +294,127 @@ export default function SkillsHero({
 
       {/* ── Col 3: Language dots ─────────────────────────────────────────── */}
       {!hideLanguagePanel && (
-      <div
-        style={{
-          padding: "16px 40px 40px 40px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          position: "relative",
-        }}
-      >
-        {/* Corner brackets */}
-        <div className="absolute" style={{ top: 20, left: 20 }}>
-          <div
-            style={{
-              width: 20,
-              height: 3,
-              background: "#555",
-              position: "absolute",
-              top: 0,
-              left: 0,
-            }}
-          />
-          <div
-            style={{
-              width: 3,
-              height: 20,
-              background: "#555",
-              position: "absolute",
-              top: 0,
-              left: 0,
-            }}
-          />
-        </div>
-        <div className="absolute" style={{ bottom: 20, left: 20 }}>
-          <div
-            style={{
-              width: 20,
-              height: 3,
-              background: "#555",
-              position: "absolute",
-              bottom: 0,
-              left: 0,
-            }}
-          />
-          <div
-            style={{
-              width: 3,
-              height: 20,
-              background: "#555",
-              position: "absolute",
-              bottom: 0,
-              left: 0,
-            }}
-          />
-        </div>
-
-        <motion.div
+        <div
           style={{
-            fontFamily: "monospace",
-            fontSize: 12,
-            fontWeight: 700,
-            letterSpacing: "0.14em",
-            color: "#8A8B6D",
-            marginBottom: 20,
-            marginTop: 20,
+            padding: "16px 40px 40px 40px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            position: "relative",
           }}
-          initial={{ opacity: 0 }}
-          {...(standalone
-            ? {
-                whileInView: { opacity: 1 },
-                viewport: { once: true, margin: "-10%" },
-              }
-            : { animate: isVisible ? { opacity: 1 } : { opacity: 0 } })}
-          transition={{ duration: 0.3, delay: 0.2 }}
         >
-          LANGUAGES
-        </motion.div>
-
-        <div className="flex flex-col" style={{ gap: 12 }}>
-          {languages.map(({ name, filled }, rowIdx) => (
-            <motion.div
-              key={name}
-              className="flex items-center"
-              style={{ gap: 24 }}
-              initial={{ opacity: 0, x: -8 }}
-              {...(standalone
-                ? {
-                    whileInView: { opacity: 1, x: 0 },
-                    viewport: { once: true, margin: "-10%" },
-                  }
-                : {
-                    animate: isVisible
-                      ? { opacity: 1, x: 0 }
-                      : { opacity: 0, x: -8 },
-                  })}
-              transition={{
-                duration: 0.35,
-                delay: 0.28 + rowIdx * 0.08,
-                ease: easings.primary,
+          {/* Corner brackets */}
+          <div className="absolute" style={{ top: 20, left: 20 }}>
+            <div
+              style={{
+                width: 20,
+                height: 3,
+                background: "#555",
+                position: "absolute",
+                top: 0,
+                left: 0,
               }}
-            >
-              <span
-                style={{
-                  fontFamily: "monospace",
-                  fontSize: 13,
-                  fontWeight: 700,
-                  color: "#E5DED2",
-                  letterSpacing: "0.06em",
-                  minWidth: 76,
+            />
+            <div
+              style={{
+                width: 3,
+                height: 20,
+                background: "#555",
+                position: "absolute",
+                top: 0,
+                left: 0,
+              }}
+            />
+          </div>
+          <div className="absolute" style={{ bottom: 20, left: 20 }}>
+            <div
+              style={{
+                width: 20,
+                height: 3,
+                background: "#555",
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+              }}
+            />
+            <div
+              style={{
+                width: 3,
+                height: 20,
+                background: "#555",
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+              }}
+            />
+          </div>
+
+          <motion.div
+            style={{
+              fontFamily: "monospace",
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "0.14em",
+              color: "#8A8B6D",
+              marginBottom: 20,
+              marginTop: 20,
+            }}
+            initial={{ opacity: 0 }}
+            {...(standalone
+              ? {
+                  whileInView: { opacity: 1 },
+                  viewport: { once: true, margin: "-10%" },
+                }
+              : { animate: isVisible ? { opacity: 1 } : { opacity: 0 } })}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            LANGUAGES
+          </motion.div>
+
+          <div className="flex flex-col" style={{ gap: 12 }}>
+            {languages.map(({ name, filled }, rowIdx) => (
+              <motion.div
+                key={name}
+                className="flex items-center"
+                style={{ gap: 24 }}
+                initial={{ opacity: 0, x: -8 }}
+                {...(standalone
+                  ? {
+                      whileInView: { opacity: 1, x: 0 },
+                      viewport: { once: true, margin: "-10%" },
+                    }
+                  : {
+                      animate: isVisible
+                        ? { opacity: 1, x: 0 }
+                        : { opacity: 0, x: -8 },
+                    })}
+                transition={{
+                  duration: 0.35,
+                  delay: 0.28 + rowIdx * 0.08,
+                  ease: easings.primary,
                 }}
               >
-                {name}
-              </span>
-              <LangDots
-                filled={filled}
-                animate={animateDots}
-                rowDelay={0.5 + rowIdx * 0.14}
-              />
-            </motion.div>
-          ))}
+                <span
+                  style={{
+                    fontFamily: "monospace",
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color: "#E5DED2",
+                    letterSpacing: "0.06em",
+                    minWidth: 76,
+                  }}
+                >
+                  {name}
+                </span>
+                <LangDots
+                  filled={filled}
+                  animate={animateDots}
+                  rowDelay={0.5 + rowIdx * 0.14}
+                />
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
       )}
     </div>
   );

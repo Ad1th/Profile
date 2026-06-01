@@ -602,7 +602,9 @@ function SystemRow({
           <div
             style={{
               fontFamily: "var(--font-archivo), sans-serif",
-              fontSize: compact ? "clamp(24px, 6vw, 32px)" : "clamp(22px, 1.9vw, 32px)",
+              fontSize: compact
+                ? "clamp(24px, 6vw, 32px)"
+                : "clamp(22px, 1.9vw, 32px)",
               fontWeight: 900,
               color: "#E5DED2",
               letterSpacing: "-0.01em",
@@ -630,30 +632,30 @@ function SystemRow({
 
       {/* ── Diagram ──────────────────────────────── */}
       {!compact && (
-      <div
-        style={{
-          padding: "0 36px",
-          borderRight: "2px solid #2a2a2a",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          overflow: "visible",
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={
-            inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
-          }
-          transition={{
-            duration: 0.42,
-            delay: idx * 0.08 + 0.28,
-            ease: "easeOut",
+        <div
+          style={{
+            padding: "0 36px",
+            borderRight: "2px solid #2a2a2a",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            overflow: "visible",
           }}
         >
-          {row.diagram(inView)}
-        </motion.div>
-      </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={
+              inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
+            }
+            transition={{
+              duration: 0.42,
+              delay: idx * 0.08 + 0.28,
+              ease: "easeOut",
+            }}
+          >
+            {row.diagram(inView)}
+          </motion.div>
+        </div>
       )}
 
       {compact && showDiagrams && (

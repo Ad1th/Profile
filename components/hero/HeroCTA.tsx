@@ -5,6 +5,11 @@ import { easings } from "@/lib/motion";
 import { ArrowUpRight } from "lucide-react";
 
 export default function HeroCTA() {
+  const scrollToProjects = () => {
+    const el = document.querySelector('[data-section="projects"]');
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <motion.div
       className="relative"
@@ -27,6 +32,7 @@ export default function HeroCTA() {
       {/* Main button */}
       <motion.button
         className="absolute inset-0 flex items-center justify-center gap-5 bg-[#CFDE00] cursor-pointer outline-none"
+        onClick={scrollToProjects}
         style={{
           border: "4px solid #111",
           zIndex: 1,

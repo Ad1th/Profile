@@ -72,7 +72,7 @@ export default function AboutBackendSystems({
             // fontWeight: 700,
             fontSize: viewportTransition
               ? "clamp(33px, 2.35vw, 25px)"
-              : "clamp(22px, 2.2vw, 28px)",
+              : "clamp(34px, 2.4vw, 35px)",
             letterSpacing: "0.02em",
             color: "#CFDE00",
             lineHeight: 1.15,
@@ -100,9 +100,9 @@ export default function AboutBackendSystems({
         <p
           className="font-mono"
           style={{
-            fontSize: viewportTransition ? 20 : 14,
+            fontSize: viewportTransition ? 20 : 20,
             fontWeight: 900,
-            lineHeight: 1.45,
+            lineHeight: 1.42,
             color: "#C8C0B4",
           }}
         >
@@ -118,16 +118,17 @@ export default function AboutBackendSystems({
       <div
         className="flex items-end gap-[0px]"
         style={{
-          marginTop: viewportTransition ? 10 : 18,
-          marginLeft: viewportTransition ? 160 : -2,
+          marginTop: viewportTransition ? 10 : -60,
+          marginLeft: viewportTransition ? 160 : 250,
+          marginBottom: viewportTransition ? undefined : 10,
         }}
       >
         {bars.map((bar, i) => (
           <motion.div
             key={i}
             style={{
-              width: bar.w,
-              height: viewportTransition ? bar.h - 6 : bar.h,
+              width: viewportTransition ? bar.w : bar.w - 8,
+              height: viewportTransition ? bar.h - 6 : bar.h - 22,
               background: "#CFDE00",
             }}
             initial={standalone ? { scaleY: 0, originY: 1 } : false}

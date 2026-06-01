@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Anton } from "next/font/google";
 import ExperienceCard, { type ExperienceEntry } from "./ExperienceCard";
@@ -97,9 +97,25 @@ export default function Experience() {
 
   // No GSAP timeline — render the experience section statically to avoid
   // SPA timing/layout issues.
-  useLayoutEffect(() => {
-    // Intentionally empty: we avoid running any GSAP/ScrollTrigger code here.
-    return () => {};
+  // Track when the section is entering the viewport so we can drive the
+  // timeline visuals (rail fill, node reveal) using Framer Motion instead of
+  // GSAP. This avoids the SPA timing issues we saw previously.
+  const [sectionInView, setSectionInView] = useState(false);
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setSectionInView(true);
+            obs.disconnect();
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -40% 0px", threshold: 0 },
+    );
+    obs.observe(sectionRef.current);
+    return () => obs.disconnect();
   }, []);
 
   return (
@@ -138,7 +154,7 @@ export default function Experience() {
                     transformOrigin: "left top",
                     fontFamily:
                       "'Luckiest Guy', Genty, Grobold, 'Bowlby One SC', Anton, sans-serif",
-                    letterSpacing: "-0.06em",
+                    letterSpacing: "0.005em",
                     textTransform: "uppercase",
                     lineHeight: 0.9,
                     fontWeight: 800,
@@ -195,14 +211,18 @@ export default function Experience() {
 
         <div className="relative mt-8">
           <div className="experience-rail absolute left-0 right-0 top-[40px] md:top-[52px] h-[3px] bg-[#333]">
-            <div
+            <motion.div
               className="experience-rail-fill absolute left-0 top-0 bottom-0 origin-left"
               style={{
                 background: "#8A8B6D",
                 transformOrigin: "left center",
                 width: "100%",
                 height: "100%",
+                scaleX: 0,
               }}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: sectionInView ? 1 : 0 }}
+              transition={{ duration: 1.05, ease: "easeInOut" }}
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -211,14 +231,26 @@ export default function Experience() {
                 key={entry.id}
                 className="relative pt-16 md:pt-[calc(6rem+10px)]"
               >
-                <div className="experience-node absolute left-1/2 top-0 z-20 flex -translate-x-1/2 flex-col items-center">
+                <motion.div
+                  className="experience-node absolute left-1/2 top-0 z-20 flex -translate-x-1/2 flex-col items-center"
+                  initial={{ y: 18, opacity: 0 }}
+                  animate={{
+                    y: sectionInView ? 0 : 18,
+                    opacity: sectionInView ? 1 : 0,
+                  }}
+                  transition={{
+                    duration: 0.56,
+                    delay: entry.delay + 0.1,
+                    ease: "easeOut",
+                  }}
+                >
                   <span className="flex h-10 w-10 items-center justify-center border-[3px] border-[#111] bg-[#ECE7DF] shadow-[5px_5px_0_rgba(0,0,0,0.55)]">
                     <i className="h-3 w-3 rounded-full bg-[#A14A32]" />
                   </span>
                   <b className="mt-[-2px] font-mono text-[10px] tracking-[0.14em] text-[#8A8B6D]">
                     {index < 2 ? "2025" : "2026"}
                   </b>
-                </div>
+                </motion.div>
 
                 {/* vertical connector from node to card */}
                 <div

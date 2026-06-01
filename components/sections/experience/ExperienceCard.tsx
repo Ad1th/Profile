@@ -351,12 +351,8 @@ export default function ExperienceCard(
       }}
       initial={{ opacity: 0, y: 20, rotate: entry.rotate }}
       whileInView={{ opacity: 1, y: 0, rotate: entry.rotate }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{
-        duration: 0.5,
-        delay: entry.delay,
-        ease: "easeOut",
-      }}
+      viewport={{ once: true, margin: "-120px" }}
+      transition={{ duration: 0.5, delay: entry.delay, ease: "easeOut" }}
     >
       {hasPushPin && <PushPin />}
       {hasTape && <Tape />}

@@ -27,6 +27,7 @@ export default function AboutBuiltToBeUsed({
           ? "10px 18px 12px 18px"
           : "16px 20px 18px 20px",
         height: "100%",
+        minHeight: viewportTransition ? undefined : 250,
       }}
       initial={viewportTransition ? false : { opacity: 0, y: 16 }}
       whileInView={viewportTransition ? undefined : { opacity: 1, y: 0 }}
@@ -139,7 +140,7 @@ export default function AboutBuiltToBeUsed({
 
           fontSize: viewportTransition
             ? "clamp(140px, 15vw, 108px)"
-            : "clamp(64px, 6.5vw, 112px)",
+            : "clamp(44px, 13vw, 84px)",
 
           letterSpacing: "0.02em",
           lineHeight: 0.9,
@@ -147,8 +148,9 @@ export default function AboutBuiltToBeUsed({
           // textAlign: "left",
 
           //text starts top left, with some padding from the corner brackets
-          marginTop: 17,
-          marginLeft: 110,
+          marginTop: viewportTransition ? 17 : 26,
+          marginLeft: viewportTransition ? 110 : 14,
+          marginRight: viewportTransition ? 0 : 8,
         }}
       >
         BUILT TO
@@ -160,15 +162,16 @@ export default function AboutBuiltToBeUsed({
       <div
         className="absolute"
         style={{
-          bottom: viewportTransition ? "22px" : "28px",
-          right: viewportTransition ? "24px" : "32px",
+          bottom: viewportTransition ? "22px" : "20px",
+          right: viewportTransition ? "24px" : "14px",
+          left: viewportTransition ? undefined : "14px",
         }}
       >
         <div
           className="relative"
           style={{
-            width: viewportTransition ? 250 : 220,
-            height: viewportTransition ? 56 : 52,
+            width: viewportTransition ? 250 : "min(100%, 320px)",
+            height: viewportTransition ? 56 : 48,
           }}
         >
           {/* Shadow block */}
@@ -196,7 +199,7 @@ export default function AboutBuiltToBeUsed({
               className="text-[#111] font-black uppercase tracking-[-0.02em]"
               style={{
                 fontFamily: "var(--font-archivo), sans-serif",
-                fontSize: viewportTransition ? 20 : 16,
+                fontSize: viewportTransition ? 20 : 14,
               }}
             >
               OPEN TO BUILD

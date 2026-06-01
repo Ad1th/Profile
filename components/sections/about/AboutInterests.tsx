@@ -411,6 +411,8 @@ export default function AboutInterests({
           style={{
             padding: "18px 8px",
             borderLeft: i > 0 ? "3px solid #111" : "none",
+            boxSizing: "border-box",
+            minWidth: 0,
           }}
           initial={standalone ? { opacity: 0, y: 12 } : false}
           whileInView={standalone ? { opacity: 1, y: 0 } : undefined}
@@ -429,10 +431,12 @@ export default function AboutInterests({
             className="text-[#111] text-center font-black uppercase"
             style={{
               fontFamily: "var(--font-archivo), sans-serif",
-              fontSize: 10,
-              letterSpacing: "0.06em",
+              fontSize: viewportTransition ? 10 : 9,
+              letterSpacing: viewportTransition ? "0.06em" : "0.035em",
               lineHeight: 0.95,
               whiteSpace: "pre-line",
+              overflowWrap: "anywhere",
+              wordBreak: "break-word",
             }}
           >
             {item.label}

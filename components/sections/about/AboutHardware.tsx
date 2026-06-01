@@ -49,7 +49,7 @@ export default function AboutHardware({
             style={{
               fontFamily: "var(--font-Roboto-Mono), monospace",
               fontWeight: 900,
-              fontSize: viewportTransition ? 18 : 14,
+              fontSize: viewportTransition ? 18 : 18,
             }}
           >
             HARDWARE / SYSTEMS
@@ -61,7 +61,7 @@ export default function AboutHardware({
           style={{
             // font-family: 'IBM Plex Mono', monospace;
             fontFamily: "var(--font-IBM-Plex-Mono), monospace",
-            fontSize: viewportTransition ? 22 : 14,
+            fontSize: viewportTransition ? 22 : 28,
             fontWeight: 500,
             lineHeight: 1.45,
             paddingLeft: viewportTransition ? 10 : 0,

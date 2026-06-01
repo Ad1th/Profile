@@ -130,7 +130,7 @@ export default function About({
               borderRight: "4px solid #111",
               borderBottom: "4px solid #111",
               padding: viewportTransition ? "28px 30px" : "44px 32px",
-              minHeight: viewportTransition ? undefined : 420,
+              minHeight: viewportTransition ? undefined : 350,
               y: buildYProp,
               opacity: buildOpacityProp,
               scale: buildScaleProp,
@@ -144,7 +144,7 @@ export default function About({
                   border: "3px solid #111",
                   flexShrink: 0,
                   /* Mobile: prevent the orange bar from stretching a bit too far */
-                  maxHeight: standalone ? "68%" : undefined,
+                  maxHeight: standalone ? "86%" : undefined,
                 }}
                 initial={standalone ? { scaleY: 0 } : false}
                 whileInView={standalone ? { scaleY: 1 } : undefined}

@@ -139,10 +139,12 @@ export default function About({
             <div className="flex items-stretch gap-6 w-full h-full">
               <motion.div
                 style={{
-                  width: 30,
+                  width: standalone ? "clamp(18px, 6vw, 24px)" : 30,
                   background: "#f6450a",
                   border: "3px solid #111",
                   flexShrink: 0,
+                  /* Mobile: prevent the orange bar from stretching a bit too far */
+                  maxHeight: standalone ? "68%" : undefined,
                 }}
                 initial={standalone ? { scaleY: 0 } : false}
                 whileInView={standalone ? { scaleY: 1 } : undefined}
@@ -160,6 +162,8 @@ export default function About({
                   letterSpacing: "0.06em",
                   lineHeight: 0.92,
                   fontSize: viewportTransition ? "clamp(32px, 4vw, 120px)" : 48,
+                  // Used to slightly tighten mobile line wrapping without affecting desktop/tablet.
+                  ["--aboutBuildLineFont" as any]: "clamp(95px, 7.7vw, 260px)",
                 }}
               >
                 {[
@@ -172,7 +176,9 @@ export default function About({
                     className="block"
                     style={{
                       color: line.color,
-                      fontSize: "clamp(95px, 7.7vw, 260px)",
+                      fontSize: standalone
+                        ? "clamp(80px, 6.5vw, 210px)"
+                        : "var(--aboutBuildLineFont)",
                       opacity: standalone ? undefined : 1,
                       transform: standalone ? undefined : "translateY(0px)",
                     }}

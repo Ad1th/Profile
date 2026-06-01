@@ -359,8 +359,7 @@ function HeroTabletLandscape() {
       <div
         className="relative"
         style={{
-          marginTop: 72,
-          minHeight: "calc(100vh - 72px - 112px - 48px)",
+          minHeight: "calc(100vh - var(--nav-height, 56px) - 112px - 48px)",
           display: "grid",
           gridTemplateColumns: "52% 48%",
           borderBottom: "5px solid #111",
@@ -437,7 +436,6 @@ function HeroTabletPortrait() {
       <motion.div
         className="relative bg-[#111]"
         style={{
-          marginTop: 72,
           borderBottom: "5px solid #111",
           padding: "34px 30px 28px",
           display: "flex",
@@ -498,7 +496,7 @@ function HeroMobile() {
     <section className="relative w-full overflow-hidden bg-[#F0EBE0]">
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
       <motion.div
-        className="absolute inset-0 z-50 pointer-events-none"
+        className="absolute inset-0 z-50 pointer-events-none hidden md:block"
         style={{ border: "4px solid #111" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

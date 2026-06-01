@@ -27,8 +27,8 @@
   --nav-height: 56px;
 }
 
-/* Prevent fixed navbar from overlapping content on small screens */
-@media (max-width: 1023px) {
+/* Prevent fixed navbar from overlapping independently rendered sections. */
+@media (max-width: 1180px) {
   :root {
     --nav-height: 56px;
   }

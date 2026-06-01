@@ -56,6 +56,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // ── Scroll state: background snap only ────────────────────────────────
   useEffect(() => {
@@ -67,6 +68,15 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
+  }, []);
+
+  // Track independently rendered layouts so the fixed navbar sits on a
+  // solid strip instead of showing page background through it.
+  useEffect(() => {
+    const sync = () => setIsMobile(window.innerWidth <= 1180);
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
   }, []);
 
   // ── Active section via IntersectionObserver ────────────────────────────
@@ -117,8 +127,10 @@ export default function Navbar() {
   const activeLinkSection = getActiveLinkSection();
 
   // ── Background style (brutalist snap — no transition) ─────────────────
-  const navBg = scrolled ? "#F0EBE0" : "transparent";
-  const navBorder = scrolled ? "3px solid #111" : "3px solid transparent";
+  // Keep navbar solid when body padding reserves space for it.
+  const navBg = scrolled || isMobile ? "#F0EBE0" : "transparent";
+  const navBorder =
+    scrolled || isMobile ? "3px solid #111" : "3px solid transparent";
 
   return (
     <>

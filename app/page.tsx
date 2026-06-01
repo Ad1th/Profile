@@ -12,7 +12,6 @@
  */
 
 import { useEffect, useState } from "react";
-import Navbar from "@/components/layout/Navbar";
 import DesktopCinematicTransition from "@/components/DesktopCinematicTransition";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
@@ -52,8 +51,6 @@ export default function Page() {
 
   return (
     <>
-      <Navbar />
-
       {isDesktop ? (
         <>
           <DesktopCinematicTransition />

@@ -12,14 +12,12 @@
  */
 
 import { useEffect, useState } from "react";
-import Navbar from "@/components/layout/Navbar";
 import DesktopCinematicTransition from "@/components/DesktopCinematicTransition";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
 import Skills from "@/components/sections/skills/Skills";
 import Experience from "@/components/sections/experience/Experience";
 import Projects from "@/components/sections/projects/Projects";
-import Timeline from "@/components/sections/timeline/Timeline";
 import Patents from "@/components/sections/patents/Patents";
 import HackathonsAchievements from "@/components/sections/hackathons-achievements/HackathonsAchievements";
 import Contact from "@/components/sections/contact/Contact";
@@ -52,8 +50,6 @@ export default function Page() {
 
   return (
     <>
-      <Navbar />
-
       {isDesktop ? (
         <>
           <DesktopCinematicTransition />

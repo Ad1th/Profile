@@ -1,8 +1,18 @@
 import type React from "react";
-// @ts-expect-error -- Global CSS side-effect import is handled by Next.js
+import type { Metadata } from "next";
 import "./globals.css";
 import { Amatic_SC, Anton, Archivo_Black } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
+import RecruiterConsole from "@/components/seo/RecruiterConsole";
+import StructuredData from "@/components/seo/StructuredData";
+import {
+  personSchema,
+  siteDescription,
+  siteKeywords,
+  siteTitle,
+  siteUrl,
+  websiteSchema,
+} from "@/lib/seo-data";
 
 const archivo = Archivo_Black({
   weight: "400",
@@ -22,10 +32,54 @@ const amatic = Amatic_SC({
   variable: "--font-handdrawn",
 });
 
-export const metadata = {
-  title: "Adith Manikonda",
-  description:
-    "Personal portfolio website of Adith Manikonda, a pre-final CS major at VIT",
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteTitle,
+    template: "%s | Adith Manikonda",
+  },
+  description: siteDescription,
+  keywords: siteKeywords,
+  authors: [{ name: "Adith Manikonda", url: siteUrl }],
+  creator: "Adith Manikonda",
+  publisher: "Adith Manikonda",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: "Adith Manikonda",
+    title: "Adith Manikonda",
+    description: "Backend Engineer",
+    images: [
+      {
+        url: "/images/me.png",
+        width: 1200,
+        height: 630,
+        alt: "Adith Manikonda - Backend Engineer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Adith Manikonda",
+    description: "Backend Engineer",
+    images: ["/images/me.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  category: "portfolio",
 };
 
 export default function RootLayout({
@@ -40,8 +94,10 @@ export default function RootLayout({
       className={`${archivo.variable} ${anton.variable} ${amatic.variable}`}
     >
       <body>
+        <StructuredData data={[personSchema, websiteSchema]} />
         <Navbar />
         {children}
+        <RecruiterConsole />
       </body>
     </html>
   );

@@ -32,7 +32,7 @@ function ProjectHeadline({ layout = "B" }: { layout?: "A" | "B" | "C" }) {
         : [["PROJECT"], ["ARCHIVE"]];
 
   return (
-    <h1 className="projects-display-title" aria-label="Project Archive">
+    <h2 className="projects-display-title" aria-label="Project Archive">
       {lines.map((line, li) => (
         <div
           key={li}
@@ -67,7 +67,7 @@ function ProjectHeadline({ layout = "B" }: { layout?: "A" | "B" | "C" }) {
           })}
         </div>
       ))}
-    </h1>
+    </h2>
   );
 }
 
@@ -493,6 +493,7 @@ function FeaturedPaper({
     <motion.button
       ref={ref}
       type="button"
+      aria-label={`Select ${project.name} project`}
       className={`projects-paper projects-paper--${project.paper} ${project.className} ${selected ? "is-selected" : ""}`}
       style={{ y }}
       onClick={() => onSelect(project)}
@@ -601,6 +602,7 @@ function CrtMonitor({
       className={`projects-crt ${booting ? "is-booting" : ""}`}
       role="button"
       tabIndex={0}
+      aria-label={`Toggle ${project.name} project details, preview and links`}
       onClick={onToggleMode}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -723,6 +725,7 @@ function CrtMonitor({
                 <button
                   type="button"
                   className="projects-image-nav prev"
+                  aria-label={`Show previous ${project.name} screenshot`}
                   onClick={(e) => {
                     e.stopPropagation();
                     setImageIndex(
@@ -741,6 +744,7 @@ function CrtMonitor({
                 <button
                   type="button"
                   className="projects-image-nav next"
+                  aria-label={`Show next ${project.name} screenshot`}
                   onClick={(e) => {
                     e.stopPropagation();
                     setImageIndex((i) => (i + 1) % imageBases.length);
@@ -776,6 +780,7 @@ function CrtMonitor({
             <motion.div className="projects-crt-line projects-crt-links">
               <button
                 type="button"
+                aria-label={`Open ${project.name} GitHub repository`}
                 onClick={(e) => {
                   e.stopPropagation();
                   const repo =
@@ -807,7 +812,9 @@ export default function Projects() {
   const [selected, setSelected] = useState<FeaturedProject | ArchiveProject>(
     featuredProjects[0],
   );
-  const [crtMode, setCrtMode] = useState<"details" | "preview">("details");
+  const [crtMode, setCrtMode] = useState<"details" | "preview" | "links">(
+    "details",
+  );
   const [booting, setBooting] = useState(false);
 
   const allRows = useMemo(
@@ -1073,6 +1080,7 @@ export default function Projects() {
       ref={sectionRef}
       data-section="projects"
       className="projects-archive-section"
+      aria-label="Projects by Adith Manikonda"
     >
       <div className="projects-desk">
         <div className="projects-grid-lines" aria-hidden="true">
@@ -1144,6 +1152,7 @@ export default function Projects() {
                 <button
                   type="button"
                   key={project.id}
+                  aria-label={`Select ${project.name} project`}
                   className={`projects-archive-row ${selected.name === project.name ? "is-selected" : ""}`}
                   onMouseEnter={() => selectProject(project)}
                   onClick={() => selectProject(project)}

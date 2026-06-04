@@ -200,7 +200,7 @@ function setTargets(
 
 /* ─────────────── component ─────────────── */
 export default function Patents() {
-  const wrapRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -744,10 +744,11 @@ export default function Patents() {
   }, []);
 
   return (
-    <div
+    <section
       ref={wrapRef}
       className="patents-wrap"
       style={{ height: "450vh", position: "relative" }}
+      aria-label="Patents by Adith Manikonda"
     >
       {/* ── sticky viewport ── */}
       <div
@@ -976,7 +977,7 @@ export default function Patents() {
           color: #e8ddd0;
         }
       `}</style>
-    </div>
+    </section>
   );
 }
 

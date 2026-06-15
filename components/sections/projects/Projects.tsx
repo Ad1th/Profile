@@ -83,6 +83,7 @@ type FeaturedProject = {
   className: string;
   parallax: number;
   year: string;
+  github?: string;
 };
 
 type ArchiveProject = {
@@ -92,6 +93,7 @@ type ArchiveProject = {
   year: string;
   description: string;
   preview: string[];
+  github?: string;
 };
 
 // Data
@@ -109,6 +111,7 @@ const featuredProjects: FeaturedProject[] = [
     className: "projects-paper--scotland",
     parallax: 0.8,
     year: "2025",
+    github: "https://github.com/Ad1th/Scotland-Yard-Gravitas-Backend-25",
   },
   {
     id: "02",
@@ -123,6 +126,7 @@ const featuredProjects: FeaturedProject[] = [
     className: "projects-paper--aether",
     parallax: 1,
     year: "2026",
+    github: "https://github.com/Ad1th/AetherQuery",
   },
   {
     id: "03",
@@ -137,6 +141,7 @@ const featuredProjects: FeaturedProject[] = [
     className: "projects-paper--archaic",
     parallax: 0.7,
     year: "2026",
+    github: "https://github.com/Ad1th/archAIc",
   },
   {
     id: "04",
@@ -169,6 +174,7 @@ const archiveProjects: ArchiveProject[] = [
     year: "2025",
     description: "Assistive perception prototype for visual context detection.",
     preview: ["scene parsing", "object cues", "mobile flow"],
+    github: "https://github.com/Ad1th/BlindSpot",
   },
   {
     id: "07",
@@ -177,6 +183,7 @@ const archiveProjects: ArchiveProject[] = [
     year: "2025",
     description: "Compact query visualizer for databases.",
     preview: ["event stream", "query shell", "trace map"],
+    github: "https://github.com/Ad1th/Argus",
   },
   {
     id: "08",
@@ -185,6 +192,7 @@ const archiveProjects: ArchiveProject[] = [
     year: "2025",
     description: "Cloud storage platform.",
     preview: ["cloudify.png"],
+    github: "https://github.com/Ad1th/file-mgmt",
   },
   {
     id: "09",
@@ -268,6 +276,7 @@ const archiveProjects: ArchiveProject[] = [
     year: "2026",
     description: "Token inspection microservice backed by Postgres.",
     preview: ["message list", "payload view", "storage path"],
+    github: "https://github.com/Ad1th/WhatDidYouSend",
   },
   {
     id: "19",
@@ -783,10 +792,15 @@ function CrtMonitor({
                 aria-label={`Open ${project.name} GitHub repository`}
                 onClick={(e) => {
                   e.stopPropagation();
-                  const repo =
-                    folderName ||
-                    project.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                  window.open(`https://github.com/Ad1th/${repo}`, "_blank");
+
+                  const githubUrl =
+                    project.github ??
+                    `https://github.com/Ad1th/${
+                      folderName ||
+                      project.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")
+                    }`;
+
+                  window.open(githubUrl, "_blank");
                 }}
               >
                 &gt; GITHUB

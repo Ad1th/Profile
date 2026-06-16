@@ -13,7 +13,7 @@ const entries: ExperienceEntry[] = [
   {
     id: "04",
     role: "INTERNSHIP",
-    title: "Software development intern",
+    title: "Software Development Intern",
     org: "Matrix Capital",
     dateRange: "MAY 2025 – JUN 2025",
     status: "COMPLETE",
@@ -47,7 +47,7 @@ const entries: ExperienceEntry[] = [
   {
     id: "01",
     role: "Primary role",
-    title: "Technical head",
+    title: "Technical Head",
     org: "Mozilla Firefox Club",
     location: "VIT Vellore",
     dateRange: "JAN 2026 – PRESENT",

@@ -66,7 +66,7 @@ const entries: ExperienceEntry[] = [
   {
     id: "02",
     role: "CONTRIBUTOR",
-    title: "Open source contributor",
+    title: "Open Source Contributor",
     org: "GirlScript Summer of Code",
     dateRange: "2026",
     status: "CONTRIBUTING",

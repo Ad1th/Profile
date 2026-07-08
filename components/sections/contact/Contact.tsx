@@ -2,7 +2,7 @@ export default function Contact() {
   return (
     <section
       data-section="contact"
-      className="relative w-full min-h-screen overflow-hidden bg-[#2E2230] px-6 pt-8 pb-[38px] text-[#E8DDD0] sm:px-10 lg:px-16 sm:min-h-0 sm:pt-14 sm:pb-[115px]"
+      className="relative w-full min-h-screen overflow-hidden bg-[#2E2230] px-6 pt-8 pb-[38px] text-[#E8DDD0] sm:px-10 lg:px-16 sm:min-h-0 sm:pt-14 sm:pb-[110px]"
       style={{ isolation: "isolate" }}
     >
       {/* grain */}

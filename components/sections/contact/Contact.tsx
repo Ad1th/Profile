@@ -42,7 +42,7 @@ export default function Contact() {
         </div>
 
         {/* main */}
-        <div className="grid gap-8 py-8 sm:gap-16 sm:py-14 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid gap-8 pt-[62px] pb-8 sm:gap-16 sm:pt-[86px] sm:pb-14 lg:grid-cols-[1.05fr_0.95fr]">
           {/* LEFT */}
           <div className="relative">
             <div className="absolute left-0 top-0 h-12 w-px bg-[#E8DDD0]/10" />

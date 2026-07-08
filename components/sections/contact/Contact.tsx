@@ -15,7 +15,7 @@ export default function Contact() {
       {/* <div className="pointer-events-none absolute left-[-12rem] top-[-8rem] h-[28rem] w-[28rem] rounded-full bg-[#B9827E]/10 blur-3xl" />
       <div className="pointer-events-none absolute bottom-[-10rem] right-[-6rem] h-[24rem] w-[24rem] rounded-full bg-[#8B9278]/10 blur-3xl" /> */}
 
-      <div className="relative mx-auto flex max-w-7xl flex-col">
+      <div className="relative mx-auto flex max-w-7xl flex-col pt-[30px]">
         {/* top bar */}
         <div className="flex items-start justify-between border-b border-[#E8DDD0]/10 pb-5">
           <div className="flex items-center gap-6">
@@ -42,7 +42,7 @@ export default function Contact() {
         </div>
 
         {/* main */}
-        <div className="grid gap-8 pt-[62px] pb-8 sm:gap-16 sm:pt-[86px] sm:pb-14 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid gap-8 py-8 sm:gap-16 sm:py-14 lg:grid-cols-[1.05fr_0.95fr]">
           {/* LEFT */}
           <div className="relative">
             <div className="absolute left-0 top-0 h-12 w-px bg-[#E8DDD0]/10" />

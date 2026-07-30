@@ -136,7 +136,7 @@ export default function Navbar() {
   // Only desktop links use a reduced "active" set (WORK/ABOUT/CONTACT)
   // to match the existing design and requested behavior.
   const getActiveLinkSection = () => {
-    if (activeSection === "skills") return "skills";
+    if (activeSection === "projects" || activeSection === "skills") return "projects";
     if (activeSection === "about") return "about";
     if (activeSection === "contact") return "contact";
     return null;

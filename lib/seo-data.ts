@@ -36,64 +36,119 @@ export type Project = {
   technologies: string[];
   year: string;
   screenshots: string[];
+  github?: string;
+  featured?: boolean;
+  category?: "Systems / Backend" | "AI & ML" | "CLI & Tools" | "IoT / Hardware" | "Web Apps";
+  paperColor?: "yellow" | "blue" | "orange" | "pink" | "green" | "purple" | "white";
 };
 
 export const projects: Project[] = [
   {
+    slug: "scotland-yard",
+    title: "SCOTLAND YARD",
+    seoTitle: "Scotland Yard Multiplayer Backend",
+    description:
+      "Real-time multiplayer backend supporting 100+ users with persistent game state and server-authoritative gameplay.",
+    purpose:
+      "Built for real-time multiplayer gaming with persistent game state, low latency synchronization, and server-authoritative gameplay.",
+    technologies: ["Node.js", "Express", "Prisma", "PostgreSQL", "WebSockets"],
+    year: "2025",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/Scotland-Yard-Gravitas-Backend-25",
+    featured: true,
+    category: "Systems / Backend",
+    paperColor: "orange",
+  },
+  {
+    slug: "aetherquery",
+    title: "AETHERQUERY",
+    seoTitle: "AetherQuery Analytical Query Engine",
+    description:
+      "Cross-database analytical query engine supporting DuckDB/PostgreSQL/MySQL with adaptive execution.",
+    purpose:
+      "Cross-database analytical query engine with adaptive execution plans for high-throughput SQL analytics at scale.",
+    technologies: ["FastAPI", "Python", "DuckDB", "PostgreSQL", "MySQL"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/AetherQuery",
+    featured: true,
+    category: "Systems / Backend",
+    paperColor: "blue",
+  },
+  {
+    slug: "archaic",
+    title: "archAIc",
+    seoTitle: "archAIc Reliability Engineering Platform",
+    description:
+      "Distributed reliability engineering platform with observability, metrics, tracing, and anomaly detection.",
+    purpose:
+      "Distributed reliability engineering platform providing real-time telemetry tracing, metrics, and automated anomaly detection.",
+    technologies: ["Kubernetes", "OpenTelemetry", "Grafana", "Python", "Observability"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/archAIc",
+    featured: true,
+    category: "Systems / Backend",
+    paperColor: "purple",
+  },
+  {
+    slug: "point-wave-energy-harvester",
+    title: "POINT WAVE ENERGY HARVESTER",
+    seoTitle: "Point Wave Energy Harvester IoT",
+    description:
+      "IoT telemetry + MPPT wave energy harvesting system for real-time energy extraction tracking.",
+    purpose:
+      "IoT telemetry system paired with Maximum Power Point Tracking (MPPT) circuitry for ocean wave energy harvesting.",
+    technologies: ["IoT", "Circuits", "Telemetry", "MPPT", "Hardware"],
+    year: "2025",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    featured: true,
+    category: "IoT / Hardware",
+    paperColor: "yellow",
+  },
+  {
+    slug: "reference-hallucination-detector",
+    title: "Reference Hallucination Detector",
+    seoTitle: "Reference Hallucination Detector AI",
+    description:
+      "Reference checking tool for citation-grounded text review, claim tracing, and hallucination evaluations.",
+    purpose:
+      "Citation grounding and reference checking tool to detect hallucinated academic and textual references in LLM outputs.",
+    technologies: ["NLP", "Evals", "Python", "LLMs"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    category: "AI & ML",
+    paperColor: "green",
+  },
+  {
+    slug: "blindspot",
+    title: "BlindSpot",
+    seoTitle: "BlindSpot Assistive Perception Prototype",
+    description:
+      "Assistive perception prototype for visual context detection, scene parsing, and object cues on edge devices.",
+    purpose:
+      "Assistive perception prototype enabling visually impaired users to perceive objects, path cues, and environmental context on edge hardware.",
+    technologies: ["Machine Learning", "Raspberry Pi", "Edge Processing", "Computer Vision"],
+    year: "2025",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/BlindSpot",
+    category: "AI & ML",
+    paperColor: "pink",
+  },
+  {
     slug: "argus",
     title: "Argus",
+    seoTitle: "Argus Database Query Visualizer",
     description:
-      "Argus is a compact database query visualizer for inspecting event streams, query shells and trace maps.",
+      "Compact database query visualizer for inspecting event streams, query shells and trace maps.",
     purpose:
       "Built to help developers understand database behavior and telemetry while debugging backend systems.",
     technologies: ["Python", "Telemetry", "Databases", "Query Visualization"],
     year: "2025",
     screenshots: ["/images/projects/_placeholder.svg"],
-  },
-  {
-    slug: "therddit",
-    title: "Threddit",
-    seoTitle: "Threddit",
-    description:
-      "Threddit is a Chrome extension that improves productivity with non-intrusive nudges powered by the Gemini API.",
-    purpose:
-      "Built to reduce distraction loops and keep browsing sessions aligned with user intent.",
-    technologies: ["JavaScript", "Chrome Extension", "Gemini API"],
-    year: "2024",
-    screenshots: ["/images/projects/threddit/threddit.png"],
-  },
-  {
-    slug: "ecosync",
-    title: "EcoSync",
-    description:
-      "EcoSync is an AI-based sustainability solution for textile industries.",
-    purpose:
-      "Built to help textile operations reason about sustainability signals and improve decision-making.",
-    technologies: ["Machine Learning", "JavaScript", "SQL"],
-    year: "2025",
-    screenshots: ["/images/projects/ecosync/EcoSync.png"],
-  },
-  {
-    slug: "sevaverse",
-    title: "SevaVerse",
-    description:
-      "SevaVerse is a community coordination platform for local service initiatives.",
-    purpose:
-      "Built to help volunteers, organizers and communities coordinate service work more effectively.",
-    technologies: ["JavaScript", "SQL", "Community Platform"],
-    year: "2025",
-    screenshots: ["/images/projects/sevaverse/sevaverse.png"],
-  },
-  {
-    slug: "konectus",
-    title: "KonectUs",
-    description:
-      "KonectUs is a real-time social networking platform that connects communities with purpose.",
-    purpose:
-      "Built to explore real-time communication, community discovery and social product architecture.",
-    technologies: ["MongoDB", "Express", "React", "Node.js", "Socket.IO"],
-    year: "2025",
-    screenshots: ["/images/projects/konectus/konectus.png"],
+    github: "https://github.com/Ad1th/Argus",
+    category: "CLI & Tools",
+    paperColor: "white",
   },
   {
     slug: "google-drive-clone",
@@ -106,6 +161,164 @@ export const projects: Project[] = [
     technologies: ["Next.js", "PostgreSQL", "Storage Buckets", "Cloud Storage"],
     year: "2025",
     screenshots: ["/images/projects/cloudify/cloudify.png"],
+    github: "https://github.com/Ad1th/file-mgmt",
+    category: "Web Apps",
+    paperColor: "blue",
+  },
+  {
+    slug: "croplink",
+    title: "CropLink",
+    seoTitle: "CropLink Agricultural Marketplace",
+    description:
+      "Platform connecting farmers directly to agricultural laborers with listing boards and order workflows.",
+    purpose:
+      "Direct agricultural labor connection platform matching local farmers with available farm workforce.",
+    technologies: ["React", "Node.js", "Express"],
+    year: "2025",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    category: "Web Apps",
+    paperColor: "yellow",
+  },
+  {
+    slug: "therddit",
+    title: "Threddit",
+    seoTitle: "Threddit Gemini Productivity Chrome Extension",
+    description:
+      "Threddit is a Chrome extension that improves productivity with non-intrusive nudges powered by the Gemini API.",
+    purpose:
+      "Built to reduce distraction loops and keep browsing sessions aligned with user intent.",
+    technologies: ["JavaScript", "Chrome Extension", "Gemini API"],
+    year: "2024",
+    screenshots: ["/images/projects/threddit/threddit.png"],
+    category: "AI & ML",
+    paperColor: "purple",
+  },
+  {
+    slug: "echochamber",
+    title: "EchoChamber",
+    seoTitle: "EchoChamber Anonymous Chat Forum",
+    description:
+      "Anonymous real-time chat forum for rapid open thread creation and transparent message exchange.",
+    purpose:
+      "Anonymous real-time chat forum for rapid open thread creation and transparent message exchange.",
+    technologies: ["JavaScript", "Node.js", "WebSockets"],
+    year: "2024",
+    screenshots: ["/images/projects/echochamber/echochamber.png"],
+    category: "Web Apps",
+    paperColor: "orange",
+  },
+  {
+    slug: "sevaverse",
+    title: "SevaVerse",
+    seoTitle: "SevaVerse Community Coordination Platform",
+    description:
+      "SevaVerse is a community coordination platform for local service initiatives and volunteer mobilization.",
+    purpose:
+      "Built to help volunteers, organizers and communities coordinate service work more effectively.",
+    technologies: ["JavaScript", "SQL", "Community Platform"],
+    year: "2025",
+    screenshots: ["/images/projects/sevaverse/sevaverse.png"],
+    category: "Web Apps",
+    paperColor: "pink",
+  },
+  {
+    slug: "ecosync",
+    title: "EcoSync",
+    seoTitle: "EcoSync AI Sustainability Solution",
+    description:
+      "EcoSync is an AI-based sustainability solution for textile industries evaluating resource consumption.",
+    purpose:
+      "Built to help textile operations reason about sustainability signals and improve decision-making.",
+    technologies: ["Machine Learning", "JavaScript", "SQL"],
+    year: "2025",
+    screenshots: ["/images/projects/ecosync/EcoSync.png"],
+    category: "AI & ML",
+    paperColor: "green",
+  },
+  {
+    slug: "hospitech",
+    title: "HOSPITECH",
+    seoTitle: "Hospitech Clinic Management System",
+    description:
+      "Comprehensive clinic management system for patient queues, medical history records, and scheduling.",
+    purpose:
+      "Comprehensive hospital and clinic management system for patient records, queueing, and appointment scheduling.",
+    technologies: ["Python", "SQL", "Database Systems"],
+    year: "2025",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    category: "Web Apps",
+    paperColor: "white",
+  },
+  {
+    slug: "konectus",
+    title: "KonectUs",
+    seoTitle: "KonectUs Social Networking Platform",
+    description:
+      "KonectUs is a real-time social networking platform that connects communities with purpose.",
+    purpose:
+      "Built to explore real-time communication, community discovery and social product architecture.",
+    technologies: ["MongoDB", "Express", "React", "Node.js", "Socket.IO"],
+    year: "2025",
+    screenshots: ["/images/projects/konectus/konectus.png"],
+    category: "Web Apps",
+    paperColor: "orange",
+  },
+  {
+    slug: "caughtin4k",
+    title: "CaughtIn4K",
+    seoTitle: "CaughtIn4K Golang Event Inspector",
+    description:
+      "High-resolution HTTP event capture, local SQLite log recorder, and instant review dashboard.",
+    purpose:
+      "High-performance HTTP event capture tool logging traffic to SQLite with an instant review dashboard.",
+    technologies: ["Golang", "Fiber", "SQLite"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    category: "CLI & Tools",
+    paperColor: "yellow",
+  },
+  {
+    slug: "whohitme",
+    title: "WhoHitMe",
+    seoTitle: "WhoHitMe CLI Traffic Tracer",
+    description:
+      "CLI utility for quick request tracing, source IP inspection, and request header analysis.",
+    purpose:
+      "Command-line diagnostic utility for quick request tracing, source IP inspection, and header analysis.",
+    technologies: ["Golang", "CLI", "Networking"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    category: "CLI & Tools",
+    paperColor: "blue",
+  },
+  {
+    slug: "whatdidyousend",
+    title: "WhatDidYouSend",
+    seoTitle: "WhatDidYouSend Token Microservice",
+    description:
+      "Token inspection microservice backed by PostgreSQL for payload verification and audit logging.",
+    purpose:
+      "Token inspection microservice backed by PostgreSQL for payload verification and audit logging.",
+    technologies: ["Golang", "Fiber", "PostgreSQL"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/WhatDidYouSend",
+    category: "CLI & Tools",
+    paperColor: "purple",
+  },
+  {
+    slug: "snek",
+    title: "Snek",
+    seoTitle: "Snek Python Arcade Game",
+    description:
+      "Compact Python arcade game with classic snake mechanics, responsive controls, and high scores.",
+    purpose:
+      "Compact Python arcade Snake game featuring responsive input handling and persistent score tracking.",
+    technologies: ["Python", "Arcade Mechanics"],
+    year: "2023",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    category: "CLI & Tools",
+    paperColor: "green",
   },
 ];
 

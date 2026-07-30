@@ -106,6 +106,43 @@ export default function ProjectsArchiveClient() {
 
   return (
     <div className="min-h-screen bg-[#EEE7DC] text-[#111111] pt-24 pb-20 px-4 sm:px-6 lg:px-12 font-sans selection:bg-[#FFE600] selection:text-black">
+      {/* NAVIGATION BAR BACK TO MAIN SITE */}
+      <div className="max-w-7xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-4 font-mono text-xs font-bold">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 bg-[#FFE600] text-black border-3 border-[#111111] px-5 py-2.5 shadow-[4px_4px_0px_0px_#111111] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#111111] hover:bg-[#FF5722] hover:text-white transition-all font-black uppercase text-sm"
+        >
+          <span>←</span> RETURN TO MAIN SITE (PORTFOLIO)
+        </Link>
+
+        <div className="flex items-center gap-2">
+          <Link
+            href="/#about"
+            className="bg-[#FFFDF5] text-[#111] border-2 border-[#111] px-3 py-1.5 hover:bg-[#00E5FF] transition-all"
+          >
+            ABOUT
+          </Link>
+          <Link
+            href="/#skills"
+            className="bg-[#FFFDF5] text-[#111] border-2 border-[#111] px-3 py-1.5 hover:bg-[#00E5FF] transition-all"
+          >
+            SKILLS
+          </Link>
+          <Link
+            href="/#experience"
+            className="bg-[#FFFDF5] text-[#111] border-2 border-[#111] px-3 py-1.5 hover:bg-[#00E5FF] transition-all"
+          >
+            EXPERIENCE
+          </Link>
+          <Link
+            href="/#contact"
+            className="bg-[#FF2A85] text-white border-2 border-[#111] px-3 py-1.5 hover:bg-[#111] transition-all"
+          >
+            CONTACT
+          </Link>
+        </div>
+      </div>
+
       {/* NEO-BRUTALIST TICKER MARQUEE */}
       <div className="w-full bg-[#FFE600] border-[3px] border-[#111111] shadow-[4px_4px_0px_0px_#111111] overflow-hidden py-2 mb-10 transform -rotate-1">
         <div className="flex whitespace-nowrap animate-marquee font-mono text-sm font-black tracking-wider uppercase">
@@ -132,8 +169,16 @@ export default function ProjectsArchiveClient() {
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <div className="inline-block bg-[#00E5FF] border-2 border-[#111111] px-3 py-1 text-xs font-mono font-bold uppercase tracking-widest mb-3 shadow-[2px_2px_0px_0px_#111111]">
-                COMPLETE ARCHIVE & CODEBASES
+              <div className="inline-flex items-center gap-2 mb-3">
+                <Link
+                  href="/"
+                  className="bg-[#111] text-[#FFE600] border-2 border-[#111] px-2.5 py-1 text-xs font-mono font-bold uppercase hover:bg-[#FFE600] hover:text-black"
+                >
+                  ← BACK HOME
+                </Link>
+                <div className="bg-[#00E5FF] border-2 border-[#111111] px-3 py-1 text-xs font-mono font-bold uppercase tracking-widest shadow-[2px_2px_0px_0px_#111111]">
+                  COMPLETE ARCHIVE & CODEBASES
+                </div>
               </div>
               <h1 className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight leading-none text-[#111111]">
                 PROJECTS <span className="text-[#FF2A85]">&</span> PATENTS
@@ -522,6 +567,22 @@ export default function ProjectsArchiveClient() {
             </button>
           </div>
         )}
+
+        {/* BOTTOM RETURN TO MAIN SITE BANNER */}
+        <footer className="mt-16 bg-[#FFFDF5] border-4 border-[#111111] p-8 shadow-[10px_10px_0px_0px_#111111] text-center flex flex-col items-center gap-4">
+          <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#111]">
+            FINISHED EXPLORING PROJECTS?
+          </h3>
+          <p className="font-mono text-xs sm:text-sm text-[#111]/80 max-w-md">
+            Return to the main portfolio website to inspect experience history, patents, hackathon achievements, and contact details.
+          </p>
+          <Link
+            href="/"
+            className="bg-[#FFE600] text-black border-3 border-[#111111] px-8 py-3.5 font-mono text-sm font-black uppercase tracking-wider shadow-[6px_6px_0px_0px_#111111] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_#FF2A85] hover:bg-[#111111] hover:text-[#FFE600] transition-all"
+          >
+            ← BACK TO MAIN PORTFOLIO SITE (HOME)
+          </Link>
+        </footer>
       </div>
 
       {/* PROJECT INSPECTION MODAL */}

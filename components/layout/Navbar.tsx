@@ -21,11 +21,12 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 import { easings } from "@/lib/motion";
 
-import Link from "next/link";
-
 const NAV_LINKS: { label: string; section?: string; href?: string }[] = [
+  { label: "MAIN SITE", href: "/" },
   { label: "WORK", section: "projects" },
   { label: "ALL PROJECTS", href: "/projects" },
   { label: "ABOUT", section: "about" },
@@ -33,8 +34,8 @@ const NAV_LINKS: { label: string; section?: string; href?: string }[] = [
 ];
 
 const MENU_LINKS: { label: string; section?: string; href?: string }[] = [
-  { label: "HOME", section: "hero" },
-  { label: "ALL PROJECTS ARCHIVE", href: "/projects" },
+  { label: "🏠 HOME / MAIN SITE", href: "/" },
+  { label: "⚡ ALL PROJECTS ARCHIVE", href: "/projects" },
   { label: "ABOUT", section: "about" },
   { label: "SKILLS", section: "skills" },
   { label: "EXPERIENCE", section: "experience" },
@@ -56,6 +57,9 @@ const SECTIONS = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const router = useRouter();
+
   // ── State ──────────────────────────────────────────────────────────────
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
@@ -85,6 +89,8 @@ export default function Navbar() {
 
   // ── Active section via IntersectionObserver ────────────────────────────
   useEffect(() => {
+    if (pathname !== "/") return;
+
     const els = SECTIONS.map((id) =>
       document.querySelector(`[data-section="${id}"]`),
     ).filter(Boolean) as Element[];
@@ -103,21 +109,31 @@ export default function Navbar() {
 
     els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
-  // ── Scroll to section ──────────────────────────────────────────────────
+  // ── Scroll to section or navigate back to home section ──────────────
   const scrollTo = useCallback((section: string) => {
+    setMobileOpen(false);
+    if (pathname !== "/") {
+      router.push(`/#${section}`);
+      return;
+    }
     const el = document.querySelector(`[data-section="${section}"]`);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
-      setMobileOpen(false);
+    } else {
+      router.push(`/#${section}`);
     }
-  }, []);
+  }, [pathname, router]);
 
-  const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleLogoClick = useCallback(() => {
     setMobileOpen(false);
-  }, []);
+    if (pathname !== "/") {
+      router.push("/");
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname, router]);
 
   // ── Derived: which nav link is "active" ───────────────────────────────
   // Only desktop links use a reduced "active" set (WORK/ABOUT/CONTACT)
@@ -151,11 +167,11 @@ export default function Navbar() {
         {/* ── Logo ──────────────────────────────────────────────────────── */}
         <motion.button
           className="pointer-events-auto flex items-center gap-[12px] outline-none cursor-pointer"
-          onClick={scrollToTop}
+          onClick={handleLogoClick}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           transition={{ duration: 0.14 }}
-          aria-label="Scroll to top"
+          aria-label="Navigate to Home / Scroll to top"
         >
           <div
             className="flex h-[36px] w-[36px] items-center justify-center border-[3px] border-[#111] bg-[#F45113] md:h-[40px] md:w-[40px]"

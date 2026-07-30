@@ -133,9 +133,11 @@ export default function HeroPortrait({
               src="/images/me2.jpeg"
               alt="Adith Manikonda"
               fill
-              sizes={`${FRAME_W}px`}
-              className="object-cover object-[56%_18%] grayscale contrast-[1.18] scale-[1.04]"
+              sizes="(max-width: 768px) 90vw, 460px"
+              quality={85}
               priority
+              fetchPriority="high"
+              className="object-cover object-[56%_18%] grayscale contrast-[1.18] scale-[1.04]"
             />
           </div>
         </motion.div>

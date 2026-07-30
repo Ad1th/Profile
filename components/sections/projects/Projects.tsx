@@ -655,7 +655,7 @@ function CrtMonitor({
                   {line.text}
                 </motion.strong>
               ) : line.type === "stackItem" ? (
-                <motion.li
+                <motion.div
                   key={idx}
                   className="projects-crt-line"
                   initial={{ opacity: 0, x: -8 }}
@@ -667,7 +667,7 @@ function CrtMonitor({
                   }}
                 >
                   {line.text}
-                </motion.li>
+                </motion.div>
               ) : line.type === "actions" ? (
                 <motion.div
                   key={idx}

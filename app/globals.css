@@ -20,6 +20,17 @@
   .hard-shadow-sm {
     box-shadow: 4px 4px 0px 0px #111111;
   }
+
+  .gpu-render {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
+}
+
+/* Optimize off-screen rendering for TBT & LCP reduction */
+section:not([data-section="hero"]) {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 600px;
 }
 
 /* Default nav height variable (used by components) */

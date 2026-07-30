@@ -25,17 +25,14 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { easings } from "@/lib/motion";
 
-const NAV_LINKS: { label: string; section?: string; href?: string }[] = [
-  { label: "MAIN SITE", href: "/" },
+const NAV_LINKS: { label: string; section: string }[] = [
   { label: "WORK", section: "projects" },
-  { label: "ALL PROJECTS", href: "/projects" },
   { label: "ABOUT", section: "about" },
   { label: "CONTACT", section: "contact" },
 ];
 
-const MENU_LINKS: { label: string; section?: string; href?: string }[] = [
-  { label: "🏠 HOME / MAIN SITE", href: "/" },
-  { label: "⚡ ALL PROJECTS ARCHIVE", href: "/projects" },
+const MENU_LINKS: { label: string; section: string }[] = [
+  { label: "HOME", section: "hero" },
   { label: "ABOUT", section: "about" },
   { label: "SKILLS", section: "skills" },
   { label: "EXPERIENCE", section: "experience" },
@@ -188,35 +185,12 @@ export default function Navbar() {
 
         {/* ── Desktop links ─────────────────────────────────────────────── */}
         <div className="pointer-events-auto hidden items-center gap-[28px] md:flex">
-          {NAV_LINKS.map(({ label, section, href }) => {
-            const isActive = section ? activeLinkSection === section : false;
-            
-            if (href) {
-              return (
-                <Link
-                  key={label}
-                  href={href}
-                  className="relative outline-none cursor-pointer"
-                  style={{
-                    fontFamily: "var(--font-archivo), sans-serif",
-                    fontSize: 14,
-                    fontWeight: 900,
-                    letterSpacing: "-0.04em",
-                    textTransform: "uppercase",
-                    color: "#111",
-                    padding: "4px 0",
-                    lineHeight: 1,
-                  }}
-                >
-                  <span style={{ opacity: 0.85 }}>{label}</span>
-                </Link>
-              );
-            }
-
+          {NAV_LINKS.map(({ label, section }) => {
+            const isActive = activeLinkSection === section;
             return (
               <button
                 key={label}
-                onClick={() => section && scrollTo(section)}
+                onClick={() => scrollTo(section)}
                 className="relative outline-none cursor-pointer"
                 aria-current={isActive ? "page" : undefined}
                 style={{
@@ -370,39 +344,12 @@ export default function Navbar() {
 
             {/* Links */}
             <nav className="flex flex-col" style={{ gap: 4 }}>
-              {MENU_LINKS.map(({ label, section, href }, i) => {
-                const isActive = section ? activeSection === section : false;
-
-                if (href) {
-                  return (
-                    <motion.div key={label}>
-                      <Link
-                        href={href}
-                        onClick={() => setMobileOpen(false)}
-                        className="block outline-none cursor-pointer text-left"
-                        style={{
-                          borderBottom: "2px solid #222",
-                          paddingTop: 16,
-                          paddingBottom: 18,
-                          fontFamily: "var(--font-anton), 'Arial Black', sans-serif",
-                          fontSize: "clamp(36px, 7vw, 54px)",
-                          fontWeight: 400,
-                          letterSpacing: "-0.03em",
-                          lineHeight: 0.9,
-                          textTransform: "uppercase",
-                          color: "#FFE600",
-                        }}
-                      >
-                        {label} ➔
-                      </Link>
-                    </motion.div>
-                  );
-                }
-
+              {MENU_LINKS.map(({ label, section }, i) => {
+                const isActive = activeSection === section;
                 return (
                   <motion.button
                     key={label}
-                    onClick={() => section && scrollTo(section)}
+                    onClick={() => scrollTo(section)}
                     className="outline-none cursor-pointer text-left"
                     style={{
                       background: "none",

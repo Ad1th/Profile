@@ -106,41 +106,18 @@ export default function ProjectsArchiveClient() {
 
   return (
     <div className="min-h-screen bg-[#EEE7DC] text-[#111111] pt-24 pb-20 px-4 sm:px-6 lg:px-12 font-sans selection:bg-[#FFE600] selection:text-black">
-      {/* NAVIGATION BAR BACK TO MAIN SITE */}
-      <div className="max-w-7xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-4 font-mono text-xs font-bold">
+      {/* BREADCRUMB HEADER LINK */}
+      <div className="max-w-7xl mx-auto mb-6 flex items-center justify-between font-mono text-xs font-bold">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 bg-[#FFE600] text-black border-3 border-[#111111] px-5 py-2.5 shadow-[4px_4px_0px_0px_#111111] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#111111] hover:bg-[#FF5722] hover:text-white transition-all font-black uppercase text-sm"
+          className="inline-flex items-center gap-2 text-[#111] hover:text-[#FF2A85] transition-colors font-black uppercase text-sm"
         >
-          <span>←</span> RETURN TO MAIN SITE (PORTFOLIO)
+          <span>←</span> PORTFOLIO HOME
         </Link>
 
-        <div className="flex items-center gap-2">
-          <Link
-            href="/#about"
-            className="bg-[#FFFDF5] text-[#111] border-2 border-[#111] px-3 py-1.5 hover:bg-[#00E5FF] transition-all"
-          >
-            ABOUT
-          </Link>
-          <Link
-            href="/#skills"
-            className="bg-[#FFFDF5] text-[#111] border-2 border-[#111] px-3 py-1.5 hover:bg-[#00E5FF] transition-all"
-          >
-            SKILLS
-          </Link>
-          <Link
-            href="/#experience"
-            className="bg-[#FFFDF5] text-[#111] border-2 border-[#111] px-3 py-1.5 hover:bg-[#00E5FF] transition-all"
-          >
-            EXPERIENCE
-          </Link>
-          <Link
-            href="/#contact"
-            className="bg-[#FF2A85] text-white border-2 border-[#111] px-3 py-1.5 hover:bg-[#111] transition-all"
-          >
-            CONTACT
-          </Link>
-        </div>
+        <span className="text-[#111]/60 uppercase tracking-widest">
+          ADITH.XYZ / PROJECTS ARCHIVE
+        </span>
       </div>
 
       {/* NEO-BRUTALIST TICKER MARQUEE */}

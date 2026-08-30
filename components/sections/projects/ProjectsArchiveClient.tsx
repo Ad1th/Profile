@@ -395,6 +395,26 @@ export default function ProjectsArchiveClient() {
                     <p className="mt-3 font-sans text-sm text-[#111]/90 font-medium leading-relaxed">
                       {project.description}
                     </p>
+
+                    {/* Lead measurement — the one number worth scanning for.
+                        Only projects with real, reproducible results have it. */}
+                    {project.evidence?.metrics?.[0] ? (
+                      <div className="mt-4 flex items-baseline gap-2 border-t-2 border-dashed border-[#111]/25 pt-3">
+                        <span
+                          className="text-xl leading-none text-[#111]"
+                          style={{
+                            fontFamily:
+                              "var(--font-anton), 'Arial Black', Impact, sans-serif",
+                            fontVariantNumeric: "tabular-nums",
+                          }}
+                        >
+                          {project.evidence.metrics[0].value}
+                        </span>
+                        <span className="font-mono text-[10px] font-bold uppercase leading-tight tracking-[0.1em] text-[#111]/60">
+                          {project.evidence.metrics[0].label}
+                        </span>
+                      </div>
+                    ) : null}
                   </div>
 
                   {/* TECH STACK CHIPS */}

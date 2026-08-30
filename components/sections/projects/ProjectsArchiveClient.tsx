@@ -196,7 +196,7 @@ export default function ProjectsArchiveClient() {
                 placeholder="SEARCH PROJECTS BY NAME, TECH STACK, OR KEYWORD..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#EEE7DC] border-3 border-[#111111] px-4 py-3 font-mono text-sm font-bold text-[#111111] placeholder-[#111111]/50 focus:outline-none focus:bg-white focus:shadow-[4px_4px_0px_0px_#111111] transition-all"
+                className="w-full bg-[#EEE7DC] border-3 border-[#111111] px-4 py-3 font-mono text-sm font-bold text-[#111111] placeholder-[#111111]/50 focus:bg-white focus:shadow-[4px_4px_0px_0px_#111111] transition-all"
               />
               {searchQuery && (
                 <button

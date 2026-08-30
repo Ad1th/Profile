@@ -95,6 +95,9 @@ export default function RootLayout({
     >
       <body>
         <StructuredData data={[personSchema, websiteSchema]} />
+        <a className="skip-link" href="#main">
+          Skip to Content
+        </a>
         <Navbar />
         {children}
         <RecruiterConsole />

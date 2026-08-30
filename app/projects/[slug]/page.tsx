@@ -113,6 +113,18 @@ export default async function ProjectPage({ params }: PageProps) {
           {project.description}
         </p>
 
+        {project.github ? (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-8 inline-block border-[3px] border-[#111] bg-[#CFDE00] px-6 py-3 font-mono text-xs font-black uppercase tracking-[0.14em] text-[#111] hover:bg-[#111] hover:text-[#CFDE00]"
+            style={{ boxShadow: "4px 4px 0 0 #111" }}
+          >
+            Source &nbsp;&#8599;
+          </a>
+        ) : null}
+
         <section className="mt-12 grid gap-8 md:grid-cols-2">
           <div>
             <h2 className="font-mono text-sm font-bold uppercase tracking-[0.16em]">

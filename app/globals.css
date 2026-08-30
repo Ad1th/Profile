@@ -27,8 +27,11 @@
   }
 }
 
-/* Optimize off-screen rendering for TBT & LCP reduction */
-section:not([data-section="hero"]) {
+/* Optimize off-screen rendering for TBT & LCP reduction.
+   Scoped to the homepage: it is ~10,000px of heavy sections. On the short
+   project/patent/hackathon pages the same rule only delays paint and costs
+   find-in-page and print fidelity. */
+[data-page="home"] section:not([data-section="hero"]) {
   content-visibility: auto;
   contain-intrinsic-size: 1px 600px;
 }

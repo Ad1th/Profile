@@ -600,14 +600,14 @@ function CrtMonitor({
   const bootLines =
     mode === "preview"
       ? [
-          "INITIALIZING PREVIEW MODE...",
-          "LOCATING ASSETS...",
+          "INITIALIZING PREVIEW MODE…",
+          "LOCATING ASSETS…",
           `${imageBases.length} FILES FOUND`,
           "READY",
         ]
       : mode === "links"
-        ? ["LOADING LINKS MODULE...", "RESOLVING HOSTS...", "READY"]
-        : ["LOADING PROJECT DATA...", "INDEXING FILES...", "READY"];
+        ? ["LOADING LINKS MODULE…", "RESOLVING HOSTS…", "READY"]
+        : ["LOADING PROJECT DATA…", "INDEXING FILES…", "READY"];
 
   return (
     <div
@@ -839,7 +839,7 @@ export default function Projects() {
       ...archiveProjects,
       {
         id: "...",
-        name: "and more...",
+        name: "and more…",
         stack: "GOLANG / COOL STUFF",
         year: "-",
         description: "More experiments, prototypes and small utilities.",

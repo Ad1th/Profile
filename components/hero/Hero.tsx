@@ -1029,7 +1029,7 @@ function HeroPortraitTablet() {
         transition={{ duration: 0.6, delay: 0.3, ease: easings.primary }}
       >
         <img
-          src="/images/me2.jpeg"
+          src="/images/me2.webp"
           alt="Adith Manikonda"
           style={{
             width: "100%",
@@ -1089,7 +1089,7 @@ function HeroPortraitTabletPortrait() {
         transition={{ duration: 0.6, delay: 0.3, ease: easings.primary }}
       >
         <img
-          src="/images/me2.jpeg"
+          src="/images/me2.webp"
           alt="Adith Manikonda"
           style={{
             width: "100%",
@@ -1149,7 +1149,7 @@ function HeroPortraitMobile() {
         transition={{ duration: 0.6, delay: 0.25, ease: easings.primary }}
       >
         <img
-          src="/images/me2.jpeg"
+          src="/images/me2.webp"
           alt="Adith Manikonda"
           style={{
             width: "100%",

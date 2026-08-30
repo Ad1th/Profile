@@ -156,6 +156,45 @@ export default async function ProjectPage({ params }: PageProps) {
           </section>
         )}
 
+        {ev?.metrics?.length ? (
+          <section className="mt-16">
+            <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em]">
+              Measured
+            </h2>
+            <div className="mt-5 grid gap-0 border-[3px] border-[#111] sm:grid-cols-3">
+              {ev.metrics.map((m, i) => (
+                <div
+                  key={m.label}
+                  className={`bg-[#FFFDF5] p-6 ${
+                    i < ev.metrics!.length - 1
+                      ? "border-b-[3px] border-[#111] sm:border-b-0 sm:border-r-[3px]"
+                      : ""
+                  }`}
+                >
+                  <p
+                    className="text-3xl leading-none sm:text-4xl"
+                    style={{
+                      fontFamily:
+                        "var(--font-anton), 'Arial Black', Impact, sans-serif",
+                      fontVariantNumeric: "tabular-nums",
+                    }}
+                  >
+                    {m.value}
+                  </p>
+                  <p className="mt-3 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-[#111]">
+                    {m.label}
+                  </p>
+                  {m.note ? (
+                    <p className="mt-2 font-mono text-[11px] leading-5 text-[#111]/55">
+                      {m.note}
+                    </p>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         <section className="mt-16">
           <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em]">
             Built With

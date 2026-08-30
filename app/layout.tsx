@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     description: "Backend Engineer",
     images: [
       {
-        url: "/images/me.png",
+        url: "/images/me.webp",
         width: 1200,
         height: 630,
         alt: "Adith Manikonda - Backend Engineer",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Adith Manikonda",
     description: "Backend Engineer",
-    images: ["/images/me.png"],
+    images: ["/images/me.webp"],
   },
   robots: {
     index: true,

@@ -22,7 +22,7 @@ export async function generateMetadata({
 
   const title = `${project.seoTitle ?? project.title} | Project by Adith Manikonda`;
   const description = `${project.description} Built by Adith Manikonda using ${project.technologies.join(", ")}.`;
-  const image = project.screenshots[0] ?? "/images/me.png";
+  const image = project.screenshots[0] ?? "/images/me.webp";
 
   return {
     title,

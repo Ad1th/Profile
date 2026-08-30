@@ -159,7 +159,7 @@ export default function ResearchLabClient() {
                 <motion.div
                   key={area.id}
                   whileHover={{ y: -6, x: -3 }}
-                  className="bg-[#FFFDF5] border-4 border-[#111111] p-6 shadow-[8px_8px_0px_0px_#111111] flex flex-col justify-between relative group transition-all"
+                  className="bg-[#FFFDF5] border-4 border-[#111111] p-6 shadow-[8px_8px_0px_0px_#111111] flex flex-col justify-between relative group transition-[transform,box-shadow,background-color,border-color,color,opacity]"
                 >
                   <div className="absolute top-4 right-4 font-mono text-[10px] font-black border-2 border-[#111] px-2 py-0.5 uppercase bg-[#EEE7DC]">
                     {area.id}
@@ -224,7 +224,7 @@ export default function ResearchLabClient() {
               return (
                 <div
                   key={project.id}
-                  className="bg-[#FFFDF5] border-4 border-[#111111] shadow-[8px_8px_0px_0px_#111111] transition-all"
+                  className="bg-[#FFFDF5] border-4 border-[#111111] shadow-[8px_8px_0px_0px_#111111] transition-[transform,box-shadow,background-color,border-color,color,opacity]"
                 >
                   {/* PROJECT HEADER CARD (CLICKABLE) */}
                   <div
@@ -264,7 +264,7 @@ export default function ResearchLabClient() {
                     <div className="flex items-center gap-3">
                       <button
                         type="button"
-                        className="bg-[#111] text-[#FFE600] border-2 border-[#111] font-mono text-xs font-black px-4 py-2 shadow-[2px_2px_0px_0px_#FF2A85] hover:bg-[#FFE600] hover:text-black transition-all whitespace-nowrap"
+                        className="bg-[#111] text-[#FFE600] border-2 border-[#111] font-mono text-xs font-black px-4 py-2 shadow-[2px_2px_0px_0px_#FF2A85] hover:bg-[#FFE600] hover:text-black transition-[transform,box-shadow,background-color,border-color,color,opacity] whitespace-nowrap"
                       >
                         {isExpanded ? "▲ COLLAPSE" : "▼ EXPAND SPECS"}
                       </button>
@@ -367,7 +367,7 @@ export default function ResearchLabClient() {
               return (
                 <div
                   key={pub.id}
-                  className="bg-[#FFFDF5] border-4 border-[#111111] p-6 shadow-[8px_8px_0px_0px_#111111] flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#111111] transition-all relative"
+                  className="bg-[#FFFDF5] border-4 border-[#111111] p-6 shadow-[8px_8px_0px_0px_#111111] flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#111111] transition-[transform,box-shadow,background-color,border-color,color,opacity] relative"
                 >
                   <div>
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
@@ -468,7 +468,7 @@ export default function ResearchLabClient() {
             {patents.map((patent) => (
               <div
                 key={patent.id}
-                className="bg-[#FFFDF5] border-4 border-[#111111] p-6 shadow-[8px_8px_0px_0px_#111111] relative flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#111111] transition-all"
+                className="bg-[#FFFDF5] border-4 border-[#111111] p-6 shadow-[8px_8px_0px_0px_#111111] relative flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#111111] transition-[transform,box-shadow,background-color,border-color,color,opacity]"
               >
                 <div className="absolute -top-3 right-4 bg-[#FF5722] text-white border-2 border-[#111] font-mono text-[10px] font-black px-3 py-0.5 shadow-[2px_2px_0px_0px_#111] uppercase">
                   APP NO: {patent.applicationNumber}
@@ -534,7 +534,7 @@ export default function ResearchLabClient() {
                     </div>
 
                     {/* CONTENT CARD */}
-                    <div className="w-[calc(100%-3rem)] sm:w-[calc(50%-2.5rem)] ml-12 sm:ml-0 bg-[#EEE7DC] border-3 border-[#111111] p-5 shadow-[4px_4px_0px_0px_#111111] group-hover:-translate-y-1 transition-all">
+                    <div className="w-[calc(100%-3rem)] sm:w-[calc(50%-2.5rem)] ml-12 sm:ml-0 bg-[#EEE7DC] border-3 border-[#111111] p-5 shadow-[4px_4px_0px_0px_#111111] group-hover:-translate-y-1 transition-[transform,box-shadow,background-color,border-color,color,opacity]">
                       <div className="flex items-center justify-between gap-2 mb-2">
                         <span className="font-mono text-xs font-black text-[#FF5722]">{item.year}</span>
                         <span className={`font-mono text-[10px] font-black border border-[#111] px-2 py-0.5 uppercase ${theme.bg} ${theme.text}`}>
@@ -597,7 +597,7 @@ export default function ResearchLabClient() {
                 <button
                   key={topic}
                   onClick={() => setSelectedReadingTopic(topic)}
-                  className={`px-3 py-1 font-bold uppercase border-2 border-[#111] transition-all ${
+                  className={`px-3 py-1 font-bold uppercase border-2 border-[#111] transition-[transform,box-shadow,background-color,border-color,color,opacity] ${
                     selectedReadingTopic === topic
                       ? "bg-[#111] text-[#FFE600] shadow-[2px_2px_0px_0px_#FF2A85]"
                       : "bg-[#FFFDF5] text-[#111] hover:bg-[#FFE600]"
@@ -727,13 +727,13 @@ export default function ResearchLabClient() {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/#contact"
-              className="bg-[#FF2A85] text-white border-3 border-[#111111] px-6 py-3 font-mono text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_#111111] hover:bg-[#111] transition-all"
+              className="bg-[#FF2A85] text-white border-3 border-[#111111] px-6 py-3 font-mono text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_#111111] hover:bg-[#111] transition-[transform,box-shadow,background-color,border-color,color,opacity]"
             >
               GET IN TOUCH (CONTACT) ➔
             </Link>
             <Link
               href="/"
-              className="bg-[#FFE600] text-black border-3 border-[#111111] px-6 py-3 font-mono text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_#111111] hover:bg-[#111] hover:text-[#FFE600] transition-all"
+              className="bg-[#FFE600] text-black border-3 border-[#111111] px-6 py-3 font-mono text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_#111111] hover:bg-[#111] hover:text-[#FFE600] transition-[transform,box-shadow,background-color,border-color,color,opacity]"
             >
               ← RETURN TO MAIN PORTFOLIO
             </Link>

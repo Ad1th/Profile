@@ -27,6 +27,26 @@ export const siteKeywords = [
   "Patent Developer",
 ];
 
+/**
+ * Evidence for a project — the part a reader cannot get from a tech-tag list.
+ *
+ * `metrics` holds only numbers that were actually measured and are
+ * reproducible from the repo. Leave it out rather than estimate.
+ * `limits` is deliberately part of the schema: a build that states what it
+ * cannot do reads as engineering, and it is the claim the site's own
+ * "behavior > buzzwords" panel is making.
+ */
+export type Evidence = {
+  /** The constraint or failure mode the project exists to handle. */
+  problem: string;
+  /** The decision taken, and the tradeoff it accepts. */
+  approach: string;
+  /** Measured results. Real numbers only. */
+  metrics?: { label: string; value: string; note?: string }[];
+  /** What did not work, or what this build still cannot do. */
+  limits?: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -40,6 +60,7 @@ export type Project = {
   featured?: boolean;
   category?: "Systems / Backend" | "AI & ML" | "CLI & Tools" | "IoT / Hardware" | "Web Apps";
   paperColor?: "yellow" | "blue" | "orange" | "pink" | "green" | "purple" | "white";
+  evidence?: Evidence;
 };
 
 export const projects: Project[] = [
@@ -74,6 +95,31 @@ export const projects: Project[] = [
     featured: true,
     category: "Systems / Backend",
     paperColor: "blue",
+    evidence: {
+      problem:
+        "Exploratory analytics makes you wait for exact answers you do not need yet. While shaping a query you want the shape of the result in a fraction of the time, and you want to know how wrong the fast answer is.",
+      approach:
+        "Approximate execution alongside exact, over DuckDB, Postgres and MySQL. Both sides of a join are sampled independently rather than after the join, so join selectivity survives; HyperLogLog sketches estimate result cardinality without materialising it, and bloom filters pre-filter the probe side. A benchmark mode runs exact and approximate together and reports the error and the speedup rather than asking you to trust the sample.",
+      metrics: [
+        {
+          label: "TPC-H Q5, 3-way star join",
+          value: "6.85x faster",
+          note: "0.035s exact vs 0.005s approximate at 1% sampling",
+        },
+        {
+          label: "Cardinality estimate error",
+          value: "~1%",
+          note: "HyperLogLog, 2^14 registers, 16KB per sketch",
+        },
+        {
+          label: "Adaptive time budget",
+          value: "2x / 3.5x",
+          note: "Multipliers applied for 2-way and 3-way joins",
+        },
+      ],
+      limits:
+        "Only one of five TPC-H join queries came out ahead. Q3, Q10, Q12 and Q18 ran 5x to 50x slower approximate than exact, because TABLESAMPLE overhead dominates at these sizes and small samples never reach parallel execution. At 1% sampling all five returned zero rows: join selectivity collapses on small samples. The sampling strategy holds for single-table aggregates; selective multi-way joins need a higher floor on sample size before it pays.",
+    },
   },
   {
     slug: "archaic",
@@ -90,6 +136,26 @@ export const projects: Project[] = [
     featured: true,
     category: "Systems / Backend",
     paperColor: "purple",
+    evidence: {
+      problem:
+        "Observability tooling is almost always demonstrated against a healthy system, which tells you nothing about whether it catches the failures you actually get at 3am.",
+      approach:
+        "Four instrumented services with a real dependency graph -- product and payment both depend on auth and db -- so a single degraded dependency produces a genuine cascade rather than an isolated error. Failures are injected probabilistically, time-bound and intensity-scaled, so the same experiment can be repeated. An Isolation Forest detector proxies Prometheus metrics and webhooks an operator service that attempts recovery. A shared trace_id follows a request across every hop, which is what makes root-cause attribution possible at all.",
+      metrics: [
+        {
+          label: "Instrumented services",
+          value: "4",
+          note: "auth, db, product, payment, plus detector and operator",
+        },
+        {
+          label: "Load profiles",
+          value: "4",
+          note: "k6: normal, spike, endurance, stress",
+        },
+      ],
+      limits:
+        "Recovery is executed by an LLM operator rather than a deterministic runbook, so its actions are suggestions with side effects, not guarantees. The chaos layer and the detector are the parts that hold up under repetition.",
+    },
   },
   {
     slug: "point-wave-energy-harvester",
@@ -134,6 +200,22 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/BlindSpot",
     category: "AI & ML",
     paperColor: "pink",
+    evidence: {
+      problem:
+        "Assistive vision that depends on a round trip to the cloud fails exactly when connectivity does, and streaming a continuous video feed of where someone lives is a privacy problem before it is a latency problem.",
+      approach:
+        "Processing runs on a Raspberry Pi 5 carried by the user, so the video never has to leave the device to produce a response. A CNN-LSTM handles motion recognition over the frame sequence, and the result is narrated as audio rather than shown, because the output has to work for someone who cannot see the screen.",
+      metrics: [
+        {
+          label: "Capture",
+          value: "640x480 @ 30fps",
+          note: "0.3MP USB webcam",
+        },
+        { label: "Edge unit", value: "Raspberry Pi 5", note: "Battery-portable, no rack" },
+      ],
+      limits:
+        "Not fully offline yet -- some scene description still calls out to cloud services, so the privacy and availability argument only holds for the detection path, not the whole pipeline.",
+    },
   },
   {
     slug: "argus",
@@ -149,6 +231,14 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/Argus",
     category: "CLI & Tools",
     paperColor: "white",
+    evidence: {
+      problem:
+        "A query plan printed as text tells you the operators but not where the work actually goes. Reading EXPLAIN output is a skill; seeing the plan is not.",
+      approach:
+        "A CSV is registered as a DuckDB view through read_csv_auto, so there is no schema step before you can query. The plan is parsed into an operator graph and laid out with Dagre, then rendered as nodes and edges in React Flow, so the shape of the plan is the thing on screen. The backend was moved from Python to Rust on Axum; the Python implementation is kept for reference.",
+      limits:
+        "DuckDB runs in-memory, so every uploaded table is lost when the backend restarts. Fine for reading a plan, not a place to keep data.",
+    },
   },
   {
     slug: "google-drive-clone",
@@ -160,7 +250,7 @@ export const projects: Project[] = [
       "Built to implement file upload, storage organization and cloud-drive user workflows in a production-style web app.",
     technologies: ["Next.js", "PostgreSQL", "Storage Buckets", "Cloud Storage"],
     year: "2025",
-    screenshots: ["/images/projects/cloudify/cloudify.png"],
+    screenshots: ["/images/projects/cloudify/cloudify.webp"],
     github: "https://github.com/Ad1th/file-mgmt",
     category: "Web Apps",
     paperColor: "blue",
@@ -189,7 +279,7 @@ export const projects: Project[] = [
       "Built to reduce distraction loops and keep browsing sessions aligned with user intent.",
     technologies: ["JavaScript", "Chrome Extension", "Gemini API"],
     year: "2024",
-    screenshots: ["/images/projects/threddit/threddit.png"],
+    screenshots: ["/images/projects/threddit/threddit.webp"],
     category: "AI & ML",
     paperColor: "purple",
   },
@@ -203,7 +293,7 @@ export const projects: Project[] = [
       "Anonymous real-time chat forum for rapid open thread creation and transparent message exchange.",
     technologies: ["JavaScript", "Node.js", "WebSockets"],
     year: "2024",
-    screenshots: ["/images/projects/echochamber/echochamber.png"],
+    screenshots: ["/images/projects/echochamber/echochamber.webp"],
     category: "Web Apps",
     paperColor: "orange",
   },
@@ -217,7 +307,7 @@ export const projects: Project[] = [
       "Built to help volunteers, organizers and communities coordinate service work more effectively.",
     technologies: ["JavaScript", "SQL", "Community Platform"],
     year: "2025",
-    screenshots: ["/images/projects/sevaverse/sevaverse.png"],
+    screenshots: ["/images/projects/sevaverse/sevaverse.webp"],
     category: "Web Apps",
     paperColor: "pink",
   },
@@ -231,7 +321,7 @@ export const projects: Project[] = [
       "Built to help textile operations reason about sustainability signals and improve decision-making.",
     technologies: ["Machine Learning", "JavaScript", "SQL"],
     year: "2025",
-    screenshots: ["/images/projects/ecosync/EcoSync.png"],
+    screenshots: ["/images/projects/ecosync/EcoSync.webp"],
     category: "AI & ML",
     paperColor: "green",
   },
@@ -259,7 +349,7 @@ export const projects: Project[] = [
       "Built to explore real-time communication, community discovery and social product architecture.",
     technologies: ["MongoDB", "Express", "React", "Node.js", "Socket.IO"],
     year: "2025",
-    screenshots: ["/images/projects/konectus/konectus.png"],
+    screenshots: ["/images/projects/konectus/konectus.webp"],
     category: "Web Apps",
     paperColor: "orange",
   },

@@ -53,20 +53,11 @@ export const metadata: Metadata = {
     siteName: "Adith Manikonda",
     title: "Adith Manikonda",
     description: "Backend Engineer",
-    images: [
-      {
-        url: "/images/me.png",
-        width: 1200,
-        height: 630,
-        alt: "Adith Manikonda - Backend Engineer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Adith Manikonda",
     description: "Backend Engineer",
-    images: ["/images/me.png"],
   },
   robots: {
     index: true,
@@ -95,6 +86,9 @@ export default function RootLayout({
     >
       <body>
         <StructuredData data={[personSchema, websiteSchema]} />
+        <a className="skip-link" href="#main">
+          Skip to Content
+        </a>
         <Navbar />
         {children}
         <RecruiterConsole />

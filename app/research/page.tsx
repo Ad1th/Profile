@@ -30,7 +30,7 @@ export const metadata: Metadata = {
       "Exploring database systems, trustworthy AI, distributed systems, cybersecurity and machine learning through research, publications and experimental systems.",
     images: [
       {
-        url: "/images/me.png",
+        url: "/images/me.webp",
         width: 1200,
         height: 630,
         alt: "Adith Manikonda Digital Research Lab",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "Digital Research Lab | Adith Manikonda",
     description:
       "Exploring database systems, trustworthy AI, distributed systems, cybersecurity and machine learning.",
-    images: ["/images/me.png"],
+    images: ["/images/me.webp"],
   },
 };
 

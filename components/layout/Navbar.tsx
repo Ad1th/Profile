@@ -164,7 +164,7 @@ export default function Navbar() {
       >
         {/* ── Logo ──────────────────────────────────────────────────────── */}
         <motion.button
-          className="pointer-events-auto flex items-center gap-[12px] outline-none cursor-pointer"
+          className="pointer-events-auto flex items-center gap-[12px] cursor-pointer"
           onClick={handleLogoClick}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
@@ -192,7 +192,7 @@ export default function Navbar() {
               <button
                 key={label}
                 onClick={() => scrollTo(section)}
-                className="relative outline-none cursor-pointer"
+                className="relative cursor-pointer"
                 aria-current={isActive ? "page" : undefined}
                 style={{
                   fontFamily: "var(--font-archivo), sans-serif",
@@ -239,7 +239,7 @@ export default function Navbar() {
 
           {/* Grid icon — acts as hamburger hint on desktop */}
           <button
-            className="outline-none cursor-pointer"
+            className=" cursor-pointer"
             onClick={() => setMobileOpen((o) => !o)}
             aria-label="Open menu"
             style={{ background: "none", border: "none", padding: 0 }}
@@ -260,7 +260,7 @@ export default function Navbar() {
 
         {/* ── Mobile hamburger ──────────────────────────────────────────── */}
         <button
-          className="pointer-events-auto flex md:hidden items-center justify-center outline-none cursor-pointer"
+          className="pointer-events-auto flex md:hidden items-center justify-center cursor-pointer"
           onClick={() => setMobileOpen((o) => !o)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           style={{ background: "none", border: "none", padding: 4 }}
@@ -327,7 +327,7 @@ export default function Navbar() {
             {/* Close button */}
             <button
               onClick={() => setMobileOpen(false)}
-              className="absolute top-4 right-4 outline-none cursor-pointer"
+              className="absolute top-4 right-4 cursor-pointer"
               style={{
                 background: "none",
                 border: "none",
@@ -354,7 +354,7 @@ export default function Navbar() {
                       <Link
                         href={href}
                         onClick={() => setMobileOpen(false)}
-                        className="block outline-none cursor-pointer text-left"
+                        className="block cursor-pointer text-left"
                         style={{
                           borderBottom: "2px solid #222",
                           paddingTop: 16,
@@ -378,7 +378,7 @@ export default function Navbar() {
                   <motion.button
                     key={label}
                     onClick={() => section && scrollTo(section)}
-                    className="outline-none cursor-pointer text-left"
+                    className=" cursor-pointer text-left"
                     style={{
                       background: "none",
                       border: "none",

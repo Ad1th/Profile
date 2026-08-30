@@ -29,7 +29,7 @@ export const metadata: Metadata = {
       "Explore 19 backend engines, query processors, distributed systems, research software, CLI tools and patents built by Adith Manikonda.",
     images: [
       {
-        url: "/images/me.png",
+        url: "/images/me.webp",
         width: 1200,
         height: 630,
         alt: "Adith Manikonda Projects Archive",

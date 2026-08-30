@@ -27,8 +27,11 @@
   }
 }
 
-/* Optimize off-screen rendering for TBT & LCP reduction */
-section:not([data-section="hero"]) {
+/* Optimize off-screen rendering for TBT & LCP reduction.
+   Scoped to the homepage: it is ~10,000px of heavy sections. On the short
+   project/patent/hackathon pages the same rule only delays paint and costs
+   find-in-page and print fidelity. */
+[data-page="home"] section:not([data-section="hero"]) {
   content-visibility: auto;
   contain-intrinsic-size: 1px 600px;
 }
@@ -45,5 +48,71 @@ section:not([data-section="hero"]) {
   }
   body {
     padding-top: var(--nav-height);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ACCESSIBILITY BASE
+   Additive only — no colour, type or layout metrics are set here, so the
+   page looks identical at rest.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* The navbar, hero CTA and archive search all used `outline-none` with no
+   replacement, leaving keyboard users with no visible position anywhere.
+   One ring, in a colour already on the page. */
+:where(a, button, [role="button"], input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 3px solid #E8420A;
+  outline-offset: 3px;
+}
+
+/* Never let the fixed nav cover the element that was just tabbed or linked to. */
+:target {
+  scroll-margin-top: calc(var(--nav-height) + 24px);
+}
+
+/* Kill the 300ms double-tap delay on touch controls. */
+a,
+button,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+/* Skip link — first tab stop, hidden until focused. */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  transform: translateY(-120%);
+  background: #111111;
+  color: #CFDE00;
+  border: 3px solid #CFDE00;
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-offset: -6px;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────
+   320vh of pinned scroll, parallax and clip-path wipes had no reduced
+   variant. Visitors who ask for less motion get the linear stacked layout
+   (see HomePageClient) plus stilled CSS animation here. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

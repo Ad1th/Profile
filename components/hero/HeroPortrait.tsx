@@ -130,7 +130,7 @@ export default function HeroPortrait({
             }}
           >
             <Image
-              src="/images/me2.jpeg"
+              src="/images/me2.webp"
               alt="Adith Manikonda"
               fill
               sizes="(max-width: 768px) 90vw, 460px"

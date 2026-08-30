@@ -185,7 +185,7 @@ export default function AboutBuiltToBeUsed({
           />
           {/* Button */}
           <motion.button
-            className="absolute inset-0 flex items-center justify-center gap-3 bg-[#CFDE00] cursor-pointer outline-none"
+            className="absolute inset-0 flex items-center justify-center gap-3 bg-[#CFDE00] cursor-pointer"
             style={{
               border: "4px solid #111",
               zIndex: 1,

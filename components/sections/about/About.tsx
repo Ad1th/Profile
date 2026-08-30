@@ -155,7 +155,7 @@ export default function About({
                     : undefined
                 }
               />
-              <div
+              <h2
                 className={`${anton.className} text-[#111] uppercase select-none`}
                 style={{
                   fontWeight: 400,
@@ -198,7 +198,7 @@ export default function About({
                     {line.text}
                   </motion.span>
                 ))}
-              </div>
+              </h2>
             </div>
           </motion.div>
 

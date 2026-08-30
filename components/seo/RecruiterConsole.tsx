@@ -2,6 +2,9 @@
 
 import { useEffect } from "react";
 
+/** Strict Mode + the desktop/compact swap remount this; print the banner once. */
+let greeted = false;
+
 declare global {
   interface Window {
     help?: () => string[];
@@ -47,6 +50,8 @@ export default function RecruiterConsole() {
     window.showSecrets = () =>
       "Recruiter signal: this portfolio hides crawlable SEO, structured data and a tiny console interface without disturbing the UI.";
 
+    if (greeted) return;
+    greeted = true;
     console.log("ADITH.EXE READY");
     console.log("Backend Engineer | Systems Builder | VIT Vellore");
     console.log("Type help()");

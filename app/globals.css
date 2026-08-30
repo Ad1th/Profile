@@ -95,3 +95,21 @@ button,
   transform: translateY(0);
   outline-offset: -6px;
 }
+
+/* ── Reduced motion ──────────────────────────────────────────────────────
+   320vh of pinned scroll, parallax and clip-path wipes had no reduced
+   variant. Visitors who ask for less motion get the linear stacked layout
+   (see HomePageClient) plus stilled CSS animation here. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

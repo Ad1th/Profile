@@ -195,6 +195,14 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/Argus",
     category: "CLI & Tools",
     paperColor: "white",
+    evidence: {
+      problem:
+        "A query plan printed as text tells you the operators but not where the work actually goes. Reading EXPLAIN output is a skill; seeing the plan is not.",
+      approach:
+        "A CSV is registered as a DuckDB view through read_csv_auto, so there is no schema step before you can query. The plan is parsed into an operator graph and laid out with Dagre, then rendered as nodes and edges in React Flow, so the shape of the plan is the thing on screen. The backend was moved from Python to Rust on Axum; the Python implementation is kept for reference.",
+      limits:
+        "DuckDB runs in-memory, so every uploaded table is lost when the backend restarts. Fine for reading a plan, not a place to keep data.",
+    },
   },
   {
     slug: "google-drive-clone",

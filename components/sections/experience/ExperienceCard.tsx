@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, type HTMLMotionProps } from "framer-motion";
 import gsap from "gsap";
 
 export type ExperienceEntry = {
@@ -291,7 +291,7 @@ export default function ExperienceCard(
     density?: "regular" | "compact";
     shadow?: string;
     positioned?: boolean;
-  } & React.HTMLAttributes<HTMLDivElement>,
+  } & Omit<HTMLMotionProps<"div">, "ref" | "style">,
 ) {
   const {
     entry,

@@ -196,7 +196,7 @@ export default function ProjectsArchiveClient() {
                 placeholder="SEARCH PROJECTS BY NAME, TECH STACK, OR KEYWORD..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#EEE7DC] border-3 border-[#111111] px-4 py-3 font-mono text-sm font-bold text-[#111111] placeholder-[#111111]/50 focus:bg-white focus:shadow-[4px_4px_0px_0px_#111111] transition-all"
+                className="w-full bg-[#EEE7DC] border-3 border-[#111111] px-4 py-3 font-mono text-sm font-bold text-[#111111] placeholder-[#111111]/50 focus:bg-white focus:shadow-[4px_4px_0px_0px_#111111] transition-[transform,box-shadow,background-color,border-color,color,opacity]"
               />
               {searchQuery && (
                 <button
@@ -212,7 +212,7 @@ export default function ProjectsArchiveClient() {
             <div className="flex items-center gap-2 border-3 border-[#111111] p-1 bg-[#EEE7DC]">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`px-4 py-2 font-mono text-xs font-bold uppercase border-2 transition-all ${
+                className={`px-4 py-2 font-mono text-xs font-bold uppercase border-2 transition-[transform,box-shadow,background-color,border-color,color,opacity] ${
                   viewMode === "grid"
                     ? "bg-[#FFE600] border-[#111111] shadow-[2px_2px_0px_0px_#111111]"
                     : "bg-transparent border-transparent hover:bg-white/50"
@@ -222,7 +222,7 @@ export default function ProjectsArchiveClient() {
               </button>
               <button
                 onClick={() => setViewMode("table")}
-                className={`px-4 py-2 font-mono text-xs font-bold uppercase border-2 transition-all ${
+                className={`px-4 py-2 font-mono text-xs font-bold uppercase border-2 transition-[transform,box-shadow,background-color,border-color,color,opacity] ${
                   viewMode === "table"
                     ? "bg-[#00E5FF] border-[#111111] shadow-[2px_2px_0px_0px_#111111]"
                     : "bg-transparent border-transparent hover:bg-white/50"
@@ -243,7 +243,7 @@ export default function ProjectsArchiveClient() {
                   onClick={() => {
                     setSelectedCategory(cat);
                   }}
-                  className={`px-3 py-1.5 font-mono text-xs font-black uppercase tracking-wider border-2 border-[#111111] transition-all ${
+                  className={`px-3 py-1.5 font-mono text-xs font-black uppercase tracking-wider border-2 border-[#111111] transition-[transform,box-shadow,background-color,border-color,color,opacity] ${
                     isActive
                       ? "bg-[#111111] text-[#FFE600] shadow-[3px_3px_0px_0px_#FF2A85] -translate-y-0.5"
                       : "bg-[#FFFDF5] text-[#111111] hover:bg-[#FFE600] hover:shadow-[2px_2px_0px_0px_#111111]"
@@ -276,7 +276,7 @@ export default function ProjectsArchiveClient() {
                 <button
                   key={tech}
                   onClick={() => setSelectedTech(isSelected ? null : tech)}
-                  className={`border-2 border-[#111111] px-2.5 py-1 font-bold transition-all ${
+                  className={`border-2 border-[#111111] px-2.5 py-1 font-bold transition-[transform,box-shadow,background-color,border-color,color,opacity] ${
                     isSelected
                       ? "bg-[#00E5FF] text-black shadow-[2px_2px_0px_0px_#111111]"
                       : "bg-[#EEE7DC] text-[#111111] hover:bg-white"
@@ -325,7 +325,7 @@ export default function ProjectsArchiveClient() {
               {filteredPatents.map((patent) => (
                 <div
                   key={patent.slug}
-                  className="bg-[#FFFDF5] border-4 border-[#111111] p-6 shadow-[8px_8px_0px_0px_#111111] relative flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#111111] transition-all"
+                  className="bg-[#FFFDF5] border-4 border-[#111111] p-6 shadow-[8px_8px_0px_0px_#111111] relative flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#111111] transition-[transform,box-shadow,background-color,border-color,color,opacity]"
                 >
                   <div className="absolute -top-3 right-4 bg-[#FFE600] text-black border-2 border-[#111] font-mono text-[10px] font-black px-3 py-0.5 shadow-[2px_2px_0px_0px_#111] uppercase">
                     APP NO: {patent.application}
@@ -356,7 +356,7 @@ export default function ProjectsArchiveClient() {
                     </div>
                     <button
                       onClick={() => setActiveModalPatent(patent)}
-                      className="bg-[#111] text-white border-2 border-[#111] font-mono text-xs font-bold px-3 py-1 shadow-[2px_2px_0px_0px_#00E676] hover:bg-[#00E676] hover:text-black transition-all"
+                      className="bg-[#111] text-white border-2 border-[#111] font-mono text-xs font-bold px-3 py-1 shadow-[2px_2px_0px_0px_#00E676] hover:bg-[#00E676] hover:text-black transition-[transform,box-shadow,background-color,border-color,color,opacity]"
                     >
                       VIEW ABSTRACT ➔
                     </button>
@@ -375,7 +375,7 @@ export default function ProjectsArchiveClient() {
               return (
                 <article
                   key={project.slug}
-                  className={`border-4 border-[#111111] p-6 shadow-[8px_8px_0px_0px_#111111] flex flex-col justify-between hover:-translate-x-1.5 hover:-translate-y-1.5 hover:shadow-[14px_14px_0px_0px_#111111] transition-all bg-[#FFFDF5] relative group`}
+                  className={`border-4 border-[#111111] p-6 shadow-[8px_8px_0px_0px_#111111] flex flex-col justify-between hover:-translate-x-1.5 hover:-translate-y-1.5 hover:shadow-[14px_14px_0px_0px_#111111] transition-[transform,box-shadow,background-color,border-color,color,opacity] bg-[#FFFDF5] relative group`}
                 >
                   {/* FEATURED / CATEGORY BADGE */}
                   <div className="flex items-center justify-between mb-4">
@@ -417,7 +417,7 @@ export default function ProjectsArchiveClient() {
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="bg-[#111111] text-[#FFE600] border-2 border-[#111111] px-3 py-1.5 shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFE600] hover:text-[#111] transition-all flex items-center gap-1.5"
+                          className="bg-[#111111] text-[#FFE600] border-2 border-[#111111] px-3 py-1.5 shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFE600] hover:text-[#111] transition-[transform,box-shadow,background-color,border-color,color,opacity] flex items-center gap-1.5"
                         >
                           <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -433,14 +433,14 @@ export default function ProjectsArchiveClient() {
                       <div className="flex items-center gap-1.5">
                         <button
                           onClick={() => setActiveModalProject(project)}
-                          className="bg-[#00E5FF] text-black border-2 border-[#111] px-2.5 py-1.5 shadow-[2px_2px_0px_0px_#111] hover:bg-white transition-all"
+                          className="bg-[#00E5FF] text-black border-2 border-[#111] px-2.5 py-1.5 shadow-[2px_2px_0px_0px_#111] hover:bg-white transition-[transform,box-shadow,background-color,border-color,color,opacity]"
                           title="Quick inspect project specifications"
                         >
                           INSPECT
                         </button>
                         <Link
                           href={`/projects/${project.slug}`}
-                          className="bg-[#FF2A85] text-white border-2 border-[#111] px-2.5 py-1.5 shadow-[2px_2px_0px_0px_#111] hover:bg-[#111] transition-all"
+                          className="bg-[#FF2A85] text-white border-2 border-[#111] px-2.5 py-1.5 shadow-[2px_2px_0px_0px_#111] hover:bg-[#111] transition-[transform,box-shadow,background-color,border-color,color,opacity]"
                           title="View full project page"
                         >
                           PAGE
@@ -538,7 +538,7 @@ export default function ProjectsArchiveClient() {
                 setSelectedTech(null);
                 setSearchQuery("");
               }}
-              className="mt-6 bg-[#FFE600] text-black border-3 border-[#111111] px-6 py-2.5 font-mono text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_#111] hover:bg-[#111] hover:text-white transition-all"
+              className="mt-6 bg-[#FFE600] text-black border-3 border-[#111111] px-6 py-2.5 font-mono text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_#111] hover:bg-[#111] hover:text-white transition-[transform,box-shadow,background-color,border-color,color,opacity]"
             >
               RESET ALL FILTERS
             </button>
@@ -555,7 +555,7 @@ export default function ProjectsArchiveClient() {
           </p>
           <Link
             href="/"
-            className="bg-[#FFE600] text-black border-3 border-[#111111] px-8 py-3.5 font-mono text-sm font-black uppercase tracking-wider shadow-[6px_6px_0px_0px_#111111] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_#FF2A85] hover:bg-[#111111] hover:text-[#FFE600] transition-all"
+            className="bg-[#FFE600] text-black border-3 border-[#111111] px-8 py-3.5 font-mono text-sm font-black uppercase tracking-wider shadow-[6px_6px_0px_0px_#111111] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_#FF2A85] hover:bg-[#111111] hover:text-[#FFE600] transition-[transform,box-shadow,background-color,border-color,color,opacity]"
           >
             ← BACK TO MAIN PORTFOLIO SITE (HOME)
           </Link>
@@ -609,7 +609,7 @@ export default function ProjectsArchiveClient() {
                   href={activeModalProject.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-[#111] text-[#FFE600] border-2 border-[#111] px-4 py-2 shadow-[3px_3px_0px_0px_#FF2A85] hover:bg-[#FFE600] hover:text-black transition-all flex items-center gap-2"
+                  className="bg-[#111] text-[#FFE600] border-2 border-[#111] px-4 py-2 shadow-[3px_3px_0px_0px_#FF2A85] hover:bg-[#FFE600] hover:text-black transition-[transform,box-shadow,background-color,border-color,color,opacity] flex items-center gap-2"
                 >
                   VIEW GITHUB REPOSITORY ➔
                 </a>

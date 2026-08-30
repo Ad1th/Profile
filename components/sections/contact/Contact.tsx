@@ -146,7 +146,7 @@ export default function Contact() {
               {/* EMAIL 1 */}
               <a
                 href="mailto:hello@adith.xyz"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-all duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -164,7 +164,7 @@ export default function Contact() {
                         text-[clamp(1.6rem,2vw,2.5rem)]
                         tracking-[-0.04em]
                         text-[#E8DDD0]
-                        transition-all
+                        transition-[transform,box-shadow,background-color,border-color,color,opacity]
                         duration-500
                         group-hover:translate-x-1
                         group-hover:text-white
@@ -179,7 +179,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <span className="translate-x-0 text-3xl text-[#B9827E] transition-all duration-500 group-hover:translate-x-2">
+                <span className="translate-x-0 text-3xl text-[#B9827E] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
                   →
                 </span>
               </a>
@@ -187,7 +187,7 @@ export default function Contact() {
               {/* EMAIL 2 */}
               <a
                 href="mailto:madith2505@gmail.com"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-all duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -205,7 +205,7 @@ export default function Contact() {
                         text-[clamp(1.6rem,2vw,2.5rem)]
                         tracking-[-0.04em]
                         text-[#E8DDD0]
-                        transition-all
+                        transition-[transform,box-shadow,background-color,border-color,color,opacity]
                         duration-500
                         group-hover:translate-x-1
                         group-hover:text-white
@@ -220,7 +220,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <span className="translate-x-0 text-3xl text-[#B9827E] transition-all duration-500 group-hover:translate-x-2">
+                <span className="translate-x-0 text-3xl text-[#B9827E] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
                   →
                 </span>
               </a>
@@ -230,7 +230,7 @@ export default function Contact() {
                 href="https://github.com/Ad1th"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-all duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -248,7 +248,7 @@ export default function Contact() {
                         text-[clamp(1.6rem,2vw,2.5rem)]
                         tracking-[-0.04em]
                         text-[#E8DDD0]
-                        transition-all
+                        transition-[transform,box-shadow,background-color,border-color,color,opacity]
                         duration-500
                         group-hover:translate-x-1
                         group-hover:text-white
@@ -263,7 +263,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <span className="translate-x-0 text-3xl text-[#B9827E] transition-all duration-500 group-hover:translate-x-2">
+                <span className="translate-x-0 text-3xl text-[#B9827E] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
                   →
                 </span>
               </a>
@@ -273,7 +273,7 @@ export default function Contact() {
                 href="https://www.linkedin.com/in/adith-manikonda/"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-all duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -291,7 +291,7 @@ export default function Contact() {
                           text-[clamp(1.6rem,2vw,2.5rem)]
                           tracking-[-0.04em]
                           text-[#E8DDD0]
-                          transition-all
+                          transition-[transform,box-shadow,background-color,border-color,color,opacity]
                           duration-500
                           group-hover:translate-x-1
                           group-hover:text-white
@@ -306,7 +306,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <span className="translate-x-0 text-3xl text-[#B9827E] transition-all duration-500 group-hover:translate-x-2">
+                <span className="translate-x-0 text-3xl text-[#B9827E] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
                   →
                 </span>
               </a>

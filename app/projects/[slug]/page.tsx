@@ -227,27 +227,33 @@ export default async function ProjectPage({ params }: PageProps) {
           </ul>
         </section>
 
-        <section className="mt-14">
-          <h2 className="font-mono text-sm font-bold uppercase tracking-[0.16em]">
-            Screenshots
-          </h2>
-          <div className="mt-5 grid gap-6 sm:grid-cols-2">
-            {project.screenshots.map((screenshot, index) => (
-              <div
-                key={screenshot}
-                className="relative aspect-[16/10] overflow-hidden border border-[#111]/15 bg-white/40"
-              >
-                <Image
-                  src={screenshot}
-                  alt={`${project.title} screenshot ${index + 1} by Adith Manikonda`}
-                  fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className="object-contain"
-                />
-              </div>
-            ))}
-          </div>
-        </section>
+        {project.screenshots.filter((x) => !x.endsWith("_placeholder.svg"))
+          .length ? (
+          <section className="mt-16">
+            <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em]">
+              Screenshots
+            </h2>
+            <div className="mt-5 grid gap-6 sm:grid-cols-2">
+              {project.screenshots
+                .filter((x) => !x.endsWith("_placeholder.svg"))
+                .map((screenshot, index) => (
+                  <div
+                    key={screenshot}
+                    className="relative aspect-[16/10] overflow-hidden border-[3px] border-[#111] bg-white/40"
+                    style={{ boxShadow: "6px 6px 0 0 #111" }}
+                  >
+                    <Image
+                      src={screenshot}
+                      alt={`${project.title} screenshot ${index + 1} by Adith Manikonda`}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-contain"
+                    />
+                  </div>
+                ))}
+            </div>
+          </section>
+        ) : null}
       </article>
     </main>
   );

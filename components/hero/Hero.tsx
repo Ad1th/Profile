@@ -631,6 +631,10 @@ function HeadlineTablet() {
         lineHeight: 0.88,
       }}
     >
+      <h1
+        aria-label="Backend with taste."
+        style={{ display: "contents" }}
+      >
       <motion.span
         className="block text-[#F0EBE0]"
         style={{ fontSize: "clamp(48px, 8vw, 96px)" }}
@@ -669,6 +673,7 @@ function HeadlineTablet() {
       >
         TASTE.
       </motion.span>
+      </h1>
       <motion.p
         className="font-mono text-[#E8E8E8] normal-case mt-6"
         style={{
@@ -707,6 +712,10 @@ function HeadlineTabletPortrait() {
         lineHeight: 0.88,
       }}
     >
+      <h1
+        aria-label="Backend with taste."
+        style={{ display: "contents" }}
+      >
       <motion.span
         className="block text-[#F0EBE0]"
         style={{ fontSize: "clamp(62px, 10.5vw, 106px)" }}
@@ -745,6 +754,7 @@ function HeadlineTabletPortrait() {
       >
         TASTE.
       </motion.span>
+      </h1>
       <motion.p
         className="font-mono text-[#E8E8E8] normal-case mt-5"
         style={{
@@ -793,6 +803,10 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
         marginTop: portrait ? -16 : -10,
       }}
     >
+      <h1
+        aria-label="Backend with taste."
+        style={{ display: "contents" }}
+      >
       <motion.span
         className="block text-[#F0EBE0]"
         style={{
@@ -846,6 +860,7 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
       >
         TASTE.
       </motion.span>
+      </h1>
       <div
         style={{
           width: 48,

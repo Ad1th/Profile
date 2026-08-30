@@ -136,6 +136,26 @@ export const projects: Project[] = [
     featured: true,
     category: "Systems / Backend",
     paperColor: "purple",
+    evidence: {
+      problem:
+        "Observability tooling is almost always demonstrated against a healthy system, which tells you nothing about whether it catches the failures you actually get at 3am.",
+      approach:
+        "Four instrumented services with a real dependency graph -- product and payment both depend on auth and db -- so a single degraded dependency produces a genuine cascade rather than an isolated error. Failures are injected probabilistically, time-bound and intensity-scaled, so the same experiment can be repeated. An Isolation Forest detector proxies Prometheus metrics and webhooks an operator service that attempts recovery. A shared trace_id follows a request across every hop, which is what makes root-cause attribution possible at all.",
+      metrics: [
+        {
+          label: "Instrumented services",
+          value: "4",
+          note: "auth, db, product, payment, plus detector and operator",
+        },
+        {
+          label: "Load profiles",
+          value: "4",
+          note: "k6: normal, spike, endurance, stress",
+        },
+      ],
+      limits:
+        "Recovery is executed by an LLM operator rather than a deterministic runbook, so its actions are suggestions with side effects, not guarantees. The chaos layer and the detector are the parts that hold up under repetition.",
+    },
   },
   {
     slug: "point-wave-energy-harvester",

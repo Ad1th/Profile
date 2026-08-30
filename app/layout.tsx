@@ -53,20 +53,11 @@ export const metadata: Metadata = {
     siteName: "Adith Manikonda",
     title: "Adith Manikonda",
     description: "Backend Engineer",
-    images: [
-      {
-        url: "/images/me.webp",
-        width: 1200,
-        height: 630,
-        alt: "Adith Manikonda - Backend Engineer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Adith Manikonda",
     description: "Backend Engineer",
-    images: ["/images/me.webp"],
   },
   robots: {
     index: true,

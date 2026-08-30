@@ -82,6 +82,8 @@ export default async function ProjectPage({ params }: PageProps) {
     },
   };
 
+  const ev = project.evidence;
+
   return (
     <main
       id="main"
@@ -125,28 +127,49 @@ export default async function ProjectPage({ params }: PageProps) {
           </a>
         ) : null}
 
-        <section className="mt-12 grid gap-8 md:grid-cols-2">
-          <div>
+        {/* ── Evidence: the part a tech-tag list cannot carry ───────────── */}
+        {ev ? (
+          <section className="mt-16 grid gap-10 md:grid-cols-2">
+            <div>
+              <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em] text-[#E8420A]">
+                The Problem
+              </h2>
+              <div className="mt-3 h-[3px] w-12 bg-[#111]" />
+              <p className="mt-5 leading-7 text-[#111]/80">{ev.problem}</p>
+            </div>
+            <div>
+              <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em] text-[#E8420A]">
+                The Approach
+              </h2>
+              <div className="mt-3 h-[3px] w-12 bg-[#111]" />
+              <p className="mt-5 leading-7 text-[#111]/80">{ev.approach}</p>
+            </div>
+          </section>
+        ) : (
+          <section className="mt-14">
             <h2 className="font-mono text-sm font-bold uppercase tracking-[0.16em]">
               Purpose
             </h2>
-            <p className="mt-4 leading-7 text-[#111]/72">{project.purpose}</p>
-          </div>
-          <div>
-            <h2 className="font-mono text-sm font-bold uppercase tracking-[0.16em]">
-              Technologies
-            </h2>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {project.technologies.map((technology) => (
-                <li
-                  key={technology}
-                  className="border border-[#111]/20 px-3 py-1 font-mono text-xs uppercase tracking-[0.12em]"
-                >
-                  {technology}
-                </li>
-              ))}
-            </ul>
-          </div>
+            <p className="mt-4 max-w-3xl leading-7 text-[#111]/72">
+              {project.purpose}
+            </p>
+          </section>
+        )}
+
+        <section className="mt-16">
+          <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em]">
+            Built With
+          </h2>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {project.technologies.map((technology) => (
+              <li
+                key={technology}
+                className="border-2 border-[#111] bg-[#FFFDF5] px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-[0.12em]"
+              >
+                {technology}
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section className="mt-14">

@@ -229,7 +229,7 @@ function HeroDesktop({
       <motion.div
         className="absolute left-0 right-0 z-30 flex items-center"
         style={{
-          bottom: 56,
+          bottom: 43, // == ticker height; keeps the bar off the ticker
           height: 100,
           background: "#F0EBE0",
           borderTop: "5px solid #111",
@@ -237,7 +237,7 @@ function HeroDesktop({
           boxShadow: "0 -4px 0 #111",
         }}
         initial={{ opacity: 0, y: 18, scale: 0.985 }}
-        animate={{ opacity: 1, y: 16, scale: 1 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.65, delay: 0.35, ease: easings.primary }}
       >
         {[

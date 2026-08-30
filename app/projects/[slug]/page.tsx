@@ -195,6 +195,22 @@ export default async function ProjectPage({ params }: PageProps) {
           </section>
         ) : null}
 
+        {ev?.limits ? (
+          <section className="mt-16">
+            <div
+              className="border-[3px] border-[#111] bg-[#111] p-7 sm:p-9"
+              style={{ boxShadow: "8px 8px 0 0 #A14A32" }}
+            >
+              <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em] text-[#CFDE00]">
+                What It Does Not Do
+              </h2>
+              <p className="mt-5 max-w-3xl leading-7 text-[#E8DDD0]">
+                {ev.limits}
+              </p>
+            </div>
+          </section>
+        ) : null}
+
         <section className="mt-16">
           <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em]">
             Built With

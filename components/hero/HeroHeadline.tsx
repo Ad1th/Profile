@@ -28,6 +28,10 @@ export default function HeroHeadline({
       }}
     >
       {/* BACKEND — white, full width bleed */}
+      <h1
+        aria-label="Backend with taste."
+        style={{ display: "contents" }}
+      >
       <motion.div
         style={{
           clipPath: "inset(0 -40% 0 0)",
@@ -92,6 +96,7 @@ export default function HeroHeadline({
           TASTE.
         </motion.span>
       </motion.div>
+      </h1>
 
       {/* Subtext */}
       <div className="mt-[20px]">

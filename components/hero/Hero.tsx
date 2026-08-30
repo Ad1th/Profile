@@ -137,7 +137,7 @@ function HeroDesktop({
   marqueeDuration,
 }: HeroDesktopExternalProps) {
   return (
-    <section className="relative h-screen min-h-[900px] w-full overflow-hidden bg-[#F0EBE0]">
+    <section className="relative h-[100dvh] min-h-[800px] w-full overflow-hidden bg-[#F0EBE0]">
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
       <motion.div
@@ -229,7 +229,7 @@ function HeroDesktop({
       <motion.div
         className="absolute left-0 right-0 z-30 flex items-center"
         style={{
-          bottom: 56,
+          bottom: 43, // == ticker height; keeps the bar off the ticker
           height: 100,
           background: "#F0EBE0",
           borderTop: "5px solid #111",
@@ -237,7 +237,7 @@ function HeroDesktop({
           boxShadow: "0 -4px 0 #111",
         }}
         initial={{ opacity: 0, y: 18, scale: 0.985 }}
-        animate={{ opacity: 1, y: 16, scale: 1 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.65, delay: 0.35, ease: easings.primary }}
       >
         {[
@@ -347,7 +347,7 @@ function HeroDesktop({
 // ═══════════════════════════════════════════════════════════════════════════
 function HeroTabletLandscape() {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#F0EBE0]">
+    <section className="relative min-h-[100dvh] w-full overflow-hidden bg-[#F0EBE0]">
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
       <motion.div
         className="absolute inset-0 z-50 pointer-events-none"
@@ -631,6 +631,10 @@ function HeadlineTablet() {
         lineHeight: 0.88,
       }}
     >
+      <h1
+        aria-label="Backend with taste."
+        style={{ display: "contents" }}
+      >
       <motion.span
         className="block text-[#F0EBE0]"
         style={{ fontSize: "clamp(48px, 8vw, 96px)" }}
@@ -669,6 +673,7 @@ function HeadlineTablet() {
       >
         TASTE.
       </motion.span>
+      </h1>
       <motion.p
         className="font-mono text-[#E8E8E8] normal-case mt-6"
         style={{
@@ -707,6 +712,10 @@ function HeadlineTabletPortrait() {
         lineHeight: 0.88,
       }}
     >
+      <h1
+        aria-label="Backend with taste."
+        style={{ display: "contents" }}
+      >
       <motion.span
         className="block text-[#F0EBE0]"
         style={{ fontSize: "clamp(62px, 10.5vw, 106px)" }}
@@ -745,6 +754,7 @@ function HeadlineTabletPortrait() {
       >
         TASTE.
       </motion.span>
+      </h1>
       <motion.p
         className="font-mono text-[#E8E8E8] normal-case mt-5"
         style={{
@@ -793,6 +803,10 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
         marginTop: portrait ? -16 : -10,
       }}
     >
+      <h1
+        aria-label="Backend with taste."
+        style={{ display: "contents" }}
+      >
       <motion.span
         className="block text-[#F0EBE0]"
         style={{
@@ -846,6 +860,7 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
       >
         TASTE.
       </motion.span>
+      </h1>
       <div
         style={{
           width: 48,
@@ -1029,7 +1044,7 @@ function HeroPortraitTablet() {
         transition={{ duration: 0.6, delay: 0.3, ease: easings.primary }}
       >
         <img
-          src="/images/me2.jpeg"
+          src="/images/me2.webp"
           alt="Adith Manikonda"
           style={{
             width: "100%",
@@ -1089,7 +1104,7 @@ function HeroPortraitTabletPortrait() {
         transition={{ duration: 0.6, delay: 0.3, ease: easings.primary }}
       >
         <img
-          src="/images/me2.jpeg"
+          src="/images/me2.webp"
           alt="Adith Manikonda"
           style={{
             width: "100%",
@@ -1149,7 +1164,7 @@ function HeroPortraitMobile() {
         transition={{ duration: 0.6, delay: 0.25, ease: easings.primary }}
       >
         <img
-          src="/images/me2.jpeg"
+          src="/images/me2.webp"
           alt="Adith Manikonda"
           style={{
             width: "100%",

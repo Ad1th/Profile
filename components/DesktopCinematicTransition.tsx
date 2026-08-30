@@ -37,7 +37,8 @@ export default function DesktopCinematicTransition() {
   // Hero exits during the first third, revealing the single About instance.
   const backendX = useTransform(scrollYProgress, [0.02, 0.1], [0, -700]);
   const backendOpacity = useTransform(scrollYProgress, [0.02, 0.09], [1, 0]);
-  const withX = useTransform(scrollYProgress, [0.03, 0.12], [0, 1800]);
+  // viewport-relative so WITH fully exits on wide screens too
+  const withX = useTransform(scrollYProgress, [0.03, 0.12], ["0vw", "125vw"]);
   const withScale = useTransform(scrollYProgress, [0.03, 0.12], [1, 0.96]);
   const tasteY = useTransform(scrollYProgress, [0.05, 0.14], [0, 680]);
   const tasteRotate = useTransform(scrollYProgress, [0.05, 0.14], [0, 1.4]);
@@ -247,16 +248,26 @@ export default function DesktopCinematicTransition() {
             style={{
               position: "absolute",
               inset: 0,
-              zIndex: 20,
-              opacity: skillsOpacity,
-              y: skillsY,
-              scale: skillsScale,
-              background: "#111",
-              overflow: "hidden",
-              willChange: "transform, opacity",
+              zIndex: 40,
+              clipPath: heroShellClip,
+              opacity: heroShellOpacity,
+              willChange: "clip-path, opacity",
             }}
           >
-            <SkillsLayer />
+            <Hero
+              transitionProgress={scrollYProgress}
+              suppressTicker={false}
+              backendStyle={{ x: backendX, opacity: backendOpacity }}
+              withStyle={{ x: withX, scale: withScale }}
+              tasteStyle={{ y: tasteY, rotate: tasteRotate }}
+              imageScale={imageScale}
+              imageY={imageY}
+              stickerRotate={stickerRotate}
+              stickerX={stickerX}
+              marqueeOpacity={marqueeOpacity}
+              marqueeFilter={marqueeFilter}
+              marqueeDuration={marqueeDuration}
+            />
           </motion.div>
 
           <motion.div
@@ -305,26 +316,16 @@ export default function DesktopCinematicTransition() {
             style={{
               position: "absolute",
               inset: 0,
-              zIndex: 40,
-              clipPath: heroShellClip,
-              opacity: heroShellOpacity,
-              willChange: "clip-path, opacity",
+              zIndex: 20,
+              opacity: skillsOpacity,
+              y: skillsY,
+              scale: skillsScale,
+              background: "#111",
+              overflow: "hidden",
+              willChange: "transform, opacity",
             }}
           >
-            <Hero
-              transitionProgress={scrollYProgress}
-              suppressTicker={false}
-              backendStyle={{ x: backendX, opacity: backendOpacity }}
-              withStyle={{ x: withX, scale: withScale }}
-              tasteStyle={{ y: tasteY, rotate: tasteRotate }}
-              imageScale={imageScale}
-              imageY={imageY}
-              stickerRotate={stickerRotate}
-              stickerX={stickerX}
-              marqueeOpacity={marqueeOpacity}
-              marqueeFilter={marqueeFilter}
-              marqueeDuration={marqueeDuration}
-            />
+            <SkillsLayer />
           </motion.div>
         </div>
       </div>

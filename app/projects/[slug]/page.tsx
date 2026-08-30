@@ -22,7 +22,7 @@ export async function generateMetadata({
 
   const title = `${project.seoTitle ?? project.title} | Project by Adith Manikonda`;
   const description = `${project.description} Built by Adith Manikonda using ${project.technologies.join(", ")}.`;
-  const image = project.screenshots[0] ?? "/images/me.png";
+  const image = project.screenshots[0] ?? "/images/me.webp";
 
   return {
     title,
@@ -82,65 +82,178 @@ export default async function ProjectPage({ params }: PageProps) {
     },
   };
 
+  const ev = project.evidence;
+
   return (
-    <main className="min-h-screen bg-[#EEE7DC] px-6 py-28 text-[#111] sm:px-10 lg:px-16">
+    <main
+      id="main"
+      className="min-h-screen bg-[#EEE7DC] px-6 py-28 text-[#111] sm:px-10 lg:px-16"
+    >
       <StructuredData data={schema} />
       <article className="mx-auto max-w-5xl">
-        <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32]">
+        <a
+          href="/projects"
+          className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32] hover:text-[#E8420A]"
+        >
+          &larr; All Projects
+        </a>
+
+        <p className="mt-8 font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32]">
           Adith Manikonda Project / {project.year}
+          {project.category ? ` / ${project.category}` : ""}
         </p>
-        <h1 className="mt-5 max-w-4xl text-5xl font-black uppercase leading-none sm:text-7xl">
+        <h1
+          className="mt-5 max-w-4xl text-5xl uppercase leading-none sm:text-7xl"
+          style={{
+            fontFamily: "var(--font-anton), 'Arial Black', Impact, sans-serif",
+            letterSpacing: "-0.02em",
+          }}
+        >
           {project.seoTitle ?? project.title}
         </h1>
         <p className="mt-8 max-w-3xl text-xl leading-8 text-[#111]/75">
           {project.description}
         </p>
 
-        <section className="mt-12 grid gap-8 md:grid-cols-2">
-          <div>
+        {project.github ? (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-8 inline-block border-[3px] border-[#111] bg-[#CFDE00] px-6 py-3 font-mono text-xs font-black uppercase tracking-[0.14em] text-[#111] hover:bg-[#111] hover:text-[#CFDE00]"
+            style={{ boxShadow: "4px 4px 0 0 #111" }}
+          >
+            Source &nbsp;&#8599;
+          </a>
+        ) : null}
+
+        {/* ── Evidence: the part a tech-tag list cannot carry ───────────── */}
+        {ev ? (
+          <section className="mt-16 grid gap-10 md:grid-cols-2">
+            <div>
+              <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em] text-[#E8420A]">
+                The Problem
+              </h2>
+              <div className="mt-3 h-[3px] w-12 bg-[#111]" />
+              <p className="mt-5 leading-7 text-[#111]/80">{ev.problem}</p>
+            </div>
+            <div>
+              <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em] text-[#E8420A]">
+                The Approach
+              </h2>
+              <div className="mt-3 h-[3px] w-12 bg-[#111]" />
+              <p className="mt-5 leading-7 text-[#111]/80">{ev.approach}</p>
+            </div>
+          </section>
+        ) : (
+          <section className="mt-14">
             <h2 className="font-mono text-sm font-bold uppercase tracking-[0.16em]">
               Purpose
             </h2>
-            <p className="mt-4 leading-7 text-[#111]/72">{project.purpose}</p>
-          </div>
-          <div>
-            <h2 className="font-mono text-sm font-bold uppercase tracking-[0.16em]">
-              Technologies
+            <p className="mt-4 max-w-3xl leading-7 text-[#111]/72">
+              {project.purpose}
+            </p>
+          </section>
+        )}
+
+        {ev?.metrics?.length ? (
+          <section className="mt-16">
+            <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em]">
+              Measured
             </h2>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {project.technologies.map((technology) => (
-                <li
-                  key={technology}
-                  className="border border-[#111]/20 px-3 py-1 font-mono text-xs uppercase tracking-[0.12em]"
+            <div className="mt-5 grid gap-0 border-[3px] border-[#111] sm:grid-cols-3">
+              {ev.metrics.map((m, i) => (
+                <div
+                  key={m.label}
+                  className={`bg-[#FFFDF5] p-6 ${
+                    i < ev.metrics!.length - 1
+                      ? "border-b-[3px] border-[#111] sm:border-b-0 sm:border-r-[3px]"
+                      : ""
+                  }`}
                 >
-                  {technology}
-                </li>
+                  <p
+                    className="text-3xl leading-none sm:text-4xl"
+                    style={{
+                      fontFamily:
+                        "var(--font-anton), 'Arial Black', Impact, sans-serif",
+                      fontVariantNumeric: "tabular-nums",
+                    }}
+                  >
+                    {m.value}
+                  </p>
+                  <p className="mt-3 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-[#111]">
+                    {m.label}
+                  </p>
+                  {m.note ? (
+                    <p className="mt-2 font-mono text-[11px] leading-5 text-[#111]/55">
+                      {m.note}
+                    </p>
+                  ) : null}
+                </div>
               ))}
-            </ul>
-          </div>
+            </div>
+          </section>
+        ) : null}
+
+        {ev?.limits ? (
+          <section className="mt-16">
+            <div
+              className="border-[3px] border-[#111] bg-[#111] p-7 sm:p-9"
+              style={{ boxShadow: "8px 8px 0 0 #A14A32" }}
+            >
+              <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em] text-[#CFDE00]">
+                What It Does Not Do
+              </h2>
+              <p className="mt-5 max-w-3xl leading-7 text-[#E8DDD0]">
+                {ev.limits}
+              </p>
+            </div>
+          </section>
+        ) : null}
+
+        <section className="mt-16">
+          <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em]">
+            Built With
+          </h2>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {project.technologies.map((technology) => (
+              <li
+                key={technology}
+                className="border-2 border-[#111] bg-[#FFFDF5] px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-[0.12em]"
+              >
+                {technology}
+              </li>
+            ))}
+          </ul>
         </section>
 
-        <section className="mt-14">
-          <h2 className="font-mono text-sm font-bold uppercase tracking-[0.16em]">
-            Screenshots
-          </h2>
-          <div className="mt-5 grid gap-6 sm:grid-cols-2">
-            {project.screenshots.map((screenshot, index) => (
-              <div
-                key={screenshot}
-                className="relative aspect-[16/10] overflow-hidden border border-[#111]/15 bg-white/40"
-              >
-                <Image
-                  src={screenshot}
-                  alt={`${project.title} screenshot ${index + 1} by Adith Manikonda`}
-                  fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className="object-contain"
-                />
-              </div>
-            ))}
-          </div>
-        </section>
+        {project.screenshots.filter((x) => !x.endsWith("_placeholder.svg"))
+          .length ? (
+          <section className="mt-16">
+            <h2 className="font-mono text-sm font-black uppercase tracking-[0.16em]">
+              Screenshots
+            </h2>
+            <div className="mt-5 grid gap-6 sm:grid-cols-2">
+              {project.screenshots
+                .filter((x) => !x.endsWith("_placeholder.svg"))
+                .map((screenshot, index) => (
+                  <div
+                    key={screenshot}
+                    className="relative aspect-[16/10] overflow-hidden border-[3px] border-[#111] bg-white/40"
+                    style={{ boxShadow: "6px 6px 0 0 #111" }}
+                  >
+                    <Image
+                      src={screenshot}
+                      alt={`${project.title} screenshot ${index + 1} by Adith Manikonda`}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-contain"
+                    />
+                  </div>
+                ))}
+            </div>
+          </section>
+        ) : null}
       </article>
     </main>
   );

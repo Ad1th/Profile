@@ -164,7 +164,7 @@ export default function SkillsHero({
         </motion.div>
 
         {/* Animated headline — each line slides up */}
-        <div className="overflow-hidden">
+        <h2 className="overflow-hidden">
           {headlineLines.map((line, i) => (
             <div key={line.text} style={{ overflow: "hidden" }}>
               <motion.div
@@ -199,7 +199,7 @@ export default function SkillsHero({
               </motion.div>
             </div>
           ))}
-        </div>
+        </h2>
 
         <motion.div
           style={{ width: 40, height: 3, background: "#8A8B6D", marginTop: -2 }}

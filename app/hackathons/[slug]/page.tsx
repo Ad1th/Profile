@@ -44,7 +44,7 @@ export async function generateMetadata({
       siteName: "Adith Manikonda",
       images: [
         {
-          url: "/images/me.png",
+          url: "/images/me.webp",
           width: 1200,
           height: 630,
           alt: "Adith Manikonda hackathon achievement",
@@ -55,7 +55,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/me.png"],
+      images: ["/images/me.webp"],
     },
   };
 }

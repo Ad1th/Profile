@@ -323,13 +323,14 @@ export default function ExperienceCard(
   useEffect(() => {
     if (cardRef.current) {
       gsap.to(cardRef.current, {
-        boxShadow: [
-          "6px 6px 0 rgba(0,0,0,0.5)",
-          "7px 8px 0 rgba(0,0,0,0.58)",
-          "6px 6px 0 rgba(0,0,0,0.5)",
-        ],
+        keyframes: {
+          boxShadow: [
+            "6px 6px 0 rgba(0,0,0,0.5)",
+            "7px 8px 0 rgba(0,0,0,0.58)",
+            "6px 6px 0 rgba(0,0,0,0.5)",
+          ],
+        },
         duration: 3.2,
-        yoyo: true,
         repeat: -1,
         ease: "sine.inOut",
       });

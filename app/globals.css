@@ -47,3 +47,17 @@ section:not([data-section="hero"]) {
     padding-top: var(--nav-height);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ACCESSIBILITY BASE
+   Additive only — no colour, type or layout metrics are set here, so the
+   page looks identical at rest.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* The navbar, hero CTA and archive search all used `outline-none` with no
+   replacement, leaving keyboard users with no visible position anywhere.
+   One ring, in a colour already on the page. */
+:where(a, button, [role="button"], input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 3px solid #E8420A;
+  outline-offset: 3px;
+}

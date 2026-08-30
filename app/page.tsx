@@ -59,7 +59,7 @@ export default function Page() {
       <StructuredData data={[portfolioSchema, ...projectSchemas]} />
       <HomePageClient />
       <section className="sr-only" aria-label="Searchable portfolio summary">
-        <h1>Adith Manikonda Portfolio</h1>
+        <h2>Adith Manikonda Portfolio</h2>
         <p>
           Adith Manikonda is a backend-focused engineer from VIT Vellore,
           systems builder, research developer, patent developer and open-source

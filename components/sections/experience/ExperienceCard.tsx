@@ -321,8 +321,14 @@ export default function ExperienceCard(
 
   // Paper-shadow movement animation
   useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
     if (cardRef.current) {
-      gsap.to(cardRef.current, {
+      const tween = gsap.to(cardRef.current, {
         keyframes: {
           boxShadow: [
             "6px 6px 0 rgba(0,0,0,0.5)",
@@ -334,6 +340,9 @@ export default function ExperienceCard(
         repeat: -1,
         ease: "sine.inOut",
       });
+      return () => {
+        tween.kill();
+      };
     }
   }, []);
 

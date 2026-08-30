@@ -95,6 +95,31 @@ export const projects: Project[] = [
     featured: true,
     category: "Systems / Backend",
     paperColor: "blue",
+    evidence: {
+      problem:
+        "Exploratory analytics makes you wait for exact answers you do not need yet. While shaping a query you want the shape of the result in a fraction of the time, and you want to know how wrong the fast answer is.",
+      approach:
+        "Approximate execution alongside exact, over DuckDB, Postgres and MySQL. Both sides of a join are sampled independently rather than after the join, so join selectivity survives; HyperLogLog sketches estimate result cardinality without materialising it, and bloom filters pre-filter the probe side. A benchmark mode runs exact and approximate together and reports the error and the speedup rather than asking you to trust the sample.",
+      metrics: [
+        {
+          label: "TPC-H Q5, 3-way star join",
+          value: "6.85x faster",
+          note: "0.035s exact vs 0.005s approximate at 1% sampling",
+        },
+        {
+          label: "Cardinality estimate error",
+          value: "~1%",
+          note: "HyperLogLog, 2^14 registers, 16KB per sketch",
+        },
+        {
+          label: "Adaptive time budget",
+          value: "2x / 3.5x",
+          note: "Multipliers applied for 2-way and 3-way joins",
+        },
+      ],
+      limits:
+        "Only one of five TPC-H join queries came out ahead. Q3, Q10, Q12 and Q18 ran 5x to 50x slower approximate than exact, because TABLESAMPLE overhead dominates at these sizes and small samples never reach parallel execution. At 1% sampling all five returned zero rows: join selectivity collapses on small samples. The sampling strategy holds for single-table aggregates; selective multi-way joins need a higher floor on sample size before it pays.",
+    },
   },
   {
     slug: "archaic",

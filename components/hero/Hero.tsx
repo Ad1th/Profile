@@ -137,7 +137,7 @@ function HeroDesktop({
   marqueeDuration,
 }: HeroDesktopExternalProps) {
   return (
-    <section className="relative h-screen min-h-[900px] w-full overflow-hidden bg-[#F0EBE0]">
+    <section className="relative h-[100dvh] min-h-[900px] w-full overflow-hidden bg-[#F0EBE0]">
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
       <motion.div
@@ -347,7 +347,7 @@ function HeroDesktop({
 // ═══════════════════════════════════════════════════════════════════════════
 function HeroTabletLandscape() {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#F0EBE0]">
+    <section className="relative min-h-[100dvh] w-full overflow-hidden bg-[#F0EBE0]">
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
       <motion.div
         className="absolute inset-0 z-50 pointer-events-none"

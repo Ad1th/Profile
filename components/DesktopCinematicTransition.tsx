@@ -37,7 +37,8 @@ export default function DesktopCinematicTransition() {
   // Hero exits during the first third, revealing the single About instance.
   const backendX = useTransform(scrollYProgress, [0.02, 0.1], [0, -700]);
   const backendOpacity = useTransform(scrollYProgress, [0.02, 0.09], [1, 0]);
-  const withX = useTransform(scrollYProgress, [0.03, 0.12], [0, 1800]);
+  // viewport-relative so WITH fully exits on wide screens too
+  const withX = useTransform(scrollYProgress, [0.03, 0.12], ["0vw", "125vw"]);
   const withScale = useTransform(scrollYProgress, [0.03, 0.12], [1, 0.96]);
   const tasteY = useTransform(scrollYProgress, [0.05, 0.14], [0, 680]);
   const tasteRotate = useTransform(scrollYProgress, [0.05, 0.14], [0, 1.4]);

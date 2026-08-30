@@ -247,16 +247,26 @@ export default function DesktopCinematicTransition() {
             style={{
               position: "absolute",
               inset: 0,
-              zIndex: 20,
-              opacity: skillsOpacity,
-              y: skillsY,
-              scale: skillsScale,
-              background: "#111",
-              overflow: "hidden",
-              willChange: "transform, opacity",
+              zIndex: 40,
+              clipPath: heroShellClip,
+              opacity: heroShellOpacity,
+              willChange: "clip-path, opacity",
             }}
           >
-            <SkillsLayer />
+            <Hero
+              transitionProgress={scrollYProgress}
+              suppressTicker={false}
+              backendStyle={{ x: backendX, opacity: backendOpacity }}
+              withStyle={{ x: withX, scale: withScale }}
+              tasteStyle={{ y: tasteY, rotate: tasteRotate }}
+              imageScale={imageScale}
+              imageY={imageY}
+              stickerRotate={stickerRotate}
+              stickerX={stickerX}
+              marqueeOpacity={marqueeOpacity}
+              marqueeFilter={marqueeFilter}
+              marqueeDuration={marqueeDuration}
+            />
           </motion.div>
 
           <motion.div
@@ -305,26 +315,16 @@ export default function DesktopCinematicTransition() {
             style={{
               position: "absolute",
               inset: 0,
-              zIndex: 40,
-              clipPath: heroShellClip,
-              opacity: heroShellOpacity,
-              willChange: "clip-path, opacity",
+              zIndex: 20,
+              opacity: skillsOpacity,
+              y: skillsY,
+              scale: skillsScale,
+              background: "#111",
+              overflow: "hidden",
+              willChange: "transform, opacity",
             }}
           >
-            <Hero
-              transitionProgress={scrollYProgress}
-              suppressTicker={false}
-              backendStyle={{ x: backendX, opacity: backendOpacity }}
-              withStyle={{ x: withX, scale: withScale }}
-              tasteStyle={{ y: tasteY, rotate: tasteRotate }}
-              imageScale={imageScale}
-              imageY={imageY}
-              stickerRotate={stickerRotate}
-              stickerX={stickerX}
-              marqueeOpacity={marqueeOpacity}
-              marqueeFilter={marqueeFilter}
-              marqueeDuration={marqueeDuration}
-            />
+            <SkillsLayer />
           </motion.div>
         </div>
       </div>

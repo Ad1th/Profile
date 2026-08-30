@@ -27,6 +27,26 @@ export const siteKeywords = [
   "Patent Developer",
 ];
 
+/**
+ * Evidence for a project — the part a reader cannot get from a tech-tag list.
+ *
+ * `metrics` holds only numbers that were actually measured and are
+ * reproducible from the repo. Leave it out rather than estimate.
+ * `limits` is deliberately part of the schema: a build that states what it
+ * cannot do reads as engineering, and it is the claim the site's own
+ * "behavior > buzzwords" panel is making.
+ */
+export type Evidence = {
+  /** The constraint or failure mode the project exists to handle. */
+  problem: string;
+  /** The decision taken, and the tradeoff it accepts. */
+  approach: string;
+  /** Measured results. Real numbers only. */
+  metrics?: { label: string; value: string; note?: string }[];
+  /** What did not work, or what this build still cannot do. */
+  limits?: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -40,6 +60,7 @@ export type Project = {
   featured?: boolean;
   category?: "Systems / Backend" | "AI & ML" | "CLI & Tools" | "IoT / Hardware" | "Web Apps";
   paperColor?: "yellow" | "blue" | "orange" | "pink" | "green" | "purple" | "white";
+  evidence?: Evidence;
 };
 
 export const projects: Project[] = [

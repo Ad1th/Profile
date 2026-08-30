@@ -457,10 +457,13 @@ function PreviewImage({
     : srcBase && /\.[a-z]{2,4}$/i.test(srcBase)
       ? [`/images/projects/${folder}/${srcBase}`]
       : [
+          `/images/projects/${folder}/${srcBase ?? `preview-${index + 1}`}.webp`,
           `/images/projects/${folder}/${srcBase ?? `preview-${index + 1}`}.png`,
           `/images/projects/${folder}/${srcBase ?? `preview-${index + 1}`}.jpg`,
+          `/images/projects/${folder}/preview-${index + 1}.webp`,
           `/images/projects/${folder}/preview-${index + 1}.png`,
           `/images/projects/${folder}/preview-${index + 1}.jpg`,
+          `/images/projects/${folder}/${folder}.webp`,
           `/images/projects/${folder}/${folder}.png`,
           `/images/projects/${folder}/${folder}.jpg`,
         ];

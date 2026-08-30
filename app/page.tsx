@@ -55,7 +55,7 @@ const projectSchemas = projects.map((project) => ({
 
 export default function Page() {
   return (
-    <main id="main">
+    <main id="main" data-page="home">
       <StructuredData data={[portfolioSchema, ...projectSchemas]} />
       <HomePageClient />
       <section className="sr-only" aria-label="Searchable portfolio summary">

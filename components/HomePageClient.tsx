@@ -5,11 +5,16 @@
  *   One pinned cinematic timeline owns Hero -> About -> Skills -> Experience.
  *   Each section is rendered once, as a layer in the same sticky viewport.
  *
- * MOBILE/TABLET (<= 1180px):
+ * MOBILE/TABLET (<= 1180px) and REDUCED MOTION:
  *   All sections render independently with whileInView animations.
+ *   The stacked layout doubles as the reduced-motion variant: 320vh of
+ *   scroll-linked pinning, parallax and clip-path wipes has no accessible
+ *   "slower" version, so visitors who ask for less motion get the same
+ *   content laid out linearly instead.
  */
 
 import { useEffect, useLayoutEffect, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import DesktopCinematicTransition from "@/components/DesktopCinematicTransition";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
@@ -55,10 +60,11 @@ const SECTIONS = [
 
 export default function HomePageClient() {
   const isDesktop = useIsDesktop();
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <>
-      {isDesktop ? (
+      {isDesktop && !prefersReducedMotion ? (
         <>
           <DesktopCinematicTransition />
           <Patents />

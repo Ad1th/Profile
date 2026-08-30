@@ -200,6 +200,22 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/BlindSpot",
     category: "AI & ML",
     paperColor: "pink",
+    evidence: {
+      problem:
+        "Assistive vision that depends on a round trip to the cloud fails exactly when connectivity does, and streaming a continuous video feed of where someone lives is a privacy problem before it is a latency problem.",
+      approach:
+        "Processing runs on a Raspberry Pi 5 carried by the user, so the video never has to leave the device to produce a response. A CNN-LSTM handles motion recognition over the frame sequence, and the result is narrated as audio rather than shown, because the output has to work for someone who cannot see the screen.",
+      metrics: [
+        {
+          label: "Capture",
+          value: "640x480 @ 30fps",
+          note: "0.3MP USB webcam",
+        },
+        { label: "Edge unit", value: "Raspberry Pi 5", note: "Battery-portable, no rack" },
+      ],
+      limits:
+        "Not fully offline yet -- some scene description still calls out to cloud services, so the privacy and availability argument only holds for the detection path, not the whole pipeline.",
+    },
   },
   {
     slug: "argus",

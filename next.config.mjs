@@ -15,6 +15,7 @@ try {
 const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [75, 85],
     minimumCacheTTL: 31536000,
   },
   experimental: {

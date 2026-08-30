@@ -9,7 +9,7 @@
  *   All sections render independently with whileInView animations.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import DesktopCinematicTransition from "@/components/DesktopCinematicTransition";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
@@ -22,13 +22,22 @@ import HackathonsAchievements from "@/components/sections/hackathons-achievement
 import Contact from "@/components/sections/contact/Contact";
 import ScrollProgressDots from "@/components/ui/ScrollProgressDots";
 
+/**
+ * Runs before paint on the client, no-ops on the server. The viewport check
+ * used to sit in useEffect, so the browser painted the stacked layout for one
+ * frame and then jumped to the cinematic one on every desktop load.
+ */
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
-  useEffect(() => {
-    const check = () => setIsDesktop(window.innerWidth > 1180);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+  useIsomorphicLayoutEffect(() => {
+    const mql = window.matchMedia("(min-width: 1181px)");
+    const sync = () => setIsDesktop(mql.matches);
+    sync();
+    mql.addEventListener("change", sync);
+    return () => mql.removeEventListener("change", sync);
   }, []);
   return isDesktop;
 }

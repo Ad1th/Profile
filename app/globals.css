@@ -61,3 +61,15 @@ section:not([data-section="hero"]) {
   outline: 3px solid #E8420A;
   outline-offset: 3px;
 }
+
+/* Never let the fixed nav cover the element that was just tabbed or linked to. */
+:target {
+  scroll-margin-top: calc(var(--nav-height) + 24px);
+}
+
+/* Kill the 300ms double-tap delay on touch controls. */
+a,
+button,
+[role="button"] {
+  touch-action: manipulation;
+}

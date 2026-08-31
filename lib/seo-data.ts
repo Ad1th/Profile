@@ -81,6 +81,47 @@ export const projects: Project[] = [
     paperColor: "orange",
   },
   {
+    slug: "hybrid-symbol-table",
+    title: "HYBRID SYMBOL TABLE",
+    seoTitle: "Hybrid Symbol Table for Embedded Compilers",
+    description:
+      "Cache-conscious, arena-backed symbol table in C11 with adaptive per-scope storage and constant-time scope teardown.",
+    purpose:
+      "Compiler frontend data structure for resource-constrained toolchains, language servers and whole-program analysis.",
+    technologies: ["C11", "CMake", "ASan", "UBSan", "Compilers"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/hybrid-symbol-table",
+    featured: true,
+    category: "Systems / Backend",
+    paperColor: "green",
+    evidence: {
+      problem:
+        "A symbol table is the compiler's authoritative record of every declared identifier, and the classical choices each fail somewhere that matters on constrained hardware. A linear list is O(n) per lookup, an AVL tree pays pointer-chasing and per-node allocation, and a chained hash table scatters records across the heap and pays O(n) to tear a scope down. On an embedded toolchain the allocator traffic and the cache misses cost more than the asymptotics suggest.",
+      approach:
+        "Records are packed into 24 bytes and bump-allocated from an arena, so a scope's symbols are contiguous and there is no per-symbol allocation to unwind. Each scope picks its own storage tier at runtime and promotes from linear to hashed once it is worth it, rather than paying hash overhead for the two-symbol scopes that dominate real code. Scope exit rewinds an arena mark instead of walking and freeing, and a 64-entry direct-mapped cache absorbs repeated resolution through deep nesting.",
+      metrics: [
+        {
+          label: "Scope teardown",
+          value: "601x faster",
+          note: "Constant 85-130ns across N=2..1024, against 51,145ns for a chained free() loop",
+        },
+        {
+          label: "Lookup at 100k symbols",
+          value: "26 ns",
+          note: "8.0ns at N=1 and N=16, 24.0ns at N=1024 — near-flat with scope size",
+        },
+        {
+          label: "Per-symbol footprint",
+          value: "35.2 B",
+          note: "Analytical, against 91.4 B chained; 59.2 B measured at N=1000 with zero allocator overhead",
+        },
+      ],
+      limits:
+        "Deleting a single symbol is unsupported: teardown works by rewinding the arena, which is what buys the constant-time scope exit, so individual reclamation would defeat it. The cache-miss objective is projected rather than measured — it needs Linux perf counters and the host is macOS, so the collection script is written but unrun. Worst case is still O(n) on a full probe cluster or a tier promotion.",
+    },
+  },
+  {
     slug: "aetherquery",
     title: "AETHERQUERY",
     seoTitle: "AetherQuery Analytical Query Engine",

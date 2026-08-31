@@ -385,6 +385,14 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/sevaverse/sevaverse.webp"],
     category: "Web Apps",
     paperColor: "pink",
+    evidence: {
+      problem:
+        "NGOs, orphanages, volunteers and donors have no shared surface, so outreach stays limited, donations are mobilised ad hoc, volunteer onboarding is manual, and nobody downstream can see what actually happened to a contribution.",
+      approach:
+        "One platform holding all four parties rather than a donation form: organisation sign-up and profiles, volunteer recruitment and management, and tracking that leaves a record each side can inspect. Built with Aditya Vardhan Kochar and Arikta Das for Women Techies'25, run by GDSC at VIT Vellore.",
+      limits:
+        "Built to a hackathon deadline, so the transparency and reporting mechanisms are demonstrated rather than hardened -- there is no verification that a listed organisation is real, which is the first thing a platform like this would need before handling money.",
+    },
   },
   {
     slug: "ecosync",

@@ -181,6 +181,7 @@ export const projects: Project[] = [
     purpose:
       "Citation grounding and reference checking tool to detect hallucinated academic and textual references in LLM outputs.",
     technologies: ["NLP", "Evals", "Python", "LLMs"],
+    github: "https://github.com/Ad1th/Reference_Hallucinations",
     year: "2026",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "AI & ML",
@@ -292,6 +293,7 @@ export const projects: Project[] = [
     purpose:
       "Anonymous real-time chat forum for rapid open thread creation and transparent message exchange.",
     technologies: ["JavaScript", "Node.js", "WebSockets"],
+    github: "https://github.com/Ad1th/EchoChamber",
     year: "2024",
     screenshots: ["/images/projects/echochamber/echochamber.webp"],
     category: "Web Apps",
@@ -306,6 +308,7 @@ export const projects: Project[] = [
     purpose:
       "Built to help volunteers, organizers and communities coordinate service work more effectively.",
     technologies: ["JavaScript", "SQL", "Community Platform"],
+    github: "https://github.com/Ad1th/SevaVerse",
     year: "2025",
     screenshots: ["/images/projects/sevaverse/sevaverse.webp"],
     category: "Web Apps",
@@ -334,6 +337,7 @@ export const projects: Project[] = [
     purpose:
       "Comprehensive hospital and clinic management system for patient records, queueing, and appointment scheduling.",
     technologies: ["Python", "SQL", "Database Systems"],
+    github: "https://github.com/Ad1th/Hospitech--Hospital-Management-System",
     year: "2025",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "Web Apps",
@@ -405,6 +409,7 @@ export const projects: Project[] = [
     purpose:
       "Compact Python arcade Snake game featuring responsive input handling and persistent score tracking.",
     technologies: ["Python", "Arcade Mechanics"],
+    github: "https://github.com/Ad1th/Snek---Snake_Game",
     year: "2023",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "CLI & Tools",

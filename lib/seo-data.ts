@@ -260,6 +260,29 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "switchboard",
+    title: "SWITCHBOARD",
+    seoTitle: "Switchboard Reverse Proxy and Load Balancer",
+    description:
+      "Reverse proxy and round-robin load balancer written in Go, with health-based backend eviction.",
+    purpose:
+      "Built to understand how reverse proxying and load balancing actually work rather than configuring NGINX blindly.",
+    technologies: ["Go", "HTTP", "Load Balancing", "Reverse Proxy"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/Switchboard",
+    category: "Systems / Backend",
+    paperColor: "blue",
+    evidence: {
+      problem:
+        "Reverse proxies are the piece of infrastructure most often configured and least often understood. You can run NGINX for years without knowing what it does when a backend stops answering.",
+      approach:
+        "Written from the socket up in Go rather than assembled from a framework: listen, forward, rotate backends round-robin, and drop one out of rotation when its health endpoint stops responding. Small enough to read in one sitting, which is the point.",
+      limits:
+        "Round-robin only, with no weighting, least-connections or consistent hashing. Health checks evict a backend but there is no re-entry policy, no TLS termination and no connection pooling. It is a working model of the core idea, not a production proxy.",
+    },
+  },
+  {
     slug: "argus",
     title: "Argus",
     seoTitle: "Argus Database Query Visualizer",

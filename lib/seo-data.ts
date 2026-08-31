@@ -227,6 +227,14 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "AI & ML",
     paperColor: "green",
+    evidence: {
+      problem:
+        "A language model will produce a citation that looks correct in every respect -- plausible authors, a real venue, a well-formed year -- for a paper that was never written. Checking a reference list by hand is the slowest possible way to catch that, and it is exactly the work nobody does before submitting.",
+      approach:
+        "A verification pipeline rather than a classifier, so every verdict is traceable to a source. GROBID parses the PDF and extracts structured bibliographic records, each record is then looked up against the DBLP API, and anything that fails to resolve is surfaced as suspect. The judgement is made by an authoritative index, not by a model asked whether a paper sounds real.",
+      limits:
+        "Verification is only as complete as DBLP, which covers computer science well and other fields poorly, so a genuine reference outside its index reads as a false positive. GROBID has to be running locally on port 8070, which makes this a tool you run rather than a service you call.",
+    },
   },
   {
     slug: "blindspot",

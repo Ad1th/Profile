@@ -263,7 +263,7 @@ function HeroDesktop({
         {[
           { value: "3+", label: "Years Building", accent: true },
           { value: projectCount, label: "Projects Shipped", accent: false },
-          { value: "80+", label: "Repositories", accent: false },
+          { value: "100+", label: "Repositories", accent: false },
         ].map(({ value, label, accent }, i) => (
           <div
             key={value}
@@ -568,7 +568,7 @@ function HeroMobile() {
         {[
           { value: "3+", label: "Years" },
           { value: projectCount, label: "Projects" },
-          { value: "80+", label: "Repos" },
+          { value: "100+", label: "Repos" },
         ].map(({ value, label }, i) => (
           <div
             key={value}
@@ -975,7 +975,7 @@ function StatsBarTablet({ cols = 3 }: { cols?: number }) {
   const stats = [
     { value: "3+", label: "Years Building" },
     { value: projectCount, label: "Projects Shipped" },
-    { value: "80+", label: "Repositories" },
+    { value: "100+", label: "Repositories" },
   ].slice(0, cols);
   return (
     <motion.div

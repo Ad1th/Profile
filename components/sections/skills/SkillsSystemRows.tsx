@@ -76,7 +76,7 @@ function BackendDiagram() {
   return (
     <div
       className="flex items-center"
-      style={{ gap: 6, fontSize: 11, fontFamily: "monospace" }}
+      style={{ gap: 6, fontSize: 11, fontFamily: "var(--font-mono), monospace" }}
     >
       {[
         { label: "CLIENT" },
@@ -113,7 +113,7 @@ function BackendDiagram() {
               padding: "3px 10px",
               color: "#C8C0B4",
               fontSize: 10,
-              fontFamily: "monospace",
+              fontFamily: "var(--font-mono), monospace",
               letterSpacing: "0.04em",
             }}
           >
@@ -322,7 +322,7 @@ function HardwareDiagram() {
       <Arrow />
       <div
         style={{
-          fontFamily: "monospace",
+          fontFamily: "var(--font-mono), monospace",
           fontSize: 10,
           color: "#555",
           lineHeight: 1.4,
@@ -558,7 +558,7 @@ function SystemRow({
         <div>
           <div
             style={{
-              fontFamily: "monospace",
+              fontFamily: "var(--font-mono), monospace",
               fontSize: 18,
               fontWeight: 700,
               color: "#913831",
@@ -705,7 +705,7 @@ function SystemRow({
           <motion.span
             style={{
               color: "#913831",
-              fontFamily: "monospace",
+              fontFamily: "var(--font-mono), monospace",
               fontSize: 14,
               fontWeight: 900,
               flexShrink: 0,
@@ -726,7 +726,7 @@ function SystemRow({
           </motion.span>
           <p
             style={{
-              fontFamily: "monospace",
+              fontFamily: "var(--font-mono), monospace",
               fontSize: 13,
               lineHeight: 1.6,
               color: "#777",
@@ -775,7 +775,7 @@ function SystemRow({
                   padding: "6px 12px",
                   borderRadius: "3px",
                   background: "rgba(255, 255, 255, 0.02)",
-                  fontFamily: "monospace",
+                  fontFamily: "var(--font-mono), monospace",
                   fontSize: 11,
                   fontWeight: 700,
                   color: "#C8C0B4",

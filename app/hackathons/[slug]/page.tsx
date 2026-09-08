@@ -19,8 +19,8 @@ export async function generateMetadata({
 
   if (!hackathon) return {};
 
-  const title = `${hackathon.title} | Hackathon Achievement by Adith Manikonda`;
-  const description = `${hackathon.summary} Adith Manikonda, VIT Vellore backend engineer and systems builder.`;
+  const title = hackathon.title;
+  const description = `${hackathon.summary} ${hackathon.date}, ${hackathon.location}.`;
 
   return {
     title,
@@ -81,13 +81,28 @@ export default async function HackathonPage({ params }: PageProps) {
   };
 
   return (
-    <main className="min-h-screen bg-[#EEE7DC] px-6 py-28 text-[#111] sm:px-10 lg:px-16">
+    <main
+      id="main"
+      className="min-h-screen bg-[#EEE7DC] px-6 py-28 text-[#111] sm:px-10 lg:px-16"
+    >
       <StructuredData data={schema} />
       <article className="mx-auto max-w-4xl">
-        <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32]">
-          Hackathon / Adith Manikonda / {hackathon.location}
+        <a
+          href="/#hackathons"
+          className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32] hover:text-[#E8420A]"
+        >
+          &larr; Hackathons
+        </a>
+        <p className="mt-8 font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32]">
+          Hackathon / {hackathon.location}
         </p>
-        <h1 className="mt-5 text-5xl font-black uppercase leading-none sm:text-7xl">
+        <h1
+          className="mt-5 max-w-4xl text-5xl uppercase leading-none sm:text-7xl"
+          style={{
+            fontFamily: "var(--font-anton), 'Arial Black', Impact, sans-serif",
+            letterSpacing: "-0.02em",
+          }}
+        >
           {hackathon.title}
         </h1>
         <p className="mt-8 max-w-3xl text-xl leading-8 text-[#111]/75">

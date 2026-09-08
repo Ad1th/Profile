@@ -152,7 +152,7 @@ export default function SkillsHero({
         >
           <span
             style={{
-              fontFamily: "monospace",
+              fontFamily: "var(--font-mono), monospace",
               fontSize: 13,
               fontWeight: 700,
               color: "#888",
@@ -227,7 +227,7 @@ export default function SkillsHero({
       >
         <motion.p
           style={{
-            fontFamily: "monospace",
+            fontFamily: "var(--font-mono), monospace",
             fontSize: hideLanguagePanel ? 13 : 16,
             fontWeight: 400,
             lineHeight: 1.7,
@@ -351,7 +351,7 @@ export default function SkillsHero({
 
           <motion.div
             style={{
-              fontFamily: "monospace",
+              fontFamily: "var(--font-mono), monospace",
               fontSize: 12,
               fontWeight: 700,
               letterSpacing: "0.14em",
@@ -396,7 +396,7 @@ export default function SkillsHero({
               >
                 <span
                   style={{
-                    fontFamily: "monospace",
+                    fontFamily: "var(--font-mono), monospace",
                     fontSize: 13,
                     fontWeight: 700,
                     color: "#E5DED2",

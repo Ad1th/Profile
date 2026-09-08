@@ -12,6 +12,7 @@ declare global {
     projects?: () => string[];
     skills?: () => string[];
     showSecrets?: () => string;
+    sudo?: (cmd: string) => string;
   }
 }
 
@@ -22,6 +23,7 @@ export default function RecruiterConsole() {
       "projects() - selected backend and systems projects",
       "skills() - core engineering stack",
       "showSecrets() - the recruiter-only hint",
+      "sudo(\"hire adith\") - try it",
     ];
 
     window.about = () =>
@@ -47,8 +49,14 @@ export default function RecruiterConsole() {
       "Systems design",
     ];
 
-    window.showSecrets = () =>
-      "Recruiter signal: this portfolio hides crawlable SEO, structured data and a tiny console interface without disturbing the UI.";
+    window.showSecrets = () => "No secrets. Just Prisma schemas.";
+
+    window.sudo = (cmd: string) => {
+      const c = String(cmd ?? "").toLowerCase();
+      return c.includes("hire") && c.includes("adith")
+        ? "Permission granted. Welcome aboard."
+        : "Permission denied.";
+    };
 
     if (greeted) return;
     greeted = true;

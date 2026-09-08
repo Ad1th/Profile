@@ -240,6 +240,12 @@ export default function Patents() {
     if (!wrap || !sticky || !canvas || !svg) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    // The 2D context cannot resolve CSS variables, so read the loaded face.
+    const monoFace =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--font-mono")
+        .trim() || "ui-monospace";
+    const canvasFont = `10px ${monoFace}, ui-monospace, monospace`;
 
     /* ── canvas setup ── */
     let W = 0,
@@ -311,7 +317,7 @@ export default function Patents() {
         ctx.ellipse(cx, cy, r * 1.06, r * 0.78, -0.08, 0, Math.PI * 2);
         ctx.stroke();
       }
-      ctx.font = "10px 'JetBrains Mono',ui-monospace,monospace";
+      ctx.font = canvasFont;
       ctx.textBaseline = "middle";
       LABELS_HUMAN.forEach((label) => {
         const a = prog.current.labels,
@@ -368,7 +374,7 @@ export default function Patents() {
               H *
               0.03;
         ctx.fillStyle = `rgba(232,221,208,${0.72 * wa * prog.current.nodes})`;
-        ctx.font = "10px 'JetBrains Mono',ui-monospace,monospace";
+        ctx.font = canvasFont;
         ctx.fillText(nTxt[line % nTxt.length], nx + 5, ny - 5);
         ctx.strokeStyle = hexToRgba(pal[(line + 1) % pal.length], 0.34 * wa);
         ctx.beginPath();
@@ -714,27 +720,39 @@ export default function Patents() {
       3.6,
     );
 
-    ScrollTrigger.create({
+    const scrubTrigger = ScrollTrigger.create({
       trigger: wrap,
       start: "top top",
       end: "bottom bottom",
-      scrub: 1.4,
+      scrub: 1,
       animation: tl,
     });
 
-    /* canvas mode switch — bidirectional so scroll-back reverses it */
-    ScrollTrigger.create({
+    /* Canvas and backdrop switch. Patent 2's cream copy starts entering at
+       ~48% of the timeline, which is ~37% of the wrap's height, so the dark
+       backdrop has to be underneath it by then. Bidirectional so scrolling
+       back reverses it. */
+    const modeTrigger = ScrollTrigger.create({
       trigger: wrap,
-      start: "48% top",
-      end: "52% top",
+      start: "34% top",
+      end: "37% top",
       onEnter: () => switchMode("wave"),
       onLeaveBack: () => switchMode("human"),
     });
 
+    // Layout above this section settles after fonts and images load; the
+    // pin positions were measured before that.
+    const refresh = () => ScrollTrigger.refresh();
+    const refreshTimer = window.setTimeout(refresh, 600);
+    window.addEventListener("load", refresh);
+
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
-      ScrollTrigger.getAll().forEach((s) => s.kill());
+      window.clearTimeout(refreshTimer);
+      window.removeEventListener("load", refresh);
+      scrubTrigger.kill();
+      modeTrigger.kill();
       stickyEl.removeEventListener(
         "pointermove",
         onMove as unknown as EventListener,
@@ -757,7 +775,7 @@ export default function Patents() {
         style={{
           position: "sticky",
           top: 0,
-          height: "100vh",
+          height: "100dvh",
           overflow: "hidden",
           background: "#D9E1E8",
         }}
@@ -1027,7 +1045,7 @@ function StatusLine({
             />
             <span
               style={{
-                fontFamily: "'JetBrains Mono',ui-monospace,monospace",
+                fontFamily: "var(--font-mono), ui-monospace, monospace",
                 fontSize: 8,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",

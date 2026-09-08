@@ -1,7 +1,16 @@
 import type React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import { Amatic_SC, Anton, Archivo_Black } from "next/font/google";
+import {
+  Amatic_SC,
+  Anton,
+  Archivo_Black,
+  Bodoni_Moda,
+  Caveat,
+  Cormorant_Garamond,
+  Inter,
+  JetBrains_Mono,
+} from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import RecruiterConsole from "@/components/seo/RecruiterConsole";
 import StructuredData from "@/components/seo/StructuredData";
@@ -30,6 +39,38 @@ const amatic = Amatic_SC({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-handdrawn",
+});
+
+/**
+ * Every face the site uses is self-hosted through next/font, so a visitor on
+ * Windows or Android sees the same page as one on a Mac. Before this, body
+ * copy fell back to Segoe UI, the contact serif to Times New Roman and the
+ * handwritten notes to Comic Sans.
+ */
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
+const bodoni = Bodoni_Moda({
+  subsets: ["latin"],
+  variable: "--font-bodoni",
+});
+
+const cormorant = Cormorant_Garamond({
+  weight: ["500"],
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-note",
 });
 
 export const metadata: Metadata = {
@@ -82,7 +123,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${archivo.variable} ${anton.variable} ${amatic.variable}`}
+      className={`${archivo.variable} ${anton.variable} ${amatic.variable} ${inter.variable} ${mono.variable} ${bodoni.variable} ${cormorant.variable} ${caveat.variable}`}
     >
       <body>
         <StructuredData data={[personSchema, websiteSchema]} />

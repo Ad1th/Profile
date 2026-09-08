@@ -20,7 +20,7 @@ export async function generateMetadata({
 
   if (!project) return {};
 
-  const title = `${project.seoTitle ?? project.title} | Project by Adith Manikonda`;
+  const title = project.seoTitle ?? project.title;
   const description = `${project.description} Built by Adith Manikonda using ${project.technologies.join(", ")}.`;
   const image = project.screenshots[0] ?? "/images/me.webp";
 

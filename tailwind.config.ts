@@ -82,6 +82,9 @@ const config = {
       },
       fontFamily: {
         archivo: ['var(--font-archivo)'],
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
+        serif: ['Georgia', 'Times New Roman', 'serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

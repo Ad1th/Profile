@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { patents, projects } from "@/lib/seo-data";
 
 /**
  * Social preview card.
@@ -9,7 +10,7 @@ import { ImageResponse } from "next/og";
  * own palette and display face, so a pasted link reads as the portfolio.
  */
 export const runtime = "nodejs";
-export const alt = "Adith Manikonda — Backend Engineer";
+export const alt = "Adith Manikonda, Backend Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -190,8 +191,8 @@ export default async function Image() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {[
-              ["2", "PATENTS PUBLISHED"],
-              ["19", "PROJECTS SHIPPED"],
+              [String(patents.length), "PATENTS PUBLISHED"],
+              [String(projects.length), "PROJECTS SHIPPED"],
             ].map(([n, label]) => (
               <div key={label} style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
                 <div

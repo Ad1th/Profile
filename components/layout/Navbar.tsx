@@ -33,13 +33,13 @@ const NAV_LINKS: { label: string; section: string }[] = [
 
 const MENU_LINKS: { label: string; section?: string; href?: string }[] = [
   { label: "HOME", section: "hero" },
-  { label: "RESEARCH LAB 🔬", href: "/research" },
+  { label: "RESEARCH", href: "/research" },
   { label: "ABOUT", section: "about" },
   { label: "SKILLS", section: "skills" },
   { label: "EXPERIENCE", section: "experience" },
   { label: "PROJECTS", section: "projects" },
   { label: "PATENTS", section: "patents" },
-  { label: "HACKATHONS/ACHIEVEMENTS", section: "hackathons" },
+  { label: "HACKATHONS", section: "hackathons" },
   { label: "CONTACT", section: "contact" },
 ];
 
@@ -50,7 +50,7 @@ const SECTIONS = [
   "experience",
   "projects",
   "patents",
-  "hackathons/achievements",
+  "hackathons",
   "contact",
 ];
 
@@ -365,10 +365,10 @@ export default function Navbar() {
                           letterSpacing: "-0.03em",
                           lineHeight: 0.9,
                           textTransform: "uppercase",
-                          color: "#00E5FF",
+                          color: "#CFDE00",
                         }}
                       >
-                        {label} ➔
+                        {label} &nearr;
                       </Link>
                     </motion.div>
                   );
@@ -414,7 +414,7 @@ export default function Navbar() {
               style={{
                 marginTop: "auto",
                 paddingBottom: 45,
-                fontFamily: "monospace",
+                fontFamily: "var(--font-mono), monospace",
                 fontSize: 11,
                 fontWeight: 700,
                 color: "#555",

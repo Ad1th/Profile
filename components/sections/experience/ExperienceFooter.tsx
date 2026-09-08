@@ -17,7 +17,7 @@ export default function ExperienceFooter() {
         style={{
           border: "2px solid #333",
           padding: "14px 20px",
-          fontFamily: "IBM Plex Mono, monospace",
+          fontFamily: "var(--font-mono), monospace",
         }}
       >
         <div
@@ -76,7 +76,7 @@ export default function ExperienceFooter() {
       <div className="flex items-center gap-4">
         <div
           style={{
-            fontFamily: "IBM Plex Mono, monospace",
+            fontFamily: "var(--font-mono), monospace",
             fontSize: 11,
             fontWeight: 700,
             letterSpacing: "0.09em",

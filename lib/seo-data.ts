@@ -109,7 +109,7 @@ export const projects: Project[] = [
         {
           label: "Lookup at 100k symbols",
           value: "26 ns",
-          note: "8.0ns at N=1 and N=16, 24.0ns at N=1024 — near-flat with scope size",
+          note: "8.0ns at N=1 and N=16, 24.0ns at N=1024, near-flat with scope size",
         },
         {
           label: "Per-symbol footprint",
@@ -118,7 +118,7 @@ export const projects: Project[] = [
         },
       ],
       limits:
-        "Deleting a single symbol is unsupported: teardown works by rewinding the arena, which is what buys the constant-time scope exit, so individual reclamation would defeat it. The cache-miss objective is projected rather than measured — it needs Linux perf counters and the host is macOS, so the collection script is written but unrun. Worst case is still O(n) on a full probe cluster or a tier promotion.",
+        "Deleting a single symbol is unsupported: teardown works by rewinding the arena, which is what buys the constant-time scope exit, so individual reclamation would defeat it. The cache-miss objective is projected rather than measured: it needs Linux perf counters and the host is macOS, so the collection script is written but unrun. Worst case is still O(n) on a full probe cluster or a tier promotion.",
     },
   },
   {
@@ -181,7 +181,7 @@ export const projects: Project[] = [
       problem:
         "Observability tooling is almost always demonstrated against a healthy system, which tells you nothing about whether it catches the failures you actually get at 3am.",
       approach:
-        "Four instrumented services with a real dependency graph -- product and payment both depend on auth and db -- so a single degraded dependency produces a genuine cascade rather than an isolated error. Failures are injected probabilistically, time-bound and intensity-scaled, so the same experiment can be repeated. An Isolation Forest detector proxies Prometheus metrics and webhooks an operator service that attempts recovery. A shared trace_id follows a request across every hop, which is what makes root-cause attribution possible at all.",
+        "Four instrumented services with a real dependency graph, where product and payment both depend on auth and db, so a single degraded dependency produces a genuine cascade rather than an isolated error. Failures are injected probabilistically, time-bound and intensity-scaled, so the same experiment can be repeated. An Isolation Forest detector proxies Prometheus metrics and webhooks an operator service that attempts recovery. A shared trace_id follows a request across every hop, which is what makes root-cause attribution possible at all.",
       metrics: [
         {
           label: "Instrumented services",
@@ -229,7 +229,7 @@ export const projects: Project[] = [
     paperColor: "green",
     evidence: {
       problem:
-        "A language model will produce a citation that looks correct in every respect -- plausible authors, a real venue, a well-formed year -- for a paper that was never written. Checking a reference list by hand is the slowest possible way to catch that, and it is exactly the work nobody does before submitting.",
+        "A language model will produce a citation that looks correct in every respect, with plausible authors, a real venue and a well-formed year, for a paper that was never written. Checking a reference list by hand is the slowest possible way to catch that, and it is exactly the work nobody does before submitting.",
       approach:
         "A verification pipeline rather than a classifier, so every verdict is traceable to a source. GROBID parses the PDF and extracts structured bibliographic records, each record is then looked up against the DBLP API, and anything that fails to resolve is surfaced as suspect. The judgement is made by an authoritative index, not by a model asked whether a paper sounds real.",
       limits:
@@ -264,7 +264,7 @@ export const projects: Project[] = [
         { label: "Edge unit", value: "Raspberry Pi 5", note: "Battery-portable, no rack" },
       ],
       limits:
-        "Not fully offline yet -- some scene description still calls out to cloud services, so the privacy and availability argument only holds for the detection path, not the whole pipeline.",
+        "Not fully offline yet: some scene description still calls out to cloud services, so the privacy and availability argument only holds for the detection path, not the whole pipeline.",
     },
   },
   {
@@ -391,7 +391,7 @@ export const projects: Project[] = [
       approach:
         "One platform holding all four parties rather than a donation form: organisation sign-up and profiles, volunteer recruitment and management, and tracking that leaves a record each side can inspect. Built with Aditya Vardhan Kochar and Arikta Das for Women Techies'25, run by GDSC at VIT Vellore.",
       limits:
-        "Built to a hackathon deadline, so the transparency and reporting mechanisms are demonstrated rather than hardened -- there is no verification that a listed organisation is real, which is the first thing a platform like this would need before handling money.",
+        "Built to a hackathon deadline, so the transparency and reporting mechanisms are demonstrated rather than hardened. There is no verification that a listed organisation is real, which is the first thing a platform like this would need before handling money.",
     },
   },
   {
@@ -557,7 +557,7 @@ export const hackathons: Hackathon[] = [
     date: "Mar 2026",
     location: "VIT Vellore",
     summary:
-      "Women Techies finalist achievement, placing among the top 10 teams at VIT Vellore.",
+      "Finalist, placing in the top 10 teams.",
   },
   {
     slug: "code-2-create",
@@ -565,7 +565,7 @@ export const hackathons: Hackathon[] = [
     date: "Sep 2025",
     location: "VIT Vellore",
     summary:
-      "Code 2 Create AI Track Winner achievement for a hackathon project at VIT Vellore.",
+      "Winner of the AI track.",
   },
   {
     slug: "yantra-central-hack",
@@ -573,7 +573,7 @@ export const hackathons: Hackathon[] = [
     date: "Jan 2025",
     location: "VIT Vellore",
     summary:
-      "Yantra Central Hack participation focused on rapid engineering and product prototyping.",
+      "Built and shipped a prototype over the hackathon weekend.",
   },
   {
     slug: "devjams",
@@ -581,7 +581,7 @@ export const hackathons: Hackathon[] = [
     date: "Sep 2024",
     location: "VIT Vellore",
     summary:
-      "DevJams hackathon participation at VIT Vellore, contributing to Adith Manikonda's project-building record.",
+      "Built and demoed a project over the hackathon weekend.",
   },
   {
     slug: "codewars",
@@ -589,7 +589,7 @@ export const hackathons: Hackathon[] = [
     date: "Feb 2024",
     location: "NPS KRM, Bangalore",
     summary:
-      "CodeWars first-place achievement demonstrating early competitive programming and software problem-solving experience.",
+      "First place in a school-level competitive programming contest.",
   },
 ];
 

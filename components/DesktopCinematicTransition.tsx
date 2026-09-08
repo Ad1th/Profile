@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
@@ -23,8 +23,33 @@ function SkillsLayer() {
   );
 }
 
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+/**
+ * The pinned stage was composed for a ~860px tall viewport: the hero needs
+ * 800px and the About grid two full rows. On a 1366x768 or 1280x720 laptop
+ * the stats bar and ticker fell below the fold and the About cards were
+ * clipped. Below the design height the whole stage is zoomed down instead,
+ * so every layer keeps its proportions and nothing is cut.
+ */
+const STAGE_HEIGHT = 860;
+
+function useStageFit() {
+  const [fit, setFit] = useState(1);
+  useIsomorphicLayoutEffect(() => {
+    const sync = () =>
+      setFit(Math.min(1, Math.round((window.innerHeight / STAGE_HEIGHT) * 1000) / 1000));
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
+  }, []);
+  return fit;
+}
+
 export default function DesktopCinematicTransition() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const fit = useStageFit();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -228,11 +253,17 @@ export default function DesktopCinematicTransition() {
         ref={containerRef}
         style={{ height: `${totalScrollVh}vh`, position: "relative" }}
       >
+        {/* Scroll targets for the nav, the dots and /#hash links. The pin
+            releases at (total - 100)vh, so the skills marker sits there:
+            scrolling to it shows Skills fully revealed and still pinned. */}
         <div data-section="hero" style={{ ...markerStyle, top: 0 }} />
-        <div data-section="about" style={{ ...markerStyle, top: "25%" }} />
+        <div
+          data-section="about"
+          style={{ ...markerStyle, top: "100vh", height: "120vh" }}
+        />
         <div
           data-section="skills"
-          style={{ ...markerStyle, top: `${skillsStart * 100}%` }}
+          style={{ ...markerStyle, top: `${totalScrollVh - 100}vh` }}
         />
 
         <div
@@ -244,6 +275,15 @@ export default function DesktopCinematicTransition() {
             background: "#111",
           }}
         >
+         <div
+          style={{
+            position: "relative",
+            transform: `scale(${fit})`,
+            transformOrigin: "top left",
+            width: `calc(100% / ${fit})`,
+            height: `calc(100vh / ${fit})`,
+          }}
+         >
           <motion.div
             style={{
               position: "absolute",
@@ -255,6 +295,7 @@ export default function DesktopCinematicTransition() {
             }}
           >
             <Hero
+              fill
               transitionProgress={scrollYProgress}
               suppressTicker={false}
               backendStyle={{ x: backendX, opacity: backendOpacity }}
@@ -327,6 +368,7 @@ export default function DesktopCinematicTransition() {
           >
             <SkillsLayer />
           </motion.div>
+         </div>
         </div>
       </div>
       <Experience />

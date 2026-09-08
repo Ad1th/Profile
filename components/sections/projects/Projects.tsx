@@ -5,7 +5,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Anton } from "next/font/google";
+import Link from "next/link";
 import { BlurIn, Magnetic } from "@/components/ui/react-bits";
+import { projects as catalogue, type Project } from "@/lib/seo-data";
 import "./Projects.module.css";
 
 const anton = Anton({ weight: "400", subsets: ["latin"] });
@@ -71,222 +73,114 @@ function ProjectHeadline({ layout = "B" }: { layout?: "A" | "B" | "C" }) {
   );
 }
 
-type FeaturedProject = {
-  id: string;
-  name: string;
+type PaperStyle = {
   deck: string;
-  description: string;
-  stack: string[];
   note: string;
   paper: "orange" | "blue" | "white" | "yellow";
   visual: "network" | "benchmark" | "observability" | "wave";
   className: string;
   parallax: number;
+};
+
+type FeaturedProject = PaperStyle & {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  stack: string[];
   year: string;
   github?: string;
+  screenshots: string[];
 };
 
 type ArchiveProject = {
   id: string;
+  slug: string;
   name: string;
   stack: string;
   year: string;
   description: string;
-  preview: string[];
   github?: string;
+  screenshots: string[];
+  href?: string;
 };
 
-// Data
-const featuredProjects: FeaturedProject[] = [
-  {
-    id: "01",
-    name: "SCOTLAND YARD",
+/**
+ * Every project on the site lives in lib/seo-data. This section only adds
+ * the desk styling for the four featured papers; the rest is derived, so a
+ * new project in the catalogue shows up here, on /projects and in the
+ * sitemap at the same time.
+ */
+const FEATURED: Record<string, PaperStyle> = {
+  "scotland-yard": {
     deck: "Multiplayer Game Backend",
-    description:
-      "Real-time multiplayer backend supporting 100+ users with persistent game state and server-authoritative gameplay.",
-    stack: ["Node.js", "Express", "Prisma", "PostgreSQL"],
     note: "low latency sync",
     paper: "orange",
     visual: "network",
     className: "projects-paper--scotland",
     parallax: 0.8,
-    year: "2025",
-    github: "https://github.com/Ad1th/Scotland-Yard-Gravitas-Backend-25",
   },
-  {
-    id: "02",
-    name: "AETHERQUERY",
+  aetherquery: {
     deck: "Analytical Query Engine",
-    description:
-      "Cross-database analytical query engine supporting DuckDB/PostgreSQL/MySQL with adaptive execution.",
-    stack: ["FastAPI", "Python", "DuckDB", "PostgreSQL"],
     note: "sql analytics at scale",
     paper: "blue",
     visual: "benchmark",
     className: "projects-paper--aether",
     parallax: 1,
-    year: "2026",
-    github: "https://github.com/Ad1th/AetherQuery",
   },
-  {
-    id: "03",
-    name: "archAIc",
+  archaic: {
     deck: "Reliability Engineering Platform",
-    description:
-      "Distributed reliability engineering platform with observability and anomaly detection.",
-    stack: ["Kubernetes", "OpenTelemetry", "Grafana", "Python"],
     note: "observability @ scale",
     paper: "white",
     visual: "observability",
     className: "projects-paper--archaic",
     parallax: 0.7,
-    year: "2026",
-    github: "https://github.com/Ad1th/archAIc",
   },
-  {
-    id: "04",
-    name: "POINT WAVE ENERGY HARVESTER",
+  "point-wave-energy-harvester": {
     deck: "IoT Based Energy Harvesting System",
-    description: "IoT telemetry + MPPT wave energy harvesting system",
-    stack: ["IoT", "Circuits", "Telemetry", "MPPT"],
     note: "energy harvesting + iot",
     paper: "yellow",
     visual: "wave",
     className: "projects-paper--wave",
     parallax: 1.1,
-    year: "2025",
   },
-];
+};
 
-const archiveProjects: ArchiveProject[] = [
-  {
-    id: "05",
-    name: "Reference Hallucination Detector",
-    stack: "NLP / EVALS / PYTHON",
-    year: "2026",
-    description: "Reference checking tool for citation-grounded text review.",
-    preview: ["reference matching", "claim tracing", "evidence review"],
+const realShots = (p: Project) =>
+  p.screenshots.filter((x) => !x.endsWith("_placeholder.svg"));
+
+const featuredProjects: FeaturedProject[] = Object.entries(FEATURED).flatMap(
+  ([slug, style], i) => {
+    const p = catalogue.find((x) => x.slug === slug);
+    if (!p) return [];
+    return [
+      {
+        id: String(i + 1).padStart(2, "0"),
+        slug,
+        name: p.title,
+        description: p.description,
+        stack: p.technologies.slice(0, 4),
+        year: p.year,
+        github: p.github,
+        screenshots: realShots(p),
+        ...style,
+      },
+    ];
   },
-  {
-    id: "06",
-    name: "BlindSpot",
-    stack: "ML / Raspberri pi / Edge processing",
-    year: "2025",
-    description: "Assistive perception prototype for visual context detection.",
-    preview: ["scene parsing", "object cues", "mobile flow"],
-    github: "https://github.com/Ad1th/BlindSpot",
-  },
-  {
-    id: "07",
-    name: "Argus",
-    stack: "Python / TELEMETRY",
-    year: "2025",
-    description: "Compact query visualizer for databases.",
-    preview: ["event stream", "query shell", "trace map"],
-    github: "https://github.com/Ad1th/Argus",
-  },
-  {
-    id: "08",
-    name: "Cloudify",
-    stack: "NEXT.JS / postgresql / Storage buckets",
-    year: "2025",
-    description: "Cloud storage platform.",
-    preview: ["cloudify.png"],
-    github: "https://github.com/Ad1th/file-mgmt",
-  },
-  {
-    id: "09",
-    name: "CropLink",
-    stack: "REACT / NODE",
-    year: "2025",
-    description: "Connect farmers to labourers",
-    preview: ["listing board", "farmer view", "order path"],
-  },
-  {
-    id: "10",
-    name: "Threddit",
-    stack: "JS / Gemini API",
-    year: "2024",
-    description:
-      "Chrome extension to boost productivity with non intrusive nudges",
-    preview: ["threddit.png"],
-  },
-  {
-    id: "11",
-    name: "EchoChamber",
-    stack: "JS",
-    year: "2024",
-    description: "Anonymous chat forum",
-    preview: ["echochamber.png"],
-  },
-  {
-    id: "12",
-    name: "SevaVerse",
-    stack: "JS / SQL",
-    year: "2025",
-    description:
-      "Community coordination platform for local service initiatives.",
-    preview: ["sevaverse.png"],
-  },
-  {
-    id: "13",
-    name: "EcoSync",
-    stack: "ML / JS / SQL",
-    year: "2025",
-    description: "AI based sustainability solution for textile industries",
-    preview: ["EcoSync.png"],
-  },
-  {
-    id: "14",
-    name: "HOSPITECH",
-    stack: "Python / SQL",
-    year: "2025",
-    description: "Clinic management system",
-    preview: ["lhospital.png"],
-  },
-  {
-    id: "15",
-    name: "KonectUs",
-    stack: "MERN / SOCKET.IO",
-    year: "2025",
-    description:
-      "Real-time social networking platform that connects communities with purpose.",
-    preview: ["konectus.png"],
-  },
-  {
-    id: "16",
-    name: "CaughtIn4K",
-    stack: "GOLANG / FIBER / SQLITE",
-    year: "2026",
-    description: "",
-    preview: ["capture log", "review page", "local db"],
-  },
-  {
-    id: "17",
-    name: "WhoHitMe",
-    stack: "GOLANG / CLI",
-    year: "2026",
-    description: "CLI utility for quick request and source inspection.",
-    preview: ["terminal view", "request trace", "output format"],
-  },
-  {
-    id: "18",
-    name: "WhatDidYouSend",
-    stack: "GOLANG / FIBER / POSTGRES",
-    year: "2026",
-    description: "Token inspection microservice backed by Postgres.",
-    preview: ["message list", "payload view", "storage path"],
-    github: "https://github.com/Ad1th/WhatDidYouSend",
-  },
-  {
-    id: "19",
-    name: "Snek",
-    stack: "Python",
-    year: "2023",
-    description: "Compact pythin game with simple arcade mechanics.",
-    preview: ["snek.png"],
-  },
-];
+);
+
+const archiveProjects: ArchiveProject[] = catalogue
+  .filter((p) => !(p.slug in FEATURED))
+  .map((p, i) => ({
+    id: String(featuredProjects.length + i + 1).padStart(2, "0"),
+    slug: p.slug,
+    name: p.title,
+    stack: p.technologies.slice(0, 3).join(" / "),
+    year: p.year,
+    description: p.description,
+    github: p.github,
+    screenshots: realShots(p),
+  }));
 
 function DoodleVisual({ type }: { type: FeaturedProject["visual"] }) {
   if (type === "network") {
@@ -378,7 +272,7 @@ function DoodleVisual({ type }: { type: FeaturedProject["visual"] }) {
               textAnchor="middle"
               fill="#D8D1C7"
               fontSize="9"
-              fontFamily="monospace"
+              fontFamily="var(--font-mono), monospace"
             >
               {label}
             </text>
@@ -430,7 +324,7 @@ function DoodleVisual({ type }: { type: FeaturedProject["visual"] }) {
         x="232"
         y="91"
         textAnchor="middle"
-        fontFamily="monospace"
+        fontFamily="var(--font-mono), monospace"
         fontSize="11"
         fill="#111"
       >
@@ -440,42 +334,13 @@ function DoodleVisual({ type }: { type: FeaturedProject["visual"] }) {
   );
 }
 
-function PreviewImage({
-  folder,
-  index,
-  srcBase,
-  alt,
-}: {
-  folder: string;
-  index: number;
-  srcBase?: string;
-  alt?: string;
-}) {
-  const [attempt, setAttempt] = useState(0);
-  const candidates = srcBase?.startsWith("/")
-    ? [srcBase]
-    : srcBase && /\.[a-z]{2,4}$/i.test(srcBase)
-      ? [`/images/projects/${folder}/${srcBase}`]
-      : [
-          `/images/projects/${folder}/${srcBase ?? `preview-${index + 1}`}.webp`,
-          `/images/projects/${folder}/${srcBase ?? `preview-${index + 1}`}.png`,
-          `/images/projects/${folder}/${srcBase ?? `preview-${index + 1}`}.jpg`,
-          `/images/projects/${folder}/preview-${index + 1}.webp`,
-          `/images/projects/${folder}/preview-${index + 1}.png`,
-          `/images/projects/${folder}/preview-${index + 1}.jpg`,
-          `/images/projects/${folder}/${folder}.webp`,
-          `/images/projects/${folder}/${folder}.png`,
-          `/images/projects/${folder}/${folder}.jpg`,
-        ];
-
-  const src = candidates[attempt % candidates.length];
-
+function PreviewImage({ src, alt }: { src: string; alt: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
-      alt={alt ?? "project preview"}
-      onError={() => setAttempt((a) => a + 1)}
+      alt={alt}
+      loading="lazy"
       style={{ width: "100%", maxHeight: 360, objectFit: "contain" }}
     />
   );
@@ -549,10 +414,7 @@ function CrtMonitor({
     ? project.stack
     : project.stack.split(" / ");
   const title = `${project.name.toUpperCase().replace(/[^A-Z0-9]+/g, "_")}.EXE`;
-  const previews =
-    "preview" in project
-      ? project.preview
-      : ["architecture sheet", "desktop view", "flow sketch"];
+  const imageBases = project.screenshots;
 
   // Line-by-line content for loading animation
   const contentLines = [
@@ -564,37 +426,18 @@ function CrtMonitor({
     { type: "actions", text: "□ FILE    □ PREVIEW    □ LINKS" },
   ];
 
-  const previewLines = [
-    { type: "title", text: "IMAGE PREVIEW MODE" },
-    { type: "header", text: project.name },
-    ...previews.map((item, i) => ({
-      type: "preview",
-      text: `${String(i + 1).padStart(2, "0")} / ${item}`,
-    })),
-  ];
+  const previewLines =
+    imageBases.length > 0
+      ? []
+      : [
+          { type: "title", text: "IMAGE PREVIEW MODE" },
+          { type: "header", text: project.name },
+          { type: "preview", text: "No screenshots on file yet." },
+        ];
 
   const displayLines = mode === "details" ? contentLines : previewLines;
 
-  // Preview images — prefer public/images/projects/{project-name}/preview-{n}.svg|jpg|png
   const [imageIndex, setImageIndex] = useState(0);
-  const folderName = project.name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-
-  const previewsCount = Array.isArray((project as any).preview)
-    ? (project as any).preview.length
-    : 1;
-
-  // Build image bases: if preview entries are explicit filenames, use them;
-  // otherwise fallback to preview-{n} bases. PreviewImage will try extensions.
-  const imageBases = Array.from({ length: previewsCount }).map((_, i) => {
-    const p = Array.isArray((project as any).preview)
-      ? (project as any).preview[i]
-      : null;
-    if (typeof p === "string" && /\.[a-z]{2,4}$/i.test(p)) return p;
-    return "/images/projects/_placeholder.svg";
-  });
 
   // Boot sequence lines (typewriter style) — vary by mode
   const bootLines =
@@ -748,9 +591,7 @@ function CrtMonitor({
                   PREV
                 </button>
                 <PreviewImage
-                  folder={folderName}
-                  index={imageIndex}
-                  srcBase={imageBases[imageIndex]}
+                  src={imageBases[imageIndex]}
                   alt={`${project.name} preview ${imageIndex + 1}`}
                 />
                 <button
@@ -786,28 +627,30 @@ function CrtMonitor({
             )}
           </div>
         ) : (
-          // LINKS mode — simplified
+          // LINKS mode
           <div className="projects-crt-copy">
             <motion.h3 className="projects-crt-line">EXTERNAL LINKS</motion.h3>
             <motion.div className="projects-crt-line projects-crt-links">
-              <button
-                type="button"
-                aria-label={`Open ${project.name} GitHub repository`}
-                onClick={(e) => {
-                  e.stopPropagation();
-
-                  const githubUrl =
-                    project.github ??
-                    `https://github.com/Ad1th/${
-                      folderName ||
-                      project.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")
-                    }`;
-
-                  window.open(githubUrl, "_blank");
-                }}
+              {project.github ? (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open ${project.name} GitHub repository`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  &gt; GITHUB
+                </a>
+              ) : (
+                <span>&gt; SOURCE NOT PUBLIC</span>
+              )}
+              <Link
+                href={`/projects/${project.slug}`}
+                aria-label={`Open the ${project.name} project page`}
+                onClick={(e) => e.stopPropagation()}
               >
-                &gt; GITHUB
-              </button>
+                &gt; PROJECT PAGE
+              </Link>
             </motion.div>
           </div>
         )}
@@ -816,7 +659,7 @@ function CrtMonitor({
         <div className="projects-crt-status">
           <span>{`PROJECT: ${project.name.split(" ")[0] || project.name}`}</span>
           <span>{`MODE: ${mode.toUpperCase()}`}</span>
-          <span>{`FILES: ${"preview" in project ? project.preview.length : imageBases.length}`}</span>
+          <span>{`FILES: ${imageBases.length}`}</span>
         </div>
       </div>
       <span className="projects-crt-tape">ship &gt; iterate &gt; repeat</span>
@@ -838,72 +681,22 @@ export default function Projects() {
     () => [
       ...archiveProjects,
       {
-        id: "...",
-        name: "and more…",
-        stack: "GOLANG / COOL STUFF",
-        year: "-",
-        description: "More experiments, prototypes and small utilities.",
-        preview: ["repo fragments", "weekend builds", "rough cuts"],
-      },
+        id: "+",
+        slug: "",
+        name: "Full archive",
+        stack: "EVERY BUILD / DETAIL PAGES / FILTERS",
+        year: "",
+        description: "Every project with its own page, searchable.",
+        screenshots: [],
+        href: "/projects",
+      } satisfies ArchiveProject,
     ],
     [],
   );
 
-  // Console easter-eggs and helper functions
-  useEffect(() => {
-    try {
-      console.log("ADITH.EXE READY");
-      console.log("Type help()");
-
-      const projectCount = featuredProjects.length + archiveProjects.length;
-
-      (window as any).help = function help() {
-        console.log(
-          "Available commands: help(), about(), projects(), skills(), sudo(), showSecrets()",
-        );
-      };
-      (window as any).about = function about() {
-        console.log(
-          "Adith — builder, systems engineer, & tinkerer. I build things that feel real.",
-        );
-      };
-      (window as any).projects = function projects() {
-        console.log(`${projectCount} projects available.`);
-      };
-      (window as any).skills = function skills() {
-        console.log(
-          "Tech: Node.js, Python, DuckDB, PostgreSQL, Kubernetes, Framer Motion, GSAP, Tailwind",
-        );
-      };
-      (window as any).sudo = function sudo(cmd: string) {
-        if (
-          String(cmd).toLowerCase().includes("hire") &&
-          String(cmd).toLowerCase().includes("adith")
-        ) {
-          console.log("Permission granted.\nWelcome aboard.");
-        } else {
-          console.log("Permission denied.");
-        }
-      };
-      (window as any).showSecrets = function showSecrets() {
-        console.log("No secrets. Just Prisma schemas.");
-      };
-
-      return () => {
-        delete (window as any).help;
-        delete (window as any).about;
-        delete (window as any).projects;
-        delete (window as any).skills;
-        delete (window as any).sudo;
-        delete (window as any).showSecrets;
-      };
-    } catch (e) {
-      // ignore in non-browser environments
-    }
-  }, []);
-
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    let rowObserver: IntersectionObserver | null = null;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -966,17 +759,36 @@ export default function Projects() {
       // Removed conflicting float animations — the papers now stay put after entrance
       // CSS keyframe 'projects-paper-breathe' provides subtle breathing if needed
 
-      gsap.from(".projects-archive-row", {
-        scrollTrigger: {
-          trigger: ".projects-archive",
-          start: "top 82%",
-          once: true,
-        },
-        clipPath: "inset(0 100% 0 0)",
-        stagger: 0.03,
-        duration: 0.5,
-        ease: "power2.out",
-      });
+      // The archive rows wipe in once the index scrolls into view. This used
+      // to hang off a ScrollTrigger that never fired, which left the table
+      // empty on desktop and phones.
+      const rowEls = gsap.utils.toArray<HTMLElement>(".projects-archive-row");
+      const archiveEl = sectionRef.current?.querySelector(".projects-archive");
+      gsap.set(rowEls, { clipPath: "inset(0 100% 0 0)" });
+      const revealRows = () => {
+        gsap.to(rowEls, {
+          clipPath: "inset(0 0% 0 0)",
+          stagger: 0.03,
+          duration: 0.5,
+          ease: "power2.out",
+          clearProps: "clipPath",
+        });
+      };
+      if (archiveEl && "IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            if (entries.some((e) => e.isIntersecting)) {
+              revealRows();
+              io.disconnect();
+            }
+          },
+          { rootMargin: "0px 0px -12% 0px" },
+        );
+        io.observe(archiveEl);
+        rowObserver = io;
+      } else {
+        revealRows();
+      }
 
       gsap.utils
         .toArray<HTMLElement>(".projects-archive-row")
@@ -1082,7 +894,18 @@ export default function Projects() {
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    // Fonts and images above this section settle after first paint; the
+    // trigger positions were measured before that.
+    const refresh = () => ScrollTrigger.refresh();
+    const refreshTimer = window.setTimeout(refresh, 600);
+    window.addEventListener("load", refresh);
+
+    return () => {
+      window.clearTimeout(refreshTimer);
+      window.removeEventListener("load", refresh);
+      rowObserver?.disconnect();
+      ctx.revert();
+    };
   }, []);
 
   const selectProject = (project: FeaturedProject | ArchiveProject) => {
@@ -1132,7 +955,7 @@ export default function Projects() {
             </p>
             <div className="projects-title-meta">
               <span>2026</span>
-              <span>TOTAL PROJECTS / 22</span>
+              <span>TOTAL PROJECTS / {catalogue.length}</span>
               <Magnetic strength={0.12}>
                 <span>// SHIP HARD. BUILD IMPACT.</span>
               </Magnetic>
@@ -1155,7 +978,7 @@ export default function Projects() {
           <div className="projects-archive">
             <div className="projects-archive-heading">
               <h2>ARCHIVE INDEX</h2>
-              <span>[ 18+ PROJECTS + MICRO BUILDS ]</span>
+              <span>[ {archiveProjects.length} MORE BUILDS ]</span>
             </div>
             <div className="projects-table">
               <div className="projects-table-head">
@@ -1165,22 +988,37 @@ export default function Projects() {
                 <span>YEAR</span>
                 <span>PREVIEW</span>
               </div>
-              {allRows.map((project) => (
-                <button
-                  type="button"
-                  key={project.id}
-                  aria-label={`Select ${project.name} project`}
-                  className={`projects-archive-row ${selected.name === project.name ? "is-selected" : ""}`}
-                  onMouseEnter={() => selectProject(project)}
-                  onClick={() => selectProject(project)}
-                >
-                  <span>{project.id}</span>
-                  <strong>{project.name}</strong>
-                  <em>{project.stack}</em>
-                  <small>{project.year}</small>
-                  <b>+</b>
-                </button>
-              ))}
+              {allRows.map((project) =>
+                project.href ? (
+                  <Link
+                    key={project.id}
+                    href={project.href}
+                    aria-label="Open the full project archive"
+                    className="projects-archive-row projects-archive-row--link"
+                  >
+                    <span>{project.id}</span>
+                    <strong>{project.name}</strong>
+                    <em>{project.stack}</em>
+                    <small>{project.year}</small>
+                    <b>&nearr;</b>
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    key={project.id}
+                    aria-label={`Select ${project.name} project`}
+                    className={`projects-archive-row ${selected.name === project.name ? "is-selected" : ""}`}
+                    onMouseEnter={() => selectProject(project)}
+                    onClick={() => selectProject(project)}
+                  >
+                    <span>{project.id}</span>
+                    <strong>{project.name}</strong>
+                    <em>{project.stack}</em>
+                    <small>{project.year}</small>
+                    <b>+</b>
+                  </button>
+                ),
+              )}
             </div>
           </div>
 

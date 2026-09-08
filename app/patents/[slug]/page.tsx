@@ -19,7 +19,7 @@ export async function generateMetadata({
 
   if (!patent) return {};
 
-  const title = `${patent.title} | Patent by Adith Manikonda`;
+  const title = patent.title;
   const description = `${patent.abstract} Patent application ${patent.application}, published ${patent.published}.`;
 
   return {
@@ -83,13 +83,28 @@ export default async function PatentPage({ params }: PageProps) {
   };
 
   return (
-    <main className="min-h-screen bg-[#EEE7DC] px-6 py-28 text-[#111] sm:px-10 lg:px-16">
+    <main
+      id="main"
+      className="min-h-screen bg-[#EEE7DC] px-6 py-28 text-[#111] sm:px-10 lg:px-16"
+    >
       <StructuredData data={schema} />
       <article className="mx-auto max-w-4xl">
-        <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32]">
-          Patent / Adith Manikonda / {patent.application}
+        <a
+          href="/research"
+          className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32] hover:text-[#E8420A]"
+        >
+          &larr; Research
+        </a>
+        <p className="mt-8 font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32]">
+          Patent / {patent.application}
         </p>
-        <h1 className="mt-5 text-4xl font-black uppercase leading-tight sm:text-6xl">
+        <h1
+          className="mt-5 max-w-4xl text-4xl uppercase leading-none sm:text-6xl"
+          style={{
+            fontFamily: "var(--font-anton), 'Arial Black', Impact, sans-serif",
+            letterSpacing: "-0.02em",
+          }}
+        >
           {patent.title}
         </h1>
 

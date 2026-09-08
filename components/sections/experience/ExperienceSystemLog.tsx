@@ -20,7 +20,7 @@ export default function ExperienceSystemLog() {
         background: "transparent",
         border: "2px solid #8A8B6D",
         padding: "12px 16px",
-        fontFamily: "IBM Plex Mono, monospace",
+        fontFamily: "var(--font-mono), monospace",
         minWidth: 210,
         position: "relative",
       }}
@@ -60,7 +60,7 @@ export default function ExperienceSystemLog() {
           padding: "2px 8px",
           marginBottom: 10,
           display: "inline-block",
-          fontFamily: "IBM Plex Mono, monospace",
+          fontFamily: "var(--font-mono), monospace",
         }}
       >
         SYSTEM LOG
@@ -75,7 +75,7 @@ export default function ExperienceSystemLog() {
               color: "#888",
               letterSpacing: "0.04em",
               minWidth: 68,
-              fontFamily: "IBM Plex Mono, monospace",
+              fontFamily: "var(--font-mono), monospace",
             }}
           >
             {label}
@@ -86,7 +86,7 @@ export default function ExperienceSystemLog() {
               color: "#ECE7DF",
               letterSpacing: "0.04em",
               fontWeight: 700,
-              fontFamily: "IBM Plex Mono, monospace",
+              fontFamily: "var(--font-mono), monospace",
             }}
           >
             {value}

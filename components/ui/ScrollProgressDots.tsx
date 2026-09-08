@@ -103,7 +103,7 @@ export default function ScrollProgressDots({
                   exit={{ opacity: 0, x: 6 }}
                   transition={{ duration: 0.15 }}
                   style={{
-                    fontFamily: "monospace",
+                    fontFamily: "var(--font-mono), monospace",
                     fontSize: 9,
                     fontWeight: 700,
                     letterSpacing: "0.12em",

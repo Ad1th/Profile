@@ -5,7 +5,7 @@ import { publications, patents, activeResearchProjects } from "@/content/researc
 import { siteUrl } from "@/lib/seo-data";
 
 export const metadata: Metadata = {
-  title: "Digital Research Lab | Adith Manikonda — Systems, AI Security & ML",
+  title: "Research",
   description:
     "Digital Research Lab of Adith Manikonda. Exploring database systems, approximate query processing, text-to-SQL agent security, distributed systems, and machine learning.",
   keywords: [
@@ -25,24 +25,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `${siteUrl}/research`,
-    title: "Digital Research Lab | Adith Manikonda",
+    title: "Research | Adith Manikonda",
     description:
-      "Exploring database systems, trustworthy AI, distributed systems, cybersecurity and machine learning through research, publications and experimental systems.",
-    images: [
-      {
-        url: "/images/me.webp",
-        width: 1200,
-        height: 630,
-        alt: "Adith Manikonda Digital Research Lab",
-      },
-    ],
+      "Database systems, trustworthy AI, distributed systems, security and machine learning: research, publications and experimental systems.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Research Lab | Adith Manikonda",
+    title: "Research | Adith Manikonda",
     description:
-      "Exploring database systems, trustworthy AI, distributed systems, cybersecurity and machine learning.",
-    images: ["/images/me.webp"],
+      "Database systems, trustworthy AI, distributed systems, security and machine learning.",
   },
 };
 

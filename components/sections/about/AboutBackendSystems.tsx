@@ -71,8 +71,8 @@ export default function AboutBackendSystems({
             // letterSpacing: "0.75em",
             // fontWeight: 700,
             fontSize: viewportTransition
-              ? "clamp(33px, 2.35vw, 25px)"
-              : "clamp(34px, 2.4vw, 35px)",
+              ? "clamp(26px, 2.3vw, 33px)"
+              : "clamp(28px, 2.4vw, 35px)",
             letterSpacing: "0.02em",
             color: "#CFDE00",
             lineHeight: 1.15,

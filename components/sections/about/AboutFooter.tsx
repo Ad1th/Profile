@@ -71,7 +71,7 @@ export default function AboutFooter({
       </div>
 
       {/* Right: label + bracket */}
-      <div className="flex items-center gap-3">
+      <div className="hidden items-center gap-3 sm:flex">
         <span
           className="uppercase font-mono tracking-[0.1em]"
           style={{
@@ -80,7 +80,7 @@ export default function AboutFooter({
             fontWeight: 700,
           }}
         >
-          VIT VELLORE — BACKEND SYSTEMS — 2026
+          VIT VELLORE / BACKEND SYSTEMS / 2026
         </span>
         {/* Corner bracket */}
         <div className="relative" style={{ width: 20, height: 16 }}>

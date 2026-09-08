@@ -209,7 +209,7 @@ const interests = [
           textAnchor="middle"
           fontSize="9"
           fontWeight="900"
-          fontFamily="monospace"
+          fontFamily="var(--font-mono), monospace"
           fill="#111"
         >
           AI
@@ -393,7 +393,9 @@ export default function AboutInterests({
   const standalone = !viewportTransition;
   return (
     <motion.div
-      className="w-full bg-[#6C8EAD] flex items-stretch"
+      className={`w-full bg-[#6C8EAD] ${
+        standalone ? "grid grid-cols-3 sm:flex" : "flex"
+      } items-stretch`}
       style={{ border: "3px solid #111", borderTop: "none" }}
       initial={standalone ? { opacity: 0 } : false}
       whileInView={standalone ? { opacity: 1 } : undefined}
@@ -407,10 +409,14 @@ export default function AboutInterests({
       {interests.map((item, i) => (
         <motion.div
           key={item.label}
-          className="flex-1 flex flex-col items-center justify-center gap-2"
+          className={`flex-1 flex flex-col items-center justify-center gap-2 ${
+            standalone
+              ? "border-[#111] border-r-[3px] [&:nth-child(3n)]:border-r-0 [&:nth-child(-n+3)]:border-b-[3px] sm:border-b-0 sm:border-r-0 sm:border-l-[3px] sm:first:border-l-0 sm:[&:nth-child(3n)]:border-r-0"
+              : ""
+          }`}
           style={{
             padding: "18px 8px",
-            borderLeft: i > 0 ? "3px solid #111" : "none",
+            borderLeft: !standalone && i > 0 ? "3px solid #111" : undefined,
             boxSizing: "border-box",
             minWidth: 0,
           }}
@@ -433,10 +439,8 @@ export default function AboutInterests({
               fontFamily: "var(--font-archivo), sans-serif",
               fontSize: viewportTransition ? 10 : 9,
               letterSpacing: viewportTransition ? "0.06em" : "0.035em",
-              lineHeight: 0.95,
+              lineHeight: 1.1,
               whiteSpace: "pre-line",
-              overflowWrap: "anywhere",
-              wordBreak: "break-word",
             }}
           >
             {item.label}

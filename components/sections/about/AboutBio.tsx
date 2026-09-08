@@ -104,7 +104,7 @@ export default function AboutBio({
       <p
         className="text-[#111]"
         style={{
-          fontFamily: "var(--font-Azeret-Mono), sans-serif",
+          fontFamily: "var(--font-sans), sans-serif",
           fontSize: 28,
           // fontWeight: 100,
           lineHeight: 1.44,

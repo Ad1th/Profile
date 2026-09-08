@@ -31,10 +31,16 @@
    Scoped to the homepage: it is ~10,000px of heavy sections. On the short
    project/patent/hackathon pages the same rule only delays paint and costs
    find-in-page and print fidelity. */
-[data-page="home"] section:not([data-section="hero"]) {
+[data-page="home"]
+  section:not([data-section="hero"]):not([data-section="projects"]):not(
+    .patents-wrap
+  ) {
   content-visibility: auto;
   contain-intrinsic-size: 1px 600px;
 }
+/* The project archive and the patents sequence measure their own scroll
+   positions (GSAP ScrollTrigger, a canvas). Skipped rendering would hand
+   them stale offsets, so they always lay out. */
 
 /* Default nav height variable (used by components) */
 :root {

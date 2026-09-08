@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import ProjectsArchiveClient from "@/components/sections/projects/ProjectsArchiveClient";
 import StructuredData from "@/components/seo/StructuredData";
-import { projects, patents, siteUrl, siteTitle } from "@/lib/seo-data";
+import { projects, patents, siteUrl } from "@/lib/seo-data";
+
+const archiveDescription = `${projects.length} backend engines, query processors, distributed systems, research software and CLI tools, plus ${patents.length} published patents, built by Adith Manikonda.`;
 
 export const metadata: Metadata = {
-  title: "All Projects & Systems | Adith Manikonda",
-  description:
-    "Explore 19 backend engines, query processors, distributed systems, research software, CLI tools and patents built by Adith Manikonda.",
+  title: "Projects",
+  description: archiveDescription,
   keywords: [
     "Adith Manikonda Projects",
     "Adith Projects",
@@ -24,17 +25,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `${siteUrl}/projects`,
-    title: "Projects & Systems Archive | Adith Manikonda",
-    description:
-      "Explore 19 backend engines, query processors, distributed systems, research software, CLI tools and patents built by Adith Manikonda.",
-    images: [
-      {
-        url: "/images/me.webp",
-        width: 1200,
-        height: 630,
-        alt: "Adith Manikonda Projects Archive",
-      },
-    ],
+    title: "Projects | Adith Manikonda",
+    description: archiveDescription,
   },
 };
 

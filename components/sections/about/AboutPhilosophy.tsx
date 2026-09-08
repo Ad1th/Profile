@@ -131,40 +131,16 @@ export default function AboutPhilosophy({
           zIndex: 30,
         }}
       >
-        {/* MINIMIZE DASH */}
+        {/* MINIMIZE BAR */}
         <span
+          aria-hidden="true"
           style={{
-            /*
-              Archivo gives sharp geometric look.
-            */
-            fontFamily: "var(--font-archivo), sans-serif",
-
-            /*
-              Thick brutalist weight.
-            */
-            fontWeight: 900,
-
-            /*
-              Slightly smaller than X.
-            */
-            fontSize: 16,
-
-            /*
-              Hard black.
-            */
-            color: "#111",
-
-            /*
-              Keeps vertical alignment visually centered.
-            */
-            lineHeight: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            display: "block",
+            width: 14,
+            height: 3,
+            background: "#111",
           }}
-        >
-          —
-        </span>
+        />
 
         {/* CLOSE X */}
         <span
@@ -216,7 +192,7 @@ export default function AboutPhilosophy({
           /*
             Padding controls breathing room.
           */
-          padding: "22px 24px 24px 24px",
+          padding: standalone ? "22px 24px 72px 24px" : "22px 24px 24px 24px",
         }}
         initial={standalone ? { opacity: 0, y: 18 } : false}
         whileInView={standalone ? { opacity: 1, y: 0 } : undefined}
@@ -326,7 +302,7 @@ export default function AboutPhilosophy({
             /*
               Clean editorial grotesk.
             */
-            fontFamily: "var(--font-roboto), sans-serif",
+            fontFamily: "var(--font-sans), sans-serif",
 
             /*
               Strong but not headline-heavy.
@@ -397,7 +373,7 @@ export default function AboutPhilosophy({
               <span
                 className="uppercase text-[#111]"
                 style={{
-                  fontFamily: "var(--font-roboto), sans-serif",
+                  fontFamily: "var(--font-sans), sans-serif",
 
                   fontSize: 18,
 

@@ -15,7 +15,7 @@ export const patents: ResearchPatent[] = [
     applicationNumber: "202641032830",
     title:
       "Wave Energy Generator Electrical Circuit with Maximum Power Point Tracking and IoT Telemetry System",
-    status: "Published — Currently under examination",
+    status: "Published, under examination",
     filedDate: "18 Mar 2026",
     publishedDate: "18 Mar 2026",
     abstract:

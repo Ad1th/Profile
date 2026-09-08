@@ -54,7 +54,7 @@ const SECTIONS = [
   "experience",
   "projects",
   "patents",
-  "hackathons/achievements",
+  "hackathons",
   "contact",
 ];
 

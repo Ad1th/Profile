@@ -38,12 +38,25 @@ import HeroCTA from "./HeroCTA";
 import HeroPortrait from "./HeroPortrait";
 import { motion, type MotionValue, type MotionStyle } from "framer-motion";
 import { easings } from "@/lib/motion";
-import { useState, useEffect } from "react";
+import { projects } from "@/lib/seo-data";
+import { useState, useEffect, useLayoutEffect } from "react";
+
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+const projectCount = String(projects.length);
+
+function scrollToProjects() {
+  const el = document.querySelector('[data-section="projects"]');
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+}
 
 // ── PROP TYPES ─────────────────────────────────────────────────────────────
 interface HeroDesktopExternalProps {
   /** Suppress the internal orange ticker (use StickyTicker globally instead). */
   suppressTicker?: boolean;
+  /** Fill the parent (the pinned stage) instead of the viewport. */
+  fill?: boolean;
 
   // Headline word-level MotionStyle overrides (from DesktopCinematicTransition)
   backendStyle?: MotionStyle;
@@ -64,6 +77,7 @@ interface HeroDesktopExternalProps {
 
 export default function Hero({
   suppressTicker = false,
+  fill = false,
   backendStyle,
   withStyle,
   tasteStyle,
@@ -84,7 +98,8 @@ export default function Hero({
     "desktop" | "tabletLandscape" | "tabletPortrait" | "mobile"
   >("desktop");
 
-  useEffect(() => {
+  // Before paint, so a phone never flashes the desktop hero for a frame.
+  useIsomorphicLayoutEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
       const isPortrait = window.matchMedia("(orientation: portrait)").matches;
@@ -106,6 +121,7 @@ export default function Hero({
   return (
     <HeroDesktop
       suppressTicker={suppressTicker}
+      fill={fill}
       backendStyle={backendStyle}
       withStyle={withStyle}
       tasteStyle={tasteStyle}
@@ -125,6 +141,7 @@ export default function Hero({
 // ═══════════════════════════════════════════════════════════════════════════
 function HeroDesktop({
   suppressTicker = false,
+  fill = false,
   backendStyle,
   withStyle,
   tasteStyle,
@@ -137,7 +154,10 @@ function HeroDesktop({
   marqueeDuration,
 }: HeroDesktopExternalProps) {
   return (
-    <section className="relative h-[100dvh] min-h-[800px] w-full overflow-hidden bg-[#F0EBE0]">
+    <section
+      className="relative w-full overflow-hidden bg-[#F0EBE0]"
+      style={{ height: fill ? "100%" : "100dvh", minHeight: 800 }}
+    >
       <div className="absolute inset-0 bg-grain pointer-events-none z-[60] opacity-[0.025]" />
 
       <motion.div
@@ -242,7 +262,7 @@ function HeroDesktop({
       >
         {[
           { value: "3+", label: "Years Building", accent: true },
-          { value: "15+", label: "Projects Shipped", accent: false },
+          { value: projectCount, label: "Projects Shipped", accent: false },
           { value: "80+", label: "Repositories", accent: false },
         ].map(({ value, label, accent }, i) => (
           <div
@@ -282,7 +302,7 @@ function HeroDesktop({
             </div>
             <div
               className="text-[#444] text-[25px] font-bold tracking-[0.12em] uppercase"
-              style={{ fontFamily: "var(--font-archivo), monospace" }}
+              style={{ fontFamily: "var(--font-archivo), sans-serif" }}
             >
               {label}
             </div>
@@ -321,7 +341,7 @@ function HeroDesktop({
                 key={i}
                 className="text-white text-[14px] font-black tracking-[0.26em] uppercase"
                 style={{
-                  fontFamily: "var(--font-archivo), monospace",
+                  fontFamily: "var(--font-archivo), sans-serif",
                   paddingRight: 64,
                 }}
               >
@@ -547,7 +567,7 @@ function HeroMobile() {
       >
         {[
           { value: "3+", label: "Years" },
-          { value: "12", label: "Projects" },
+          { value: projectCount, label: "Projects" },
           { value: "80+", label: "Repos" },
         ].map(({ value, label }, i) => (
           <div
@@ -572,7 +592,7 @@ function HeroMobile() {
             <div
               className="text-[#555] text-[10px] font-bold tracking-[0.12em] uppercase"
               style={{
-                fontFamily: "var(--font-archivo), monospace",
+                fontFamily: "var(--font-archivo), sans-serif",
                 marginTop: 6,
               }}
             >
@@ -602,7 +622,7 @@ function HeroMobile() {
               key={i}
               className="text-white text-[10px] font-black tracking-[0.2em] uppercase"
               style={{
-                fontFamily: "var(--font-archivo), monospace",
+                fontFamily: "var(--font-archivo), sans-serif",
                 paddingRight: 32,
               }}
             >
@@ -920,6 +940,9 @@ function CTASmall({
         }}
       />
       <motion.button
+        type="button"
+        onClick={scrollToProjects}
+        aria-label="View work"
         style={{
           position: "absolute",
           inset: 0,
@@ -951,7 +974,7 @@ function CTASmall({
 function StatsBarTablet({ cols = 3 }: { cols?: number }) {
   const stats = [
     { value: "3+", label: "Years Building" },
-    { value: "15+", label: "Projects Shipped" },
+    { value: projectCount, label: "Projects Shipped" },
     { value: "80+", label: "Repositories" },
   ].slice(0, cols);
   return (
@@ -986,7 +1009,7 @@ function StatsBarTablet({ cols = 3 }: { cols?: number }) {
           </div>
           <div
             className="text-[#444] text-[14px] font-bold tracking-[0.12em] uppercase"
-            style={{ fontFamily: "var(--font-archivo), monospace" }}
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
           >
             {label}
           </div>
@@ -1014,7 +1037,7 @@ function TickerTablet() {
             key={i}
             className="text-white text-[12px] font-black tracking-[0.24em] uppercase"
             style={{
-              fontFamily: "var(--font-archivo), monospace",
+              fontFamily: "var(--font-archivo), sans-serif",
               paddingRight: 48,
             }}
           >

@@ -153,7 +153,7 @@ export default function Experience() {
                     transform: "rotate(-0.6deg) scaleY(0.96)",
                     transformOrigin: "left top",
                     fontFamily:
-                      "'Luckiest Guy', Genty, Grobold, 'Bowlby One SC', Anton, sans-serif",
+                      "var(--font-anton), Anton, 'Arial Black', Impact, sans-serif",
                     letterSpacing: "0.005em",
                     textTransform: "uppercase",
                     lineHeight: 0.9,
@@ -171,7 +171,7 @@ export default function Experience() {
                     transform: "rotate(-0.6deg) scaleY(0.96)",
                     transformOrigin: "left top",
                     fontFamily:
-                      "'Luckiest Guy', Genty, Grobold, 'Bowlby One SC', Anton, sans-serif",
+                      "var(--font-anton), Anton, 'Arial Black', Impact, sans-serif",
                     textTransform: "uppercase",
                     lineHeight: 0.9,
                     fontWeight: 800,

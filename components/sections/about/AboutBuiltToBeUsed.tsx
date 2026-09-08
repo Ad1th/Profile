@@ -14,6 +14,11 @@ interface AboutBuiltToBeUsedProps {
 }
 
 // Big blue panel: corner brackets + "BUILT TO BE USED." + "OPEN TO BUILD" button
+function scrollToContact() {
+  const el = document.querySelector('[data-section="contact"]');
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+}
+
 export default function AboutBuiltToBeUsed({
   viewportTransition = false,
 }: AboutBuiltToBeUsedProps) {
@@ -23,9 +28,11 @@ export default function AboutBuiltToBeUsed({
       style={{
         border: "3px solid #111",
         borderTop: "none",
+        // Stacked layouts reserve the button's row, so two lines of the
+        // headline can never run underneath it.
         padding: viewportTransition
           ? "10px 18px 12px 18px"
-          : "16px 20px 18px 20px",
+          : "16px 20px 96px 20px",
         height: "100%",
         minHeight: viewportTransition ? undefined : 250,
       }}
@@ -139,7 +146,7 @@ export default function AboutBuiltToBeUsed({
           fontWeight: 400,
 
           fontSize: viewportTransition
-            ? "clamp(140px, 15vw, 108px)"
+            ? "clamp(104px, 9.7vw, 148px)"
             : "clamp(44px, 13vw, 84px)",
 
           letterSpacing: "0.02em",
@@ -185,6 +192,9 @@ export default function AboutBuiltToBeUsed({
           />
           {/* Button */}
           <motion.button
+            type="button"
+            onClick={scrollToContact}
+            aria-label="Open to build, go to contact"
             className="absolute inset-0 flex items-center justify-center gap-3 bg-[#CFDE00] cursor-pointer"
             style={{
               border: "4px solid #111",

@@ -47,7 +47,7 @@ export default function AboutHardware({
           <span
             className="text-[#111] font-black uppercase tracking-[0.04em]"
             style={{
-              fontFamily: "var(--font-Roboto-Mono), monospace",
+              fontFamily: "var(--font-sans), sans-serif",
               fontWeight: 900,
               fontSize: viewportTransition ? 18 : 18,
             }}
@@ -60,7 +60,7 @@ export default function AboutHardware({
         <p
           style={{
             // font-family: 'IBM Plex Mono', monospace;
-            fontFamily: "var(--font-IBM-Plex-Mono), monospace",
+            fontFamily: "var(--font-sans), sans-serif",
             fontSize: viewportTransition ? 22 : 28,
             fontWeight: 500,
             lineHeight: 1.45,

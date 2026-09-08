@@ -122,7 +122,7 @@ function CodeStamp() {
     >
       <span
         style={{
-          fontFamily: "IBM Plex Mono, monospace",
+          fontFamily: "var(--font-mono), monospace",
           fontSize: 18,
           fontWeight: 800,
         }}
@@ -131,7 +131,7 @@ function CodeStamp() {
       </span>
       <span
         style={{
-          fontFamily: "IBM Plex Mono, monospace",
+          fontFamily: "var(--font-mono), monospace",
           fontSize: 8,
           fontWeight: 700,
           marginTop: 4,
@@ -185,7 +185,7 @@ function ResearchStamp() {
       </svg>
       <span
         style={{
-          fontFamily: "IBM Plex Mono, monospace",
+          fontFamily: "var(--font-mono), monospace",
           fontSize: 8,
           fontWeight: 700,
           marginTop: 6,
@@ -212,7 +212,7 @@ function StatusBadge({ status }: { status: ExperienceEntry["status"] }) {
         background: c.bg,
         border: `2px solid ${status === "CONTRIBUTING" ? "#8A8B6D" : "#111"}`,
         padding: "3px 10px",
-        fontFamily: "IBM Plex Mono, monospace",
+        fontFamily: "var(--font-mono), monospace",
         fontSize: 11,
         fontWeight: 700,
         letterSpacing: "0.08em",
@@ -231,7 +231,7 @@ function AccessBadge({ label }: { label: string }) {
       style={{
         border: "2px solid #A14A32",
         padding: "6px 10px",
-        fontFamily: "IBM Plex Mono, monospace",
+        fontFamily: "var(--font-mono), monospace",
         fontSize: 10,
         fontWeight: 700,
         letterSpacing: "0.06em",
@@ -409,7 +409,7 @@ export default function ExperienceCard(
             >
               <span
                 style={{
-                  fontFamily: "IBM Plex Mono, monospace",
+                  fontFamily: "var(--font-mono), monospace",
                   fontSize: compact ? 14 : 16,
                   fontWeight: 700,
                   color: "#A14A32",
@@ -421,7 +421,7 @@ export default function ExperienceCard(
             </div>
             <span
               style={{
-                fontFamily: "IBM Plex Mono, monospace",
+                fontFamily: "var(--font-mono), monospace",
                 fontSize: 11,
                 fontWeight: 700,
                 letterSpacing: "0.04em",
@@ -434,7 +434,7 @@ export default function ExperienceCard(
           <div className="flex flex-col items-end gap-1">
             <span
               style={{
-                fontFamily: "IBM Plex Mono, monospace",
+                fontFamily: "var(--font-mono), monospace",
                 fontSize: 11,
                 fontWeight: 600,
                 color: isContributor ? "#888" : "#555",
@@ -448,7 +448,7 @@ export default function ExperienceCard(
 
         <h3
           style={{
-            fontFamily: "Space Grotesk, sans-serif",
+            fontFamily: "var(--font-sans), sans-serif",
             fontSize: compact ? 18 : 24,
             fontWeight: 700,
             letterSpacing: "-0.01em",
@@ -464,7 +464,7 @@ export default function ExperienceCard(
         <div style={{ marginBottom: 12 }}>
           <div
             style={{
-              fontFamily: "Space Grotesk, sans-serif",
+              fontFamily: "var(--font-sans), sans-serif",
               fontSize: compact ? 12 : 14,
               fontWeight: 600,
               color: isContributor ? "#C8C0B4" : "#111",
@@ -475,7 +475,7 @@ export default function ExperienceCard(
           {entry.location && (
             <div
               style={{
-                fontFamily: "Space Grotesk, sans-serif",
+                fontFamily: "var(--font-sans), sans-serif",
                 fontSize: compact ? 11 : 13,
                 fontWeight: 500,
                 color: isContributor ? "#888" : "#555",
@@ -501,7 +501,7 @@ export default function ExperienceCard(
                 background: "#A14A32",
                 border: "2px solid #A14A32",
                 padding: "4px 12px",
-                fontFamily: "IBM Plex Mono, monospace",
+                fontFamily: "var(--font-mono), monospace",
                 fontSize: 12,
                 fontWeight: 700,
                 color: "#111",
@@ -531,7 +531,7 @@ export default function ExperienceCard(
                 style={{
                   color: "#A14A32",
                   fontWeight: 700,
-                  fontFamily: "IBM Plex Mono, monospace",
+                  fontFamily: "var(--font-mono), monospace",
                   fontSize: compact ? 11 : 13,
                   flexShrink: 0,
                   marginTop: 2,
@@ -541,7 +541,7 @@ export default function ExperienceCard(
               </span>
               <span
                 style={{
-                  fontFamily: "Space Grotesk, sans-serif",
+                  fontFamily: "var(--font-sans), sans-serif",
                   fontSize: compact ? 12 : 14,
                   lineHeight: compact ? 1.4 : 1.6,
                   color: isContributor ? "#C8C0B4" : "#111111",
@@ -565,7 +565,7 @@ export default function ExperienceCard(
             >
               <span
                 style={{
-                  fontFamily: "IBM Plex Mono, monospace",
+                  fontFamily: "var(--font-mono), monospace",
                   fontSize: 11,
                   fontWeight: 700,
                   color: "#888",
@@ -575,7 +575,7 @@ export default function ExperienceCard(
               </span>
               <span
                 style={{
-                  fontFamily: "IBM Plex Mono, monospace",
+                  fontFamily: "var(--font-mono), monospace",
                   fontSize: 11,
                   fontWeight: 700,
                   color: "#8A8B6D",
@@ -586,7 +586,7 @@ export default function ExperienceCard(
               <span
                 style={{
                   marginLeft: "auto",
-                  fontFamily: "IBM Plex Mono, monospace",
+                  fontFamily: "var(--font-mono), monospace",
                   fontSize: 11,
                   fontWeight: 700,
                   color: "#888",
@@ -607,7 +607,7 @@ export default function ExperienceCard(
             <span
               key={tag}
               style={{
-                fontFamily: "IBM Plex Mono, monospace",
+                fontFamily: "var(--font-mono), monospace",
                 fontSize: compact ? 10 : 11,
                 fontWeight: 700,
                 letterSpacing: "0.04em",
@@ -630,7 +630,7 @@ export default function ExperienceCard(
             {entry.lastUpdated && (
               <div
                 style={{
-                  fontFamily: "IBM Plex Mono, monospace",
+                  fontFamily: "var(--font-mono), monospace",
                   fontSize: compact ? 9 : 10,
                   color: "#888",
                   marginBottom: 4,
@@ -641,7 +641,7 @@ export default function ExperienceCard(
             )}
             <div
               style={{
-                fontFamily: "IBM Plex Mono, monospace",
+                fontFamily: "var(--font-mono), monospace",
                 fontSize: compact ? 9 : 10,
                 color: isContributor ? "#666" : "#888",
                 letterSpacing: "0.06em",

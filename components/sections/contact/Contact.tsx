@@ -76,7 +76,7 @@ export default function Contact() {
       duration-100
     "
                 style={{
-                  fontFamily: '"Bodoni Moda","Didot","Times New Roman",serif',
+                  fontFamily: 'var(--font-bodoni), "Bodoni Moda", Didot, serif',
 
                   backgroundImage: `
         linear-gradient(
@@ -171,7 +171,7 @@ export default function Contact() {
                       "
                       style={{
                         fontFamily:
-                          '"Cormorant Garamond","Times New Roman",serif',
+                          'var(--font-cormorant), "Cormorant Garamond", Georgia, serif',
                       }}
                     >
                       hello@adith.xyz
@@ -212,7 +212,7 @@ export default function Contact() {
                       "
                       style={{
                         fontFamily:
-                          '"Cormorant Garamond","Times New Roman",serif',
+                          'var(--font-cormorant), "Cormorant Garamond", Georgia, serif',
                       }}
                     >
                       madith2505@gmail.com
@@ -255,7 +255,7 @@ export default function Contact() {
                       "
                       style={{
                         fontFamily:
-                          '"Cormorant Garamond","Times New Roman",serif',
+                          'var(--font-cormorant), "Cormorant Garamond", Georgia, serif',
                       }}
                     >
                       github.com/Ad1th
@@ -298,7 +298,7 @@ export default function Contact() {
                         "
                       style={{
                         fontFamily:
-                          '"Cormorant Garamond","Times New Roman",serif',
+                          'var(--font-cormorant), "Cormorant Garamond", Georgia, serif',
                       }}
                     >
                       linkedin.com/in/adith-manikonda
@@ -317,7 +317,7 @@ export default function Contact() {
         {/* footer */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-[#E8DDD0]/10 pt-4 sm:pt-6 gap-2 sm:gap-0">
           <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#E8DDD0]/52">
-            LAST UPDATED — MAY 2026
+            LAST UPDATED / SEPTEMBER 2026
           </span>
 
           <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#E8DDD0]/42">

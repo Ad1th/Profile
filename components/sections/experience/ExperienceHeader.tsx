@@ -23,7 +23,7 @@ export default function ExperienceHeader() {
         <div style={{ width: 32, height: 3, background: "#A14A32" }} />
         <span
           style={{
-            fontFamily: "IBM Plex Mono, monospace",
+            fontFamily: "var(--font-mono), monospace",
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "0.14em",
@@ -93,7 +93,7 @@ export default function ExperienceHeader() {
           />
           <p
             style={{
-              fontFamily: "Space Grotesk, sans-serif",
+              fontFamily: "var(--font-sans), sans-serif",
               fontSize: 15,
               fontWeight: 500,
               lineHeight: 1.55,

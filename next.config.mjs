@@ -23,6 +23,15 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/renderd",
+        destination: "https://renderd.vercel.app",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 if (userConfig) {

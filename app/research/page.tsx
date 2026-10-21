@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import ResearchLabClient from "@/components/sections/research/ResearchLabClient";
 import StructuredData from "@/components/seo/StructuredData";
-import { publications, patents, activeResearchProjects } from "@/content/research";
-import { siteUrl } from "@/lib/seo-data";
+import { pageMetadata } from "@/lib/metadata";
+import { researchGraph } from "@/lib/structured-data";
 
-export const metadata: Metadata = {
+const researchDescription =
+  "Research by Adith Manikonda: database systems, approximate query processing, AI agent security, distributed systems and machine learning.";
+
+export const metadata: Metadata = pageMetadata({
   title: "Research",
-  description:
-    "Digital Research Lab of Adith Manikonda. Exploring database systems, approximate query processing, text-to-SQL agent security, distributed systems, and machine learning.",
+  description: researchDescription,
+  path: "/research",
+  markdown: "/research.md",
   keywords: [
     "Adith Manikonda Research",
     "Database Systems Research",
@@ -19,72 +23,12 @@ export const metadata: Metadata = {
     "Wave Energy MPPT Patent",
     "IIT Hyderabad Research",
   ],
-  alternates: {
-    canonical: "/research",
-  },
-  openGraph: {
-    type: "website",
-    url: `${siteUrl}/research`,
-    title: "Research | Adith Manikonda",
-    description:
-      "Database systems, trustworthy AI, distributed systems, security and machine learning: research, publications and experimental systems.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Research | Adith Manikonda",
-    description:
-      "Database systems, trustworthy AI, distributed systems, security and machine learning.",
-  },
-};
-
-const researchSchema = {
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  name: "Adith Manikonda Digital Research Lab",
-  url: `${siteUrl}/research`,
-  mainEntity: {
-    "@type": "Person",
-    name: "Adith Manikonda",
-    jobTitle: "Research Engineer",
-    alumniOf: "VIT Vellore",
-    affiliation: {
-      "@type": "Organization",
-      name: "IIT Hyderabad",
-    },
-    knowsAbout: [
-      "Database Systems",
-      "Approximate Query Processing",
-      "LLM Security",
-      "Distributed Systems",
-      "Machine Learning",
-    ],
-  },
-  hasPart: [
-    ...publications.map((pub) => ({
-      "@type": "ScholarlyArticle",
-      name: pub.title,
-      headline: pub.title,
-      abstract: pub.abstract,
-      datePublished: pub.date,
-      publisher: pub.publisher,
-    })),
-    ...patents.map((patent) => ({
-      "@type": "CreativeWork",
-      name: patent.title,
-      description: patent.abstract,
-    })),
-    ...activeResearchProjects.map((proj) => ({
-      "@type": "ResearchProject",
-      name: proj.title,
-      description: proj.shortDescription,
-    })),
-  ],
-};
+});
 
 export default function ResearchPage() {
   return (
-    <main>
-      <StructuredData data={researchSchema} />
+    <main id="main">
+      <StructuredData data={researchGraph(researchDescription)} />
       <ResearchLabClient />
     </main>
   );

@@ -17,9 +17,13 @@
  * 4. Logo click scrolls to top smoothly.
  *
  * 5. Mobile hamburger opens a full-screen overlay nav (matches brutalist style).
+ *
+ * 6. Every item is a real link (/#section, or a page) that JS upgrades to the
+ *    smooth scroll. Crawlers, agents and no-JS readers only follow hrefs;
+ *    as buttons, the nav was invisible to all three.
  */
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -53,6 +57,11 @@ const SECTIONS = [
   "hackathons",
   "contact",
 ];
+
+/** Leave modified clicks (new tab, new window) to the browser. */
+function isPlainClick(e: MouseEvent) {
+  return !(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0);
+}
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -109,6 +118,21 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, [pathname]);
 
+  // A /#section URL (pasted, or from another page) lands on its section.
+  // Sections are marked with data-section rather than id, so the browser
+  // cannot resolve the hash by itself.
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const section = decodeURIComponent(window.location.hash.slice(1));
+    if (!SECTIONS.includes(section)) return;
+    const frame = requestAnimationFrame(() => {
+      document
+        .querySelector(`[data-section="${section}"]`)
+        ?.scrollIntoView({ behavior: "auto" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [pathname]);
+
   // ── Scroll to section or navigate back to home section ──────────────
   const scrollTo = useCallback((section: string) => {
     setMobileOpen(false);
@@ -163,13 +187,18 @@ export default function Navbar() {
         }}
       >
         {/* ── Logo ──────────────────────────────────────────────────────── */}
-        <motion.button
+        <motion.a
+          href="/"
           className="pointer-events-auto flex items-center gap-[12px] cursor-pointer"
-          onClick={handleLogoClick}
+          onClick={(e) => {
+            if (!isPlainClick(e)) return;
+            e.preventDefault();
+            handleLogoClick();
+          }}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           transition={{ duration: 0.14 }}
-          aria-label="Navigate to Home / Scroll to top"
+          aria-label="Adith Manikonda, home"
         >
           <div
             className="flex h-[36px] w-[36px] items-center justify-center border-[3px] border-[#111] bg-[#F45113] md:h-[40px] md:w-[40px]"
@@ -182,18 +211,23 @@ export default function Navbar() {
               A.
             </span>
           </div>
-        </motion.button>
+        </motion.a>
 
         {/* ── Desktop links ─────────────────────────────────────────────── */}
         <div className="pointer-events-auto hidden items-center gap-[28px] md:flex">
           {NAV_LINKS.map(({ label, section }) => {
             const isActive = activeLinkSection === section;
             return (
-              <button
+              <a
                 key={label}
-                onClick={() => scrollTo(section)}
-                className="relative cursor-pointer"
-                aria-current={isActive ? "page" : undefined}
+                href={`/#${section}`}
+                onClick={(e) => {
+                  if (!isPlainClick(e)) return;
+                  e.preventDefault();
+                  scrollTo(section);
+                }}
+                className="relative inline-block cursor-pointer"
+                aria-current={isActive ? "location" : undefined}
                 style={{
                   fontFamily: "var(--font-archivo), sans-serif",
                   fontSize: 14,
@@ -231,7 +265,7 @@ export default function Navbar() {
                   animate={{ scaleX: isActive ? 1 : 0 }}
                   transition={{ duration: 0.24, ease: easings.primary }}
                 />
-              </button>
+              </a>
             );
           })}
 
@@ -375,10 +409,15 @@ export default function Navbar() {
                 }
 
                 return (
-                  <motion.button
+                  <motion.a
                     key={label}
-                    onClick={() => section && scrollTo(section)}
-                    className=" cursor-pointer text-left"
+                    href={`/#${section}`}
+                    onClick={(e) => {
+                      if (!section || !isPlainClick(e)) return;
+                      e.preventDefault();
+                      scrollTo(section);
+                    }}
+                    className="block cursor-pointer text-left"
                     style={{
                       background: "none",
                       border: "none",
@@ -404,7 +443,7 @@ export default function Navbar() {
                     whileHover={{ x: 12, color: "#8A8B6D" } as any}
                   >
                     {label}
-                  </motion.button>
+                  </motion.a>
                 );
               })}
             </nav>

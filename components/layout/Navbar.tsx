@@ -211,6 +211,13 @@ export default function Navbar() {
               A.
             </span>
           </div>
+          {/* The name, in words, on every page: the hero never says it. */}
+          <span
+            className="text-[14px] font-[900] uppercase leading-none tracking-[-0.04em] text-[#111] md:text-[15px]"
+            style={{ fontFamily: "var(--font-archivo), sans-serif" }}
+          >
+            Adith Manikonda
+          </span>
         </motion.a>
 
         {/* ── Desktop links ─────────────────────────────────────────────── */}

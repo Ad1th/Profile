@@ -127,6 +127,18 @@ export default async function ProjectPage({ params }: PageProps) {
           </a>
         ) : null}
 
+        {project.website ? (
+          <a
+            href={project.website}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-8 ml-4 inline-block border-[3px] border-[#111] bg-white px-6 py-3 font-mono text-xs font-black uppercase tracking-[0.14em] text-[#111] hover:bg-[#111] hover:text-white"
+            style={{ boxShadow: "4px 4px 0 0 #111" }}
+          >
+            Website &nbsp;&#8599;
+          </a>
+        ) : null}
+
         {/* ── Evidence: the part a tech-tag list cannot carry ───────────── */}
         {ev ? (
           <section className="mt-16 grid gap-10 md:grid-cols-2">

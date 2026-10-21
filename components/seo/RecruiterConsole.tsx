@@ -30,6 +30,7 @@ export default function RecruiterConsole() {
       "Adith Manikonda is a backend-focused engineer from VIT Vellore building scalable systems, research prototypes, patents and developer tools.";
 
     window.projects = () => [
+      "Renderd - open source app that makes a Windows PC a second monitor for a Mac",
       "Argus - database query visualization and telemetry",
       "Threddit - productivity-focused Chrome extension",
       "EcoSync - AI sustainability tooling for textile industries",

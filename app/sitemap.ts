@@ -1,33 +1,41 @@
 import type { MetadataRoute } from "next";
-import { hackathons, patents, projects, siteUrl } from "@/lib/seo-data";
+import { profile } from "@/lib/profile";
+import { hackathons, patents, projects, siteUpdated } from "@/lib/seo-data";
+import { url } from "@/lib/structured-data";
 
+/**
+ * Every indexable page, with a lastmod that only moves when the content
+ * does (see siteUpdated) and the images on each page, so the portrait and
+ * the project screenshots can surface in image search.
+ *
+ * changefreq and priority are left out: Google ignores both.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const lastModified = siteUpdated;
+  const portrait = url(profile.portrait.path);
 
   return [
-    {
-      url: siteUrl,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-    ...projects.map((project) => ({
-      url: `${siteUrl}/projects/${project.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.85,
-    })),
+    { url: url("/"), lastModified, images: [portrait] },
+    { url: url("/about"), lastModified, images: [portrait] },
+    { url: url("/projects"), lastModified },
+    { url: url("/research"), lastModified },
+    ...projects.map((project) => {
+      const shots = project.screenshots
+        .filter((shot) => !shot.endsWith("_placeholder.svg"))
+        .map((shot) => url(encodeURI(shot)));
+      return {
+        url: url(`/projects/${project.slug}`),
+        lastModified,
+        ...(shots.length ? { images: shots } : {}),
+      };
+    }),
     ...patents.map((patent) => ({
-      url: `${siteUrl}/patents/${patent.slug}`,
-      lastModified: now,
-      changeFrequency: "yearly" as const,
-      priority: 0.75,
+      url: url(`/patents/${patent.slug}`),
+      lastModified,
     })),
     ...hackathons.map((hackathon) => ({
-      url: `${siteUrl}/hackathons/${hackathon.slug}`,
-      lastModified: now,
-      changeFrequency: "yearly" as const,
-      priority: 0.65,
+      url: url(`/hackathons/${hackathon.slug}`),
+      lastModified,
     })),
   ];
 }

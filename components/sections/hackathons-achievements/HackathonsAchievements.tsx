@@ -1,57 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const HACKATHONS = [
-  {
-    date: "Mar 2026",
-    title: "Women Techies'26 - Finalist, Top 10 Teams",
-    location: "VIT Vellore",
-  },
-  {
-    date: "Mar 2026",
-    title: "TechSolstice",
-    location: "MIT Bangalore",
-  },
-  {
-    date: "Sep 2025",
-    title: "Code 2 Create (C2C) - AI Track Winner",
-    location: "VIT Vellore",
-  },
-  {
-    date: "Apr 2025",
-    title: "Women Techies'25",
-    location: "VIT Vellore",
-  },
-  {
-    date: "Jan 2025",
-    title: "Yantra Central Hack",
-    location: "VIT Vellore",
-  },
-  {
-    date: "Sep 2024",
-    title: "DevJams",
-    location: "VIT Vellore",
-  },
-  {
-    date: "Feb 2024",
-    title: "CodeWars - 1st Place",
-    location: "NPS KRM, Bangalore",
-  },
-];
-
-const ACHIEVEMENTS = [
-  { year: "2025", title: "AI Track Winner - Code 2 Create (C2C)" },
-  {
-    year: "2024-25",
-    title: "100% Attendance Award",
-    detail: "Vellore Institute of Technology",
-  },
-  { year: "2025", title: "OCI Foundations Certification" },
-  { year: "2025", title: "SQL Basic Certification" },
-  { year: "2025", title: "SQL Intermediate Certification" },
-  { year: "2023", title: "PC Building Competition - Second Place" },
-];
+import {
+  achievements as ACHIEVEMENTS,
+  hackathonRecord as HACKATHONS,
+} from "@/lib/seo-data";
 
 export default function HackathonsAchievements() {
   return (

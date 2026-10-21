@@ -764,6 +764,7 @@ export default function Patents() {
   return (
     <section
       ref={wrapRef}
+      data-section="patents"
       className="patents-wrap"
       style={{ height: "450vh", position: "relative" }}
       aria-label="Patents by Adith Manikonda"

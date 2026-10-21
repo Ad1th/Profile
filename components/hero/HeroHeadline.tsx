@@ -29,9 +29,10 @@ export default function HeroHeadline({
     >
       {/* BACKEND — white, full width bleed */}
       <h1
-        aria-label="Backend with taste."
+        aria-label="Adith Manikonda: backend with taste."
         style={{ display: "contents" }}
       >
+        <span className="sr-only">Adith Manikonda: </span>
       <motion.div
         style={{
           clipPath: "inset(0 -40% 0 0)",

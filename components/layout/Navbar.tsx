@@ -402,7 +402,7 @@ export default function Navbar() {
                           color: "#CFDE00",
                         }}
                       >
-                        {label} &nearr;
+                        {label} <span aria-hidden="true">↗</span>
                       </Link>
                     </motion.div>
                   );

@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import StructuredData from "@/components/seo/StructuredData";
-import { patents, siteUrl } from "@/lib/seo-data";
+import { pageMetadata } from "@/lib/metadata";
+import { patents } from "@/lib/seo-data";
+import { patentGraph } from "@/lib/structured-data";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -19,12 +22,14 @@ export async function generateMetadata({
 
   if (!patent) return {};
 
-  const title = patent.title;
-  const description = `${patent.abstract} Patent application ${patent.application}, published ${patent.published}.`;
-
-  return {
-    title,
-    description,
+  return pageMetadata({
+    title: patent.title,
+    // Who and which application first: the abstract is the part a results
+    // page can afford to cut.
+    description: `Indian patent application ${patent.application} naming Adith Manikonda: ${patent.abstract.charAt(0).toLowerCase()}${patent.abstract.slice(1)}`,
+    path: `/patents/${patent.slug}`,
+    markdown: `/patents/${patent.slug}.md`,
+    type: "article",
     keywords: [
       "Adith Manikonda",
       "Adith patent",
@@ -33,31 +38,7 @@ export async function generateMetadata({
       patent.application,
       ...patent.technologies,
     ],
-    alternates: {
-      canonical: `/patents/${patent.slug}`,
-    },
-    openGraph: {
-      type: "article",
-      url: `${siteUrl}/patents/${patent.slug}`,
-      title,
-      description,
-      siteName: "Adith Manikonda",
-      images: [
-        {
-          url: "/images/me.webp",
-          width: 1200,
-          height: 630,
-          alt: "Adith Manikonda patent developer",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ["/images/me.webp"],
-    },
-  };
+  });
 }
 
 export default async function PatentPage({ params }: PageProps) {
@@ -66,35 +47,20 @@ export default async function PatentPage({ params }: PageProps) {
 
   if (!patent) notFound();
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: patent.title,
-    url: `${siteUrl}/patents/${patent.slug}`,
-    abstract: patent.abstract,
-    description: patent.summary,
-    identifier: patent.application,
-    datePublished: patent.published,
-    creator: {
-      "@type": "Person",
-      name: "Adith Manikonda",
-      url: siteUrl,
-    },
-  };
-
   return (
     <main
       id="main"
       className="min-h-screen bg-[#EEE7DC] px-6 py-28 text-[#111] sm:px-10 lg:px-16"
     >
-      <StructuredData data={schema} />
+      <StructuredData data={patentGraph(patent)} />
       <article className="mx-auto max-w-4xl">
-        <a
-          href="/research"
-          className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32] hover:text-[#E8420A]"
-        >
-          &larr; Research
-        </a>
+        <Breadcrumbs
+          trail={[
+            { name: "Home", href: "/" },
+            { name: "Research", href: "/research" },
+            { name: `Patent ${patent.application}` },
+          ]}
+        />
         <p className="mt-8 font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32]">
           Patent / {patent.application}
         </p>

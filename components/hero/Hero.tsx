@@ -652,9 +652,10 @@ function HeadlineTablet() {
       }}
     >
       <h1
-        aria-label="Backend with taste."
+        aria-label="Adith Manikonda: backend with taste."
         style={{ display: "contents" }}
       >
+        <span className="sr-only">Adith Manikonda: </span>
       <motion.span
         className="block text-[#F0EBE0]"
         style={{ fontSize: "clamp(48px, 8vw, 96px)" }}
@@ -733,9 +734,10 @@ function HeadlineTabletPortrait() {
       }}
     >
       <h1
-        aria-label="Backend with taste."
+        aria-label="Adith Manikonda: backend with taste."
         style={{ display: "contents" }}
       >
+        <span className="sr-only">Adith Manikonda: </span>
       <motion.span
         className="block text-[#F0EBE0]"
         style={{ fontSize: "clamp(62px, 10.5vw, 106px)" }}
@@ -824,9 +826,10 @@ function HeadlineMobile({ portrait = true }: { portrait?: boolean }) {
       }}
     >
       <h1
-        aria-label="Backend with taste."
+        aria-label="Adith Manikonda: backend with taste."
         style={{ display: "contents" }}
       >
+        <span className="sr-only">Adith Manikonda: </span>
       <motion.span
         className="block text-[#F0EBE0]"
         style={{

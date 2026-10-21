@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import StructuredData from "@/components/seo/StructuredData";
-import { projects, siteUrl } from "@/lib/seo-data";
+import { pageMetadata } from "@/lib/metadata";
+import { projects, type Project } from "@/lib/seo-data";
+import { projectGraph } from "@/lib/structured-data";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -10,6 +14,20 @@ type PageProps = {
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
+}
+
+/**
+ * The project's own line, then who built it with as much of the stack as
+ * fits a search snippet. The full stack list ran past 160 characters on most
+ * projects, so the name was the part results pages cut off.
+ */
+function describe(project: Project) {
+  const lead = `${project.description} Built by Adith Manikonda`;
+  for (let n = project.technologies.length; n > 0; n--) {
+    const text = `${lead} with ${project.technologies.slice(0, n).join(", ")}.`;
+    if (text.length <= 160) return text;
+  }
+  return `${lead}.`;
 }
 
 export async function generateMetadata({
@@ -21,12 +39,16 @@ export async function generateMetadata({
   if (!project) return {};
 
   const title = project.seoTitle ?? project.title;
-  const description = `${project.description} Built by Adith Manikonda using ${project.technologies.join(", ")}.`;
-  const image = project.screenshots[0] ?? "/images/me.webp";
 
-  return {
+  // The card image comes from ./opengraph-image.tsx. It used to be the first
+  // screenshot, which for most projects was the SVG placeholder: no social
+  // network renders an SVG og:image.
+  return pageMetadata({
     title,
-    description,
+    description: describe(project),
+    path: `/projects/${project.slug}`,
+    markdown: `/projects/${project.slug}.md`,
+    type: "article",
     keywords: [
       "Adith Manikonda",
       "Adith portfolio",
@@ -34,31 +56,15 @@ export async function generateMetadata({
       ...(project.seoTitle ? [project.seoTitle] : []),
       ...project.technologies,
     ],
-    alternates: {
-      canonical: `/projects/${project.slug}`,
-    },
-    openGraph: {
-      type: "article",
-      url: `${siteUrl}/projects/${project.slug}`,
-      title,
-      description,
-      siteName: "Adith Manikonda",
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: `${project.title} project by Adith Manikonda`,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [image],
-    },
-  };
+  });
+}
+
+/** Up to three more builds from the same shelf, then whatever is newest. */
+function relatedProjects(slug: string, category?: string) {
+  const others = projects.filter((p) => p.slug !== slug);
+  const sameShelf = others.filter((p) => p.category === category);
+  const rest = others.filter((p) => p.category !== category);
+  return [...sameShelf, ...rest].slice(0, 3);
 }
 
 export default async function ProjectPage({ params }: PageProps) {
@@ -67,36 +73,23 @@ export default async function ProjectPage({ params }: PageProps) {
 
   if (!project) notFound();
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareSourceCode",
-    name: project.title,
-    url: `${siteUrl}/projects/${project.slug}`,
-    description: project.description,
-    programmingLanguage: project.technologies,
-    dateCreated: project.year,
-    creator: {
-      "@type": "Person",
-      name: "Adith Manikonda",
-      url: siteUrl,
-    },
-  };
-
   const ev = project.evidence;
+  const related = relatedProjects(project.slug, project.category);
 
   return (
     <main
       id="main"
       className="min-h-screen bg-[#EEE7DC] px-6 py-28 text-[#111] sm:px-10 lg:px-16"
     >
-      <StructuredData data={schema} />
+      <StructuredData data={projectGraph(project)} />
       <article className="mx-auto max-w-5xl">
-        <a
-          href="/projects"
-          className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32] hover:text-[#E8420A]"
-        >
-          &larr; All Projects
-        </a>
+        <Breadcrumbs
+          trail={[
+            { name: "Home", href: "/" },
+            { name: "Projects", href: "/projects" },
+            { name: project.title },
+          ]}
+        />
 
         <p className="mt-8 font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32]">
           Adith Manikonda Project / {project.year}
@@ -254,6 +247,49 @@ export default async function ProjectPage({ params }: PageProps) {
             </div>
           </section>
         ) : null}
+
+        <section className="mt-16" aria-labelledby="more-builds">
+          <h2
+            id="more-builds"
+            className="font-mono text-sm font-black uppercase tracking-[0.16em]"
+          >
+            More from Adith Manikonda
+          </h2>
+          <ul className="mt-5 grid gap-5 sm:grid-cols-3">
+            {related.map((other) => (
+              <li key={other.slug}>
+                <Link
+                  href={`/projects/${other.slug}`}
+                  className="group block h-full border-[3px] border-[#111] bg-[#FFFDF5] p-5 hover:bg-[#111] hover:text-[#F0EBE0]"
+                  style={{ boxShadow: "4px 4px 0 0 #111" }}
+                >
+                  <span className="block font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-[#A14A32] group-hover:text-[#CFDE00]">
+                    {other.year}
+                    {other.category ? ` / ${other.category}` : ""}
+                  </span>
+                  <span
+                    className="mt-3 block text-2xl uppercase leading-none"
+                    style={{
+                      fontFamily:
+                        "var(--font-anton), 'Arial Black', Impact, sans-serif",
+                    }}
+                  >
+                    {other.title}
+                  </span>
+                  <span className="mt-3 block text-sm leading-6 text-[#111]/70 group-hover:text-[#F0EBE0]/75">
+                    {other.description}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Link
+            href="/projects"
+            className="mt-8 inline-block font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32] hover:text-[#E8420A]"
+          >
+            Every project &rarr;
+          </Link>
+        </section>
       </article>
     </main>
   );

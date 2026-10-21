@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import StructuredData from "@/components/seo/StructuredData";
-import { hackathons, siteUrl } from "@/lib/seo-data";
+import { pageMetadata } from "@/lib/metadata";
+import { hackathons } from "@/lib/seo-data";
+import { hackathonGraph } from "@/lib/structured-data";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -19,12 +23,12 @@ export async function generateMetadata({
 
   if (!hackathon) return {};
 
-  const title = hackathon.title;
-  const description = `${hackathon.summary} ${hackathon.date}, ${hackathon.location}.`;
-
-  return {
-    title,
-    description,
+  return pageMetadata({
+    title: hackathon.title,
+    description: `Adith Manikonda at ${hackathon.title}: ${hackathon.summary} ${hackathon.date}, ${hackathon.location}.`,
+    path: `/hackathons/${hackathon.slug}`,
+    markdown: `/hackathons/${hackathon.slug}.md`,
+    type: "article",
     keywords: [
       "Adith Manikonda",
       "Adith VIT",
@@ -33,31 +37,7 @@ export async function generateMetadata({
       hackathon.title,
       hackathon.location,
     ],
-    alternates: {
-      canonical: `/hackathons/${hackathon.slug}`,
-    },
-    openGraph: {
-      type: "article",
-      url: `${siteUrl}/hackathons/${hackathon.slug}`,
-      title,
-      description,
-      siteName: "Adith Manikonda",
-      images: [
-        {
-          url: "/images/me.webp",
-          width: 1200,
-          height: 630,
-          alt: "Adith Manikonda hackathon achievement",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ["/images/me.webp"],
-    },
-  };
+  });
 }
 
 export default async function HackathonPage({ params }: PageProps) {
@@ -66,33 +46,20 @@ export default async function HackathonPage({ params }: PageProps) {
 
   if (!hackathon) notFound();
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    name: hackathon.title,
-    url: `${siteUrl}/hackathons/${hackathon.slug}`,
-    description: hackathon.summary,
-    location: hackathon.location,
-    performer: {
-      "@type": "Person",
-      name: "Adith Manikonda",
-      url: siteUrl,
-    },
-  };
-
   return (
     <main
       id="main"
       className="min-h-screen bg-[#EEE7DC] px-6 py-28 text-[#111] sm:px-10 lg:px-16"
     >
-      <StructuredData data={schema} />
+      <StructuredData data={hackathonGraph(hackathon)} />
       <article className="mx-auto max-w-4xl">
-        <a
-          href="/#hackathons"
-          className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32] hover:text-[#E8420A]"
-        >
-          &larr; Hackathons
-        </a>
+        <Breadcrumbs
+          trail={[
+            { name: "Home", href: "/" },
+            { name: "Hackathons", href: "/#hackathons" },
+            { name: hackathon.title },
+          ]}
+        />
         <p className="mt-8 font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32]">
           Hackathon / {hackathon.location}
         </p>
@@ -120,6 +87,19 @@ export default async function HackathonPage({ params }: PageProps) {
             <dd className="mt-1 text-lg font-bold">{hackathon.location}</dd>
           </div>
         </dl>
+        <p className="mt-12 max-w-3xl leading-7 text-[#111]/72">
+          One entry in the hackathon record of Adith Manikonda, a backend
+          engineer studying Computer Science and Engineering at VIT Vellore.
+          The builds behind it are in the{" "}
+          <Link href="/projects" className="underline decoration-2 underline-offset-4 hover:text-[#E8420A]">
+            project archive
+          </Link>
+          , and the full record is on the{" "}
+          <Link href="/about" className="underline decoration-2 underline-offset-4 hover:text-[#E8420A]">
+            about page
+          </Link>
+          .
+        </p>
       </article>
     </main>
   );

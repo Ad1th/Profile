@@ -1,10 +1,24 @@
 export const siteUrl = "https://adith.xyz";
 
-export const siteTitle =
-  "Adith Manikonda | Backend Engineer, Systems Builder & Research Developer";
+/** The name Google shows above the URL, and the og:site_name. */
+export const siteName = "Adith Manikonda";
 
+/**
+ * Kept under ~60 characters so search results show it whole, with the name
+ * first: the name is what people type.
+ */
+export const siteTitle = "Adith Manikonda | Backend Engineer and Systems Builder";
+
+/** Answer-first and under ~155 characters, so the snippet is not cut off. */
 export const siteDescription =
-  "Adith Manikonda is a backend-focused engineer from VIT Vellore building scalable systems, developer tools, research projects, patents, open-source contributions and real-world applications using Node.js, FastAPI, PostgreSQL, Prisma and modern cloud infrastructure.";
+  "Adith Manikonda is a backend engineer and systems builder studying CSE at VIT Vellore. Query engines, reliability tooling, patents, research and contact.";
+
+/**
+ * When the content last changed, as an ISO date. Feeds sitemap lastmod and
+ * dateModified in the JSON-LD. Bump it when the content changes; a lastmod
+ * that moves on every deploy is one search engines learn to ignore.
+ */
+export const siteUpdated = "2026-10-21";
 
 export const siteKeywords = [
   "Adith",
@@ -620,24 +634,57 @@ export const hackathons: Hackathon[] = [
   },
 ];
 
-export const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Adith Manikonda",
-  url: siteUrl,
-  jobTitle: "Backend Engineer",
-  alumniOf: "VIT Vellore",
-  sameAs: [
-    "https://github.com/Ad1th",
-    "https://www.linkedin.com/in/adith-manikonda/",
-  ],
-};
+/**
+ * The full hackathon record as the homepage shows it. `hackathons` above is
+ * the subset that has its own page.
+ */
+export const hackathonRecord = [
+  {
+    date: "Mar 2026",
+    title: "Women Techies'26 - Finalist, Top 10 Teams",
+    location: "VIT Vellore",
+  },
+  {
+    date: "Mar 2026",
+    title: "TechSolstice",
+    location: "MIT Bangalore",
+  },
+  {
+    date: "Sep 2025",
+    title: "Code 2 Create (C2C) - AI Track Winner",
+    location: "VIT Vellore",
+  },
+  {
+    date: "Apr 2025",
+    title: "Women Techies'25",
+    location: "VIT Vellore",
+  },
+  {
+    date: "Jan 2025",
+    title: "Yantra Central Hack",
+    location: "VIT Vellore",
+  },
+  {
+    date: "Sep 2024",
+    title: "DevJams",
+    location: "VIT Vellore",
+  },
+  {
+    date: "Feb 2024",
+    title: "CodeWars - 1st Place",
+    location: "NPS KRM, Bangalore",
+  },
+];
 
-export const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Adith Manikonda Portfolio",
-  url: siteUrl,
-  description: siteDescription,
-  inLanguage: "en",
-};
+export const achievements: { year: string; title: string; detail?: string }[] = [
+  { year: "2025", title: "AI Track Winner - Code 2 Create (C2C)" },
+  {
+    year: "2024-25",
+    title: "100% Attendance Award",
+    detail: "Vellore Institute of Technology",
+  },
+  { year: "2025", title: "OCI Foundations Certification" },
+  { year: "2025", title: "SQL Basic Certification" },
+  { year: "2025", title: "SQL Intermediate Certification" },
+  { year: "2023", title: "PC Building Competition - Second Place" },
+];

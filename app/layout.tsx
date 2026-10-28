@@ -12,16 +12,17 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
+import SiteFooter from "@/components/layout/SiteFooter";
 import RecruiterConsole from "@/components/seo/RecruiterConsole";
 import StructuredData from "@/components/seo/StructuredData";
 import {
-  personSchema,
   siteDescription,
   siteKeywords,
+  siteName,
   siteTitle,
   siteUrl,
-  websiteSchema,
 } from "@/lib/seo-data";
+import { siteGraph } from "@/lib/structured-data";
 
 const archivo = Archivo_Black({
   weight: "400",
@@ -81,24 +82,23 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   keywords: siteKeywords,
-  authors: [{ name: "Adith Manikonda", url: siteUrl }],
-  creator: "Adith Manikonda",
-  publisher: "Adith Manikonda",
-  alternates: {
-    canonical: "/",
-  },
+  authors: [{ name: siteName, url: siteUrl }],
+  creator: siteName,
+  publisher: siteName,
+  // No canonical here: a root canonical is inherited by every page that
+  // forgets its own, quietly pointing it at the homepage. Pages set theirs.
   openGraph: {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "Adith Manikonda",
-    title: "Adith Manikonda",
-    description: "Backend Engineer",
+    siteName,
+    title: siteTitle,
+    description: siteDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Adith Manikonda",
-    description: "Backend Engineer",
+    title: siteTitle,
+    description: siteDescription,
   },
   robots: {
     index: true,
@@ -112,6 +112,14 @@ export const metadata: Metadata = {
     },
   },
   category: "portfolio",
+  // Search Console and Bing Webmaster Tools ownership, when verified with a
+  // meta tag rather than DNS. Unset variables render nothing.
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: process.env.BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
+      : undefined,
+  },
 };
 
 export default function RootLayout({
@@ -126,12 +134,13 @@ export default function RootLayout({
       className={`${archivo.variable} ${anton.variable} ${amatic.variable} ${inter.variable} ${mono.variable} ${bodoni.variable} ${cormorant.variable} ${caveat.variable}`}
     >
       <body>
-        <StructuredData data={[personSchema, websiteSchema]} />
+        <StructuredData data={siteGraph()} />
         <a className="skip-link" href="#main">
           Skip to Content
         </a>
         <Navbar />
         {children}
+        <SiteFooter />
         <RecruiterConsole />
       </body>
     </html>

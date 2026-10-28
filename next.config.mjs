@@ -23,6 +23,15 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/renderd",
+        destination: "https://renderd.vercel.app",
+        permanent: true,
+      },
+    ];
+  },
   // Every page has a markdown twin at its own URL plus ".md", served from
   // app/md (see lib/markdown.ts). beforeFiles, so "/projects/<slug>.md" is
   // not taken for a project slug by the dynamic route first.

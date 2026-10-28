@@ -32,6 +32,24 @@ const nextConfig = {
       },
     ];
   },
+  // Every page has a markdown twin at its own URL plus ".md", served from
+  // app/md (see lib/markdown.ts). beforeFiles, so "/projects/<slug>.md" is
+  // not taken for a project slug by the dynamic route first.
+  async rewrites() {
+    return {
+      beforeFiles: [
+        { source: "/index.md", destination: "/md/index" },
+        {
+          source: "/:page(about|projects|research).md",
+          destination: "/md/:page",
+        },
+        {
+          source: "/:section(projects|patents|hackathons)/:slug.md",
+          destination: "/md/:section/:slug",
+        },
+      ],
+    };
+  },
 };
 
 if (userConfig) {

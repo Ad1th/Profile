@@ -71,6 +71,8 @@ export type Project = {
   year: string;
   screenshots: string[];
   github?: string;
+  /** Public site for the project, when it has one. */
+  website?: string;
   featured?: boolean;
   category?: "Systems / Backend" | "AI & ML" | "CLI & Tools" | "IoT / Hardware" | "Web Apps";
   paperColor?: "yellow" | "blue" | "orange" | "pink" | "green" | "purple" | "white";
@@ -279,6 +281,31 @@ export const projects: Project[] = [
       ],
       limits:
         "Not fully offline yet: some scene description still calls out to cloud services, so the privacy and availability argument only holds for the detection path, not the whole pipeline.",
+    },
+  },
+  {
+    slug: "renderd",
+    title: "RENDERD",
+    seoTitle: "Renderd: Use a Windows PC as a Second Monitor for a Mac",
+    description:
+      "Free, open source app that turns a Windows PC into a second display for a Mac, peer to peer over QUIC with hardware encode and decode.",
+    purpose:
+      "Built because no free, open source tool streamed a macOS desktop to a Windows screen without a cloud relay or a subscription.",
+    technologies: ["Rust", "QUIC", "ScreenCaptureKit", "VideoToolbox", "Direct3D 11", "Media Foundation"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/Renderd",
+    website: "https://renderd.vercel.app",
+    featured: true,
+    category: "Systems / Backend",
+    paperColor: "purple",
+    evidence: {
+      problem:
+        "Using a spare Windows laptop as a second screen for a Mac usually means a paid app, a cloud account, or a relay server between two machines on the same desk. Open source streamers such as Sunshine and Moonlight are built for a Windows host, not a Mac host with a Windows viewer.",
+      approach:
+        "Two Rust daemons talk peer to peer over QUIC. The Mac captures frames zero-copy with ScreenCaptureKit and encodes HEVC or H.264 on the VideoToolbox hardware encoder. Control messages go on one QUIC stream as Protobuf, while video goes as datagrams that the viewer reassembles in order, with retransmit for lost fragments and bitrate and resolution that adapt to delay and loss. The Windows side decodes on the GPU through Media Foundation and presents with Direct3D 11 without a copy back to the CPU.",
+      limits:
+        "One direction only: a Mac host on macOS 13 or later with Apple Silicon, and a Windows 10 or later viewer. Text sharpness at lower resolution steps is still being tuned, and end to end latency numbers are not yet published.",
     },
   },
   {

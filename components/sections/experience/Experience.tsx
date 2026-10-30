@@ -140,7 +140,7 @@ export default function Experience() {
       <div className="relative z-10 flex min-h-screen flex-col px-8 pb-8 pt-16 lg:px-14">
         <div className="experience-kicker grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_260px] items-start gap-8">
           <div>
-            <span className="font-mono text-[12px] font-black tracking-[0.12em] text-[#A14A32]">
+            <span className="font-mono text-[12px] font-black tracking-[0.12em] text-[#111]">
               + EXPERIENCE
             </span>
             <h2
@@ -192,13 +192,13 @@ export default function Experience() {
               <p
                 className="max-w-[320px] md:max-w-[420px]"
                 style={{
-                  color: "#C8C0B4",
+                  color: "#111",
                   fontSize: 15,
                   lineHeight: 1.5,
                 }}
               >
                 Building products, communities, and systems.{" "}
-                <span style={{ color: "#8A8B6D", marginLeft: 8 }}>
+                <span style={{ color: "rgba(17,17,17,0.72)", marginLeft: 8 }}>
                   2025 → Present
                 </span>
               </p>

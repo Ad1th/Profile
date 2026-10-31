@@ -93,8 +93,8 @@ const languages = [
 
 const headlineLines = [
   { text: "The stack", color: "#E5DED2" },
-  { text: "behind the", color: "#8A8B6D" },
-  { text: "things I build.", color: "#913831" },
+  { text: "behind the", color: "#CFDE00" },
+  { text: "things I build.", color: "#E8420A" },
 ];
 
 interface SkillsHeroProps {

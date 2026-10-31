@@ -224,13 +224,13 @@ function ObservabilityDiagram({ animate }: { animate?: boolean }) {
         <polyline
           className="obs-line"
           points="0,38 28,38 36,44 44,20 52,44 60,36 80,36 90,48 100,14 108,42 120,36 140,36 150,46 160,22 168,42 180,36 200,36 208,14 216,44 224,36 260,36"
-          stroke="#913831"
+          stroke="#E8420A"
           strokeWidth="1.8"
           fill="none"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <circle cx="100" cy="14" r="4" fill="#913831" className="obs-dot" />
+        <circle cx="100" cy="14" r="4" fill="#E8420A" className="obs-dot" />
       </svg>
       {animate && (
         <style>{`

@@ -72,7 +72,7 @@ export default function ExperienceSystemLog() {
           <span
             style={{
               fontSize: 11,
-              color: "#888",
+              color: "rgba(17,17,17,0.72)",
               letterSpacing: "0.04em",
               minWidth: 68,
               fontFamily: "var(--font-mono), monospace",
@@ -83,7 +83,7 @@ export default function ExperienceSystemLog() {
           <span
             style={{
               fontSize: 11,
-              color: "#ECE7DF",
+              color: "#111",
               letterSpacing: "0.04em",
               fontWeight: 700,
               fontFamily: "var(--font-mono), monospace",

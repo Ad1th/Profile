@@ -45,7 +45,7 @@ export default function HackathonsAchievements() {
                   </p>
                 </div>
                 <div className="relative">
-                  <h3 className="font-serif text-[18px] font-bold leading-snug text-[#1E1E1B] transition-transform duration-300 group-hover:translate-x-2">
+                  <h3 className="font-serif text-[18px] font-bold leading-snug text-[#111] transition-transform duration-300 group-hover:translate-x-2">
                     {item.title}
                   </h3>
                   {[0, 2, 6].includes(index) && (
@@ -93,7 +93,7 @@ export default function HackathonsAchievements() {
                   {item.year}
                 </p>
                 <div className="relative">
-                  <h3 className="mt-2 text-[17px] font-bold leading-snug text-[#1E1E1B] transition-transform duration-300 group-hover:translate-x-2">
+                  <h3 className="mt-2 text-[17px] font-bold leading-snug text-[#111] transition-transform duration-300 group-hover:translate-x-2">
                     {item.title}
                   </h3>
                 </div>

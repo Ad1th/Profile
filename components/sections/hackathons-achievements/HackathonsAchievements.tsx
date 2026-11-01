@@ -10,7 +10,7 @@ export default function HackathonsAchievements() {
   return (
     <section
       data-section="hackathons"
-      className="relative w-full overflow-hidden bg-[#A7B2B9] px-6 py-24 text-[#1E1E1B] sm:px-10 lg:px-16"
+      className="relative w-full overflow-hidden border-t-[5px] border-[#111] bg-[#F0EBE0] px-6 py-24 text-[#111] sm:px-10 lg:px-16"
       style={{ isolation: "isolate" }}
       aria-label="Hackathons and achievements"
     >

@@ -13,7 +13,7 @@ export default function Contact() {
 
       {/* ambient glows */}
       {/* <div className="pointer-events-none absolute left-[-12rem] top-[-8rem] h-[28rem] w-[28rem] rounded-full bg-[#E8420A]/10 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-[-10rem] right-[-6rem] h-[24rem] w-[24rem] rounded-full bg-[#8B9278]/10 blur-3xl" /> */}
+      <div className="pointer-events-none absolute bottom-[-10rem] right-[-6rem] h-[24rem] w-[24rem] rounded-full bg-[#8A8B6D]/10 blur-3xl" /> */}
 
       <div className="relative mx-auto flex max-w-7xl flex-col pt-[30px]">
         {/* top bar */}
@@ -130,7 +130,7 @@ export default function Contact() {
             <div className="mt-6 sm:mt-8 flex items-end gap-6">
               <div className="h-12 w-px bg-[#F0EBE0]/10" />
 
-              <div className="rotate-[-4deg] font-mono text-[13px] leading-[1.8] tracking-[0.04em] text-[#8B9278]">
+              <div className="rotate-[-4deg] font-mono text-[13px] leading-[1.8] tracking-[0.04em] text-[#8A8B6D]">
                 currently
                 <br />
                 building
@@ -154,7 +154,7 @@ export default function Contact() {
                   </span>
 
                   <div>
-                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8B9278]">
+                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8A8B6D]">
                       PRIMARY EMAIL
                     </div>
 
@@ -195,7 +195,7 @@ export default function Contact() {
                   </span>
 
                   <div>
-                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8B9278]">
+                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8A8B6D]">
                       SECONDARY EMAIL
                     </div>
 
@@ -238,7 +238,7 @@ export default function Contact() {
                   </span>
 
                   <div>
-                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8B9278]">
+                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8A8B6D]">
                       GITHUB
                     </div>
 
@@ -281,7 +281,7 @@ export default function Contact() {
                   </span>
 
                   <div>
-                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8B9278]">
+                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8A8B6D]">
                       LINKEDIN
                     </div>
 

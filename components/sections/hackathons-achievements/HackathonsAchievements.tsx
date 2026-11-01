@@ -30,7 +30,7 @@ export default function HackathonsAchievements() {
             {HACKATHONS.map((item, index) => (
               <motion.article
                 key={`${item.date}-${item.title}`}
-                className="group grid gap-2 border-t border-[rgba(30,30,27,.12)] pt-6 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/55 hover:px-4 sm:grid-cols-[150px_1fr] sm:gap-8 relative"
+                className="group grid gap-2 border-t border-[rgba(17,17,17,.2)] pt-6 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/55 hover:px-4 sm:grid-cols-[150px_1fr] sm:gap-8 relative"
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-8%" }}
@@ -68,7 +68,7 @@ export default function HackathonsAchievements() {
 
         <aside
           data-section="achievements"
-          className="border-t border-[rgba(30,30,27,.12)] pt-8 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0"
+          className="border-t border-[rgba(17,17,17,.2)] pt-8 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0"
         >
           <div className="mb-10">
             <span className="font-mono text-[11px] font-black uppercase tracking-[0.18em] text-[#A14A32]">
@@ -83,7 +83,7 @@ export default function HackathonsAchievements() {
             {ACHIEVEMENTS.map((item, index) => (
               <motion.article
                 key={`${item.year}-${item.title}`}
-                className="group border-t border-[rgba(30,30,27,.12)] pt-6 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/50 hover:px-4 relative"
+                className="group border-t border-[rgba(17,17,17,.2)] pt-6 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/50 hover:px-4 relative"
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-8%" }}

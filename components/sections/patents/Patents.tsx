@@ -943,12 +943,12 @@ export default function Patents() {
           background:
             linear-gradient(
               135deg,
-              rgba(79, 107, 103, 0.96),
-              rgba(45, 75, 74, 0.98)
+              rgba(44, 68, 92, 0.97),
+              rgba(26, 42, 58, 0.99)
             ),
             radial-gradient(
               circle at 78% 68%,
-              rgba(139, 106, 82, 0.22),
+              rgba(232, 66, 10, 0.12),
               transparent 30%
             );
           opacity: 0;

@@ -1016,10 +1016,10 @@ function StatusLine({
     { key: "granted", label: "Granted", date: "" },
   ];
   const active = status === "granted" ? 2 : status === "published" ? 1 : 0;
-  const ink = tone === "wave" ? "#E8DDD0" : "#2A2624";
+  const ink = tone === "wave" ? "#F0EBE0" : "#111111";
   const muted =
-    tone === "wave" ? "rgba(232,221,208,0.36)" : "rgba(42,38,36,0.34)";
-  const accent = tone === "wave" ? "#8B6A52" : "#A58D8D";
+    tone === "wave" ? "rgba(240,235,224,0.36)" : "rgba(17,17,17,0.34)";
+  const accent = tone === "wave" ? "#E8420A" : "#6C8EAD";
 
   return (
     <div className="flex items-center gap-0">

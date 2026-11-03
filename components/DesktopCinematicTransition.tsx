@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
@@ -70,6 +76,97 @@ function useStageFit() {
     return () => window.removeEventListener("resize", sync);
   }, []);
   return fit;
+}
+
+/**
+ * A layer of the pinned stage that shrinks itself until its content fits.
+ *
+ * The stage zoom above only knows the viewport height. About and Skills are
+ * built from fixed pixel type, so how tall they need to be also depends on
+ * the width: at 1440x900 or 1366x768 their bottom rows ran past the stage
+ * and were cut off. Instead of guessing a design size per aspect ratio, the
+ * layer measures its own overflow and scales by exactly that much. The box
+ * grows as it scales down, so the content gets more room, not less.
+ */
+function FitLayer({
+  children,
+  topInset = 0,
+}: {
+  children: ReactNode;
+  /** Space to leave clear at the top, in stage pixels (the fixed navbar). */
+  topInset?: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useIsomorphicLayoutEffect(() => {
+    const box = ref.current;
+    if (!box) return;
+    let frame = 0;
+
+    const measure = () => {
+      // Scroll-linked transforms move the pieces around mid-timeline; they
+      // are switched off for the read so only real layout is measured.
+      box.dataset.measuring = "";
+      const blocks = [
+        box,
+        ...Array.from(box.querySelectorAll<HTMLElement>("section, div")),
+      ];
+      const fits = (k: number) => {
+        box.style.width = `${100 / k}%`;
+        box.style.height = `${100 / k}%`;
+        return blocks.every(
+          (el) => el.clientHeight < 160 || el.scrollHeight <= el.clientHeight + 2,
+        );
+      };
+
+      // Scaling down widens the box, which reflows the text into fewer
+      // lines, so the right scale cannot be computed from one reading.
+      let k = 1;
+      if (!fits(1)) {
+        let lo = 0.5;
+        let hi = 1;
+        for (let i = 0; i < 7; i++) {
+          const mid = (lo + hi) / 2;
+          if (fits(mid)) lo = mid;
+          else hi = mid;
+        }
+        k = lo;
+        fits(k);
+      }
+      delete box.dataset.measuring;
+      box.style.transform = k === 1 ? "" : `scale(${k})`;
+    };
+
+    measure();
+    const onResize = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
+    };
+    window.addEventListener("resize", onResize);
+    // Webfonts land after first layout and change every text height.
+    document.fonts?.ready.then(measure).catch(() => {});
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [topInset]);
+
+  return (
+    <div style={{ position: "absolute", inset: 0, top: topInset }}>
+      <div
+        ref={ref}
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          transformOrigin: "top left",
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
 }
 
 export default function DesktopCinematicTransition() {

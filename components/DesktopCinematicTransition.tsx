@@ -492,7 +492,9 @@ export default function DesktopCinematicTransition() {
               willChange: "transform, opacity",
             }}
           >
-            <SkillsLayer />
+            <FitLayer topInset={navInset}>
+              <SkillsLayer />
+            </FitLayer>
           </motion.div>
          </div>
         </div>

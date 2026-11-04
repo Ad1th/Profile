@@ -18,7 +18,7 @@ export const siteDescription =
  * dateModified in the JSON-LD. Bump it when the content changes; a lastmod
  * that moves on every deploy is one search engines learn to ignore.
  */
-export const siteUpdated = "2026-10-21";
+export const siteUpdated = "2026-11-04";
 
 export const siteKeywords = [
   "Adith",

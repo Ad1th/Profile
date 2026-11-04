@@ -35,6 +35,7 @@
 import type React from "react";
 import HeroHeadline from "./HeroHeadline";
 import HeroCTA from "./HeroCTA";
+import HeroGitHub from "./HeroGitHub";
 import HeroPortrait from "./HeroPortrait";
 import { motion, type MotionValue, type MotionStyle } from "framer-motion";
 import { easings } from "@/lib/motion";
@@ -204,7 +205,12 @@ function HeroDesktop({
               withStyle={withStyle}
               tasteStyle={tasteStyle}
             />
-            <HeroCTA />
+            <div className="flex items-start" style={{ gap: 22 }}>
+              <HeroCTA />
+              <div style={{ marginTop: 2 }}>
+                <HeroGitHub size={70} />
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -931,6 +937,7 @@ function CTASmall({
   fontSize: number;
 }) {
   return (
+    <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
     <div style={{ position: "relative", width, height }}>
       <div
         style={{
@@ -970,6 +977,8 @@ function CTASmall({
       >
         VIEW WORK
       </motion.button>
+    </div>
+    <HeroGitHub size={height} border={3} offset={5} />
     </div>
   );
 }

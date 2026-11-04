@@ -70,26 +70,6 @@ export default function HeroPortrait({
           ))}
         </div>
 
-        {/* Three horizontal lime ticks — brutalist decoration */}
-        <div
-          className="absolute"
-          style={{ left: 58, top: 44, width: 40, height: 24, zIndex: 5 }}
-        >
-          {[0, 8, 16].map((top) => (
-            <div
-              key={top}
-              style={{
-                position: "absolute",
-                width: 24,
-                height: 3,
-                background: "#CFDE00",
-                top,
-                left: 0,
-              }}
-            />
-          ))}
-        </div>
-
         {/* Rectangular photo block with strong brutalist frame */}
         <div
           className="absolute"

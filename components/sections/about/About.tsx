@@ -163,7 +163,10 @@ export default function About({
                   lineHeight: 0.92,
                   fontSize: viewportTransition ? "clamp(32px, 4vw, 120px)" : 48,
                   // Used to slightly tighten mobile line wrapping without affecting desktop/tablet.
-                  ["--aboutBuildLineFont" as any]: "clamp(95px, 7.7vw, 260px)",
+                  // Capped at its 1920px size. The pinned stage is zoomed as a whole
+                  // on larger screens, so letting this keep growing with the
+                  // viewport made it outgrow every other piece of the grid.
+                  ["--aboutBuildLineFont" as any]: "clamp(95px, 7.7vw, 148px)",
                 }}
               >
                 {[

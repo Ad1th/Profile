@@ -259,7 +259,7 @@ export default function ResearchLabClient() {
                                     rel="noreferrer"
                                     className="underline decoration-2 underline-offset-4 hover:text-[#E8420A]"
                                   >
-                                    {l.label} &nearr;
+                                    {l.label} &#8599;
                                   </a>
                                 ))}
                               </dd>
@@ -320,7 +320,7 @@ export default function ResearchLabClient() {
                           rel="noreferrer"
                           className="hover:text-[#E8420A]"
                         >
-                          Paper &nearr;
+                          Paper &#8599;
                         </a>
                       ) : null}
                       {isRealLink(pub.links?.code) ? (
@@ -330,7 +330,7 @@ export default function ResearchLabClient() {
                           rel="noreferrer"
                           className="hover:text-[#E8420A]"
                         >
-                          Code &nearr;
+                          Code &#8599;
                         </a>
                       ) : null}
                     </div>

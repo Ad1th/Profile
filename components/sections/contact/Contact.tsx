@@ -63,7 +63,7 @@ export default function Contact() {
       relative
       select-none
       font-serif
-                  text-[clamp(5rem,12vw,9rem)]
+                  text-[clamp(3.25rem,18vw,9rem)]
                   sm:text-[clamp(6rem,10vw,15rem)]
       font-light
       uppercase

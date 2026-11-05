@@ -117,6 +117,7 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/Scotland-Yard-Gravitas-Backend-25",
     featured: true,
     category: "Systems / Backend",
+    tags: ["Backend", "Realtime", "Games"],
     paperColor: "orange",
   },
   {

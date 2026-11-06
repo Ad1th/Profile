@@ -294,6 +294,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/BlindSpot",
     category: "AI & ML",
+    tags: ["AI / ML", "Hardware", "Research"],
     paperColor: "pink",
     evidence: {
       problem:

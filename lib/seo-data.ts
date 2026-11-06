@@ -501,6 +501,7 @@ export const projects: Project[] = [
     year: "2025",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "Web Apps",
+    tags: ["Data", "Backend"],
     paperColor: "white",
   },
   {

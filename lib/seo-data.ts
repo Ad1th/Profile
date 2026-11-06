@@ -485,6 +485,7 @@ export const projects: Project[] = [
     year: "2025",
     screenshots: ["/images/projects/ecosync/EcoSync.webp"],
     category: "AI & ML",
+    tags: ["AI / ML", "Web"],
     paperColor: "green",
   },
   {

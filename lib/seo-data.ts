@@ -254,6 +254,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/_placeholder.svg"],
     featured: true,
     category: "IoT / Hardware",
+    tags: ["Hardware", "Research"],
     paperColor: "yellow",
   },
   {

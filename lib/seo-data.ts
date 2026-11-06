@@ -516,6 +516,7 @@ export const projects: Project[] = [
     year: "2025",
     screenshots: ["/images/projects/konectus/konectus.webp"],
     category: "Web Apps",
+    tags: ["Web", "Realtime"],
     paperColor: "orange",
   },
   {

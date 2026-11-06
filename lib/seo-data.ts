@@ -546,6 +546,7 @@ export const projects: Project[] = [
     year: "2026",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "CLI & Tools",
+    tags: ["Security", "Tooling"],
     paperColor: "blue",
   },
   {

@@ -376,6 +376,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/Argus",
     category: "CLI & Tools",
+    tags: ["Tooling", "Data"],
     paperColor: "white",
     evidence: {
       problem:

@@ -597,6 +597,20 @@ export const projects: Project[] = [
     tags: ["Games", "For fun"],
     paperColor: "green",
   },
+  {
+    slug: "bf-server",
+    title: "BF-SERVER",
+    description:
+      "HTTP server whose request parsing, routing and response generation are written in Brainfuck, fed by a plain TCP listener.",
+    purpose:
+      "Built to find out whether eight instructions are enough to answer a GET request. They are.",
+    technologies: ["Brainfuck", "HTTP", "socat"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/bf-server",
+    tags: ["Systems", "For fun"],
+    paperColor: "yellow",
+  },
 ];
 
 export type Patent = {

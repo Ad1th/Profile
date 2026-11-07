@@ -12,16 +12,7 @@ import {
 
 type ViewMode = "grid" | "table";
 
-const CATEGORIES = [
-  "All",
-  "Featured",
-  "Systems / Backend",
-  "AI & ML",
-  "CLI & Tools",
-  "Web Apps",
-  "IoT / Hardware",
-  "Patents",
-] as const;
+const CATEGORIES = ["All", "Featured", "Patents"] as const;
 
 const TECH_FILTERS = [
   "Golang",
@@ -219,9 +210,7 @@ export default function ProjectsArchiveClient() {
                 ? allProjects.length
                 : cat === "Patents"
                   ? allPatents.length
-                  : cat === "Featured"
-                    ? allProjects.filter((p) => p.featured).length
-                    : allProjects.filter((p) => p.category === cat).length;
+                  : allProjects.filter((p) => p.featured).length;
             return (
               <button
                 key={cat}

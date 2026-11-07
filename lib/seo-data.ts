@@ -74,6 +74,7 @@ export const PROJECT_TAGS = [
   "Realtime",
   "Web",
   "Games",
+  "For fun",
 ] as const;
 
 export type ProjectTag = (typeof PROJECT_TAGS)[number];
@@ -578,7 +579,7 @@ export const projects: Project[] = [
     year: "2023",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "CLI & Tools",
-    tags: ["Games"],
+    tags: ["Games", "For fun"],
     paperColor: "green",
   },
 ];

@@ -625,6 +625,20 @@ export const projects: Project[] = [
     tags: ["AI / ML", "Systems", "For fun"],
     paperColor: "pink",
   },
+  {
+    slug: "mkv-player",
+    title: "MKV PLAYER",
+    description:
+      "Native MKV and WebM player for Mac, about 500 KB, using the decoders macOS already ships.",
+    purpose:
+      "Built after a train connection too slow to download VLC, and one evening of watching a film in a video editor.",
+    technologies: ["Swift", "macOS"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/mkv-player",
+    tags: ["Tooling"],
+    paperColor: "blue",
+  },
 ];
 
 export type Patent = {

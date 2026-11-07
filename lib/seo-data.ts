@@ -562,6 +562,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/WhatDidYouSend",
     category: "CLI & Tools",
+    tags: ["Security", "Backend"],
     paperColor: "purple",
   },
   {

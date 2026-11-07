@@ -231,6 +231,30 @@ export default function ProjectsArchiveClient() {
 
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <span className="mr-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-[#111]/55">
+            Tags
+          </span>
+          {PROJECT_TAGS.map((t) => {
+            const active = tags.includes(t);
+            return (
+              <button
+                key={t}
+                type="button"
+                onClick={() => toggleTag(t)}
+                aria-pressed={active}
+                className={`border-2 border-[#111] px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] ${
+                  active
+                    ? "bg-[#111] text-[#CFDE00]"
+                    : "bg-[#FFFDF5] text-[#111] hover:bg-[#CFDE00]"
+                }`}
+              >
+                {t}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="mr-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-[#111]/55">
             Stack
           </span>
           {techOptions.map((t) => {

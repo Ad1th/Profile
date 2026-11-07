@@ -97,7 +97,7 @@ export type Project = {
    * overlap on purpose and every filter on the site reads them instead of
    * the single `category` above.
    */
-  tags?: ProjectTag[];
+  tags: ProjectTag[];
   paperColor?: "yellow" | "blue" | "orange" | "pink" | "green" | "purple" | "white";
   evidence?: Evidence;
 };

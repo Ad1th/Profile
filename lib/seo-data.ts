@@ -751,6 +751,20 @@ export const projects: Project[] = [
     tags: ["AI / ML", "Web"],
     paperColor: "pink",
   },
+  {
+    slug: "eaas",
+    title: "EAAS",
+    description:
+      "Eventually as a Service. A CLI that accepts any input, acknowledges it and postpones all action.",
+    purpose:
+      "Installable with Homebrew. It has a corporate flag that answers 'On the roadmap.'",
+    technologies: ["Go", "Homebrew"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/EaaS",
+    tags: ["For fun", "Tooling"],
+    paperColor: "yellow",
+  },
 ];
 
 export type Patent = {

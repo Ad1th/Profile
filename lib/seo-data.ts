@@ -723,6 +723,20 @@ export const projects: Project[] = [
     tags: ["Games", "For fun"],
     paperColor: "green",
   },
+  {
+    slug: "chronos",
+    title: "CHRONOS",
+    description:
+      "Service that records authenticated application activity and replays it later.",
+    purpose:
+      "Built to practise session capture and replay behind a real auth layer.",
+    technologies: ["TypeScript", "Express", "Prisma"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/Chronos",
+    tags: ["Backend"],
+    paperColor: "white",
+  },
 ];
 
 export type Patent = {

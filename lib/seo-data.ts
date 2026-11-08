@@ -681,6 +681,20 @@ export const projects: Project[] = [
     tags: ["AI / ML", "Tooling"],
     paperColor: "orange",
   },
+  {
+    slug: "rewind",
+    title: "REWIND",
+    description:
+      "Undo for AI agent actions across the filesystem, Git and PostgreSQL, with rollbacks computed deterministically rather than by the model.",
+    purpose:
+      "Built so that an agent's proposal and the code that reverses it never come from the same place.",
+    technologies: ["Python", "FastAPI", "PostgreSQL", "Git", "Next.js"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/rewind",
+    tags: ["AI / ML", "Backend", "Tooling"],
+    paperColor: "purple",
+  },
 ];
 
 export type Patent = {

@@ -737,6 +737,20 @@ export const projects: Project[] = [
     tags: ["Backend"],
     paperColor: "white",
   },
+  {
+    slug: "truthlens",
+    title: "TRUTHLENS",
+    description:
+      "Chrome extension and FastAPI backend that flags claims on a page with a confidence score for the reader to check.",
+    purpose:
+      "Built to put a second opinion next to the text instead of in another tab.",
+    technologies: ["TypeScript", "React", "FastAPI", "Chrome Extension"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/TruthLens",
+    tags: ["AI / ML", "Web"],
+    paperColor: "pink",
+  },
 ];
 
 export type Patent = {

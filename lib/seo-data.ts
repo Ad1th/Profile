@@ -147,7 +147,6 @@ export const projects: Project[] = [
     year: "2026",
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/hybrid-symbol-table",
-    featured: true,
     category: "Systems / Backend",
     tags: ["Systems", "Research"],
     paperColor: "green",

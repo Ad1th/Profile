@@ -653,6 +653,20 @@ export const projects: Project[] = [
     tags: ["AI / ML", "Tooling"],
     paperColor: "green",
   },
+  {
+    slug: "agentlint",
+    title: "AGENTLINT",
+    description:
+      "Framework for evaluating check-then-act binding risks in LLM agent tool workflows, with tool contracts, a workflow IR and a pilot benchmark.",
+    purpose:
+      "Research prototype for finding the TOCTOU gap between what an agent verified and what it then acted on.",
+    technologies: ["Python", "Static Analysis", "Benchmarks"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/TOCTOU",
+    tags: ["Security", "AI / ML", "Research"],
+    paperColor: "white",
+  },
 ];
 
 export type Patent = {

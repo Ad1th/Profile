@@ -709,6 +709,20 @@ export const projects: Project[] = [
     tags: ["Data", "AI / ML"],
     paperColor: "blue",
   },
+  {
+    slug: "echo-loop",
+    title: "ECHO//LOOP",
+    description:
+      "Browser puzzle game where each previous attempt replays beside you as an echo you have to cooperate with.",
+    purpose:
+      "Web game jam entry with twelve handmade levels.",
+    technologies: ["TypeScript", "Canvas"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/echo-loop",
+    tags: ["Games", "For fun"],
+    paperColor: "green",
+  },
 ];
 
 export type Patent = {

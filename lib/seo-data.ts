@@ -765,6 +765,20 @@ export const projects: Project[] = [
     tags: ["For fun", "Tooling"],
     paperColor: "yellow",
   },
+  {
+    slug: "knockknockgo",
+    title: "KNOCKKNOCKGO",
+    description:
+      "Simple TCP port scanner in Go that builds to one binary and runs anywhere.",
+    purpose:
+      "Built to learn how a port scan actually works at the socket level.",
+    technologies: ["Go", "Networking"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/KnockKnockGo",
+    tags: ["Security", "Tooling"],
+    paperColor: "orange",
+  },
 ];
 
 export type Patent = {

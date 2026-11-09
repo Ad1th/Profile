@@ -479,3 +479,126 @@
   transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+/* ── Also on the desk ────────────────────────────────────────────────── */
+
+.also {
+  margin-top: clamp(88px, 10cqi, 136px);
+}
+
+.alsoTitle {
+  width: max-content;
+  max-width: 100%;
+  margin: 0 0 30px;
+  padding-bottom: 4px;
+  font-family: var(--font-note), "Bradley Hand", cursive;
+  font-size: clamp(2rem, 1.6rem + 1.6cqi, 2.75rem);
+  font-weight: 700;
+  line-height: 1;
+  rotate: -2deg;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5c30-4 62 3 98-1s66 2 98-1' fill='none' stroke='%23E8420A' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E")
+    no-repeat bottom / 100% 8px;
+}
+
+.notes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px 28px;
+}
+
+/* One, two or four across. Never three, which strands the last note. */
+@container (min-width: 460px) {
+  .notes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 900px) {
+  .notes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.sticky {
+  --tilt: 0deg;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 26px 18px 14px;
+  background: var(--paper-bg);
+  box-shadow:
+    2px 3px 0 rgb(17 17 17 / 0.28),
+    0 14px 22px rgb(36 29 24 / 0.16);
+  rotate: var(--tilt);
+  transition:
+    transform 620ms cubic-bezier(0.23, 1, 0.32, 1) calc(var(--i) * 70ms),
+    opacity 260ms ease calc(var(--i) * 70ms),
+    rotate 220ms cubic-bezier(0.23, 1, 0.32, 1),
+    translate 220ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.sticky:nth-child(1) {
+  --tilt: -1.6deg;
+}
+.sticky:nth-child(2) {
+  --tilt: 1.1deg;
+}
+.sticky:nth-child(3) {
+  --tilt: -0.8deg;
+}
+.sticky:nth-child(4) {
+  --tilt: 1.7deg;
+}
+
+/* A strip of tape across the top edge. */
+.sticky::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 74px;
+  height: 22px;
+  margin-left: -37px;
+  background: rgb(240 235 224 / 0.8);
+  border-inline: 1px dashed rgb(17 17 17 / 0.25);
+  rotate: -2deg;
+}
+
+/* The white one is an index card: ruled, with a border. */
+.sticky.bright {
+  border: 2px solid var(--ink);
+  background:
+    linear-gradient(transparent 27px, rgb(108 142 173 / 0.4) 27px 28px)
+      0 22px / 100% 28px,
+    var(--paper-bright);
+}
+
+.stickyName {
+  margin: 0;
+  font-family: var(--font-anton), Anton, sans-serif;
+  font-weight: 400;
+  font-size: 1.625rem;
+  line-height: 0.98;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.stickyLine {
+  margin: 10px 0 0;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.scribble {
+  margin: auto 0 0;
+  padding-top: 14px;
+  font-family: var(--font-note), "Bradley Hand", cursive;
+  font-size: 1.3125rem;
+  line-height: 1.05;
+  color: rgb(17 17 17 / 0.82);
+  rotate: -1.5deg;
+  transform-origin: left center;
+}
+

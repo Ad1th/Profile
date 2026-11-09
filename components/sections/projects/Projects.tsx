@@ -110,6 +110,40 @@ function FigureStream() {
   );
 }
 
+function FigureMachines() {
+  const row = (y: number, a: string, b: string) => (
+    <>
+      <text x="26" y={y} fill="#F0EBE0" fontFamily={MONO} fontSize="10.5">
+        {a}
+      </text>
+      <text x="196" y={y} fill="#111" fontFamily={MONO} fontSize="10.5">
+        {b}
+      </text>
+    </>
+  );
+  return (
+    <svg viewBox="0 0 320 150" className={styles.figure} aria-hidden="true">
+      <rect width="320" height="150" fill="#111" />
+      <rect x="14" y="16" width="124" height="104" fill="none" stroke="#F0EBE0" strokeWidth="2.5" />
+      <rect x="184" y="16" width="124" height="104" fill="#E8420A" stroke="#E8420A" strokeWidth="2.5" />
+      <text x="26" y="38" fill="#CFDE00" fontFamily={MONO} fontSize="11" fontWeight="700">
+        yours
+      </text>
+      <text x="196" y="38" fill="#111" fontFamily={MONO} fontSize="11" fontWeight="700">
+        theirs
+      </text>
+      {row(60, "8 cores", "4 cores")}
+      {row(78, "12 ms", "180 ms")}
+      {row(96, "0% loss", "2% loss")}
+      {row(114, "en-US", "en-IN")}
+      <path d="M144 68 h32 M176 68 l-8 -6 M176 68 l-8 6" stroke="#CFDE00" strokeWidth="2.5" fill="none" />
+      <text x="161" y="140" textAnchor="middle" fill="#8A8B6D" fontFamily={MONO} fontSize="10">
+        capture, then replay
+      </text>
+    </svg>
+  );
+}
+
 const SHEETS: Sheet[] = [
   {
     slug: "aetherquery",
@@ -146,6 +180,24 @@ const SHEETS: Sheet[] = [
     paper: "vermilion",
     fastener: "tape",
     figure: <FigureStream />,
+  },
+  {
+    slug: "morph",
+    deck: "Rebuilds the machine your bug happened on",
+    note: "now it breaks here too",
+    receipts: [
+      <>
+        Led a <mark>3-person team</mark> at an international hackathon
+      </>,
+      <>
+        <mark>475 tests</mark>
+      </>,
+      <>Network shaping with Linux tc and cgroups</>,
+    ],
+    stack: ["Python", "FastAPI", "React", "tc / cgroups"],
+    paper: "bright",
+    fastener: "pin",
+    figure: <FigureMachines />,
   },
 ];
 

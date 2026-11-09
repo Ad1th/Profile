@@ -213,3 +213,55 @@
   --paper-bg: var(--paper);
 }
 
+/* What holds each sheet down. */
+.fastener {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.clip {
+  top: -22px;
+  left: 30px;
+  width: 22px;
+  height: 58px;
+  border: 5px solid rgb(17 17 17 / 0.62);
+  border-radius: 12px;
+  rotate: -4deg;
+  transition: rotate 180ms ease;
+}
+
+.tape {
+  top: -14px;
+  left: 50%;
+  width: 96px;
+  height: 26px;
+  margin-left: -48px;
+  background: rgb(240 235 224 / 0.82);
+  border-inline: 1px dashed rgb(17 17 17 / 0.25);
+  rotate: 3deg;
+}
+
+.pin {
+  top: -13px;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  margin-left: -11px;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--vermilion);
+  box-shadow: 3px 4px 0 rgb(17 17 17 / 0.35);
+}
+
+.spiral {
+  top: 26px;
+  bottom: 26px;
+  left: -13px;
+  width: 20px;
+  background: repeating-linear-gradient(
+    var(--ink) 0 4px,
+    transparent 4px 18px
+  );
+}
+

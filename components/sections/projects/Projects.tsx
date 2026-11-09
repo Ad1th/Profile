@@ -282,6 +282,12 @@ type Note = {
 };
 
 const NOTES: Note[] = [
+  {
+    slug: "bf-server",
+    line: "An HTTP server written in Brainfuck. Routing included.",
+    scribble: "eight instructions were enough",
+    paper: "volt",
+  },
 ];
 
 const bySlug = (slug: string) => catalogue.find((p) => p.slug === slug);
@@ -417,6 +423,33 @@ export default function Projects() {
               <SheetCard key={sheet.slug} sheet={sheet} index={i} />
             ))}
           </ol>
+
+          <div className={styles.also}>
+            <h3 className={styles.alsoTitle}>Also on the desk</h3>
+            <ul className={styles.notes}>
+              {NOTES.map((note, i) => {
+                const project = bySlug(note.slug) as Project;
+                return (
+                  <li
+                    key={note.slug}
+                    className={`${styles.sticky} ${styles[note.paper]}`}
+                    style={{ ["--i" as string]: i }}
+                  >
+                    <h4 className={styles.stickyName}>
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className={styles.stretch}
+                      >
+                        {project.title}
+                      </Link>
+                    </h4>
+                    <p className={styles.stickyLine}>{note.line}</p>
+                    <p className={styles.scribble}>{note.scribble}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

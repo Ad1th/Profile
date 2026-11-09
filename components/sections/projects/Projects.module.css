@@ -265,3 +265,61 @@
   );
 }
 
+.note {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 68px;
+  right: 8px;
+  margin: 0;
+  font-family: var(--font-note), "Bradley Hand", cursive;
+  font-size: 1.3125rem;
+  line-height: 1.05;
+  color: rgb(17 17 17 / 0.78);
+  rotate: -3deg;
+  transform-origin: left bottom;
+}
+
+.meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.meta span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta b {
+  font-size: 0.8125rem;
+}
+
+.name {
+  margin: 14px 0 0;
+  font-family: var(--font-anton), Anton, sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 1.6rem + 4.2cqi, 3.75rem);
+  line-height: 0.92;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.deck {
+  max-width: 34ch;
+  margin: 10px 0 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+

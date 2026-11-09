@@ -168,3 +168,48 @@
     box-shadow 220ms ease;
 }
 
+/* Room under the paperclip, so it does not sit on the first line. */
+.sheet:has(.clip) {
+  padding-top: 46px;
+}
+
+.sheet:nth-child(1) {
+  --tilt: -0.7deg;
+}
+.sheet:nth-child(2) {
+  --tilt: 0.6deg;
+}
+.sheet:nth-child(3) {
+  --tilt: 0.5deg;
+}
+.sheet:nth-child(4) {
+  --tilt: -0.6deg;
+}
+
+/* Waiting off the desk until the section is first seen. Only applies once
+   the script has armed it, so the sheets are visible without JavaScript. */
+.section[data-armed]:not([data-landed]) .sheet,
+.section[data-armed]:not([data-landed]) .sticky {
+  opacity: 0;
+  transform: translateY(56px) rotate(5deg);
+}
+
+.blue {
+  --paper-bg: var(--blue);
+}
+.vermilion {
+  --paper-bg: var(--vermilion);
+}
+.bright {
+  --paper-bg: var(--paper-bright);
+}
+.moss {
+  --paper-bg: var(--moss);
+}
+.volt {
+  --paper-bg: var(--volt);
+}
+.deep {
+  --paper-bg: var(--paper);
+}
+

@@ -368,3 +368,38 @@
   }
 }
 
+.receipts {
+  display: grid;
+  gap: 7px;
+}
+
+.receipts li {
+  position: relative;
+  padding-left: 26px;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.9688rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* A hand-drawn tick, not a bullet. */
+.receipts li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  width: 18px;
+  height: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 16'%3E%3Cpath d='M2 9.5c1.6 1 2.9 2.4 3.9 4.2C8 8.600 11.300 4.700 16 2' fill='none' stroke='%23111' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat center / contain;
+}
+
+.receipts mark {
+  padding: 0 4px;
+  background: var(--volt);
+  color: var(--ink);
+  font-weight: 700;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+

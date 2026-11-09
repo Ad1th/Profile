@@ -77,6 +77,39 @@ function FigureQuery() {
   );
 }
 
+function FigureStream() {
+  return (
+    <svg viewBox="0 0 320 150" className={styles.figure} aria-hidden="true">
+      <rect width="320" height="150" fill="#111" />
+      <rect x="14" y="42" width="78" height="52" fill="none" stroke="#F0EBE0" strokeWidth="2.5" />
+      <path d="M40 106 h26 M53 94 v12" stroke="#F0EBE0" strokeWidth="2.5" />
+      <text x="53" y="72" textAnchor="middle" fill="#F0EBE0" fontFamily={MONO} fontSize="11">
+        macOS
+      </text>
+      <rect x="228" y="42" width="78" height="52" fill="none" stroke="#CFDE00" strokeWidth="2.5" />
+      <path d="M254 106 h26 M267 94 v12" stroke="#CFDE00" strokeWidth="2.5" />
+      <text x="267" y="72" textAnchor="middle" fill="#CFDE00" fontFamily={MONO} fontSize="11">
+        Windows
+      </text>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <rect
+          key={i}
+          className={styles.frame}
+          style={{ animationDelay: `${i * -0.36}s` }}
+          x="104"
+          y="60"
+          width="14"
+          height="16"
+          fill="#E8420A"
+        />
+      ))}
+      <text x="160" y="124" textAnchor="middle" fill="#8A8B6D" fontFamily={MONO} fontSize="10">
+        HEVC over QUIC, no relay
+      </text>
+    </svg>
+  );
+}
+
 const SHEETS: Sheet[] = [
   {
     slug: "aetherquery",
@@ -95,6 +128,24 @@ const SHEETS: Sheet[] = [
     paper: "blue",
     fastener: "clip",
     figure: <FigureQuery />,
+  },
+  {
+    slug: "renderd",
+    deck: "Makes a Windows PC the second monitor of a Mac",
+    note: "built solo. yes, all of it",
+    receipts: [
+      <>
+        macOS to Windows, <mark>zero-copy HEVC</mark>
+      </>,
+      <>
+        <mark>13 crates</mark>, 234 tests
+      </>,
+      <>Peer to peer. No cloud in the middle</>,
+    ],
+    stack: ["Rust", "QUIC", "VideoToolbox", "D3D12"],
+    paper: "vermilion",
+    fastener: "tape",
+    figure: <FigureStream />,
   },
 ];
 

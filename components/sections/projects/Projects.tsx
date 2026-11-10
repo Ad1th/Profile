@@ -288,6 +288,12 @@ const NOTES: Note[] = [
     scribble: "eight instructions were enough",
     paper: "volt",
   },
+  {
+    slug: "hybrid-symbol-table",
+    line: "C11 symbol table for embedded compilers. Scope teardown measured 601x faster than a chained free() loop.",
+    scribble: "measured, not guessed",
+    paper: "bright",
+  },
 ];
 
 const bySlug = (slug: string) => catalogue.find((p) => p.slug === slug);

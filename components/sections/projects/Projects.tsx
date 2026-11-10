@@ -300,6 +300,12 @@ const NOTES: Note[] = [
     scribble: "my most starred repo",
     paper: "blue",
   },
+  {
+    slug: "mkv-player",
+    line: "A 500 KB native MKV player for Mac.",
+    scribble: "train wifi could not fetch VLC",
+    paper: "deep",
+  },
 ];
 
 const bySlug = (slug: string) => catalogue.find((p) => p.slug === slug);

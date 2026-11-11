@@ -793,6 +793,20 @@ export const projects: Project[] = [
     tags: ["Tooling", "For fun"],
     paperColor: "green",
   },
+  {
+    slug: "redlytics",
+    title: "REDLYTICS",
+    description:
+      "FastAPI Reddit scraper and analyser that extracts posts, comments and user insights.",
+    purpose:
+      "Built to pull a subreddit into something that can be queried.",
+    technologies: ["Python", "FastAPI"],
+    year: "2025",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/Redlytics",
+    tags: ["Data", "Backend"],
+    paperColor: "purple",
+  },
 ];
 
 export type Patent = {

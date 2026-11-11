@@ -105,6 +105,21 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "morph",
+    title: "MORPH",
+    seoTitle: "Morph Environment Bug Reproduction Platform",
+    description:
+      "Reproduces the machine a bug happened on: capture a user's CPU, memory, locale and network conditions as a profile, replay them somewhere else, and keep the cause as a regression test.",
+    purpose:
+      "Built with a three-person team at an international hackathon to turn 'works on my machine' into something you can rerun.",
+    technologies: ["Python", "FastAPI", "React", "Linux tc", "cgroups"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    featured: true,
+    tags: ["Tooling", "Systems"],
+    paperColor: "white",
+  },
+  {
     slug: "scotland-yard",
     title: "SCOTLAND YARD",
     seoTitle: "Scotland Yard Multiplayer Backend",

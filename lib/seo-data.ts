@@ -92,6 +92,12 @@ export type Project = {
   website?: string;
   featured?: boolean;
   category?: "Systems / Backend" | "AI & ML" | "CLI & Tools" | "IoT / Hardware" | "Web Apps";
+  /**
+   * What the project is. A project usually is more than one thing, so these
+   * overlap on purpose and every filter on the site reads them instead of
+   * the single `category` above.
+   */
+  tags?: ProjectTag[];
   paperColor?: "yellow" | "blue" | "orange" | "pink" | "green" | "purple" | "white";
   evidence?: Evidence;
 };

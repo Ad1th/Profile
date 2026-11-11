@@ -274,7 +274,7 @@ export default function SkillsHero({
           style={{
             width: 12,
             height: 12,
-            background: "#913831",
+            background: "#E8420A",
             marginTop: 40,
           }}
           initial={{ opacity: 0, scale: 0 }}

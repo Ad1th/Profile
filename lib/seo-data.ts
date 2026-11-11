@@ -667,6 +667,20 @@ export const projects: Project[] = [
     tags: ["Security", "AI / ML", "Research"],
     paperColor: "white",
   },
+  {
+    slug: "chaosbox",
+    title: "CHAOSBOX",
+    description:
+      "Lab for testing how AI agents cope when the environment fails: injected API errors, latency, expired sessions and shifting layouts, scored for recovery.",
+    purpose:
+      "Built because agent benchmarks only ask whether the task works when nothing goes wrong.",
+    technologies: ["TypeScript", "React", "Chaos Testing"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/chaosbox",
+    tags: ["AI / ML", "Tooling"],
+    paperColor: "orange",
+  },
 ];
 
 export type Patent = {

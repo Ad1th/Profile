@@ -695,6 +695,20 @@ export const projects: Project[] = [
     tags: ["AI / ML", "Backend", "Tooling"],
     paperColor: "purple",
   },
+  {
+    slug: "pitwall",
+    title: "PITWALL",
+    description:
+      "Counterfactual Formula 1 strategy engine: rebuilds the race state at any lap and reruns it with a different strategy through a Monte Carlo simulator.",
+    purpose:
+      "Built for a sports analytics data bowl to answer what would have happened if the car had pitted two laps earlier.",
+    technologies: ["Python", "FastAPI", "DuckDB", "NumPy", "React"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/pitwall",
+    tags: ["Data", "AI / ML"],
+    paperColor: "blue",
+  },
 ];
 
 export type Patent = {

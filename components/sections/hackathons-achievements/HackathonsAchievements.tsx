@@ -37,10 +37,10 @@ export default function HackathonsAchievements() {
                 transition={{ duration: 0.55, delay: index * 0.035 }}
               >
                 <div>
-                  <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#1E1E1B]/50">
+                  <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#111]/70">
                     {item.date}
                   </p>
-                  <p className="mt-2 text-[12px] text-[#1E1E1B]/46">
+                  <p className="mt-2 text-[12px] text-[#111]/70">
                     {item.location}
                   </p>
                 </div>
@@ -98,7 +98,7 @@ export default function HackathonsAchievements() {
                   </h3>
                 </div>
                 {item.detail && (
-                  <p className="mt-2 text-[13px] text-[#1E1E1B]/52">
+                  <p className="mt-2 text-[13px] text-[#111]/70">
                     {item.detail}
                   </p>
                 )}

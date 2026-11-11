@@ -38,13 +38,13 @@ type PathNumbers = [
 
 /* ─────────────── colours ─────────────── */
 const COLORS = {
-  humanInk: "#6B5B53",
-  humanText: "#2A2624",
-  humanAccent: "#A58D8D",
-  waveA: "#4F6B67",
-  waveB: "#6E7F68",
-  waveC: "#2D4B4A",
-  waveAccent: "#8B6A52",
+  humanInk: "#3F4D5A",
+  humanText: "#111111",
+  humanAccent: "#6C8EAD",
+  waveA: "#6C8EAD",
+  waveB: "#9DB4C9",
+  waveC: "#4A6A8A",
+  waveAccent: "#E8420A",
 };
 
 /* ─────────────── patent data ─────────────── */

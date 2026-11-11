@@ -38,13 +38,13 @@ type PathNumbers = [
 
 /* ─────────────── colours ─────────────── */
 const COLORS = {
-  humanInk: "#6B5B53",
-  humanText: "#2A2624",
-  humanAccent: "#A58D8D",
-  waveA: "#4F6B67",
-  waveB: "#6E7F68",
-  waveC: "#2D4B4A",
-  waveAccent: "#8B6A52",
+  humanInk: "#3F4D5A",
+  humanText: "#111111",
+  humanAccent: "#6C8EAD",
+  waveA: "#6C8EAD",
+  waveB: "#9DB4C9",
+  waveC: "#4A6A8A",
+  waveAccent: "#E8420A",
 };
 
 /* ─────────────── patent data ─────────────── */
@@ -373,7 +373,7 @@ export default function Patents() {
             Math.sin(s * Math.PI * (2.15 + line * 0.19) + line + t * 0.006) *
               H *
               0.03;
-        ctx.fillStyle = `rgba(232,221,208,${0.72 * wa * prog.current.nodes})`;
+        ctx.fillStyle = `rgba(240,235,224,${0.72 * wa * prog.current.nodes})`;
         ctx.font = canvasFont;
         ctx.fillText(nTxt[line % nTxt.length], nx + 5, ny - 5);
         ctx.strokeStyle = hexToRgba(pal[(line + 1) % pal.length], 0.34 * wa);
@@ -387,7 +387,7 @@ export default function Patents() {
         );
         ctx.stroke();
         if (line % 2 === 0 && Math.sin(t * 0.0012 + line) > 0.74) {
-          ctx.fillStyle = `rgba(232,221,208,${0.42 * wa})`;
+          ctx.fillStyle = `rgba(240,235,224,${0.42 * wa})`;
           ctx.fillText(numTxt[line % numTxt.length], nx + 18, ny + 14);
         }
         const ps = (t * 0.00016 * nodeSpeed + line * 0.21) % 1;
@@ -444,7 +444,7 @@ export default function Patents() {
           ctx.fillStyle =
             modeRef.current === "human"
               ? hexToRgba(COLORS.humanInk, 0.58)
-              : "rgba(232,221,208,0.18)";
+              : "rgba(240,235,224,0.18)";
           ctx.beginPath();
           ctx.arc(
             p.x,
@@ -468,7 +468,7 @@ export default function Patents() {
               ctx.strokeStyle =
                 modeRef.current === "human"
                   ? hexToRgba(COLORS.humanInk, 0.08)
-                  : `rgba(232,221,208,${0.14 * prog.current.tLines})`;
+                  : `rgba(240,235,224,${0.14 * prog.current.tLines})`;
               ctx.lineWidth = modeRef.current === "human" ? 0.45 : 0.65;
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
@@ -777,7 +777,7 @@ export default function Patents() {
           top: 0,
           height: "100dvh",
           overflow: "hidden",
-          background: "#D9E1E8",
+          background: "#D3DDE7",
         }}
       >
         <div className="patent-bg patent-bg--human" />
@@ -927,27 +927,27 @@ export default function Patents() {
           background:
             radial-gradient(
               circle at 70% 22%,
-              rgba(165, 141, 141, 0.18),
+              rgba(108, 142, 173, 0.26),
               transparent 28%
             ),
             radial-gradient(
               circle at 18% 78%,
-              rgba(107, 91, 83, 0.08),
+              rgba(17, 17, 17, 0.05),
               transparent 30%
             ),
-            #d9e1e8;
+            #d3dde7;
           opacity: 1;
         }
         .patent-bg--wave {
           background:
             linear-gradient(
               135deg,
-              rgba(79, 107, 103, 0.96),
-              rgba(45, 75, 74, 0.98)
+              rgba(44, 68, 92, 0.97),
+              rgba(26, 42, 58, 0.99)
             ),
             radial-gradient(
               circle at 78% 68%,
-              rgba(139, 106, 82, 0.22),
+              rgba(232, 66, 10, 0.12),
               transparent 30%
             );
           opacity: 0;
@@ -959,14 +959,22 @@ export default function Patents() {
           font-size: clamp(7rem, 19vw, 18rem);
           line-height: 0.76;
           letter-spacing: -0.01em;
-          color: #2a2624;
+          color: #111111;
           width: max-content;
           transform: rotate(-0.9deg) scaleX(0.78) scaleY(1.16);
           transform-origin: left top;
           filter: url("#rough-head");
           text-shadow:
-            0.3px 0 rgba(51, 41, 39, 0.22),
-            -0.3px 0.2px rgba(51, 41, 39, 0.1);
+            0.3px 0 rgba(17, 17, 17, 0.22),
+            -0.3px 0.2px rgba(17, 17, 17, 0.1);
+        }
+        /* The heading stays readable when the stage turns deep blue. */
+        .patents-head {
+          transition: color 0.9s ease;
+        }
+        .patents-sticky[data-mode="wave"] .patents-head {
+          color: #f0ebe0;
+          text-shadow: none;
         }
         .patents-head .ltr {
           display: inline-block;
@@ -986,13 +994,13 @@ export default function Patents() {
           opacity: 0.62;
         }
         .patent-copy {
-          color: #2a2624;
+          color: #111111;
         }
         .patent-copy--human {
-          color: #2a2624;
+          color: #111111;
         }
         .patent-copy--wave {
-          color: #e8ddd0;
+          color: #f0ebe0;
         }
       `}</style>
     </section>
@@ -1015,10 +1023,10 @@ function StatusLine({
     { key: "granted", label: "Granted", date: "" },
   ];
   const active = status === "granted" ? 2 : status === "published" ? 1 : 0;
-  const ink = tone === "wave" ? "#E8DDD0" : "#2A2624";
+  const ink = tone === "wave" ? "#F0EBE0" : "#111111";
   const muted =
-    tone === "wave" ? "rgba(232,221,208,0.36)" : "rgba(42,38,36,0.34)";
-  const accent = tone === "wave" ? "#8B6A52" : "#A58D8D";
+    tone === "wave" ? "rgba(240,235,224,0.36)" : "rgba(17,17,17,0.34)";
+  const accent = tone === "wave" ? "#E8420A" : "#6C8EAD";
 
   return (
     <div className="flex items-center gap-0">

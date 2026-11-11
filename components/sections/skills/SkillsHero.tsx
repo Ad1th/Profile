@@ -93,8 +93,8 @@ const languages = [
 
 const headlineLines = [
   { text: "The stack", color: "#E5DED2" },
-  { text: "behind the", color: "#8A8B6D" },
-  { text: "things I build.", color: "#913831" },
+  { text: "behind the", color: "#CFDE00" },
+  { text: "things I build.", color: "#E8420A" },
 ];
 
 interface SkillsHeroProps {
@@ -274,7 +274,7 @@ export default function SkillsHero({
           style={{
             width: 12,
             height: 12,
-            background: "#913831",
+            background: "#E8420A",
             marginTop: 40,
           }}
           initial={{ opacity: 0, scale: 0 }}

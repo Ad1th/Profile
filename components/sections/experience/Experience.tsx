@@ -122,7 +122,7 @@ export default function Experience() {
     <section
       ref={sectionRef}
       data-section="experience"
-      className="relative w-full overflow-hidden bg-[#080808] text-[#ECE7DF]"
+      className="relative w-full overflow-hidden border-t-[5px] border-[#111] bg-[#6C8EAD] text-[#111]"
       style={{ minHeight: "92vh", isolation: "isolate" }}
     >
       <motion.div
@@ -130,7 +130,7 @@ export default function Experience() {
         aria-hidden="true"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.026) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.026) 1px, transparent 1px)",
+            "linear-gradient(rgba(17,17,17,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(17,17,17,0.07) 1px, transparent 1px)",
           backgroundSize: "48px 48px",
         }}
         animate={{ backgroundPosition: ["0px 0px", "48px 48px"] }}
@@ -140,7 +140,7 @@ export default function Experience() {
       <div className="relative z-10 flex min-h-screen flex-col px-8 pb-8 pt-16 lg:px-14">
         <div className="experience-kicker grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_260px] items-start gap-8">
           <div>
-            <span className="font-mono text-[12px] font-black tracking-[0.12em] text-[#A14A32]">
+            <span className="font-mono text-[12px] font-black tracking-[0.12em] text-[#111]">
               + EXPERIENCE
             </span>
             <h2
@@ -192,13 +192,13 @@ export default function Experience() {
               <p
                 className="max-w-[320px] md:max-w-[420px]"
                 style={{
-                  color: "#C8C0B4",
+                  color: "#111",
                   fontSize: 15,
                   lineHeight: 1.5,
                 }}
               >
                 Building products, communities, and systems.{" "}
-                <span style={{ color: "#8A8B6D", marginLeft: 8 }}>
+                <span style={{ color: "rgba(17,17,17,0.72)", marginLeft: 8 }}>
                   2025 → Present
                 </span>
               </p>
@@ -210,11 +210,11 @@ export default function Experience() {
         </div>
 
         <div className="relative mt-8">
-          <div className="experience-rail absolute left-0 right-0 top-[40px] md:top-[52px] h-[3px] bg-[#333]">
+          <div className="experience-rail absolute left-0 right-0 top-[40px] md:top-[52px] h-[3px] bg-[#111]/25">
             <motion.div
               className="experience-rail-fill absolute left-0 top-0 bottom-0 origin-left"
               style={{
-                background: "#8A8B6D",
+                background: "#111",
                 transformOrigin: "left center",
                 width: "100%",
                 height: "100%",
@@ -244,10 +244,10 @@ export default function Experience() {
                     ease: "easeOut",
                   }}
                 >
-                  <span className="flex h-10 w-10 items-center justify-center border-[3px] border-[#111] bg-[#ECE7DF] shadow-[5px_5px_0_rgba(0,0,0,0.55)]">
-                    <i className="h-3 w-3 rounded-full bg-[#A14A32]" />
+                  <span className="flex h-10 w-10 items-center justify-center border-[3px] border-[#111] bg-[#F0EBE0] shadow-[5px_5px_0_#111]">
+                    <i className="h-3 w-3 rounded-full bg-[#E8420A]" />
                   </span>
-                  <b className="mt-[-2px] font-mono text-[10px] tracking-[0.14em] text-[#8A8B6D]">
+                  <b className="mt-[-2px] font-mono text-[10px] tracking-[0.14em] text-[#111]">
                     {index < 2 ? "2025" : "2026"}
                   </b>
                 </motion.div>
@@ -255,7 +255,7 @@ export default function Experience() {
                 {/* vertical connector from node to card */}
                 <div
                   className="experience-connector absolute left-1/2 top-[36px] md:top-[48px] -translate-x-1/2"
-                  style={{ width: 2, height: "6rem", background: "#333" }}
+                  style={{ width: 2, height: "6rem", background: "#111" }}
                 />
 
                 <ExperienceCard
@@ -265,18 +265,18 @@ export default function Experience() {
                   positioned={false}
                   className="experience-card-once"
                   style={{ width: "100%", marginTop: 0 }}
-                  shadow="8px 8px 0 rgba(0,0,0,0.62)"
+                  shadow="8px 8px 0 #111"
                 />
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-4 border-y-[3px] border-[#333] font-mono text-[11px] font-black tracking-[0.12em] text-[#777]">
+        <div className="mt-10 grid grid-cols-4 border-y-[3px] border-[#111] font-mono text-[11px] font-black tracking-[0.12em] text-[#111]">
           {["BUILDING.", "SHIPPING.", "LEADING.", "LEARNING."].map((item) => (
             <span
               key={item}
-              className="border-r border-[#333] px-4 py-4 last:border-r-0"
+              className="border-r-[3px] border-[#111] px-4 py-4 last:border-r-0"
             >
               {item}
             </span>

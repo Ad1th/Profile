@@ -611,6 +611,20 @@ export const projects: Project[] = [
     tags: ["Systems", "For fun"],
     paperColor: "yellow",
   },
+  {
+    slug: "lobotoml",
+    title: "LOBOTOML",
+    description:
+      "Compiles a trained neural network into a Brainfuck program: weights are quantised to fixed point, lowered through an IR and run as inference on a Brainfuck VM.",
+    purpose:
+      "Research and engineering exercise in deterministic fixed-point inference on the least suitable target available.",
+    technologies: ["Python", "Brainfuck", "Compilers", "Fixed-point"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/lobotoml",
+    tags: ["AI / ML", "Systems", "For fun"],
+    paperColor: "pink",
+  },
 ];
 
 export type Patent = {

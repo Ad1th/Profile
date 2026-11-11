@@ -928,12 +928,12 @@ export default function Patents() {
           background:
             radial-gradient(
               circle at 70% 22%,
-              rgba(165, 141, 141, 0.18),
+              rgba(108, 142, 173, 0.26),
               transparent 28%
             ),
             radial-gradient(
               circle at 18% 78%,
-              rgba(107, 91, 83, 0.08),
+              rgba(17, 17, 17, 0.05),
               transparent 30%
             ),
             #d3dde7;

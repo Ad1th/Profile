@@ -2,7 +2,7 @@ export default function Contact() {
   return (
     <section
       data-section="contact"
-      className="relative w-full min-h-screen overflow-hidden bg-[#111111] px-6 pt-8 pb-[38px] text-[#E8DDD0] sm:px-10 lg:px-16 sm:min-h-0 sm:pt-14 sm:pb-[105px]"
+      className="relative w-full min-h-screen overflow-hidden bg-[#111111] px-6 pt-8 pb-[38px] text-[#F0EBE0] sm:px-10 lg:px-16 sm:min-h-0 sm:pt-14 sm:pb-[105px]"
       style={{ isolation: "isolate" }}
     >
       {/* grain */}
@@ -17,9 +17,9 @@ export default function Contact() {
 
       <div className="relative mx-auto flex max-w-7xl flex-col pt-[30px]">
         {/* top bar */}
-        <div className="flex items-start justify-between border-b border-[#E8DDD0]/10 pb-5">
+        <div className="flex items-start justify-between border-b border-[#F0EBE0]/10 pb-5">
           <div className="flex items-center gap-6">
-            <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-[#E8DDD0]/82">
+            <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-[#F0EBE0]/82">
               ADITH
             </span>
 
@@ -27,13 +27,13 @@ export default function Contact() {
               //
             </span>
 
-            <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-[#E8DDD0]/55">
+            <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-[#F0EBE0]/55">
               PORTFOLIO
             </span>
           </div>
 
           <div className="hidden md:block">
-            <span className="font-mono text-[11px] uppercase leading-[1.6] tracking-[0.16em] text-[#E8DDD0]/62">
+            <span className="font-mono text-[11px] uppercase leading-[1.6] tracking-[0.16em] text-[#F0EBE0]/62">
               BUILDING SYSTEMS
               <br />
               AND EXPERIMENTS
@@ -45,8 +45,8 @@ export default function Contact() {
         <div className="grid gap-8 py-8 sm:gap-16 sm:py-14 lg:grid-cols-[1.05fr_0.95fr]">
           {/* LEFT */}
           <div className="relative">
-            <div className="absolute left-0 top-0 h-12 w-px bg-[#E8DDD0]/10" />
-            <div className="absolute left-[-1px] top-0 h-px w-12 bg-[#E8DDD0]/10" />
+            <div className="absolute left-0 top-0 h-12 w-px bg-[#F0EBE0]/10" />
+            <div className="absolute left-[-1px] top-0 h-px w-12 bg-[#F0EBE0]/10" />
 
             <p className="ml-4 font-mono text-[13px] uppercase tracking-[0.14em] text-[#8EA0D6]">
               LET’S
@@ -83,8 +83,8 @@ export default function Contact() {
           to top,
           #B9827E 0%,
           #B9827E 0%,
-          #E8DDD0 0%,
-          #E8DDD0 100%
+          #F0EBE0 0%,
+          #F0EBE0 100%
         )
       `,
                 }}
@@ -98,8 +98,8 @@ export default function Contact() {
           to top,
           #B9827E 0%,
           #B9827E ${100 - y}%,
-          #E8DDD0 ${100 - y}%,
-          #E8DDD0 100%
+          #F0EBE0 ${100 - y}%,
+          #F0EBE0 100%
         )
       `;
                 }}
@@ -107,8 +107,8 @@ export default function Contact() {
                   e.currentTarget.style.backgroundImage = `
         linear-gradient(
           to top,
-          #E8DDD0 0%,
-          #E8DDD0 100%
+          #F0EBE0 0%,
+          #F0EBE0 100%
         )
       `;
                 }}
@@ -128,7 +128,7 @@ export default function Contact() {
             </div>
 
             <div className="mt-6 sm:mt-8 flex items-end gap-6">
-              <div className="h-12 w-px bg-[#E8DDD0]/10" />
+              <div className="h-12 w-px bg-[#F0EBE0]/10" />
 
               <div className="rotate-[-4deg] font-mono text-[13px] leading-[1.8] tracking-[0.04em] text-[#8B9278]">
                 currently
@@ -141,12 +141,12 @@ export default function Contact() {
           </div>
 
           {/* RIGHT */}
-          <div className="relative flex flex-col justify-start border-l border-[#E8DDD0]/10 pl-0 pt-2 lg:pl-16 lg:pt-4">
+          <div className="relative flex flex-col justify-start border-l border-[#F0EBE0]/10 pl-0 pt-2 lg:pl-16 lg:pt-4">
             <div className="space-y-3 sm:space-y-5">
               {/* EMAIL 1 */}
               <a
                 href="mailto:hello@adith.xyz"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -163,7 +163,7 @@ export default function Contact() {
                         mt-4
                         text-[clamp(1.6rem,2vw,2.5rem)]
                         tracking-[-0.04em]
-                        text-[#E8DDD0]
+                        text-[#F0EBE0]
                         transition-[transform,box-shadow,background-color,border-color,color,opacity]
                         duration-500
                         group-hover:translate-x-1
@@ -187,7 +187,7 @@ export default function Contact() {
               {/* EMAIL 2 */}
               <a
                 href="mailto:madith2505@gmail.com"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -204,7 +204,7 @@ export default function Contact() {
                         mt-4
                         text-[clamp(1.6rem,2vw,2.5rem)]
                         tracking-[-0.04em]
-                        text-[#E8DDD0]
+                        text-[#F0EBE0]
                         transition-[transform,box-shadow,background-color,border-color,color,opacity]
                         duration-500
                         group-hover:translate-x-1
@@ -230,7 +230,7 @@ export default function Contact() {
                 href="https://github.com/Ad1th"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -247,7 +247,7 @@ export default function Contact() {
                         mt-4
                         text-[clamp(1.6rem,2vw,2.5rem)]
                         tracking-[-0.04em]
-                        text-[#E8DDD0]
+                        text-[#F0EBE0]
                         transition-[transform,box-shadow,background-color,border-color,color,opacity]
                         duration-500
                         group-hover:translate-x-1
@@ -273,7 +273,7 @@ export default function Contact() {
                 href="https://www.linkedin.com/in/adith-manikonda/"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between border-b border-[#E8DDD0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
               >
                 <div className="flex items-start gap-8">
                   <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
@@ -290,7 +290,7 @@ export default function Contact() {
                           mt-4
                           text-[clamp(1.6rem,2vw,2.5rem)]
                           tracking-[-0.04em]
-                          text-[#E8DDD0]
+                          text-[#F0EBE0]
                           transition-[transform,box-shadow,background-color,border-color,color,opacity]
                           duration-500
                           group-hover:translate-x-1
@@ -315,12 +315,12 @@ export default function Contact() {
         </div>
 
         {/* footer */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-[#E8DDD0]/10 pt-4 sm:pt-6 gap-2 sm:gap-0">
-          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#E8DDD0]/52">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-[#F0EBE0]/10 pt-4 sm:pt-6 gap-2 sm:gap-0">
+          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#F0EBE0]/52">
             LAST UPDATED / SEPTEMBER 2026
           </span>
 
-          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#E8DDD0]/42">
+          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#F0EBE0]/42">
             DESIGNING INTERFACES WITH FEELING
           </span>
         </div>

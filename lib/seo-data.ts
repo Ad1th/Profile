@@ -266,7 +266,6 @@ export const projects: Project[] = [
     technologies: ["IoT", "Circuits", "Telemetry", "MPPT", "Hardware"],
     year: "2025",
     screenshots: ["/images/projects/_placeholder.svg"],
-    featured: true,
     category: "IoT / Hardware",
     tags: ["Hardware", "Research"],
     paperColor: "yellow",

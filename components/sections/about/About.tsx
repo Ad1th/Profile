@@ -95,7 +95,7 @@ export default function About({
     <section
       data-section="about"
       className="relative w-full overflow-hidden bg-transparent"
-      style={{ marginTop: viewportTransition ? -24 : 0 }}
+      style={{ height: viewportTransition ? "100%" : undefined }}
     >
       <motion.div
         className={`relative mx-auto ${
@@ -118,7 +118,7 @@ export default function About({
               : "auto auto",
             display: "grid",
             alignItems: "stretch",
-            paddingTop: viewportTransition ? 68 : 0,
+            paddingTop: 0,
             gap: "4px",
             boxSizing: "border-box",
           }}
@@ -163,7 +163,10 @@ export default function About({
                   lineHeight: 0.92,
                   fontSize: viewportTransition ? "clamp(32px, 4vw, 120px)" : 48,
                   // Used to slightly tighten mobile line wrapping without affecting desktop/tablet.
-                  ["--aboutBuildLineFont" as any]: "clamp(95px, 7.7vw, 260px)",
+                  // Capped at its 1920px size. The pinned stage is zoomed as a whole
+                  // on larger screens, so letting this keep growing with the
+                  // viewport made it outgrow every other piece of the grid.
+                  ["--aboutBuildLineFont" as any]: "clamp(95px, 7.7vw, 148px)",
                 }}
               >
                 {[

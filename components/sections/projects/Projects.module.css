@@ -702,3 +702,47 @@
   }
 }
 
+/* ── Pointer-only hover ──────────────────────────────────────────────── */
+
+@media (hover: hover) and (pointer: fine) {
+  .sheet:hover {
+    rotate: 0deg;
+    translate: 0 calc(var(--drop) - 6px);
+    box-shadow:
+      8px 10px 0 rgb(17 17 17 / 0.42),
+      0 28px 54px rgb(36 29 24 / 0.18);
+  }
+
+  .sheet:hover .clip {
+    rotate: 10deg;
+  }
+
+  .sheet:hover .note {
+    animation: note-wiggle 260ms ease-in-out 2;
+  }
+
+  .sticky:hover {
+    rotate: 0deg;
+    translate: 0 -5px;
+  }
+
+  .sheet:hover .arrow,
+  .archive:hover .arrow {
+    transform: translate(3px, -3px);
+  }
+
+  .source:hover {
+    text-decoration-thickness: 3px;
+  }
+
+  .archive:hover {
+    background: var(--volt);
+    color: var(--ink);
+  }
+}
+
+@keyframes note-wiggle {
+  50% {
+    transform: rotate(-4deg);
+  }
+}

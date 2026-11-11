@@ -313,17 +313,6 @@ export default function Contact() {
             </div>
           </div>
         </div>
-
-        {/* footer */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-[#F0EBE0]/10 pt-4 sm:pt-6 gap-2 sm:gap-0">
-          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#F0EBE0]/52">
-            LAST UPDATED / SEPTEMBER 2026
-          </span>
-
-          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#F0EBE0]/42">
-            DESIGNING INTERFACES WITH FEELING
-          </span>
-        </div>
       </div>
     </section>
   );

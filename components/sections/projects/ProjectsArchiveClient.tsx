@@ -43,7 +43,7 @@ function matches(project: Project, q: string) {
     project.description,
     project.purpose,
     project.year,
-    project.category ?? "",
+    ...project.tags,
     ...project.technologies,
   ]
     .join(" ")

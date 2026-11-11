@@ -10,7 +10,7 @@ export default function HackathonsAchievements() {
   return (
     <section
       data-section="hackathons"
-      className="relative w-full overflow-hidden bg-[#A7B2B9] px-6 py-24 text-[#1E1E1B] sm:px-10 lg:px-16"
+      className="relative w-full overflow-hidden border-t-[5px] border-[#111] bg-[#F0EBE0] px-6 py-24 text-[#111] sm:px-10 lg:px-16"
       style={{ isolation: "isolate" }}
       aria-label="Hackathons and achievements"
     >
@@ -30,22 +30,22 @@ export default function HackathonsAchievements() {
             {HACKATHONS.map((item, index) => (
               <motion.article
                 key={`${item.date}-${item.title}`}
-                className="group grid gap-2 border-t border-[rgba(30,30,27,.12)] pt-6 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/55 hover:px-4 sm:grid-cols-[150px_1fr] sm:gap-8 relative"
+                className="group grid gap-2 border-t border-[rgba(17,17,17,.2)] pt-6 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/55 hover:px-4 sm:grid-cols-[150px_1fr] sm:gap-8 relative"
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-8%" }}
                 transition={{ duration: 0.55, delay: index * 0.035 }}
               >
                 <div>
-                  <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#1E1E1B]/50">
+                  <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#111]/70">
                     {item.date}
                   </p>
-                  <p className="mt-2 text-[12px] text-[#1E1E1B]/46">
+                  <p className="mt-2 text-[12px] text-[#111]/70">
                     {item.location}
                   </p>
                 </div>
                 <div className="relative">
-                  <h3 className="font-serif text-[18px] font-bold leading-snug text-[#1E1E1B] transition-transform duration-300 group-hover:translate-x-2">
+                  <h3 className="font-serif text-[18px] font-bold leading-snug text-[#111] transition-transform duration-300 group-hover:translate-x-2">
                     {item.title}
                   </h3>
                   {[0, 2, 6].includes(index) && (
@@ -68,7 +68,7 @@ export default function HackathonsAchievements() {
 
         <aside
           data-section="achievements"
-          className="border-t border-[rgba(30,30,27,.12)] pt-8 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0"
+          className="border-t border-[rgba(17,17,17,.2)] pt-8 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0"
         >
           <div className="mb-10">
             <span className="font-mono text-[11px] font-black uppercase tracking-[0.18em] text-[#A14A32]">
@@ -83,7 +83,7 @@ export default function HackathonsAchievements() {
             {ACHIEVEMENTS.map((item, index) => (
               <motion.article
                 key={`${item.year}-${item.title}`}
-                className="group border-t border-[rgba(30,30,27,.12)] pt-6 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/50 hover:px-4 relative"
+                className="group border-t border-[rgba(17,17,17,.2)] pt-6 transition-[background,padding] duration-300 hover:bg-[#DDD5C9]/50 hover:px-4 relative"
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-8%" }}
@@ -93,12 +93,12 @@ export default function HackathonsAchievements() {
                   {item.year}
                 </p>
                 <div className="relative">
-                  <h3 className="mt-2 text-[17px] font-bold leading-snug text-[#1E1E1B] transition-transform duration-300 group-hover:translate-x-2">
+                  <h3 className="mt-2 text-[17px] font-bold leading-snug text-[#111] transition-transform duration-300 group-hover:translate-x-2">
                     {item.title}
                   </h3>
                 </div>
                 {item.detail && (
-                  <p className="mt-2 text-[13px] text-[#1E1E1B]/52">
+                  <p className="mt-2 text-[13px] text-[#111]/70">
                     {item.detail}
                   </p>
                 )}

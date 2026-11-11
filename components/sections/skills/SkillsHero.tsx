@@ -93,8 +93,8 @@ const languages = [
 
 const headlineLines = [
   { text: "The stack", color: "#E5DED2" },
-  { text: "behind the", color: "#8A8B6D" },
-  { text: "things I build.", color: "#913831" },
+  { text: "behind the", color: "#CFDE00" },
+  { text: "things I build.", color: "#E8420A" },
 ];
 
 interface SkillsHeroProps {
@@ -122,7 +122,16 @@ export default function SkillsHero({
       style={{
         gridTemplateColumns: hideLanguagePanel ? "1fr 1fr" : "1fr 1fr 1fr",
         borderBottom: "3px solid #333",
-        minHeight: hideLanguagePanel ? "auto" : "calc(42svh - 20px)",
+        // Inside the pinned desktop stage the block is sized against the
+        // stage, not the viewport: the stage is zoomed, so svh there took
+        // well over half of it on tall monitors and squeezed the rows. A fixed
+        // height also keeps the stage fit stable, since a percentage would
+        // grow as the layer scales down.
+        minHeight: hideLanguagePanel
+          ? "auto"
+          : standalone
+            ? "calc(42svh - 20px)"
+            : 300,
         alignItems: "stretch",
       }}
     >
@@ -274,7 +283,7 @@ export default function SkillsHero({
           style={{
             width: 12,
             height: 12,
-            background: "#913831",
+            background: "#E8420A",
             marginTop: 40,
           }}
           initial={{ opacity: 0, scale: 0 }}

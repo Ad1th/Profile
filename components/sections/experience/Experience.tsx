@@ -145,7 +145,12 @@ export default function Experience() {
             </span>
             <h2
               className={`mt-4`}
-              style={{ fontSize: "clamp(4.3rem,8vw,8rem)", lineHeight: 0.92 }}
+              // Phones scale with the width so the word always fits its column;
+              // from tablet up it follows the original 8vw ramp.
+              style={{
+                fontSize: "max(min(17vw, 4.3rem), min(8vw, 8rem))",
+                lineHeight: 0.92,
+              }}
             >
               <BlurIn>
                 <span

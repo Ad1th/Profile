@@ -38,7 +38,14 @@
 
 @layer base {
   body {
-    @apply bg-[#EEE7DC] text-[#111111] overflow-x-hidden antialiased;
+    @apply overflow-x-hidden antialiased;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  ::selection {
+    background: var(--volt);
+    color: var(--ink);
   }
 }
 

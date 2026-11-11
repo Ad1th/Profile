@@ -61,6 +61,23 @@ export type Evidence = {
   limits?: string;
 };
 
+/** Filter vocabulary, in the order the filter bars list it. */
+export const PROJECT_TAGS = [
+  "Systems",
+  "Backend",
+  "Data",
+  "AI / ML",
+  "Security",
+  "Research",
+  "Tooling",
+  "Hardware",
+  "Realtime",
+  "Web",
+  "Games",
+] as const;
+
+export type ProjectTag = (typeof PROJECT_TAGS)[number];
+
 export type Project = {
   slug: string;
   title: string;

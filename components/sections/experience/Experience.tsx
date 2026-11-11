@@ -122,7 +122,7 @@ export default function Experience() {
     <section
       ref={sectionRef}
       data-section="experience"
-      className="relative w-full overflow-hidden bg-[#080808] text-[#ECE7DF]"
+      className="relative w-full overflow-hidden border-t-[5px] border-[#111] bg-[#6C8EAD] text-[#111]"
       style={{ minHeight: "92vh", isolation: "isolate" }}
     >
       <motion.div

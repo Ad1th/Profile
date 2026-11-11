@@ -353,10 +353,10 @@ export default function ProjectsArchiveClient() {
                       className="flex flex-col border-[3px] border-[#111] bg-[#FFFDF5] p-6"
                       style={{ boxShadow: "6px 6px 0 0 #111" }}
                     >
-                      <p className="flex justify-between font-mono text-[11px] font-bold uppercase tracking-[0.14em]">
+                      <p className="flex justify-between gap-4 font-mono text-[11px] font-bold uppercase tracking-[0.14em]">
                         <span>{p.year}</span>
-                        <span className="text-[#A14A32]">
-                          {p.category ?? "Project"}
+                        <span className="text-right text-[#A14A32]">
+                          {p.tags.join(" / ")}
                         </span>
                       </p>
                       <h3

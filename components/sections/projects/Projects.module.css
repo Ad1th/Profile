@@ -38,3 +38,82 @@
   margin-inline: auto;
 }
 
+/* ── Heading block ───────────────────────────────────────────────────── */
+
+.title {
+  margin: 0;
+  font-family: var(--font-anton), Anton, sans-serif;
+  font-weight: 400;
+  font-size: clamp(64px, 26vw, 132px);
+  line-height: 0.86;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 3px var(--ink);
+}
+
+.titleLine {
+  display: block;
+  white-space: nowrap;
+}
+
+.titleWord {
+  display: inline-block;
+  margin-right: 5px;
+  transform-origin: left top;
+}
+
+.rule {
+  display: block;
+  width: 54px;
+  height: 8px;
+  margin: 28px 0 22px;
+  background: var(--moss);
+}
+
+.lede {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.stamps {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  max-width: 22rem;
+  margin: 30px 0 0;
+  padding-top: 14px;
+  border-top: 2px solid var(--ink);
+}
+
+.stamps span {
+  padding: 5px 8px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.aside {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  width: max-content;
+  max-width: 100%;
+  margin: 34px 0 0 6px;
+  font-family: var(--font-note), "Bradley Hand", cursive;
+  font-size: 1.5rem;
+  line-height: 1.05;
+  color: rgb(17 17 17 / 0.78);
+  rotate: -4deg;
+}
+
+.aside svg {
+  flex-shrink: 0;
+  translate: 0 14px;
+}
+

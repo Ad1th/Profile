@@ -423,7 +423,7 @@ export default function ProjectsArchiveClient() {
                     <tr className="bg-[#111] font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-[#F0EBE0]">
                       <th className="px-4 py-3">Year</th>
                       <th className="px-4 py-3">Project</th>
-                      <th className="px-4 py-3">Category</th>
+                      <th className="px-4 py-3">Tags</th>
                       <th className="px-4 py-3">Stack</th>
                       <th className="px-4 py-3 text-right">Links</th>
                     </tr>
@@ -450,7 +450,7 @@ export default function ProjectsArchiveClient() {
                           </p>
                         </td>
                         <td className="whitespace-nowrap px-4 py-3 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#A14A32]">
-                          {p.category ?? "Project"}
+                          {p.tags.join(" / ")}
                         </td>
                         <td className="px-4 py-3 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#111]/60">
                           {p.technologies.join(" / ")}

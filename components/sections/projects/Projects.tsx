@@ -294,6 +294,12 @@ const NOTES: Note[] = [
     scribble: "measured, not guessed",
     paper: "bright",
   },
+  {
+    slug: "reference-hallucination-detector",
+    line: "Checks every citation in a PDF against DBLP and flags the papers that were never written.",
+    scribble: "my most starred repo",
+    paper: "blue",
+  },
 ];
 
 const bySlug = (slug: string) => catalogue.find((p) => p.slug === slug);

@@ -95,7 +95,7 @@ export default function About({
     <section
       data-section="about"
       className="relative w-full overflow-hidden bg-transparent"
-      style={{ marginTop: viewportTransition ? -24 : 0 }}
+      style={{ height: viewportTransition ? "100%" : undefined }}
     >
       <motion.div
         className={`relative mx-auto ${
@@ -118,7 +118,7 @@ export default function About({
               : "auto auto",
             display: "grid",
             alignItems: "stretch",
-            paddingTop: viewportTransition ? 68 : 0,
+            paddingTop: 0,
             gap: "4px",
             boxSizing: "border-box",
           }}

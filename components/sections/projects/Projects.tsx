@@ -144,6 +144,63 @@ function FigureMachines() {
   );
 }
 
+function FigureServices() {
+  const nodes: [number, number][] = [
+    [46, 38],
+    [130, 26],
+    [214, 40],
+    [84, 100],
+    [170, 92],
+    [262, 104],
+  ];
+  const edges: [number, number][] = [
+    [0, 1],
+    [1, 2],
+    [0, 3],
+    [1, 4],
+    [3, 4],
+    [2, 5],
+    [4, 5],
+  ];
+  const bad = 4;
+  return (
+    <svg viewBox="0 0 320 150" className={styles.figure} aria-hidden="true">
+      <rect width="320" height="150" fill="#111" />
+      {edges.map(([a, b]) => (
+        <line
+          key={`${a}-${b}`}
+          x1={nodes[a][0]}
+          y1={nodes[a][1]}
+          x2={nodes[b][0]}
+          y2={nodes[b][1]}
+          stroke={a === bad || b === bad ? "#E8420A" : "#8A8B6D"}
+          strokeWidth="2"
+          strokeDasharray={a === bad || b === bad ? "4 4" : undefined}
+        />
+      ))}
+      <circle className={styles.ping} cx={nodes[bad][0]} cy={nodes[bad][1]} r="12" fill="none" stroke="#E8420A" strokeWidth="2" />
+      {nodes.map(([x, y], i) => (
+        <rect
+          key={i}
+          x={x - 9}
+          y={y - 9}
+          width="18"
+          height="18"
+          fill={i === bad ? "#E8420A" : "#111"}
+          stroke={i === bad ? "#E8420A" : "#F0EBE0"}
+          strokeWidth="2.5"
+        />
+      ))}
+      <text x="188" y="80" fill="#E8420A" fontFamily={MONO} fontSize="10.5">
+        anomaly
+      </text>
+      <text x="16" y="140" fill="#8A8B6D" fontFamily={MONO} fontSize="10">
+        6 services, one of them lying
+      </text>
+    </svg>
+  );
+}
+
 const SHEETS: Sheet[] = [
   {
     slug: "aetherquery",
@@ -198,6 +255,22 @@ const SHEETS: Sheet[] = [
     paper: "bright",
     fastener: "pin",
     figure: <FigureMachines />,
+  },
+  {
+    slug: "archaic",
+    deck: "Breaks a cluster on purpose, then explains what broke",
+    note: "observability @ scale",
+    receipts: [
+      <>
+        <mark>100+ failure scenarios</mark> across 6 services
+      </>,
+      <>Isolation Forest anomaly detection</>,
+      <>An LLM recommends the root cause</>,
+    ],
+    stack: ["Kubernetes", "OpenTelemetry", "Prometheus", "Grafana"],
+    paper: "moss",
+    fastener: "spiral",
+    figure: <FigureServices />,
   },
 ];
 

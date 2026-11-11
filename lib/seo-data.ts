@@ -430,6 +430,7 @@ export const projects: Project[] = [
     year: "2024",
     screenshots: ["/images/projects/threddit/threddit.webp"],
     category: "AI & ML",
+    tags: ["AI / ML", "Web", "Tooling"],
     paperColor: "purple",
   },
   {

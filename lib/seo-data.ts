@@ -446,6 +446,7 @@ export const projects: Project[] = [
     year: "2024",
     screenshots: ["/images/projects/echochamber/echochamber.webp"],
     category: "Web Apps",
+    tags: ["Web", "Realtime"],
     paperColor: "orange",
   },
   {

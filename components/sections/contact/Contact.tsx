@@ -12,7 +12,7 @@ export default function Contact() {
       <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(232,221,208,.12)_1px,transparent_1px),linear-gradient(90deg,rgba(232,221,208,.08)_1px,transparent_1px)] [background-size:88px_88px]" />
 
       {/* ambient glows */}
-      {/* <div className="pointer-events-none absolute left-[-12rem] top-[-8rem] h-[28rem] w-[28rem] rounded-full bg-[#B9827E]/10 blur-3xl" />
+      {/* <div className="pointer-events-none absolute left-[-12rem] top-[-8rem] h-[28rem] w-[28rem] rounded-full bg-[#E8420A]/10 blur-3xl" />
       <div className="pointer-events-none absolute bottom-[-10rem] right-[-6rem] h-[24rem] w-[24rem] rounded-full bg-[#8B9278]/10 blur-3xl" /> */}
 
       <div className="relative mx-auto flex max-w-7xl flex-col pt-[30px]">
@@ -23,7 +23,7 @@ export default function Contact() {
               ADITH
             </span>
 
-            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#B9827E]/70">
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#E8420A]/70">
               //
             </span>
 
@@ -81,8 +81,8 @@ export default function Contact() {
                   backgroundImage: `
         linear-gradient(
           to top,
-          #B9827E 0%,
-          #B9827E 0%,
+          #E8420A 0%,
+          #E8420A 0%,
           #F0EBE0 0%,
           #F0EBE0 100%
         )
@@ -96,8 +96,8 @@ export default function Contact() {
                   e.currentTarget.style.backgroundImage = `
         linear-gradient(
           to top,
-          #B9827E 0%,
-          #B9827E ${100 - y}%,
+          #E8420A 0%,
+          #E8420A ${100 - y}%,
           #F0EBE0 ${100 - y}%,
           #F0EBE0 100%
         )
@@ -146,10 +146,10 @@ export default function Contact() {
               {/* EMAIL 1 */}
               <a
                 href="mailto:hello@adith.xyz"
-                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#E8420A]/35"
               >
                 <div className="flex items-start gap-8">
-                  <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
+                  <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#E8420A]">
                     01
                   </span>
 
@@ -179,7 +179,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <span className="translate-x-0 text-3xl text-[#B9827E] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
+                <span className="translate-x-0 text-3xl text-[#E8420A] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
                   →
                 </span>
               </a>
@@ -187,10 +187,10 @@ export default function Contact() {
               {/* EMAIL 2 */}
               <a
                 href="mailto:madith2505@gmail.com"
-                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#E8420A]/35"
               >
                 <div className="flex items-start gap-8">
-                  <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
+                  <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#E8420A]">
                     02
                   </span>
 
@@ -220,7 +220,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <span className="translate-x-0 text-3xl text-[#B9827E] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
+                <span className="translate-x-0 text-3xl text-[#E8420A] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
                   →
                 </span>
               </a>
@@ -230,10 +230,10 @@ export default function Contact() {
                 href="https://github.com/Ad1th"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#E8420A]/35"
               >
                 <div className="flex items-start gap-8">
-                  <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
+                  <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#E8420A]">
                     03
                   </span>
 
@@ -263,7 +263,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <span className="translate-x-0 text-3xl text-[#B9827E] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
+                <span className="translate-x-0 text-3xl text-[#E8420A] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
                   →
                 </span>
               </a>
@@ -273,10 +273,10 @@ export default function Contact() {
                 href="https://www.linkedin.com/in/adith-manikonda/"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#B9827E]/35"
+                className="group flex items-center justify-between border-b border-[#F0EBE0]/10 pb-5 sm:pb-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 hover:border-[#E8420A]/35"
               >
                 <div className="flex items-start gap-8">
-                  <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#B9827E]">
+                  <span className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-[#E8420A]">
                     04
                   </span>
 
@@ -306,7 +306,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <span className="translate-x-0 text-3xl text-[#B9827E] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
+                <span className="translate-x-0 text-3xl text-[#E8420A] transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 group-hover:translate-x-2">
                   →
                 </span>
               </a>

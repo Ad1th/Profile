@@ -48,9 +48,18 @@ const STAGE_HEIGHT = 860;
  */
 const STAGE_MAX_HEIGHT = 1000;
 
-function stageFit(height: number) {
+/** The zoom never narrows the stage below this, or a tall, narrow window
+ *  would be handed a phone-width stage with the desktop layout in it. */
+const STAGE_MIN_WIDTH = 1280;
+
+function stageFit(width: number, height: number) {
   if (height < STAGE_HEIGHT) return height / STAGE_HEIGHT;
-  if (height > STAGE_MAX_HEIGHT) return height / STAGE_MAX_HEIGHT;
+  if (height > STAGE_MAX_HEIGHT) {
+    return Math.max(
+      1,
+      Math.min(height / STAGE_MAX_HEIGHT, width / STAGE_MIN_WIDTH),
+    );
+  }
   return 1;
 }
 
@@ -58,7 +67,10 @@ function useStageFit() {
   const [fit, setFit] = useState(1);
   useIsomorphicLayoutEffect(() => {
     const sync = () =>
-      setFit(Math.round(stageFit(window.innerHeight) * 1000) / 1000);
+      setFit(
+        Math.round(stageFit(window.innerWidth, window.innerHeight) * 1000) /
+          1000,
+      );
     sync();
     window.addEventListener("resize", sync);
     return () => window.removeEventListener("resize", sync);

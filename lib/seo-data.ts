@@ -176,6 +176,7 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/AetherQuery",
     featured: true,
     category: "Systems / Backend",
+    tags: ["Data", "Backend", "Research"],
     paperColor: "blue",
     evidence: {
       problem:

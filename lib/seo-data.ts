@@ -807,6 +807,20 @@ export const projects: Project[] = [
     tags: ["Data", "Backend"],
     paperColor: "purple",
   },
+  {
+    slug: "tab-counter",
+    title: "TAB COUNTER",
+    description:
+      "Chrome extension that counts open tabs.",
+    purpose:
+      "Built because the ones on the web store were not worth trusting with the permission.",
+    technologies: ["JavaScript", "Chrome Extension"],
+    year: "2025",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/tab-counter",
+    tags: ["Tooling", "Web"],
+    paperColor: "blue",
+  },
 ];
 
 export type Patent = {

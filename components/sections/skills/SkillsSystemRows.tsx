@@ -561,7 +561,7 @@ function SystemRow({
               fontFamily: "var(--font-mono), monospace",
               fontSize: 18,
               fontWeight: 700,
-              color: "#913831",
+              color: "#E8420A",
               lineHeight: 1,
             }}
           >
@@ -704,7 +704,7 @@ function SystemRow({
           {/* Orange chevron — pulses once when row enters */}
           <motion.span
             style={{
-              color: "#913831",
+              color: "#E8420A",
               fontFamily: "var(--font-mono), monospace",
               fontSize: 14,
               fontWeight: 900,

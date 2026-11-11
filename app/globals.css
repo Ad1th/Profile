@@ -2,9 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════════════
+   PALETTE
+   Five anchors, all taken from the hero, and nothing else. Every tone on
+   the page is one of these or a tint or shade of one, so no section can
+   introduce a hue the first screen did not already promise.
+
+   Nearest Pantone references (approximate, matched by eye to sRGB):
+     ink        Black 6 C
+     paper      11-0701 TCX Whisper White
+     blue       7454 C
+     vermilion  1665 C
+     volt       381 C
+   ═══════════════════════════════════════════════════════════════════════ */
+:root {
+  --ink: #111111;
+  --ink-soft: #1c1c1c;
+
+  --paper: #f0ebe0;
+  --paper-bright: #fffdf5;
+  --paper-deep: #e5ded2;
+  --paper-shade: #c8c0b4;
+
+  --blue: #6c8ead;
+  --blue-pale: #d3dde7;
+  --blue-deep: #22374b;
+
+  --vermilion: #e8420a;
+  --rust: #a14a32;
+
+  --volt: #cfde00;
+  --moss: #a9b26e;
+  --olive: #8a8b6d;
+}
+
 @layer base {
   body {
-    @apply bg-[#EEE7DC] text-[#111111] overflow-x-hidden antialiased;
+    @apply overflow-x-hidden antialiased;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  ::selection {
+    background: var(--volt);
+    color: var(--ink);
   }
 }
 

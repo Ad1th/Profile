@@ -100,7 +100,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
         <p className="mt-8 font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#A14A32]">
           Adith Manikonda Project / {project.year}
-          {project.category ? ` / ${project.category}` : ""}
+          {` / ${project.tags.join(" / ")}`}
         </p>
         <h1
           className="mt-5 max-w-4xl text-5xl uppercase leading-none sm:text-7xl"

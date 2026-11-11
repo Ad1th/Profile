@@ -47,6 +47,23 @@ export type Evidence = {
   limits?: string;
 };
 
+/** Filter vocabulary, in the order the filter bars list it. */
+export const PROJECT_TAGS = [
+  "Systems",
+  "Backend",
+  "Data",
+  "AI / ML",
+  "Security",
+  "Research",
+  "Tooling",
+  "Hardware",
+  "Realtime",
+  "Web",
+  "Games",
+] as const;
+
+export type ProjectTag = (typeof PROJECT_TAGS)[number];
+
 export type Project = {
   slug: string;
   title: string;
@@ -59,6 +76,12 @@ export type Project = {
   github?: string;
   featured?: boolean;
   category?: "Systems / Backend" | "AI & ML" | "CLI & Tools" | "IoT / Hardware" | "Web Apps";
+  /**
+   * What the project is. A project usually is more than one thing, so these
+   * overlap on purpose and every filter on the site reads them instead of
+   * the single `category` above.
+   */
+  tags: ProjectTag[];
   paperColor?: "yellow" | "blue" | "orange" | "pink" | "green" | "purple" | "white";
   evidence?: Evidence;
 };
@@ -78,6 +101,7 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/Scotland-Yard-Gravitas-Backend-25",
     featured: true,
     category: "Systems / Backend",
+    tags: ["Backend", "Realtime", "Games"],
     paperColor: "orange",
   },
   {
@@ -94,6 +118,7 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/hybrid-symbol-table",
     featured: true,
     category: "Systems / Backend",
+    tags: ["Systems", "Research"],
     paperColor: "green",
     evidence: {
       problem:
@@ -135,6 +160,7 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/AetherQuery",
     featured: true,
     category: "Systems / Backend",
+    tags: ["Data", "Backend", "Research"],
     paperColor: "blue",
     evidence: {
       problem:
@@ -176,6 +202,7 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/archAIc",
     featured: true,
     category: "Systems / Backend",
+    tags: ["Systems", "AI / ML"],
     paperColor: "purple",
     evidence: {
       problem:
@@ -211,6 +238,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/_placeholder.svg"],
     featured: true,
     category: "IoT / Hardware",
+    tags: ["Hardware", "Research"],
     paperColor: "yellow",
   },
   {
@@ -226,6 +254,7 @@ export const projects: Project[] = [
     year: "2026",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "AI & ML",
+    tags: ["AI / ML", "Research", "Tooling"],
     paperColor: "green",
     evidence: {
       problem:
@@ -249,6 +278,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/BlindSpot",
     category: "AI & ML",
+    tags: ["AI / ML", "Hardware", "Research"],
     paperColor: "pink",
     evidence: {
       problem:
@@ -280,6 +310,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/Switchboard",
     category: "Systems / Backend",
+    tags: ["Systems", "Backend"],
     paperColor: "blue",
     evidence: {
       problem:
@@ -303,6 +334,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/Argus",
     category: "CLI & Tools",
+    tags: ["Tooling", "Data"],
     paperColor: "white",
     evidence: {
       problem:
@@ -326,6 +358,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/cloudify/cloudify.webp"],
     github: "https://github.com/Ad1th/file-mgmt",
     category: "Web Apps",
+    tags: ["Web", "Backend"],
     paperColor: "blue",
   },
   {
@@ -340,6 +373,7 @@ export const projects: Project[] = [
     year: "2025",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "Web Apps",
+    tags: ["Web"],
     paperColor: "yellow",
   },
   {
@@ -354,6 +388,7 @@ export const projects: Project[] = [
     year: "2024",
     screenshots: ["/images/projects/threddit/threddit.webp"],
     category: "AI & ML",
+    tags: ["AI / ML", "Web", "Tooling"],
     paperColor: "purple",
   },
   {
@@ -369,6 +404,7 @@ export const projects: Project[] = [
     year: "2024",
     screenshots: ["/images/projects/echochamber/echochamber.webp"],
     category: "Web Apps",
+    tags: ["Web", "Realtime"],
     paperColor: "orange",
   },
   {
@@ -384,6 +420,7 @@ export const projects: Project[] = [
     year: "2025",
     screenshots: ["/images/projects/sevaverse/sevaverse.webp"],
     category: "Web Apps",
+    tags: ["Web"],
     paperColor: "pink",
     evidence: {
       problem:
@@ -406,6 +443,7 @@ export const projects: Project[] = [
     year: "2025",
     screenshots: ["/images/projects/ecosync/EcoSync.webp"],
     category: "AI & ML",
+    tags: ["AI / ML", "Web"],
     paperColor: "green",
   },
   {
@@ -421,6 +459,7 @@ export const projects: Project[] = [
     year: "2025",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "Web Apps",
+    tags: ["Data", "Backend"],
     paperColor: "white",
   },
   {
@@ -435,6 +474,7 @@ export const projects: Project[] = [
     year: "2025",
     screenshots: ["/images/projects/konectus/konectus.webp"],
     category: "Web Apps",
+    tags: ["Web", "Realtime"],
     paperColor: "orange",
   },
   {
@@ -449,6 +489,7 @@ export const projects: Project[] = [
     year: "2026",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "CLI & Tools",
+    tags: ["Security", "Tooling"],
     paperColor: "yellow",
   },
   {
@@ -463,6 +504,7 @@ export const projects: Project[] = [
     year: "2026",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "CLI & Tools",
+    tags: ["Security", "Tooling"],
     paperColor: "blue",
   },
   {
@@ -478,6 +520,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/WhatDidYouSend",
     category: "CLI & Tools",
+    tags: ["Security", "Backend"],
     paperColor: "purple",
   },
   {
@@ -493,6 +536,7 @@ export const projects: Project[] = [
     year: "2023",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "CLI & Tools",
+    tags: ["Games"],
     paperColor: "green",
   },
 ];

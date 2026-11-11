@@ -270,6 +270,7 @@ export const projects: Project[] = [
     year: "2026",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "AI & ML",
+    tags: ["AI / ML", "Research", "Tooling"],
     paperColor: "green",
     evidence: {
       problem:

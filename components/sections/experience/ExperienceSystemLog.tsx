@@ -18,7 +18,7 @@ export default function ExperienceSystemLog() {
       transition={{ duration: 0.5, delay: 0.25, ease: easings.primary }}
       style={{
         background: "transparent",
-        border: "2px solid #8A8B6D",
+        border: "2px solid #111",
         padding: "12px 16px",
         fontFamily: "var(--font-mono), monospace",
         minWidth: 210,
@@ -33,8 +33,8 @@ export default function ExperienceSystemLog() {
           right: -2,
           width: 12,
           height: 12,
-          borderTop: "2px solid #8A8B6D",
-          borderRight: "2px solid #8A8B6D",
+          borderTop: "2px solid #111",
+          borderRight: "2px solid #111",
         }}
       />
       <div
@@ -44,16 +44,16 @@ export default function ExperienceSystemLog() {
           left: -2,
           width: 12,
           height: 12,
-          borderBottom: "2px solid #8A8B6D",
-          borderLeft: "2px solid #8A8B6D",
+          borderBottom: "2px solid #111",
+          borderLeft: "2px solid #111",
         }}
       />
 
       {/* Label */}
       <div
         style={{
-          background: "#A14A32",
-          color: "#111",
+          background: "#111",
+          color: "#CFDE00",
           fontSize: 11,
           fontWeight: 800,
           letterSpacing: "0.08em",
@@ -72,7 +72,7 @@ export default function ExperienceSystemLog() {
           <span
             style={{
               fontSize: 11,
-              color: "#888",
+              color: "rgba(17,17,17,0.72)",
               letterSpacing: "0.04em",
               minWidth: 68,
               fontFamily: "var(--font-mono), monospace",
@@ -83,7 +83,7 @@ export default function ExperienceSystemLog() {
           <span
             style={{
               fontSize: 11,
-              color: "#ECE7DF",
+              color: "#111",
               letterSpacing: "0.04em",
               fontWeight: 700,
               fontFamily: "var(--font-mono), monospace",

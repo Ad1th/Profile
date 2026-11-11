@@ -3,23 +3,16 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
+  PROJECT_TAGS,
   type Project,
+  type ProjectTag,
   projects as allProjects,
   patents as allPatents,
 } from "@/lib/seo-data";
 
 type ViewMode = "grid" | "table";
 
-const CATEGORIES = [
-  "All",
-  "Featured",
-  "Systems / Backend",
-  "AI & ML",
-  "CLI & Tools",
-  "Web Apps",
-  "IoT / Hardware",
-  "Patents",
-] as const;
+const CATEGORIES = ["All", "Featured", "Patents"] as const;
 
 const TECH_FILTERS = [
   "Golang",
@@ -50,7 +43,7 @@ function matches(project: Project, q: string) {
     project.description,
     project.purpose,
     project.year,
-    project.category ?? "",
+    ...project.tags,
     ...project.technologies,
   ]
     .join(" ")
@@ -63,6 +56,14 @@ export default function ProjectsArchiveClient() {
   const [category, setCategory] =
     useState<(typeof CATEGORIES)[number]>("All");
   const [tech, setTech] = useState<string | null>(null);
+  // Tags overlap, so several can be active and a project must carry all.
+  const [tags, setTags] = useState<ProjectTag[]>([]);
+  const toggleTag = (tag: ProjectTag) =>
+    setTags((current) =>
+      current.includes(tag)
+        ? current.filter((t) => t !== tag)
+        : [...current, tag],
+    );
   const [view, setView] = useState<ViewMode>("grid");
 
   const techOptions = useMemo(() => {
@@ -78,21 +79,17 @@ export default function ProjectsArchiveClient() {
       allProjects.filter((p) => {
         if (category === "Patents") return false;
         if (category === "Featured" && !p.featured) return false;
-        if (
-          category !== "All" &&
-          category !== "Featured" &&
-          p.category !== category
-        )
-          return false;
+        if (!tags.every((t) => p.tags.includes(t))) return false;
         if (tech && !p.technologies.includes(tech)) return false;
         if (q && !matches(p, q)) return false;
         return true;
       }),
-    [category, tech, q],
+    [category, tech, tags, q],
   );
 
   const patents = useMemo(() => {
     if (category !== "All" && category !== "Patents") return [];
+    if (tags.length > 0) return [];
     return allPatents.filter((pt) => {
       if (
         tech &&
@@ -109,12 +106,14 @@ export default function ProjectsArchiveClient() {
         return false;
       return true;
     });
-  }, [category, tech, q]);
+  }, [category, tech, tags, q]);
 
-  const filtered = category !== "All" || tech !== null || q !== "";
+  const filtered =
+    category !== "All" || tech !== null || tags.length > 0 || q !== "";
   const reset = () => {
     setCategory("All");
     setTech(null);
+    setTags([]);
     setQuery("");
   };
 
@@ -211,9 +210,7 @@ export default function ProjectsArchiveClient() {
                 ? allProjects.length
                 : cat === "Patents"
                   ? allPatents.length
-                  : cat === "Featured"
-                    ? allProjects.filter((p) => p.featured).length
-                    : allProjects.filter((p) => p.category === cat).length;
+                  : allProjects.filter((p) => p.featured).length;
             return (
               <button
                 key={cat}
@@ -233,6 +230,30 @@ export default function ProjectsArchiveClient() {
         </div>
 
         <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="mr-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-[#111]/55">
+            Tags
+          </span>
+          {PROJECT_TAGS.map((t) => {
+            const active = tags.includes(t);
+            return (
+              <button
+                key={t}
+                type="button"
+                onClick={() => toggleTag(t)}
+                aria-pressed={active}
+                className={`border-2 border-[#111] px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] ${
+                  active
+                    ? "bg-[#111] text-[#CFDE00]"
+                    : "bg-[#FFFDF5] text-[#111] hover:bg-[#CFDE00]"
+                }`}
+              >
+                {t}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           <span className="mr-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-[#111]/55">
             Stack
           </span>
@@ -332,10 +353,10 @@ export default function ProjectsArchiveClient() {
                       className="flex flex-col border-[3px] border-[#111] bg-[#FFFDF5] p-6"
                       style={{ boxShadow: "6px 6px 0 0 #111" }}
                     >
-                      <p className="flex justify-between font-mono text-[11px] font-bold uppercase tracking-[0.14em]">
+                      <p className="flex justify-between gap-4 font-mono text-[11px] font-bold uppercase tracking-[0.14em]">
                         <span>{p.year}</span>
-                        <span className="text-[#A14A32]">
-                          {p.category ?? "Project"}
+                        <span className="text-right text-[#A14A32]">
+                          {p.tags.join(" / ")}
                         </span>
                       </p>
                       <h3
@@ -385,7 +406,7 @@ export default function ProjectsArchiveClient() {
                             rel="noreferrer"
                             className="hover:text-[#E8420A]"
                           >
-                            Source &nearr;
+                            Source &#8599;
                           </a>
                         ) : (
                           <span className="text-[#111]/45">No public source</span>
@@ -402,7 +423,7 @@ export default function ProjectsArchiveClient() {
                     <tr className="bg-[#111] font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-[#F0EBE0]">
                       <th className="px-4 py-3">Year</th>
                       <th className="px-4 py-3">Project</th>
-                      <th className="px-4 py-3">Category</th>
+                      <th className="px-4 py-3">Tags</th>
                       <th className="px-4 py-3">Stack</th>
                       <th className="px-4 py-3 text-right">Links</th>
                     </tr>
@@ -429,7 +450,7 @@ export default function ProjectsArchiveClient() {
                           </p>
                         </td>
                         <td className="whitespace-nowrap px-4 py-3 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#A14A32]">
-                          {p.category ?? "Project"}
+                          {p.tags.join(" / ")}
                         </td>
                         <td className="px-4 py-3 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#111]/60">
                           {p.technologies.join(" / ")}
@@ -448,7 +469,7 @@ export default function ProjectsArchiveClient() {
                               rel="noreferrer"
                               className="ml-4 hover:text-[#E8420A]"
                             >
-                              Source &nearr;
+                              Source &#8599;
                             </a>
                           ) : null}
                         </td>

@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/about/About";
@@ -35,11 +41,36 @@ const useIsomorphicLayoutEffect =
  */
 const STAGE_HEIGHT = 860;
 
+/**
+ * Above this height the stage is zoomed up instead. Left at 1:1, a 1440p or
+ * 4K monitor showed the laptop-sized composition as small pieces in a very
+ * large empty frame.
+ */
+const STAGE_MAX_HEIGHT = 1000;
+
+/** The zoom never narrows the stage below this, or a tall, narrow window
+ *  would be handed a phone-width stage with the desktop layout in it. */
+const STAGE_MIN_WIDTH = 1280;
+
+function stageFit(width: number, height: number) {
+  if (height < STAGE_HEIGHT) return height / STAGE_HEIGHT;
+  if (height > STAGE_MAX_HEIGHT) {
+    return Math.max(
+      1,
+      Math.min(height / STAGE_MAX_HEIGHT, width / STAGE_MIN_WIDTH),
+    );
+  }
+  return 1;
+}
+
 function useStageFit() {
   const [fit, setFit] = useState(1);
   useIsomorphicLayoutEffect(() => {
     const sync = () =>
-      setFit(Math.min(1, Math.round((window.innerHeight / STAGE_HEIGHT) * 1000) / 1000));
+      setFit(
+        Math.round(stageFit(window.innerWidth, window.innerHeight) * 1000) /
+          1000,
+      );
     sync();
     window.addEventListener("resize", sync);
     return () => window.removeEventListener("resize", sync);
@@ -47,9 +78,102 @@ function useStageFit() {
   return fit;
 }
 
+/**
+ * A layer of the pinned stage that shrinks itself until its content fits.
+ *
+ * The stage zoom above only knows the viewport height. About and Skills are
+ * built from fixed pixel type, so how tall they need to be also depends on
+ * the width: at 1440x900 or 1366x768 their bottom rows ran past the stage
+ * and were cut off. Instead of guessing a design size per aspect ratio, the
+ * layer measures its own overflow and scales by exactly that much. The box
+ * grows as it scales down, so the content gets more room, not less.
+ */
+function FitLayer({
+  children,
+  topInset = 0,
+}: {
+  children: ReactNode;
+  /** Space to leave clear at the top, in stage pixels (the fixed navbar). */
+  topInset?: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useIsomorphicLayoutEffect(() => {
+    const box = ref.current;
+    if (!box) return;
+    let frame = 0;
+
+    const measure = () => {
+      // Scroll-linked transforms move the pieces around mid-timeline; they
+      // are switched off for the read so only real layout is measured.
+      box.dataset.measuring = "";
+      const blocks = [
+        box,
+        ...Array.from(box.querySelectorAll<HTMLElement>("section, div")),
+      ];
+      const fits = (k: number) => {
+        box.style.width = `${100 / k}%`;
+        box.style.height = `${100 / k}%`;
+        return blocks.every(
+          (el) => el.clientHeight < 160 || el.scrollHeight <= el.clientHeight + 2,
+        );
+      };
+
+      // Scaling down widens the box, which reflows the text into fewer
+      // lines, so the right scale cannot be computed from one reading.
+      let k = 1;
+      if (!fits(1)) {
+        let lo = 0.5;
+        let hi = 1;
+        for (let i = 0; i < 7; i++) {
+          const mid = (lo + hi) / 2;
+          if (fits(mid)) lo = mid;
+          else hi = mid;
+        }
+        k = lo;
+        fits(k);
+      }
+      delete box.dataset.measuring;
+      box.style.transform = k === 1 ? "" : `scale(${k})`;
+    };
+
+    measure();
+    const onResize = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
+    };
+    window.addEventListener("resize", onResize);
+    // Webfonts land after first layout and change every text height.
+    document.fonts?.ready.then(measure).catch(() => {});
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [topInset]);
+
+  return (
+    <div style={{ position: "absolute", inset: 0, top: topInset }}>
+      <div
+        ref={ref}
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          transformOrigin: "top left",
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export default function DesktopCinematicTransition() {
   const containerRef = useRef<HTMLDivElement>(null);
   const fit = useStageFit();
+  // The fixed navbar is 56 real pixels; the stage is zoomed by `fit`.
+  const navInset = Math.ceil(56 / fit);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -322,6 +446,7 @@ export default function DesktopCinematicTransition() {
               willChange: "clip-path, opacity",
             }}
           >
+           <FitLayer topInset={navInset}>
             <About
               viewportTransition={true}
               shellOpacity={aboutShellOpacity}
@@ -351,6 +476,7 @@ export default function DesktopCinematicTransition() {
               footerY={footerY}
               footerOpacity={footerOpacity}
             />
+           </FitLayer>
           </motion.div>
 
           <motion.div
@@ -366,7 +492,9 @@ export default function DesktopCinematicTransition() {
               willChange: "transform, opacity",
             }}
           >
-            <SkillsLayer />
+            <FitLayer topInset={navInset}>
+              <SkillsLayer />
+            </FitLayer>
           </motion.div>
          </div>
         </div>

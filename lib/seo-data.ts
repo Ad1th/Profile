@@ -821,6 +821,20 @@ export const projects: Project[] = [
     tags: ["Tooling", "Web"],
     paperColor: "blue",
   },
+  {
+    slug: "note-taker",
+    title: "NOTE TAKER",
+    description:
+      "Minimal Chrome extension for taking notes without handing them to a third party.",
+    purpose:
+      "Built for the same reason as the tab counter.",
+    technologies: ["JavaScript", "Chrome Extension"],
+    year: "2025",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/Note-Taker-Extn",
+    tags: ["Tooling", "Web"],
+    paperColor: "yellow",
+  },
 ];
 
 export type Patent = {

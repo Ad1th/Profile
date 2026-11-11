@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import Link from "next/link";
 import { BlurIn } from "@/components/ui/react-bits";
 import { projects as catalogue, type Project } from "@/lib/seo-data";
@@ -405,6 +405,26 @@ function SheetCard({ sheet, index }: { sheet: Sheet; index: number }) {
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  // The sheets land on the desk once, the first time the section is seen.
+  // They are fully visible without this; it only adds the drop.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || !("IntersectionObserver" in window)) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    el.dataset.armed = "";
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          el.dataset.landed = "";
+          io.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -25% 0px" },
+    );
+    io.observe(el.querySelector("ol") ?? el);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <section

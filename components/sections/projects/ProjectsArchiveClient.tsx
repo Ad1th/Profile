@@ -88,21 +88,17 @@ export default function ProjectsArchiveClient() {
       allProjects.filter((p) => {
         if (category === "Patents") return false;
         if (category === "Featured" && !p.featured) return false;
-        if (
-          category !== "All" &&
-          category !== "Featured" &&
-          p.category !== category
-        )
-          return false;
+        if (!tags.every((t) => p.tags.includes(t))) return false;
         if (tech && !p.technologies.includes(tech)) return false;
         if (q && !matches(p, q)) return false;
         return true;
       }),
-    [category, tech, q],
+    [category, tech, tags, q],
   );
 
   const patents = useMemo(() => {
     if (category !== "All" && category !== "Patents") return [];
+    if (tags.length > 0) return [];
     return allPatents.filter((pt) => {
       if (
         tech &&
@@ -119,12 +115,14 @@ export default function ProjectsArchiveClient() {
         return false;
       return true;
     });
-  }, [category, tech, q]);
+  }, [category, tech, tags, q]);
 
-  const filtered = category !== "All" || tech !== null || q !== "";
+  const filtered =
+    category !== "All" || tech !== null || tags.length > 0 || q !== "";
   const reset = () => {
     setCategory("All");
     setTech(null);
+    setTags([]);
     setQuery("");
   };
 

@@ -966,8 +966,16 @@ export default function Patents() {
           transform-origin: left top;
           filter: url("#rough-head");
           text-shadow:
-            0.3px 0 rgba(51, 41, 39, 0.22),
-            -0.3px 0.2px rgba(51, 41, 39, 0.1);
+            0.3px 0 rgba(17, 17, 17, 0.22),
+            -0.3px 0.2px rgba(17, 17, 17, 0.1);
+        }
+        /* The heading stays readable when the stage turns deep blue. */
+        .patents-head {
+          transition: color 0.9s ease;
+        }
+        .patents-sticky[data-mode="wave"] .patents-head {
+          color: #f0ebe0;
+          text-shadow: none;
         }
         .patents-head .ltr {
           display: inline-block;

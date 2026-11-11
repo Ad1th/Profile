@@ -1002,6 +1002,26 @@ export default function Patents() {
         .patent-copy--wave {
           color: #f0ebe0;
         }
+        /* Short viewports (a phone on its side). The heading and the patent
+           copy share one screen height, so both scale with it; at their
+           portrait sizes the heading sat on top of the title. */
+        @media (max-height: 560px) {
+          .patents-head {
+            /* Clears the fixed navbar, which covers the top of the stage. */
+            margin-top: 1.5rem !important;
+            font-size: clamp(2.5rem, 16vh, 5rem);
+          }
+          .patents-head + div {
+            margin-bottom: 0 !important;
+          }
+          .patent-title {
+            font-size: clamp(1rem, 5.6vh, 1.75rem);
+            max-width: 32ch;
+          }
+          .patent-copy > * + * {
+            margin-top: 0.6rem !important;
+          }
+        }
       `}</style>
     </section>
   );

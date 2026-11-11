@@ -26,7 +26,7 @@ const SITE_LINKS = [
 export default function SiteFooter() {
   return (
     <footer
-      className="relative overflow-hidden bg-[#111111] px-6 pt-8 text-[#F0EBE0] sm:px-10 lg:px-16"
+      className="relative -mt-px overflow-hidden bg-[#111111] px-6 pt-8 text-[#F0EBE0] sm:px-10 lg:px-16"
       style={{ isolation: "isolate" }}
     >
       {/* Same grain and grid as Contact, so there is no seam between them. */}

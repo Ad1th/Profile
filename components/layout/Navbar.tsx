@@ -368,7 +368,7 @@ export default function Navbar() {
                           color: "#CFDE00",
                         }}
                       >
-                        {label} &nearr;
+                        {label} &#8599;
                       </Link>
                     </motion.div>
                   );

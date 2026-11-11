@@ -639,6 +639,20 @@ export const projects: Project[] = [
     tags: ["Tooling"],
     paperColor: "blue",
   },
+  {
+    slug: "reflex",
+    title: "REFLEX",
+    description:
+      "Gives browser agents muscle memory: a step the agent has taken before is replayed from a vector lookup instead of another LLM round trip.",
+    purpose:
+      "Built to stop computer-use agents from thinking through the same click from scratch every time.",
+    technologies: ["TypeScript", "Moss", "MiniLM", "Groq"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/reflex",
+    tags: ["AI / ML", "Tooling"],
+    paperColor: "green",
+  },
 ];
 
 export type Patent = {

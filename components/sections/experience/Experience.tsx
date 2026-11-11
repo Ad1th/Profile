@@ -255,7 +255,7 @@ export default function Experience() {
                 {/* vertical connector from node to card */}
                 <div
                   className="experience-connector absolute left-1/2 top-[36px] md:top-[48px] -translate-x-1/2"
-                  style={{ width: 2, height: "6rem", background: "#333" }}
+                  style={{ width: 2, height: "6rem", background: "#111" }}
                 />
 
                 <ExperienceCard
@@ -265,7 +265,7 @@ export default function Experience() {
                   positioned={false}
                   className="experience-card-once"
                   style={{ width: "100%", marginTop: 0 }}
-                  shadow="8px 8px 0 rgba(0,0,0,0.62)"
+                  shadow="8px 8px 0 #111"
                 />
               </div>
             ))}

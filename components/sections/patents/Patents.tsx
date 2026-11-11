@@ -778,7 +778,7 @@ export default function Patents() {
           top: 0,
           height: "100dvh",
           overflow: "hidden",
-          background: "#D9E1E8",
+          background: "#D3DDE7",
         }}
       >
         <div className="patent-bg patent-bg--human" />
@@ -936,7 +936,7 @@ export default function Patents() {
               rgba(107, 91, 83, 0.08),
               transparent 30%
             ),
-            #d9e1e8;
+            #d3dde7;
           opacity: 1;
         }
         .patent-bg--wave {

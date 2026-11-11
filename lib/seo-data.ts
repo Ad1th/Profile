@@ -578,6 +578,7 @@ export const projects: Project[] = [
     year: "2023",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "CLI & Tools",
+    tags: ["Games"],
     paperColor: "green",
   },
 ];

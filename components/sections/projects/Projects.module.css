@@ -117,3 +117,54 @@
   translate: 0 14px;
 }
 
+/* ── Case sheets ─────────────────────────────────────────────────────── */
+
+.desk {
+  container-type: inline-size;
+  min-width: 0;
+}
+
+.sheets,
+.receipts,
+.stack,
+.notes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sheets {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 72px 44px;
+  padding-top: 28px;
+}
+
+.sheet {
+  --tilt: 0deg;
+  --drop: 0px;
+  --paper-bg: var(--paper-bright);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  /* A lone column never stretches a sheet into a poster. */
+  max-width: 600px;
+  padding: 22px 20px 18px;
+  border: 3px solid var(--ink);
+  background: var(--paper-bg);
+  box-shadow:
+    0 3px 0 rgb(0 0 0 / 0.9),
+    0 10px 18px rgb(0 0 0 / 0.16),
+    0 24px 42px rgb(36 29 24 / 0.12);
+  rotate: var(--tilt);
+  translate: 0 var(--drop);
+  transition:
+    transform 620ms cubic-bezier(0.23, 1, 0.32, 1) calc(var(--i) * 90ms),
+    opacity 260ms ease calc(var(--i) * 90ms),
+    rotate 220ms cubic-bezier(0.23, 1, 0.32, 1),
+    translate 220ms cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 220ms ease;
+}
+

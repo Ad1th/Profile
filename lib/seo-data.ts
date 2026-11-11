@@ -218,6 +218,7 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/archAIc",
     featured: true,
     category: "Systems / Backend",
+    tags: ["Systems", "AI / ML"],
     paperColor: "purple",
     evidence: {
       problem:

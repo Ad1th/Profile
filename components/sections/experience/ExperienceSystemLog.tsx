@@ -52,8 +52,8 @@ export default function ExperienceSystemLog() {
       {/* Label */}
       <div
         style={{
-          background: "#A14A32",
-          color: "#111",
+          background: "#111",
+          color: "#CFDE00",
           fontSize: 11,
           fontWeight: 800,
           letterSpacing: "0.08em",

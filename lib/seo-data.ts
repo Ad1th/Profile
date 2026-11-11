@@ -352,6 +352,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/Switchboard",
     category: "Systems / Backend",
+    tags: ["Systems", "Backend"],
     paperColor: "blue",
     evidence: {
       problem:

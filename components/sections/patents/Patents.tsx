@@ -960,7 +960,7 @@ export default function Patents() {
           font-size: clamp(7rem, 19vw, 18rem);
           line-height: 0.76;
           letter-spacing: -0.01em;
-          color: #2a2624;
+          color: #111111;
           width: max-content;
           transform: rotate(-0.9deg) scaleX(0.78) scaleY(1.16);
           transform-origin: left top;
@@ -987,10 +987,10 @@ export default function Patents() {
           opacity: 0.62;
         }
         .patent-copy {
-          color: #2a2624;
+          color: #111111;
         }
         .patent-copy--human {
-          color: #2a2624;
+          color: #111111;
         }
         .patent-copy--wave {
           color: #e8ddd0;

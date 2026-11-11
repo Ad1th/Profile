@@ -328,6 +328,7 @@ export const projects: Project[] = [
     website: "https://renderd.vercel.app",
     featured: true,
     category: "Systems / Backend",
+    tags: ["Systems", "Realtime"],
     paperColor: "purple",
     evidence: {
       problem:

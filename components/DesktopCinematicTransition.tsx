@@ -172,6 +172,8 @@ function FitLayer({
 export default function DesktopCinematicTransition() {
   const containerRef = useRef<HTMLDivElement>(null);
   const fit = useStageFit();
+  // The fixed navbar is 56 real pixels; the stage is zoomed by `fit`.
+  const navInset = Math.ceil(56 / fit);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -444,6 +446,7 @@ export default function DesktopCinematicTransition() {
               willChange: "clip-path, opacity",
             }}
           >
+           <FitLayer topInset={navInset}>
             <About
               viewportTransition={true}
               shellOpacity={aboutShellOpacity}
@@ -473,6 +476,7 @@ export default function DesktopCinematicTransition() {
               footerY={footerY}
               footerOpacity={footerOpacity}
             />
+           </FitLayer>
           </motion.div>
 
           <motion.div

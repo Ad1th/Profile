@@ -973,6 +973,7 @@ export const hackathonRecord = [
 ];
 
 export const achievements: { year: string; title: string; detail?: string }[] = [
+  { year: "2026", title: "Best Writeup Award - z0d1ak CTF", detail: "z0d1ak" },
   { year: "2026", title: "Top 15 Finalist - z0d1ak CTF", detail: "z0d1ak" },
   { year: "2025", title: "AI Track Winner - Code 2 Create (C2C)" },
   {

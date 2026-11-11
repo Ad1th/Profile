@@ -210,11 +210,11 @@ export default function Experience() {
         </div>
 
         <div className="relative mt-8">
-          <div className="experience-rail absolute left-0 right-0 top-[40px] md:top-[52px] h-[3px] bg-[#333]">
+          <div className="experience-rail absolute left-0 right-0 top-[40px] md:top-[52px] h-[3px] bg-[#111]/25">
             <motion.div
               className="experience-rail-fill absolute left-0 top-0 bottom-0 origin-left"
               style={{
-                background: "#8A8B6D",
+                background: "#111",
                 transformOrigin: "left center",
                 width: "100%",
                 height: "100%",

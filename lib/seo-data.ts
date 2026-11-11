@@ -134,6 +134,7 @@ export const projects: Project[] = [
     github: "https://github.com/Ad1th/hybrid-symbol-table",
     featured: true,
     category: "Systems / Backend",
+    tags: ["Systems", "Research"],
     paperColor: "green",
     evidence: {
       problem:

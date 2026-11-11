@@ -122,7 +122,16 @@ export default function SkillsHero({
       style={{
         gridTemplateColumns: hideLanguagePanel ? "1fr 1fr" : "1fr 1fr 1fr",
         borderBottom: "3px solid #333",
-        minHeight: hideLanguagePanel ? "auto" : "calc(42svh - 20px)",
+        // Inside the pinned desktop stage the block is sized against the
+        // stage, not the viewport: the stage is zoomed, so svh there took
+        // well over half of it on tall monitors and squeezed the rows. A fixed
+        // height also keeps the stage fit stable, since a percentage would
+        // grow as the layer scales down.
+        minHeight: hideLanguagePanel
+          ? "auto"
+          : standalone
+            ? "calc(42svh - 20px)"
+            : 300,
         alignItems: "stretch",
       }}
     >

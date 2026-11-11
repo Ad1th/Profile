@@ -385,7 +385,7 @@ export default function ProjectsArchiveClient() {
                             rel="noreferrer"
                             className="hover:text-[#E8420A]"
                           >
-                            Source &nearr;
+                            Source &#8599;
                           </a>
                         ) : (
                           <span className="text-[#111]/45">No public source</span>
@@ -448,7 +448,7 @@ export default function ProjectsArchiveClient() {
                               rel="noreferrer"
                               className="ml-4 hover:text-[#E8420A]"
                             >
-                              Source &nearr;
+                              Source &#8599;
                             </a>
                           ) : null}
                         </td>

@@ -277,11 +277,11 @@ export default function Experience() {
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-4 border-y-[3px] border-[#333] font-mono text-[11px] font-black tracking-[0.12em] text-[#777]">
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 border-y-[3px] border-[#111] font-mono text-[11px] font-black tracking-[0.12em] text-[#111]">
           {["BUILDING.", "SHIPPING.", "LEADING.", "LEARNING."].map((item) => (
             <span
               key={item}
-              className="border-r border-[#333] px-4 py-4 last:border-r-0"
+              className="border-[#111] px-4 py-4 odd:border-r-[3px] max-sm:[&:nth-child(-n+2)]:border-b-[3px] sm:border-r-[3px] sm:last:border-r-0"
             >
               {item}
             </span>

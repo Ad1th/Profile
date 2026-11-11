@@ -462,6 +462,7 @@ export const projects: Project[] = [
     year: "2025",
     screenshots: ["/images/projects/sevaverse/sevaverse.webp"],
     category: "Web Apps",
+    tags: ["Web"],
     paperColor: "pink",
     evidence: {
       problem:

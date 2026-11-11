@@ -145,7 +145,12 @@ export default function Experience() {
             </span>
             <h2
               className={`mt-4`}
-              style={{ fontSize: "clamp(4.3rem,8vw,8rem)", lineHeight: 0.92 }}
+              // Phones scale with the width so the word always fits its column;
+              // from tablet up it follows the original 8vw ramp.
+              style={{
+                fontSize: "max(min(17vw, 4.3rem), min(8vw, 8rem))",
+                lineHeight: 0.92,
+              }}
             >
               <BlurIn>
                 <span
@@ -272,11 +277,11 @@ export default function Experience() {
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-4 border-y-[3px] border-[#111] font-mono text-[11px] font-black tracking-[0.12em] text-[#111]">
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 border-y-[3px] border-[#111] font-mono text-[11px] font-black tracking-[0.12em] text-[#111]">
           {["BUILDING.", "SHIPPING.", "LEADING.", "LEARNING."].map((item) => (
             <span
               key={item}
-              className="border-r-[3px] border-[#111] px-4 py-4 last:border-r-0"
+              className="border-[#111] px-4 py-4 odd:border-r-[3px] max-sm:[&:nth-child(-n+2)]:border-b-[3px] sm:border-r-[3px] sm:last:border-r-0"
             >
               {item}
             </span>

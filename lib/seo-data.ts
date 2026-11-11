@@ -60,6 +60,7 @@ export const PROJECT_TAGS = [
   "Realtime",
   "Web",
   "Games",
+  "For fun",
 ] as const;
 
 export type ProjectTag = (typeof PROJECT_TAGS)[number];
@@ -88,6 +89,37 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "renderd",
+    title: "RENDERD",
+    seoTitle: "Renderd P2P Display Streaming Engine",
+    description:
+      "Peer-to-peer display streaming that turns a Windows PC into a second high-refresh monitor for a Mac, over QUIC with hardware HEVC and no cloud relay.",
+    purpose:
+      "Built solo because nothing open source streams a macOS host to a Windows viewer directly, with zero-copy capture on one side and hardware decode on the other.",
+    technologies: ["Rust", "QUIC", "VideoToolbox", "ScreenCaptureKit", "Direct3D 12"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/Renderd",
+    featured: true,
+    tags: ["Systems", "Realtime"],
+    paperColor: "orange",
+  },
+  {
+    slug: "morph",
+    title: "MORPH",
+    seoTitle: "Morph Environment Bug Reproduction Platform",
+    description:
+      "Reproduces the machine a bug happened on: capture a user's CPU, memory, locale and network conditions as a profile, replay them somewhere else, and keep the cause as a regression test.",
+    purpose:
+      "Built with a three-person team at an international hackathon to turn 'works on my machine' into something you can rerun.",
+    technologies: ["Python", "FastAPI", "React", "Linux tc", "cgroups"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    featured: true,
+    tags: ["Tooling", "Systems"],
+    paperColor: "white",
+  },
+  {
     slug: "scotland-yard",
     title: "SCOTLAND YARD",
     seoTitle: "Scotland Yard Multiplayer Backend",
@@ -99,7 +131,6 @@ export const projects: Project[] = [
     year: "2025",
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/Scotland-Yard-Gravitas-Backend-25",
-    featured: true,
     category: "Systems / Backend",
     tags: ["Backend", "Realtime", "Games"],
     paperColor: "orange",
@@ -116,7 +147,6 @@ export const projects: Project[] = [
     year: "2026",
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/hybrid-symbol-table",
-    featured: true,
     category: "Systems / Backend",
     tags: ["Systems", "Research"],
     paperColor: "green",
@@ -196,7 +226,7 @@ export const projects: Project[] = [
       "Distributed reliability engineering platform with observability, metrics, tracing, and anomaly detection.",
     purpose:
       "Distributed reliability engineering platform providing real-time telemetry tracing, metrics, and automated anomaly detection.",
-    technologies: ["Kubernetes", "OpenTelemetry", "Grafana", "Python", "Observability"],
+    technologies: ["Kubernetes", "OpenTelemetry", "Prometheus", "Grafana", "Python"],
     year: "2026",
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/archAIc",
@@ -236,7 +266,6 @@ export const projects: Project[] = [
     technologies: ["IoT", "Circuits", "Telemetry", "MPPT", "Hardware"],
     year: "2025",
     screenshots: ["/images/projects/_placeholder.svg"],
-    featured: true,
     category: "IoT / Hardware",
     tags: ["Hardware", "Research"],
     paperColor: "yellow",
@@ -536,8 +565,246 @@ export const projects: Project[] = [
     year: "2023",
     screenshots: ["/images/projects/_placeholder.svg"],
     category: "CLI & Tools",
-    tags: ["Games"],
+    tags: ["Games", "For fun"],
     paperColor: "green",
+  },
+  {
+    slug: "bf-server",
+    title: "BF-SERVER",
+    description:
+      "HTTP server whose request parsing, routing and response generation are written in Brainfuck, fed by a plain TCP listener.",
+    purpose:
+      "Built to find out whether eight instructions are enough to answer a GET request. They are.",
+    technologies: ["Brainfuck", "HTTP", "socat"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/bf-server",
+    tags: ["Systems", "For fun"],
+    paperColor: "yellow",
+  },
+  {
+    slug: "lobotoml",
+    title: "LOBOTOML",
+    description:
+      "Compiles a trained neural network into a Brainfuck program: weights are quantised to fixed point, lowered through an IR and run as inference on a Brainfuck VM.",
+    purpose:
+      "Research and engineering exercise in deterministic fixed-point inference on the least suitable target available.",
+    technologies: ["Python", "Brainfuck", "Compilers", "Fixed-point"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/lobotoml",
+    tags: ["AI / ML", "Systems", "For fun"],
+    paperColor: "pink",
+  },
+  {
+    slug: "mkv-player",
+    title: "MKV PLAYER",
+    description:
+      "Native MKV and WebM player for Mac, about 500 KB, using the decoders macOS already ships.",
+    purpose:
+      "Built after a train connection too slow to download VLC, and one evening of watching a film in a video editor.",
+    technologies: ["Swift", "macOS"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/mkv-player",
+    tags: ["Tooling"],
+    paperColor: "blue",
+  },
+  {
+    slug: "reflex",
+    title: "REFLEX",
+    description:
+      "Gives browser agents muscle memory: a step the agent has taken before is replayed from a vector lookup instead of another LLM round trip.",
+    purpose:
+      "Built to stop computer-use agents from thinking through the same click from scratch every time.",
+    technologies: ["TypeScript", "Moss", "MiniLM", "Groq"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/reflex",
+    tags: ["AI / ML", "Tooling"],
+    paperColor: "green",
+  },
+  {
+    slug: "agentlint",
+    title: "AGENTLINT",
+    description:
+      "Framework for evaluating check-then-act binding risks in LLM agent tool workflows, with tool contracts, a workflow IR and a pilot benchmark.",
+    purpose:
+      "Research prototype for finding the TOCTOU gap between what an agent verified and what it then acted on.",
+    technologies: ["Python", "Static Analysis", "Benchmarks"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/TOCTOU",
+    tags: ["Security", "AI / ML", "Research"],
+    paperColor: "white",
+  },
+  {
+    slug: "chaosbox",
+    title: "CHAOSBOX",
+    description:
+      "Lab for testing how AI agents cope when the environment fails: injected API errors, latency, expired sessions and shifting layouts, scored for recovery.",
+    purpose:
+      "Built because agent benchmarks only ask whether the task works when nothing goes wrong.",
+    technologies: ["TypeScript", "React", "Chaos Testing"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/chaosbox",
+    tags: ["AI / ML", "Tooling"],
+    paperColor: "orange",
+  },
+  {
+    slug: "rewind",
+    title: "REWIND",
+    description:
+      "Undo for AI agent actions across the filesystem, Git and PostgreSQL, with rollbacks computed deterministically rather than by the model.",
+    purpose:
+      "Built so that an agent's proposal and the code that reverses it never come from the same place.",
+    technologies: ["Python", "FastAPI", "PostgreSQL", "Git", "Next.js"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/rewind",
+    tags: ["AI / ML", "Backend", "Tooling"],
+    paperColor: "purple",
+  },
+  {
+    slug: "pitwall",
+    title: "PITWALL",
+    description:
+      "Counterfactual Formula 1 strategy engine: rebuilds the race state at any lap and reruns it with a different strategy through a Monte Carlo simulator.",
+    purpose:
+      "Built for a sports analytics data bowl to answer what would have happened if the car had pitted two laps earlier.",
+    technologies: ["Python", "FastAPI", "DuckDB", "NumPy", "React"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/pitwall",
+    tags: ["Data", "AI / ML"],
+    paperColor: "blue",
+  },
+  {
+    slug: "echo-loop",
+    title: "ECHO//LOOP",
+    description:
+      "Browser puzzle game where each previous attempt replays beside you as an echo you have to cooperate with.",
+    purpose:
+      "Web game jam entry with twelve handmade levels.",
+    technologies: ["TypeScript", "Canvas"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/echo-loop",
+    tags: ["Games", "For fun"],
+    paperColor: "green",
+  },
+  {
+    slug: "chronos",
+    title: "CHRONOS",
+    description:
+      "Service that records authenticated application activity and replays it later.",
+    purpose:
+      "Built to practise session capture and replay behind a real auth layer.",
+    technologies: ["TypeScript", "Express", "Prisma"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/Chronos",
+    tags: ["Backend"],
+    paperColor: "white",
+  },
+  {
+    slug: "truthlens",
+    title: "TRUTHLENS",
+    description:
+      "Chrome extension and FastAPI backend that flags claims on a page with a confidence score for the reader to check.",
+    purpose:
+      "Built to put a second opinion next to the text instead of in another tab.",
+    technologies: ["TypeScript", "React", "FastAPI", "Chrome Extension"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/TruthLens",
+    tags: ["AI / ML", "Web"],
+    paperColor: "pink",
+  },
+  {
+    slug: "eaas",
+    title: "EAAS",
+    description:
+      "Eventually as a Service. A CLI that accepts any input, acknowledges it and postpones all action.",
+    purpose:
+      "Installable with Homebrew. It has a corporate flag that answers 'On the roadmap.'",
+    technologies: ["Go", "Homebrew"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/EaaS",
+    tags: ["For fun", "Tooling"],
+    paperColor: "yellow",
+  },
+  {
+    slug: "knockknockgo",
+    title: "KNOCKKNOCKGO",
+    description:
+      "Simple TCP port scanner in Go that builds to one binary and runs anywhere.",
+    purpose:
+      "Built to learn how a port scan actually works at the socket level.",
+    technologies: ["Go", "Networking"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/KnockKnockGo",
+    tags: ["Security", "Tooling"],
+    paperColor: "orange",
+  },
+  {
+    slug: "sortymcsortface",
+    title: "SORTYMCSORTFACE",
+    description:
+      "Small Go utility that sorts the files in a folder by type.",
+    purpose:
+      "Built to clean up a downloads folder, and named accordingly.",
+    technologies: ["Go", "CLI"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/SortyMcSortFace",
+    tags: ["Tooling", "For fun"],
+    paperColor: "green",
+  },
+  {
+    slug: "redlytics",
+    title: "REDLYTICS",
+    description:
+      "FastAPI Reddit scraper and analyser that extracts posts, comments and user insights.",
+    purpose:
+      "Built to pull a subreddit into something that can be queried.",
+    technologies: ["Python", "FastAPI"],
+    year: "2025",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/Redlytics",
+    tags: ["Data", "Backend"],
+    paperColor: "purple",
+  },
+  {
+    slug: "tab-counter",
+    title: "TAB COUNTER",
+    description:
+      "Chrome extension that counts open tabs.",
+    purpose:
+      "Built because the ones on the web store were not worth trusting with the permission.",
+    technologies: ["JavaScript", "Chrome Extension"],
+    year: "2025",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/tab-counter",
+    tags: ["Tooling", "Web"],
+    paperColor: "blue",
+  },
+  {
+    slug: "note-taker",
+    title: "NOTE TAKER",
+    description:
+      "Minimal Chrome extension for taking notes without handing them to a third party.",
+    purpose:
+      "Built for the same reason as the tab counter.",
+    technologies: ["JavaScript", "Chrome Extension"],
+    year: "2025",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/Note-Taker-Extn",
+    tags: ["Tooling", "Web"],
+    paperColor: "yellow",
   },
 ];
 

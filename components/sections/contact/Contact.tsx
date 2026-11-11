@@ -48,7 +48,7 @@ export default function Contact() {
             <div className="absolute left-0 top-0 h-12 w-px bg-[#F0EBE0]/10" />
             <div className="absolute left-[-1px] top-0 h-px w-12 bg-[#F0EBE0]/10" />
 
-            <p className="ml-4 font-mono text-[13px] uppercase tracking-[0.14em] text-[#8EA0D6]">
+            <p className="ml-4 font-mono text-[13px] uppercase tracking-[0.14em] text-[#6C8EAD]">
               LET’S
               <br />
               BUILD

@@ -650,3 +650,30 @@
   translate: 3px 3px;
 }
 
+/* ── Two columns of sheets once the desk is wide enough ──────────────── */
+
+@container (min-width: 600px) {
+  .sheets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-bottom: 56px;
+  }
+
+  .sheet:nth-child(1) {
+    --tilt: -1.4deg;
+  }
+  .sheet:nth-child(2) {
+    --tilt: 1.1deg;
+  }
+  .sheet:nth-child(3) {
+    --tilt: 0.9deg;
+  }
+  .sheet:nth-child(4) {
+    --tilt: -1.2deg;
+  }
+
+  /* The right column hangs lower, so the two never line up like a grid. */
+  .sheet:nth-child(even) {
+    --drop: 56px;
+  }
+}
+

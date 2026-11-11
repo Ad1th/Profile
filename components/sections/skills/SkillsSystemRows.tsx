@@ -381,7 +381,7 @@ const rows = [
     num: "01",
     title: "BACKEND",
     sub: "SYSTEMS",
-    subColor: "#913831",
+    subColor: "#E8420A",
     desc: "Building modular services and robust APIs with clean architecture, authentication and performance in mind.",
     tech: [
       ["NODE.JS", "FASTAPI", "POSTGRES"],
@@ -393,7 +393,7 @@ const rows = [
     num: "02",
     title: "DATA",
     sub: "SYSTEMS",
-    subColor: "#913831",
+    subColor: "#E8420A",
     desc: "Designing data models, optimizing queries and building reliable pipelines that scale with your product.",
     tech: [
       ["POSTGRESQL", "MYSQL", "MONGODB"],
@@ -405,7 +405,7 @@ const rows = [
     num: "03",
     title: "OBSERVABILITY",
     sub: "SYSTEMS",
-    subColor: "#913831",
+    subColor: "#E8420A",
     desc: "Instrumenting systems to see everything, understand anomalies and resolve issues before users feel them.",
     tech: [
       ["PROMETHEUS", "GRAFANA", "LOKI"],

@@ -677,3 +677,28 @@
   }
 }
 
+/* ── Wide: heading stays beside the desk ─────────────────────────────── */
+
+@media (min-width: 1180px) {
+  .inner {
+    grid-template-columns: max-content minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(40px, 4.5vw, 88px);
+  }
+
+  .head {
+    position: sticky;
+    top: calc(var(--nav-height) + 36px);
+  }
+
+  .title {
+    font-size: clamp(88px, 7.6vw, 148px);
+  }
+}
+
+@media (max-width: 640px) {
+  .title {
+    -webkit-text-stroke-width: 2px;
+  }
+}
+

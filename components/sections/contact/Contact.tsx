@@ -301,7 +301,7 @@ export default function Contact() {
                           'var(--font-cormorant), "Cormorant Garamond", Georgia, serif',
                       }}
                     >
-                      linkedin.com/in/adith-manikonda
+                      in/adith-manikonda
                     </div>
                   </div>
                 </div>

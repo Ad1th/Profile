@@ -47,7 +47,55 @@ function seeded(str: string) {
 
 const MONO = "var(--font-mono), ui-monospace, monospace";
 
+function FigureQuery() {
+  return (
+    <svg viewBox="0 0 320 150" className={styles.figure} aria-hidden="true">
+      <rect width="320" height="150" fill="#111" />
+      <text x="16" y="30" fill="#F0EBE0" fontFamily={MONO} fontSize="11">
+        exact
+      </text>
+      <rect x="16" y="38" width="264" height="22" fill="#F0EBE0" />
+      <text x="288" y="54" fill="#F0EBE0" fontFamily={MONO} fontSize="12">
+        40s
+      </text>
+      <text x="16" y="92" fill="#CFDE00" fontFamily={MONO} fontSize="11">
+        approximate
+      </text>
+      <rect x="16" y="100" width="20" height="22" fill="#CFDE00" />
+      <text x="44" y="116" fill="#CFDE00" fontFamily={MONO} fontSize="12">
+        3s
+      </text>
+      <path
+        d="M150 111 C190 96 228 96 262 72"
+        fill="none"
+        stroke="#E8420A"
+        strokeWidth="2"
+        strokeDasharray="5 5"
+      />
+      <path d="M262 72 l-11 1 M262 72 l-4 10" stroke="#E8420A" strokeWidth="2" />
+    </svg>
+  );
+}
+
 const SHEETS: Sheet[] = [
+  {
+    slug: "aetherquery",
+    deck: "SQL analytics engine that answers before the exact query finishes",
+    note: "sql analytics at scale",
+    receipts: [
+      <>
+        Up to <mark>18x faster</mark> on a 65M-row TPC{"\u2011"}H run
+      </>,
+      <>
+        <mark>40s down to 3s</mark> at 95%+ accuracy
+      </>,
+      <>Top 10 at Women Techies&apos;26</>,
+    ],
+    stack: ["Python", "FastAPI", "DuckDB", "PostgreSQL"],
+    paper: "blue",
+    fastener: "clip",
+    figure: <FigureQuery />,
+  },
 ];
 
 type Note = {

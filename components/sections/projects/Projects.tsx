@@ -468,6 +468,15 @@ export default function Projects() {
               })}
             </ul>
           </div>
+
+          <Link href="/projects" className={styles.archive}>
+            <span>
+              The other {catalogue.length - SHEETS.length - NOTES.length} are in
+              the archive
+            </span>
+            <small>Every build, searchable, filterable by tag</small>
+            <Arrow />
+          </Link>
         </div>
       </div>
     </section>

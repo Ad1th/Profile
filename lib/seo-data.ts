@@ -18,7 +18,7 @@ export const siteDescription =
  * dateModified in the JSON-LD. Bump it when the content changes; a lastmod
  * that moves on every deploy is one search engines learn to ignore.
  */
-export const siteUpdated = "2026-11-04";
+export const siteUpdated = "2026-11-11";
 
 export const siteKeywords = [
   "Adith",
@@ -973,6 +973,8 @@ export const hackathonRecord = [
 ];
 
 export const achievements: { year: string; title: string; detail?: string }[] = [
+  { year: "2026", title: "Best Writeup Award - z0d1ak CTF", detail: "z0d1ak" },
+  { year: "2026", title: "Top 15 Finalist - z0d1ak CTF", detail: "z0d1ak" },
   { year: "2025", title: "AI Track Winner - Code 2 Create (C2C)" },
   {
     year: "2024-25",

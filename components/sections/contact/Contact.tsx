@@ -2,7 +2,7 @@ export default function Contact() {
   return (
     <section
       data-section="contact"
-      className="relative w-full min-h-screen overflow-hidden bg-[#111111] px-6 pt-8 pb-[38px] text-[#F0EBE0] sm:px-10 lg:px-16 sm:min-h-0 sm:pt-14 sm:pb-[105px]"
+      className="relative w-full overflow-hidden bg-[#111111] px-6 pt-8 pb-2 text-[#F0EBE0] sm:px-10 sm:pt-14 lg:px-16"
       style={{ isolation: "isolate" }}
     >
       {/* grain */}
@@ -44,7 +44,7 @@ export default function Contact() {
         {/* main */}
         <div className="grid gap-8 py-8 sm:gap-16 sm:py-14 lg:grid-cols-[1.05fr_0.95fr]">
           {/* LEFT */}
-          <div className="relative">
+          <div className="relative flex flex-col">
             <div className="absolute left-0 top-0 h-12 w-px bg-[#F0EBE0]/10" />
             <div className="absolute left-[-1px] top-0 h-px w-12 bg-[#F0EBE0]/10" />
 
@@ -138,6 +138,21 @@ export default function Contact() {
                 things.
               </div>
             </div>
+
+            {/* Who is on the other end. Sits at the foot of the column so
+                the left side ends level with the last link. */}
+            <p
+              className="mt-10 max-w-md text-[clamp(1.35rem,1.7vw,1.75rem)] leading-[1.3] tracking-[-0.02em] text-[#F0EBE0]/85 lg:mt-auto lg:pb-7"
+              style={{
+                fontFamily:
+                  'var(--font-cormorant), "Cormorant Garamond", Georgia, serif',
+              }}
+            >
+              Backend engineer and systems builder at VIT Vellore.{" "}
+              <span className="italic text-[#CFDE00]">
+                Open to backend, systems and infrastructure internships.
+              </span>
+            </p>
           </div>
 
           {/* RIGHT */}
@@ -301,7 +316,7 @@ export default function Contact() {
                           'var(--font-cormorant), "Cormorant Garamond", Georgia, serif',
                       }}
                     >
-                      linkedin.com/in/adith-manikonda
+                      in/adith-manikonda
                     </div>
                   </div>
                 </div>
@@ -312,17 +327,6 @@ export default function Contact() {
               </a>
             </div>
           </div>
-        </div>
-
-        {/* footer */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-[#F0EBE0]/10 pt-4 sm:pt-6 gap-2 sm:gap-0">
-          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#F0EBE0]/52">
-            LAST UPDATED / SEPTEMBER 2026
-          </span>
-
-          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#F0EBE0]/42">
-            DESIGNING INTERFACES WITH FEELING
-          </span>
         </div>
       </div>
     </section>

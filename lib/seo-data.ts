@@ -400,6 +400,7 @@ export const projects: Project[] = [
     screenshots: ["/images/projects/cloudify/cloudify.webp"],
     github: "https://github.com/Ad1th/file-mgmt",
     category: "Web Apps",
+    tags: ["Web", "Backend"],
     paperColor: "blue",
   },
   {

@@ -3,7 +3,9 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
+  PROJECT_TAGS,
   type Project,
+  type ProjectTag,
   projects as allProjects,
   patents as allPatents,
 } from "@/lib/seo-data";
@@ -63,6 +65,14 @@ export default function ProjectsArchiveClient() {
   const [category, setCategory] =
     useState<(typeof CATEGORIES)[number]>("All");
   const [tech, setTech] = useState<string | null>(null);
+  // Tags overlap, so several can be active and a project must carry all.
+  const [tags, setTags] = useState<ProjectTag[]>([]);
+  const toggleTag = (tag: ProjectTag) =>
+    setTags((current) =>
+      current.includes(tag)
+        ? current.filter((t) => t !== tag)
+        : [...current, tag],
+    );
   const [view, setView] = useState<ViewMode>("grid");
 
   const techOptions = useMemo(() => {

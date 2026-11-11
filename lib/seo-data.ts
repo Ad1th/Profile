@@ -779,6 +779,20 @@ export const projects: Project[] = [
     tags: ["Security", "Tooling"],
     paperColor: "orange",
   },
+  {
+    slug: "sortymcsortface",
+    title: "SORTYMCSORTFACE",
+    description:
+      "Small Go utility that sorts the files in a folder by type.",
+    purpose:
+      "Built to clean up a downloads folder, and named accordingly.",
+    technologies: ["Go", "CLI"],
+    year: "2026",
+    screenshots: ["/images/projects/_placeholder.svg"],
+    github: "https://github.com/Ad1th/SortyMcSortFace",
+    tags: ["Tooling", "For fun"],
+    paperColor: "green",
+  },
 ];
 
 export type Patent = {

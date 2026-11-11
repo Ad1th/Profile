@@ -373,7 +373,7 @@ export default function Patents() {
             Math.sin(s * Math.PI * (2.15 + line * 0.19) + line + t * 0.006) *
               H *
               0.03;
-        ctx.fillStyle = `rgba(232,221,208,${0.72 * wa * prog.current.nodes})`;
+        ctx.fillStyle = `rgba(240,235,224,${0.72 * wa * prog.current.nodes})`;
         ctx.font = canvasFont;
         ctx.fillText(nTxt[line % nTxt.length], nx + 5, ny - 5);
         ctx.strokeStyle = hexToRgba(pal[(line + 1) % pal.length], 0.34 * wa);
@@ -387,7 +387,7 @@ export default function Patents() {
         );
         ctx.stroke();
         if (line % 2 === 0 && Math.sin(t * 0.0012 + line) > 0.74) {
-          ctx.fillStyle = `rgba(232,221,208,${0.42 * wa})`;
+          ctx.fillStyle = `rgba(240,235,224,${0.42 * wa})`;
           ctx.fillText(numTxt[line % numTxt.length], nx + 18, ny + 14);
         }
         const ps = (t * 0.00016 * nodeSpeed + line * 0.21) % 1;
@@ -444,7 +444,7 @@ export default function Patents() {
           ctx.fillStyle =
             modeRef.current === "human"
               ? hexToRgba(COLORS.humanInk, 0.58)
-              : "rgba(232,221,208,0.18)";
+              : "rgba(240,235,224,0.18)";
           ctx.beginPath();
           ctx.arc(
             p.x,
@@ -468,7 +468,7 @@ export default function Patents() {
               ctx.strokeStyle =
                 modeRef.current === "human"
                   ? hexToRgba(COLORS.humanInk, 0.08)
-                  : `rgba(232,221,208,${0.14 * prog.current.tLines})`;
+                  : `rgba(240,235,224,${0.14 * prog.current.tLines})`;
               ctx.lineWidth = modeRef.current === "human" ? 0.45 : 0.65;
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);

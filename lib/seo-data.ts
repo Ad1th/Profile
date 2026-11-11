@@ -226,7 +226,7 @@ export const projects: Project[] = [
       "Distributed reliability engineering platform with observability, metrics, tracing, and anomaly detection.",
     purpose:
       "Distributed reliability engineering platform providing real-time telemetry tracing, metrics, and automated anomaly detection.",
-    technologies: ["Kubernetes", "OpenTelemetry", "Grafana", "Python", "Observability"],
+    technologies: ["Kubernetes", "OpenTelemetry", "Prometheus", "Grafana", "Python"],
     year: "2026",
     screenshots: ["/images/projects/_placeholder.svg"],
     github: "https://github.com/Ad1th/archAIc",
